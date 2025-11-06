@@ -1,0 +1,54 @@
+# =============================================================================
+# 🚨 C# .NET CLASS LIBRARY - TERMINAL CHEATSHEET
+# =============================================================================
+
+# 🔴 HIGH PRIORITY NOTES - MEMORIZE THESE
+# =============================================================================
+
+📦 CLASS LIBRARY = Reusable code packaged as DLL
+   ├── Purpose: Code sharing across projects
+   ├── Format: .dll file (cannot run directly)
+   └── Contains: Classes, interfaces, types
+
+🏗️  ASSEMBLY vs DLL vs CLASS LIBRARY:
+   ┌─────────────────┬─────────────────────────────────┐
+   │ ASSEMBLY        │ Logical unit of compiled code   │
+   │                 │ (EXE or DLL)                    │
+   ├─────────────────┼─────────────────────────────────┤
+   │ DLL             │ File format for assemblies      │
+   │                 │ (.dll extension)                │
+   ├─────────────────┼─────────────────────────────────┤
+   │ CLASS LIBRARY   │ Specific assembly type for reuse│
+   │                 │ Always packaged as DLL          │
+   └─────────────────┴─────────────────────────────────┘
+
+🌐 .NET vs JAVA EQUIVALENTS:
+   ┌───────────────────┬───────────────────┐
+   │ .NET              │ JAVA              │
+   ├───────────────────┼───────────────────┤
+   │ Assembly          │ JAR file          │
+   │ Namespace         │ Package           │
+   │ DLL               │ .class in JAR     │
+   └───────────────────┴───────────────────┘
+
+📚 NAMESPACES vs ASSEMBLIES - CRITICAL:
+   ✅ ONE Class Library can contain MULTIPLE namespaces
+   ✅ System.Linq/Collections/IO are NAMESPACES, not separate libraries
+   ✅ System.dll contains: System, System.IO, System.Collections namespaces
+
+# 🎯 QUICK REFERENCE
+# =============================================================================
+USAGE:
+   using System.Linq;          // ← Namespace
+   using System.Collections;   // ← Namespace  
+   // Both often in System.dll assembly
+
+STRUCTURE:
+   Class Library Project → Compiled to → DLL → Contains → Multiple Namespaces
+
+# 💡 KEY TAKEAWAY
+# =============================================================================
+NAMESPACES = Logical organization (like Java packages)
+ASSEMBLIES = Physical deployment units (like JAR files)
+CLASS LIBRARY = Specific type of assembly designed for reuse
+# =============================================================================
