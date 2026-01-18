@@ -41,8 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clsDataAccessSettings.cs" />
-    <Compile Include="ContactData.cs" />
+    <Compile Include="DataAccessSettings.cs" />
+    <Compile Include="ContactDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
