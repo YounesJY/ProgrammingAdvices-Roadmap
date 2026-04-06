@@ -10,7 +10,11 @@ namespace ContactsDataAccessLayer
         {
             bool isFound = false;
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
-            string query = "SELECT * FROM Contacts WHERE ContactID = @ContactID";
+            string query = @"
+                            SELECT * 
+                            FROM Contacts 
+                            WHERE ContactID = @ContactID
+            ";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@ContactID", ID);
@@ -59,7 +63,7 @@ namespace ContactsDataAccessLayer
 
             return isFound;
         }
-        
+
         public static int addNewContact(string FirstName, string LastName, string Email, string Phone, string Address, DateTime DateOfBirth, int CountryID, string ImagePath)
         {
             //this function will return the new contact id if succeeded and -1 if not.
@@ -69,7 +73,7 @@ namespace ContactsDataAccessLayer
                             VALUES (@FirstName, @LastName, @Email, @Phone, @Address,@DateOfBirth, @CountryID,@ImagePath);
                              
                             SELECT SCOPE_IDENTITY();
-                            ";
+            ";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@FirstName", FirstName);
@@ -89,7 +93,6 @@ namespace ContactsDataAccessLayer
             try
             {
                 connection.Open();
-
                 object result = command.ExecuteScalar();
 
                 if (result != null && int.TryParse(result.ToString(), out int insertedID))
@@ -97,7 +100,6 @@ namespace ContactsDataAccessLayer
                 else
                     return -1;
             }
-
             catch (Exception)
             {
                 return -1;
@@ -107,10 +109,9 @@ namespace ContactsDataAccessLayer
                 connection.Close();
             }
         }
-        
+
         public static bool updateContact(int ID, string FirstName, string LastName, string Email, string Phone, string Address, DateTime DateOfBirth, int CountryID, string ImagePath)
         {
-            int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
             string query = @"
                             UPDATE  Contacts  
@@ -124,7 +125,8 @@ namespace ContactsDataAccessLayer
                                 CountryID = @CountryID,
                                 ImagePath =@ImagePath
                             WHERE ContactID = @ContactID
-                            ";
+            ";
+            int rowsAffected = 0;
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@ContactID", ID);
@@ -135,6 +137,7 @@ namespace ContactsDataAccessLayer
             command.Parameters.AddWithValue("@Address", Address);
             command.Parameters.AddWithValue("@DateOfBirth", DateOfBirth);
             command.Parameters.AddWithValue("@CountryID", CountryID);
+
             // Handle saving NULL in database
             if (ImagePath == String.Empty)
                 command.Parameters.AddWithValue("@ImagePath", System.DBNull.Value);
@@ -157,13 +160,13 @@ namespace ContactsDataAccessLayer
 
             return (rowsAffected > 0);
         }
-        
+
         public static DataTable getAllContacts()
         {
-            DataTable dataTable = new DataTable();
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
-
+            DataTable dataTable = new DataTable();
             string query = "SELECT * FROM Contacts";
+
             SqlCommand command = new SqlCommand(query, connection);
 
             try
@@ -175,8 +178,6 @@ namespace ContactsDataAccessLayer
                     dataTable.Load(reader);
 
                 reader.Close();
-                connection.Close();
-
             }
             catch (Exception)
             {
@@ -189,15 +190,15 @@ namespace ContactsDataAccessLayer
 
             return dataTable;
         }
-        
+
         public static bool deleteContact(int ContactID)
         {
-            int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
             string query = @"
                             DELETE FROM Contacts 
                             WHERE ContactID = @ContactID
-                            ";
+            ";
+            int rowsAffected = 0;
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@ContactID", ContactID);
@@ -218,16 +219,21 @@ namespace ContactsDataAccessLayer
 
             return (rowsAffected > 0);
         }
-        
+
         public static bool isContactExist(int ContactID)
         {
-            bool isFound = false;
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            /*
+                For this query, since the result will be TRUE (Scalar Value) if the contact is found
+                it's prefered to use ExecuteScalar over ExecuteReader
+                [Check the comment in try-catch block]
+            */
             string query = @"
-                            SELECT TOP 1 1 
+                            SELECT ContactFound = 'TRUE' 
                             FROM Contacts                    
                             WHERE ContactID = @ContactID
-                            ";
+            ";
+            bool isFound = false;
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@ContactID", ContactID);
@@ -238,6 +244,10 @@ namespace ContactsDataAccessLayer
                 SqlDataReader sqlDataReader = command.ExecuteReader();
 
                 isFound = sqlDataReader.HasRows;
+                /*
+                    Object result = command.ExecuteScalar();
+                    isFound = (result == null) ? false : true;
+                */
                 sqlDataReader.Close();
             }
             catch (Exception)

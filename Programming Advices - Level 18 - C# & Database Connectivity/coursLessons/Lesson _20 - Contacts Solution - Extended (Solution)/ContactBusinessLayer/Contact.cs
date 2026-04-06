@@ -7,7 +7,6 @@ namespace ContactsBusinessLayer
 {
     public class clsContact
     {
-
         public enum enMode { AddNew = 0, Update = 1 };
         public enMode Mode = enMode.AddNew;
 
@@ -24,7 +23,6 @@ namespace ContactsBusinessLayer
         public int CountryID { set; get; }
 
         public clsContact()
-
         {
             this.ID = -1;
             this.FirstName = "";
@@ -62,9 +60,9 @@ namespace ContactsBusinessLayer
         {
             //call DataAccess Layer 
 
-            this.ID= clsContactDataAccess.AddNewContact(this.FirstName, this.LastName, this.Email, this.Phone,
+            this.ID = clsContactDataAccess.AddNewContact(this.FirstName, this.LastName, this.Email, this.Phone,
                 this.Address, this.DateOfBirth, this.CountryID, this.ImagePath);
-           
+
             return (this.ID != -1);
         }
 
@@ -72,33 +70,33 @@ namespace ContactsBusinessLayer
         {
             //call DataAccess Layer 
 
-           return clsContactDataAccess.UpdateContact(this.ID, this.FirstName, this.LastName, this.Email, this.Phone,
-                this.Address, this.DateOfBirth, this.CountryID,this.ImagePath);
+            return clsContactDataAccess.UpdateContact(this.ID, this.FirstName, this.LastName, this.Email, this.Phone,
+                 this.Address, this.DateOfBirth, this.CountryID, this.ImagePath);
 
         }
 
         public static clsContact Find(int ID)
         {
 
-            string FirstName="", LastName="", Email="", Phone="", Address="",ImagePath=""; 
-            DateTime DateOfBirth=DateTime.Now;
-            int CountryID=-1;
+            string FirstName = "", LastName = "", Email = "", Phone = "", Address = "", ImagePath = "";
+            DateTime DateOfBirth = DateTime.Now;
+            int CountryID = -1;
 
-          if (clsContactDataAccess.GetContactInfoByID(ID,ref FirstName, ref LastName, 
-                        ref Email, ref Phone, ref Address,ref DateOfBirth,ref CountryID,ref ImagePath))
+            if (clsContactDataAccess.GetContactInfoByID(ID, ref FirstName, ref LastName,
+                          ref Email, ref Phone, ref Address, ref DateOfBirth, ref CountryID, ref ImagePath))
 
-             return new clsContact(ID, FirstName, LastName, 
-                        Email, Phone, Address, DateOfBirth, CountryID, ImagePath);
-          else
+                return new clsContact(ID, FirstName, LastName,
+                           Email, Phone, Address, DateOfBirth, CountryID, ImagePath);
+            else
                 return null;
 
         }
 
         public bool Save()
         {
-            
 
-            switch  (Mode)
+
+            switch (Mode)
             {
                 case enMode.AddNew:
                     if (_AddNewContact())
@@ -132,14 +130,12 @@ namespace ContactsBusinessLayer
 
         public static bool DeleteContact(int ID)
         {
-           return  clsContactDataAccess.DeleteContact(ID);
+            return clsContactDataAccess.DeleteContact(ID);
         }
 
         public static bool isContactExist(int ID)
         {
             return clsContactDataAccess.IsContactExist(ID);
         }
-        
-
     }
 }

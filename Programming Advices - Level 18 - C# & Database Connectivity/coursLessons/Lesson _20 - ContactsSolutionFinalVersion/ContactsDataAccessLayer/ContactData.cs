@@ -58,7 +58,7 @@ namespace ContactsDataAccessLayer
                
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //Console.WriteLine("Error: " + ex.Message);
                 isFound = false;
@@ -112,7 +112,7 @@ namespace ContactsDataAccessLayer
                 }
             }
 
-            catch (Exception ex)
+            catch (Exception)
             {
                 //Console.WriteLine("Error: " + ex.Message);
                
@@ -168,7 +168,7 @@ namespace ContactsDataAccessLayer
                 rowsAffected = command.ExecuteNonQuery();
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //Console.WriteLine("Error: " + ex.Message);
                 return false;
@@ -209,7 +209,7 @@ namespace ContactsDataAccessLayer
 
             }
 
-            catch (Exception ex)
+            catch (Exception)
             {
                // Console.WriteLine("Error: " + ex.Message);
             }
@@ -243,7 +243,7 @@ namespace ContactsDataAccessLayer
                  rowsAffected = command.ExecuteNonQuery();
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                // Console.WriteLine("Error: " + ex.Message);
             }
@@ -279,7 +279,7 @@ namespace ContactsDataAccessLayer
                 
                 reader.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //Console.WriteLine("Error: " + ex.Message);
                 isFound = false;
@@ -291,7 +291,5 @@ namespace ContactsDataAccessLayer
 
             return isFound;
         }
-
-
     }
 }

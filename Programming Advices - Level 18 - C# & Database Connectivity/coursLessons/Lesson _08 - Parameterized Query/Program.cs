@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Diagnostics.Contracts;
 
 namespace Lesson__08___Parameterized_Query
 {
@@ -57,17 +56,20 @@ namespace Lesson__08___Parameterized_Query
         static void printAllContactsWithFirstName(string firstname)
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            
+
+            // Old way using concatination [SQL Injection vulnerabilities]
             // string query = $"SELECT * FROM Contacts WHERE FirstName = '{firstname}'";
             // string query = "SELECT * FROM Contacts WHERE FirstName = \'" + firstname + "\'";
-             string query = "" +
-                "SELECT * " +
-                "FROM Contacts " +
-                "WHERE FirstName = @FirstName";
-                
-                
+
+            
+            string query = @" 
+                            SELECT * 
+                            FROM Contacts 
+                            WHERE FirstName = @FirstName
+            ";
             SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
             sqlCommand.Parameters.AddWithValue("@FirstName", firstname);
+
             try
             {
                 sqlConnection.Open();
@@ -77,12 +79,15 @@ namespace Lesson__08___Parameterized_Query
                     printContact(ConvertRecordToObject(sqlDataReader));
 
                 sqlDataReader.Close();
+                sqlConnection.Close();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($" - Exception : {ex.Message}");
             }
 
+            // Close() should be here, in case an Exception occurs the try block execution will be stopped and redirected to the catch block
+            // [RECOMMENDED to use finally block or try-with for auto ressources closing]
             sqlConnection.Close();
         }
         static void printAllContactsWithFirstNameAndCountryID(string firstname, int countryID)
@@ -91,10 +96,11 @@ namespace Lesson__08___Parameterized_Query
 
             // string query = $"SELECT * FROM Contacts WHERE FirstName = '{firstname}'";
             // string query = "SELECT * FROM Contacts WHERE FirstName = \'" + firstname + "\'";
-            string query = "" +
-               "SELECT * " +
-               "FROM Contacts " +
-               "WHERE FirstName = #FirstName AND CountryID = @CountryID";
+            string query = @" 
+                SELECT * 
+                FROM Contacts 
+                WHERE FirstName = @FirstName AND CountryID = @CountryID
+            ";
 
 
             SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
@@ -116,15 +122,18 @@ namespace Lesson__08___Parameterized_Query
                 Console.WriteLine($" - Exception : {ex.Message}");
             }
 
+            // Close() should be here, in case an Exception occurs the try block execution will be stopped and redirected to the catch block
+            // [RECOMMENDED to use finally block or try-with for auto ressources closing]
             sqlConnection.Close();
         }
+        
         static void Main(string[] args)
         {
-            printAllContactsWithFirstName("Jane");
+            printAllContactsWithFirstName("JY");
+            printAllContactsWithFirstNameAndCountryID("JY", 14);
             //printAllContactsWithFirstNameAndCountryID("Jane", 1);
             //printAllContactsWithFirstNameAndCountryID("Jane", 2);
             Console.ReadKey();
         }
     }
-
 }

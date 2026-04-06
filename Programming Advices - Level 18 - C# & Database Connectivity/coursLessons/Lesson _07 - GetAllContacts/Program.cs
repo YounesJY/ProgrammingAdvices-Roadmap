@@ -2,7 +2,6 @@
 using System.Data.SqlClient;
 
 
-
 namespace getAllContacts
 {
     internal class Program
@@ -69,6 +68,7 @@ namespace getAllContacts
                 while (sqlDataReader.Read())
                     printContact(ConvertRecordToObject(sqlDataReader));
 
+                // these should be in finally block in case a exception happen, or use try-with block for automatic ressources management
                 sqlDataReader.Close();
                 sqlConnection.Close();
             }

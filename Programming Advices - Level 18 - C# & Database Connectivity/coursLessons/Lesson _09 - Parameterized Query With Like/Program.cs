@@ -56,12 +56,12 @@ namespace Lesson__09___Parameterized_Query_With_Like
         }
 
 
-        static void findContactsPattern(string query, string firstname)
+        static void findContactsPattern(string query, string pattern)
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
 
-            sqlCommand.Parameters.AddWithValue("@FirstName", firstname);
+            sqlCommand.Parameters.AddWithValue("@FirstName", pattern);
 
             try
             {
@@ -78,20 +78,22 @@ namespace Lesson__09___Parameterized_Query_With_Like
                 Console.WriteLine($" - Exception : {ex.Message}");
             }
 
+            // Close() should be here, in case an Exception occurs the try block execution will be stopped and redirected to the catch block
+            // [RECOMMENDED to use finally block or try-with for auto ressources closing]
             sqlConnection.Close();
         }
 
-        static void findContactsStartsWith(string firstname)
+        static void findContactsStartsWith(string pattern)
         {
-            findContactsPattern("SELECT * FROM Contacts WHERE FirstName LIKE '' + @FirstName + '%'", firstname);
+            findContactsPattern("SELECT * FROM Contacts WHERE FirstName LIKE '' + @FirstName + '%'", pattern);
         }
-        static void findContactsEndsWith(string firstname)
+        static void findContactsEndsWith(string pattern)
         {
-            findContactsPattern("SELECT * FROM Contacts WHERE FirstName LIKE '%' + @FirstName + ''", firstname);
+            findContactsPattern("SELECT * FROM Contacts WHERE FirstName LIKE '%' + @FirstName + ''", pattern);
         }
-        static void findContactsContains(string firstname)
+        static void findContactsContains(string pattern)
         {
-            findContactsPattern("SELECT * FROM Contacts WHERE FirstName LIKE '%' + @FirstName + '%'", firstname);
+            findContactsPattern("SELECT * FROM Contacts WHERE FirstName LIKE '%' + @FirstName + '%'", pattern);
         }
 
         static void Main(string[] args)

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Data;
 using ContactsBusinessLayer;
 
@@ -14,7 +13,7 @@ namespace ContactsConsolApp
 
             if (Contact1 != null)
             {
-                Console.WriteLine(Contact1.FirstName+ " " + Contact1.LastName);
+                Console.WriteLine(Contact1.FirstName + " " + Contact1.LastName);
                 Console.WriteLine(Contact1.Email);
                 Console.WriteLine(Contact1.Phone);
                 Console.WriteLine(Contact1.Address);
@@ -22,12 +21,11 @@ namespace ContactsConsolApp
                 Console.WriteLine(Contact1.CountryID);
                 Console.WriteLine(Contact1.ImagePath);
             }
-            else 
+            else
             {
-                Console.WriteLine("Contact [" + ID + "] Not found!");   
+                Console.WriteLine("Contact [" + ID + "] Not found!");
             }
         }
-
         static void testAddNewContact()
 
 
@@ -42,15 +40,14 @@ namespace ContactsConsolApp
             Contact1.DateOfBirth = new DateTime(1977, 11, 6, 10, 30, 0);
             Contact1.CountryID = 1;
             Contact1.ImagePath = "";
-          
-           if (Contact1.Save())
+
+            if (Contact1.Save())
             {
 
                 Console.WriteLine("Contact Added Successfully with id=" + Contact1.ID);
             }
 
         }
-
         static void testUpdateContact(int ID)
 
         {
@@ -80,7 +77,6 @@ namespace ContactsConsolApp
                 Console.WriteLine("Not found!");
             }
         }
-
         static void testDeleteContact(int ID)
 
         {
@@ -97,21 +93,6 @@ namespace ContactsConsolApp
                 Console.WriteLine("The contact with id = " + ID + " is not found");
 
         }
-
-        static void ListContacts()
-        {
-
-            DataTable dataTable = clsContact.GetAllContacts();
-           
-            Console.WriteLine("Contacts Data:");
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                Console.WriteLine($"{row["ContactID"]},  {row["FirstName"]} {row["LastName"]}");
-            }
-
-        }
-
         static void testIsContactExist(int ID)
 
         {
@@ -124,6 +105,20 @@ namespace ContactsConsolApp
                 Console.WriteLine("No, Contact Is not there.");
 
         }
+        static void ListContacts()
+        {
+
+            DataTable dataTable = clsContact.GetAllContacts();
+
+            Console.WriteLine("Contacts Data:");
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                Console.WriteLine($"{row["ContactID"]},  {row["FirstName"]} {row["LastName"]}");
+            }
+
+        }
+
 
         //---Test Country Business
 
@@ -134,7 +129,7 @@ namespace ContactsConsolApp
 
             if (Country1 != null)
             {
-                Console.WriteLine("Name: " + Country1.CountryName );
+                Console.WriteLine("Name: " + Country1.CountryName);
                 Console.WriteLine("Code: " + Country1.Code);
                 Console.WriteLine("PhoneCode: " + Country1.PhoneCode);
 
@@ -145,8 +140,6 @@ namespace ContactsConsolApp
                 Console.WriteLine("Country [" + ID + "] Not found!");
             }
         }
-
-
         static void testFindCountryByName(string CountryName)
 
         {
@@ -154,7 +147,7 @@ namespace ContactsConsolApp
 
             if (Country1 != null)
             {
-                Console.WriteLine("Country [" + CountryName + "] isFound with ID = " +Country1.ID);
+                Console.WriteLine("Country [" + CountryName + "] isFound with ID = " + Country1.ID);
                 Console.WriteLine("Name: " + Country1.CountryName);
                 Console.WriteLine("Code: " + Country1.Code);
                 Console.WriteLine("PhoneCode: " + Country1.PhoneCode);
@@ -165,8 +158,6 @@ namespace ContactsConsolApp
                 Console.WriteLine("Country [" + CountryName + "] Is Not found!");
             }
         }
-
-
         static void testIsCountryExistByID(int ID)
 
         {
@@ -179,7 +170,6 @@ namespace ContactsConsolApp
                 Console.WriteLine("No, Country Is not there.");
 
         }
-
         static void testIsCountryExistByName(string CountryName)
 
         {
@@ -192,8 +182,6 @@ namespace ContactsConsolApp
                 Console.WriteLine("No, Country Is not there.");
 
         }
-
-
         static void testAddNewCountry()
 
 
@@ -212,7 +200,6 @@ namespace ContactsConsolApp
             }
 
         }
-
         static void testUpdateCountry(int ID)
 
         {
@@ -238,7 +225,6 @@ namespace ContactsConsolApp
                 Console.WriteLine("Country is you want to update is Not found!");
             }
         }
-
         static void testDeleteCountry(int ID)
 
         {
@@ -255,7 +241,6 @@ namespace ContactsConsolApp
                 Console.WriteLine("Faild to delete: The Country with id = " + ID + " is not found");
 
         }
-
         static void ListCountries()
         {
 
@@ -273,42 +258,32 @@ namespace ContactsConsolApp
 
         static void Main(string[] args)
         {
-
-         //   testFindContact(6);
-
-            // testAddNewContact();
-
-
-            //  testUpdateContact(1);
-
-            // testDeleteContact(100);
-
-            //  ListContacts();
-
-            //testIsContactExist(1);
-            // testIsContactExist(100);
-
-         //   testFindCountryByID(6);
-            //testFindCountryByID(100);
-           // testFindCountryByName("Egypt");
-            //testFindCountryByName("UK");
-
-            //testIsCountryExistByID(1);
-            //testIsCountryExistByID(100);
-
-            //testIsCountryExistByName("United States");
-            //testIsCountryExistByName("UK");
-
-            // testAddNewCountry();
-           //   testUpdateCountry(6);
-            // testDeleteCountry(6);
-           ListCountries();
+            testFindContact(6);
+            testAddNewContact();
+            testUpdateContact(1);
+            testDeleteContact(100);
+            ListContacts();
+            testIsContactExist(1);
+            testIsContactExist(100);
 
 
+            testFindCountryByID(6);
+            testFindCountryByID(100);
+            testFindCountryByName("Egypt");
+            testFindCountryByName("UK");
 
+            testIsCountryExistByID(1);
+            testIsCountryExistByID(100);
+
+            testIsCountryExistByName("United States");
+            testIsCountryExistByName("UK");
+
+            testAddNewCountry();
+            testUpdateCountry(6);
+            testDeleteCountry(6);
+            ListCountries();
 
             Console.ReadKey();
-
         }
     }
 }

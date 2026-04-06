@@ -6,8 +6,7 @@ namespace ContactsDataAccessLayer
 {
     public class clsCountryData
     {
-        public static bool GetCountryInfoByID(int ID, ref  string CountryName,
-                                            ref string Code, ref string PhoneCode)
+        public static bool GetCountryInfoByID(int ID, ref string CountryName, ref string Code, ref string PhoneCode)
         {
             bool isFound = false;
 
@@ -29,78 +28,9 @@ namespace ContactsDataAccessLayer
 
                     // The record was found
                     isFound = true;
-                  
+
                     CountryName = (string)reader["CountryName"];
 
-                    if (reader["Code"] != DBNull.Value)
-                    {
-                        Code = (string)reader["Code"];
-                    }
-                    else
-                    {
-                        Code = "";
-                    }
-
-                    if (reader["PhoneCode"] != DBNull.Value)
-                    {
-                        PhoneCode = (string)reader["PhoneCode"];
-                    }
-                    else
-                    {
-                        PhoneCode = "";
-                    }
-
-                }
-                else
-                {
-                    // The record was not found
-                    isFound = false;
-                }
-
-                reader.Close();
-               
-
-            }
-            catch (Exception)
-            {
-                //Console.WriteLine("Error: " + ex.Message);
-                isFound = false;
-            }
-            finally
-            { 
-                connection.Close(); 
-            }
-
-            return isFound;
-        }
-
-
-        public static bool GetCountryInfoByName(string CountryName, ref int ID,
-                                                ref string Code, ref string PhoneCode)
-        {
-            bool isFound = false;
-
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = "SELECT * FROM Countries WHERE CountryName = @CountryName";
-
-            SqlCommand command = new SqlCommand(query, connection);
-
-            command.Parameters.AddWithValue("@CountryName", CountryName);
-
-            try
-            {
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.Read())
-                {
-
-                    // The record was found
-                    isFound = true;
-
-                    ID = (int)reader["CountryID"];
-                    
                     if (reader["Code"] != DBNull.Value)
                     {
                         Code = (string)reader["Code"];
@@ -143,8 +73,74 @@ namespace ContactsDataAccessLayer
             return isFound;
         }
 
+        public static bool GetCountryInfoByName(string CountryName, ref int ID, ref string Code, ref string PhoneCode)
+        {
+            bool isFound = false;
 
-        public static int AddNewCountry(string CountryName,string Code, string PhoneCode)
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+
+            string query = "SELECT * FROM Countries WHERE CountryName = @CountryName";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@CountryName", CountryName);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+
+                    // The record was found
+                    isFound = true;
+
+                    ID = (int)reader["CountryID"];
+
+                    if (reader["Code"] != DBNull.Value)
+                    {
+                        Code = (string)reader["Code"];
+                    }
+                    else
+                    {
+                        Code = "";
+                    }
+
+                    if (reader["PhoneCode"] != DBNull.Value)
+                    {
+                        PhoneCode = (string)reader["PhoneCode"];
+                    }
+                    else
+                    {
+                        PhoneCode = "";
+                    }
+
+                }
+                else
+                {
+                    // The record was not found
+                    isFound = false;
+                }
+
+                reader.Close();
+
+
+            }
+            catch (Exception)
+            {
+                //Console.WriteLine("Error: " + ex.Message);
+                isFound = false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+        }
+
+        public static int AddNewCountry(string CountryName, string Code, string PhoneCode)
         {
             //this function will return the new contact id if succeeded and -1 if not.
             int CountryID = -1;
@@ -175,7 +171,7 @@ namespace ContactsDataAccessLayer
                 connection.Open();
 
                 object result = command.ExecuteScalar();
-            
+
 
                 if (result != null && int.TryParse(result.ToString(), out int insertedID))
                 {
@@ -186,22 +182,22 @@ namespace ContactsDataAccessLayer
             catch (Exception)
             {
                 //Console.WriteLine("Error: " + ex.Message);
-               
+
             }
 
-            finally 
-            { 
-                connection.Close(); 
+            finally
+            {
+                connection.Close();
             }
 
 
             return CountryID;
         }
 
-        public static bool UpdateCountry(int ID,string CountryName,string Code,string PhoneCode)
+        public static bool UpdateCountry(int ID, string CountryName, string Code, string PhoneCode)
         {
 
-            int rowsAffected=0;
+            int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
             string query = @"Update  Countries  
@@ -229,10 +225,10 @@ namespace ContactsDataAccessLayer
                 return false;
             }
 
-            finally 
-             { 
-                connection.Close(); 
-             } 
+            finally
+            {
+                connection.Close();
+            }
 
             return (rowsAffected > 0);
         }
@@ -260,27 +256,27 @@ namespace ContactsDataAccessLayer
                 }
 
                 reader.Close();
-               
+
 
             }
 
             catch (Exception)
             {
-               // Console.WriteLine("Error: " + ex.Message);
+                // Console.WriteLine("Error: " + ex.Message);
             }
-            finally 
-            { 
-                connection.Close(); 
+            finally
+            {
+                connection.Close();
             }
 
             return dt;
 
         }
 
-        public  static bool DeleteCountry(int CountryID)
+        public static bool DeleteCountry(int CountryID)
         {
 
-            int rowsAffected=0;
+            int rowsAffected = 0;
 
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
@@ -295,18 +291,18 @@ namespace ContactsDataAccessLayer
             {
                 connection.Open();
 
-                 rowsAffected = command.ExecuteNonQuery();
+                rowsAffected = command.ExecuteNonQuery();
 
             }
             catch (Exception)
             {
-               // Console.WriteLine("Error: " + ex.Message);
+                // Console.WriteLine("Error: " + ex.Message);
             }
-            finally 
-            { 
-                
-                connection.Close(); 
-            
+            finally
+            {
+
+                connection.Close();
+
             }
 
             return (rowsAffected > 0);
@@ -331,7 +327,7 @@ namespace ContactsDataAccessLayer
                 SqlDataReader reader = command.ExecuteReader();
 
                 isFound = reader.HasRows;
-                
+
                 reader.Close();
             }
             catch (Exception)
@@ -346,7 +342,6 @@ namespace ContactsDataAccessLayer
 
             return isFound;
         }
-
 
         public static bool IsCountryExist(string CountryName)
         {
@@ -381,7 +376,5 @@ namespace ContactsDataAccessLayer
 
             return isFound;
         }
-
-
     }
 }

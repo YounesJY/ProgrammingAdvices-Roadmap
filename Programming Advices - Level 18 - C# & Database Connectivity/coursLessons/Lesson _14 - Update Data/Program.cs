@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lesson__14___Update_Data
 {
@@ -34,7 +30,6 @@ namespace Lesson__14___Update_Data
 
         private static string connectionString = "Server=.; DataBase=ContactsDB; User ID=sa; Password=JY0912";
 
-
         static void updateContact(Contact contact)
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
@@ -47,7 +42,7 @@ namespace Lesson__14___Update_Data
                                             phone = @Phone,
                                             address = @Address,
                                             countryID = @CountryID
-                            WHERE ContactID >= 16 
+                            WHERE ContactID = @ContactID; 
             ";
             SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
 
@@ -82,13 +77,24 @@ namespace Lesson__14___Update_Data
 
             updateContact(new Contact
             {
-                contactID = 24,
+                contactID = 9,
                 firstname = "taylor",
                 lastname = "vlad",
                 email = "cstatlor@gmail.com",
                 phone = "897689",
                 address = "elm stree 32 north",
                 countryID = 5
+            });
+
+            updateContact(new Contact
+            {
+                contactID = 2,
+                firstname = "Khalid",
+                lastname = "Salim",
+                email = "Ksalim@gmail.com",
+                phone = "897689",
+                address = "DH brown 122 north",
+                countryID = 1
             });
             Console.ReadKey();
         }

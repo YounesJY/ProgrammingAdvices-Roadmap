@@ -248,11 +248,11 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // llRemoveImage
+            // llblRemoveImage
             // 
             this.llblRemoveImage.AutoSize = true;
             this.llblRemoveImage.Location = new System.Drawing.Point(489, 88);
-            this.llblRemoveImage.Name = "llRemoveImage";
+            this.llblRemoveImage.Name = "llblRemoveImage";
             this.llblRemoveImage.Size = new System.Drawing.Size(68, 20);
             this.llblRemoveImage.TabIndex = 21;
             this.llblRemoveImage.TabStop = true;

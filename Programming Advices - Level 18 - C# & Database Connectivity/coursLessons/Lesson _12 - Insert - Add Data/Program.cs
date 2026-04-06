@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lesson__12___Insert___Add_Data
 {
@@ -19,6 +15,9 @@ namespace Lesson__12___Insert___Add_Data
             public string address { get; set; }
             public int countryID { get; set; }
 
+            // Using an object initializer instead of a constructor
+            // since we don't have the contactID field to be inserted [WE SHOULDN't INSERT IT MANUALY]
+            // AND this contactID should be returned after inserting/creating the new record
 
             //public Contact(int contactID, string firstname, string lastname, string email, string phone, string address, int countryID)
             //{
@@ -34,11 +33,15 @@ namespace Lesson__12___Insert___Add_Data
 
         private static string connectionString = "Server=.; DataBase=ContactsDB; User ID=sa; Password=JY0912";
 
-
         static void addNewContact(Contact contact)
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            string query = "INSERT INTO Contacts VALUES (@FirstName, @LastName, @Email, @Phone, @Address, @CountryID)";
+            string query = @"
+                            INSERT INTO 
+                                Contacts 
+                            VALUES 
+                                (@FirstName, @LastName, @Email, @Phone, @Address, @CountryID)
+            ";
             SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
 
             sqlCommand.Parameters.AddWithValue("@FirstName", contact.firstname);
@@ -68,6 +71,9 @@ namespace Lesson__12___Insert___Add_Data
 
         static void Main(string[] args)
         {
+            // if this exception occurs, this means you should have the exact same DB table shema + ID being AutoIncrement
+            // for me. this means that i have changed the DB shema due to future lessons/requirements
+            // -Exception : Column name or number of supplied values does not match table definition.                                                                                                                                                                                                                
 
             addNewContact(new Contact
             {

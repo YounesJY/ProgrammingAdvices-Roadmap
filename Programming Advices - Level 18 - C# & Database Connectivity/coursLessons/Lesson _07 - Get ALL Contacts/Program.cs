@@ -74,6 +74,8 @@ namespace Lesson__07___Get_ALL_Contacts
                 Console.WriteLine($" - Exception : {ex.Message}");
             }
 
+            // Close() should be here, in case an Exception occurs the try block execution will be stopped and redirected to the catch block
+            // [RECOMMENDED to use finally block or try-with for auto ressources closing]
             sqlConnection.Close();
         }
 

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Lesson__15___Delete_Data
 {
@@ -34,14 +31,16 @@ namespace Lesson__15___Delete_Data
 
         private static string connectionString = "Server=.; DataBase=ContactsDB; User ID=sa; Password=JY0912";
 
-
         static void deleteContact(int contactID)
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            string query = @"DELETE FROM Contacts
-                             WHERE ContactID >=12
-                            ";
+            string query = @"
+                            DELETE FROM Contacts
+                            WHERE ContactID = @ContactID
+            ";
             SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+            
+            sqlCommand.Parameters.AddWithValue("@ContactID", contactID);
 
             try
             {
@@ -64,7 +63,7 @@ namespace Lesson__15___Delete_Data
         static void Main(string[] args)
         {
 
-            deleteContact(15);
+            deleteContact(9);
             Console.ReadKey();
         }
     }

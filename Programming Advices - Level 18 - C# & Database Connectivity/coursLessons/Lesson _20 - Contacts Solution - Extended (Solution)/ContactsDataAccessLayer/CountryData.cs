@@ -44,7 +44,6 @@ namespace ContactsDataAccessLayer
             return isFound;
         }
 
-
         public static bool GetCountryInfoByName(ref int ID, string CountryName)
         {
             bool isFound = false;
@@ -83,7 +82,6 @@ namespace ContactsDataAccessLayer
 
             return isFound;
         }
-
 
         public static int AddNewCountry(string CountryName)
         {
@@ -152,37 +150,6 @@ namespace ContactsDataAccessLayer
             return (rowsAffected > 0);
         }
 
-        public static DataTable GetAllCountries()
-        {
-            DataTable dt = new DataTable();
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-            string query = "SELECT * FROM Countries order by CountryName";
-
-            SqlCommand command = new SqlCommand(query, connection);
-
-            try
-            {
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.HasRows)
-                    dt.Load(reader);
-
-                reader.Close();
-            }
-
-            catch (Exception)
-            {
-                // Console.WriteLine("Error: " + ex.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
-
-            return dt;
-        }
-
         public static bool DeleteCountry(int CountryID)
         {
             int rowsAffected = 0;
@@ -240,7 +207,6 @@ namespace ContactsDataAccessLayer
             return isFound;
         }
 
-
         public static bool IsCountryExist(string CountryName)
         {
             bool isFound = false;
@@ -268,6 +234,37 @@ namespace ContactsDataAccessLayer
             }
 
             return isFound;
+        }
+
+        public static DataTable GetAllCountries()
+        {
+            DataTable dt = new DataTable();
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+            string query = "SELECT * FROM Countries order by CountryName";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                    dt.Load(reader);
+
+                reader.Close();
+            }
+
+            catch (Exception)
+            {
+                // Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return dt;
         }
     }
 }

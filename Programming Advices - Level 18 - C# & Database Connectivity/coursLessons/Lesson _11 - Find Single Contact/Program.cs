@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lesson__11___Find_Single_Contact
 {
-    internal class Program
+   internal class Program
     {
         class Contact
         {
@@ -60,9 +56,13 @@ namespace Lesson__11___Find_Single_Contact
         static bool findContactByID(ref Contact contact, int contactID)
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            string query = "SELECT * FROM Contacts WHERE ContactID = @ContactID";
-
+            string query = @"
+                            SELECT *
+                            FROM Contacts 
+                            WHERE ContactID = @ContactID
+            ";
             SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
             sqlCommand.Parameters.AddWithValue("@ContactID", contactID);
 
             try
@@ -70,7 +70,7 @@ namespace Lesson__11___Find_Single_Contact
                 sqlConnection.Open();
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
 
-                if (sqlDataReader.Read())
+                if(sqlDataReader.Read())
                     contact = ConvertRecordToObject(sqlDataReader);
 
                 sqlDataReader.Close();
@@ -79,7 +79,9 @@ namespace Lesson__11___Find_Single_Contact
             {
                 Console.WriteLine($" - Exception : {ex.Message}");
             }
-
+            
+            // Close() should be here, in case an Exception occurs the try block execution will be stopped and redirected to the catch block
+            // [RECOMMENDED to use finally block or try-with for auto ressources closing]
             sqlConnection.Close();
 
             return (contact == null) ? false : true;
@@ -89,10 +91,9 @@ namespace Lesson__11___Find_Single_Contact
         {
             Contact contact = null;
 
-
-            if (findContactByID(ref contact, 6))
+            if (findContactByID(ref contact, 2))
             {
-                Console.WriteLine(" Contact found : ");
+                Console.WriteLine(" Contact found: ");
                 printContact(contact);
             }
             else
