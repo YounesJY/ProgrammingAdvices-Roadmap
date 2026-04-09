@@ -392,3 +392,6 @@ FodyWeavers.xsd
 !.vscode/launch.json
 !.vscode/extensions.json
 
+*.bak
+*.rar
+*.zip
