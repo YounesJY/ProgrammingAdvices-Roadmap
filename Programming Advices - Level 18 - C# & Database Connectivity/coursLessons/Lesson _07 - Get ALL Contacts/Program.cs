@@ -67,7 +67,9 @@ namespace Lesson__07___Get_ALL_Contacts
                 while (sqlDataReader.Read())
                     printContact(ConvertRecordToObject(sqlDataReader));
 
+                // these should be in finally block [Best Practices] in case a exception occurs, or use try-with block for automatic ressources management
                 sqlDataReader.Close();
+                sqlConnection.Close();
             }
             catch (Exception ex)
             {

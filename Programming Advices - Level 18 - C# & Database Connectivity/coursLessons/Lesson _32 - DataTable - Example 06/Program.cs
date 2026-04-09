@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Linq;
 
 public class Example
 {
@@ -46,6 +45,14 @@ public class Example
         {
             recordRow["Name"] = "Maha Ahmed";
             /*
+            // The DataRow indexer returns object
+            object value = recordRow["Salary"];  // Returns object
+
+            // When you assign:
+            recordRow["Salary"] = "900";  // Takes object (string is an object)
+            recordRow["Salary"] = 900;    // Takes object (int is an object - boxed)
+            recordRow["Salary"] = 900.0;  // Takes object (double is an object - boxed)    
+            
             recordRow["Salary"] = "900";   // Works - but involves internal parsing
             */
             recordRow["Salary"] = 900;   // Better - type-safe, no parsing overhead
