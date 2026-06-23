@@ -73,8 +73,8 @@ Each course has its own folder containing:
 ## 🔗 Connect with me
 
 - **GitHub Profile:** [YounesJY](https://github.com/YounesJY)
-- **LinkedIn:** [LinkedIn URL](https://www.linkedin.com/in/jayid-younes-89324733a/)
-- **Email:** [Contact Me](younes.jayid.23@edu.uiz.ac.ma)
+- **LinkedIn:** [LinkedIn URL](https://www.linkedin.com/in/jayid-younes/)
+- **Email:** [Contact Me](younes.jayid.23@gmail.com)
 
 ---
 
