@@ -37,3 +37,7 @@
 - **`Persons`**
 
   - ![](./images/Pasted image (8).png)
+  
+- **LicenseSeizures**
+
+  - ![](./images/Pasted image (10).png)
