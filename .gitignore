@@ -395,3 +395,6 @@ FodyWeavers.xsd
 *.bak
 *.rar
 *.zip
+.xdp-.
+*.bkp
+*.vcxproj
