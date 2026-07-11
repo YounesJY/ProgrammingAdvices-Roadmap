@@ -1,6 +1,6 @@
-﻿using ContactsBusinessLayer;
-using System;
+﻿using System;
 using System.Data;
+using ContactsBusinessLayer;
 
 namespace ContactsConsolApp_PresentationLayer
 {
@@ -70,6 +70,7 @@ namespace ContactsConsolApp_PresentationLayer
             foreach (DataRow row in dataTable.Rows)
                 Console.WriteLine($"[{row["ContactID"]}] |-|  {row["FirstName"]} {row["LastName"]}");
         }
+
 
         static void Main(string[] args)
         {

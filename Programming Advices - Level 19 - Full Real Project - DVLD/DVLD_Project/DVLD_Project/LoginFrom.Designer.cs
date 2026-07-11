@@ -1,6 +1,6 @@
 ﻿namespace DVLD_Project
 {
-    partial class Form1
+    partial class LoginFrom
     {
         /// <summary>
         /// Required designer variable.

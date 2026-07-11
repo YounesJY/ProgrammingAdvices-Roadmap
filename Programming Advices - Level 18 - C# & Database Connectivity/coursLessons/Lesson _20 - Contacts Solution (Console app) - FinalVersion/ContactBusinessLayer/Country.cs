@@ -7,7 +7,6 @@ namespace ContactsBusinessLayer
 {
     public class clsCountry
     {
-
         public enum enMode { AddNew = 0, Update = 1 };
         public enMode Mode = enMode.AddNew;
 
@@ -131,8 +130,5 @@ namespace ContactsBusinessLayer
         {
             return clsCountryData.IsCountryExist(CountryName);
         }
-
-
-
     }
 }
