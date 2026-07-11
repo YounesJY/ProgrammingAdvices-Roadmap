@@ -31,7 +31,6 @@
             this.gbPersonCard = new System.Windows.Forms.GroupBox();
             this.lblCountryValue = new System.Windows.Forms.Label();
             this.lblCountry = new System.Windows.Forms.Label();
-            this.pbProfileimage = new System.Windows.Forms.PictureBox();
             this.lblPhoneValue = new System.Windows.Forms.Label();
             this.lblPhone = new System.Windows.Forms.Label();
             this.lblDateOfBirthValue = new System.Windows.Forms.Label();
@@ -48,6 +47,7 @@
             this.lblName = new System.Windows.Forms.Label();
             this.lblPersonIDValue = new System.Windows.Forms.Label();
             this.lblPersonID = new System.Windows.Forms.Label();
+            this.pbProfileimage = new System.Windows.Forms.PictureBox();
             this.gbPersonCard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbProfileimage)).BeginInit();
             this.SuspendLayout();
@@ -100,15 +100,6 @@
             this.lblCountry.Size = new System.Drawing.Size(59, 17);
             this.lblCountry.TabIndex = 19;
             this.lblCountry.Text = "Country";
-            // 
-            // pbProfileimage
-            // 
-            this.pbProfileimage.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pbProfileimage.Location = new System.Drawing.Point(504, 16);
-            this.pbProfileimage.Name = "pbProfileimage";
-            this.pbProfileimage.Size = new System.Drawing.Size(219, 251);
-            this.pbProfileimage.TabIndex = 18;
-            this.pbProfileimage.TabStop = false;
             // 
             // lblPhoneValue
             // 
@@ -269,6 +260,15 @@
             this.lblPersonID.Size = new System.Drawing.Size(66, 17);
             this.lblPersonID.TabIndex = 2;
             this.lblPersonID.Text = "PersonID";
+            // 
+            // pbProfileimage
+            // 
+            this.pbProfileimage.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pbProfileimage.Location = new System.Drawing.Point(504, 16);
+            this.pbProfileimage.Name = "pbProfileimage";
+            this.pbProfileimage.Size = new System.Drawing.Size(219, 251);
+            this.pbProfileimage.TabIndex = 18;
+            this.pbProfileimage.TabStop = false;
             // 
             // ctrlPersonCard
             // 

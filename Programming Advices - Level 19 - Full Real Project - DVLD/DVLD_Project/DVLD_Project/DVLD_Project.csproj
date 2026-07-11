@@ -58,11 +58,23 @@
     <Compile Include="MainScreen.Designer.cs">
       <DependentUpon>MainScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="People\AddNewPerson.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="People\AddNewPerson.Designer.cs">
+      <DependentUpon>AddNewPerson.cs</DependentUpon>
+    </Compile>
     <Compile Include="People\ctrlPersonCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="People\ctrlPersonCard.Designer.cs">
       <DependentUpon>ctrlPersonCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="People\ctrlPersonDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="People\ctrlPersonDetails.Designer.cs">
+      <DependentUpon>ctrlPersonDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="People\frmPersonDetails.cs">
       <SubType>Form</SubType>
@@ -70,25 +82,31 @@
     <Compile Include="People\frmPersonDetails.Designer.cs">
       <DependentUpon>frmPersonDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="People\ManagerPeople.cs">
+    <Compile Include="People\frmManagerPeople.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="People\ManagerPeople.Designer.cs">
-      <DependentUpon>ManagerPeople.cs</DependentUpon>
+    <Compile Include="People\frmManagerPeople.Designer.cs">
+      <DependentUpon>frmManagerPeople.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainScreen.resx">
       <DependentUpon>MainScreen.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="People\AddNewPerson.resx">
+      <DependentUpon>AddNewPerson.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="People\ctrlPersonCard.resx">
       <DependentUpon>ctrlPersonCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="People\ctrlPersonDetails.resx">
+      <DependentUpon>ctrlPersonDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="People\frmPersonDetails.resx">
       <DependentUpon>frmPersonDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="People\ManagerPeople.resx">
-      <DependentUpon>ManagerPeople.cs</DependentUpon>
+    <EmbeddedResource Include="People\frmManagerPeople.resx">
+      <DependentUpon>frmManagerPeople.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -150,6 +168,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\DVLDpng.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\isolated-young-handsome-man-different-poses-white-background-illustration.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\female.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\male.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

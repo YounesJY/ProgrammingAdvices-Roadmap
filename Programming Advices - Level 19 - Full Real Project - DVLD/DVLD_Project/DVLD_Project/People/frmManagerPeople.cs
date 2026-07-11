@@ -11,16 +11,16 @@ using System.Windows.Forms;
 
 namespace DVLD_Project.People
 {
-    public partial class ManagerPeople : Form
+    public partial class frmManagerPeople : Form
     {
-        public ManagerPeople()
+        public frmManagerPeople()
         {
             InitializeComponent();
         }
 
         private void ManagerPeople_Load(object sender, EventArgs e)
         {
-            peopleDataGridView.DataSource = Person.getPeople();
+            peopleDataGridView.DataSource = Person.GetPeople();
             peopleDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
@@ -45,6 +45,11 @@ namespace DVLD_Project.People
         private void peopleDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             showDetailsToolStripMenuItem_Click(sender, e);
+        }
+
+        private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new AddNewPerson().ShowDialog();
         }
     }
 }

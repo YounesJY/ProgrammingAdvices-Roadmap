@@ -7,7 +7,7 @@ namespace DVLD_DataAccess
     public static class PersonDataAccess
     {
 
-        public static DataTable getPeople()
+        public static DataTable GetPeople()
         {
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
             DataTable dataTable = new DataTable();
@@ -74,13 +74,73 @@ namespace DVLD_DataAccess
                     Email = (reader["Email"] == DBNull.Value) ? "" : (string)reader["Email"];
                     ProfilePhotoPath = (reader["ImagePath"] == DBNull.Value) ? "" : (string)reader["ImagePath"];
                     CountryID = (int)reader["NationalityCountryID"];
-                //  CreatedByUser = (int)reader["CreatedByUser"];
+                    //  CreatedByUser = (int)reader["CreatedByUser"];
                 }
                 else
                 {
                     // The record was not found
                     isFound = false;
                 }
+
+                reader.Close();
+            }
+            catch (Exception)
+            {
+                isFound = false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+        }
+
+
+        public static bool IsPersonExist(int PersonID)
+        {
+            bool isFound = false;
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = "SELECT Found=1 FROM People WHERE PersonID = @PersonID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@PersonID", PersonID);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                isFound = reader.HasRows;
+
+                reader.Close();
+            }
+            catch (Exception)
+            {
+                isFound = false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+        }
+        public static bool IsPersonExist(string NationalNumber)
+        {
+            bool isFound = false;
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = "SELECT Found=1 FROM People WHERE NationalNumber = @NationalNumber";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@NationalNumber", NationalNumber);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                isFound = reader.HasRows;
 
                 reader.Close();
             }

@@ -56,11 +56,30 @@ namespace DVLD_Business
             this._Mode = enMode.AddNew;
         }
 
-        public static DataTable getPeople()
+        public static DataTable GetPeople()
         {
-            return PersonDataAccess.getPeople();
+            return PersonDataAccess.GetPeople();
         }
 
+        public static Person Find(string NationalNumber)
+        {
+            int PersonID = -1;
+            string FirstName = "", SecondName = "", ThirdName = "", LastName = "";
+            string Address = "", Phone = "", Email = "", ProfilePhotoPath = "";
+            byte Gender = 0;
+            DateTime DateOfBirth = DateTime.Now;
+            int CountryID = -1;
+            int CreatedByUser = -1;
+
+
+            if (PersonDataAccess.GetPersonInfoByID(PersonID, ref NationalNumber, ref FirstName, ref SecondName,
+            ref ThirdName, ref LastName, ref Gender, ref DateOfBirth, ref Address, ref Phone, ref Email, ref ProfilePhotoPath,
+            ref CountryID, ref CreatedByUser))
+                return new Person(PersonID, NationalNumber, FirstName, SecondName, ThirdName, LastName,
+                Gender, DateOfBirth, Address, Phone, Email, ProfilePhotoPath, CountryID, CreatedByUser);
+
+            return null;
+        }
         public static Person Find(int PersonID)
         {
             string NationalNumber = "", FirstName = "", SecondName = "", ThirdName = "", LastName = "";
@@ -78,6 +97,15 @@ namespace DVLD_Business
                 Gender, DateOfBirth, Address, Phone, Email, ProfilePhotoPath, CountryID, CreatedByUser);
 
             return null;
+        }
+
+        public static bool IsPersonExist(int PersonID)
+        {
+            return PersonDataAccess.IsPersonExist(PersonID);
+        }
+        public static bool IsPersonExist(string NationalNumber)
+        {
+            return PersonDataAccess.IsPersonExist(NationalNumber);
         }
     }
 }

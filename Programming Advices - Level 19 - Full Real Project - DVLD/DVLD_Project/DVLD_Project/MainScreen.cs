@@ -20,12 +20,12 @@ namespace DVLD_Project
 
         private void peopleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new ManagerPeople().ShowDialog();
+            new frmManagerPeople().ShowDialog();
         }
 
         private void peopleToolStripMenuItem_DoubleClick(object sender, EventArgs e)
         {
-            new ManagerPeople().ShowDialog();
+            new frmManagerPeople().ShowDialog();
         }
     }
 }
