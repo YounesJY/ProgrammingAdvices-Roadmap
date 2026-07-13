@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.lblPersonID = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.llSetImage = new System.Windows.Forms.LinkLabel();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
@@ -77,6 +78,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.llSetImage);
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.label11);
@@ -109,6 +111,17 @@
             this.panel1.Size = new System.Drawing.Size(767, 244);
             this.panel1.TabIndex = 5;
             // 
+            // llSetImage
+            // 
+            this.llSetImage.AutoSize = true;
+            this.llSetImage.Location = new System.Drawing.Point(661, 218);
+            this.llSetImage.Name = "llSetImage";
+            this.llSetImage.Size = new System.Drawing.Size(55, 13);
+            this.llSetImage.TabIndex = 39;
+            this.llSetImage.TabStop = true;
+            this.llSetImage.Text = "Set Image";
+            this.llSetImage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llSetImage_LinkClicked);
+            // 
             // btnSave
             // 
             this.btnSave.BackColor = System.Drawing.Color.Chartreuse;
@@ -128,6 +141,7 @@
             this.btnCancel.TabIndex = 36;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // label11
             // 
@@ -274,8 +288,8 @@
             this.txtNationalNumber.Size = new System.Drawing.Size(144, 20);
             this.txtNationalNumber.TabIndex = 5;
             this.txtNationalNumber.Tag = "1";
-            this.txtNationalNumber.TextChanged += new System.EventHandler(this.txtNationalNumber_TextChanged);
             this.txtNationalNumber.Leave += new System.EventHandler(this.txtFieldIsEmpty_Leave);
+            this.txtNationalNumber.Validating += new System.ComponentModel.CancelEventHandler(this.txtNationalNumber_Validating);
             // 
             // pbProfileImage
             // 
@@ -434,5 +448,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.LinkLabel llSetImage;
     }
 }

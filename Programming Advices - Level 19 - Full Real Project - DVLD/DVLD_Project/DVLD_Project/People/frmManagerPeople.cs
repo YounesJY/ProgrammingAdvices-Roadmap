@@ -37,7 +37,7 @@ namespace DVLD_Project.People
                 int PersonID = Convert.ToInt32(selectedRow.Cells["PersonID"].Value);
 
                 // Open the details form
-                new frmPersonDetails( PersonID).ShowDialog();
+                new frmPersonDetails(PersonID).ShowDialog();
             }
 
         }
@@ -50,7 +50,13 @@ namespace DVLD_Project.People
         private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new AddNewPerson().ShowDialog();
+            peopleDataGridView.DataSource = Person.GetPeople();
             peopleDataGridView.Refresh();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            addNewPersonToolStripMenuItem_Click(sender, e);  
         }
     }
 }
