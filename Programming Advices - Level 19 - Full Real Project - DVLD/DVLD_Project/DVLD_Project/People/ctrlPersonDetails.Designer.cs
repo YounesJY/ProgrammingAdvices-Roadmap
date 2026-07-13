@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.lblPersonID = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -38,7 +40,7 @@
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.cbCountries = new System.Windows.Forms.ComboBox();
             this.txtPhone = new System.Windows.Forms.TextBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtpDateOfBirth = new System.Windows.Forms.DateTimePicker();
             this.rbGenderFemale = new System.Windows.Forms.RadioButton();
             this.rbGenderMale = new System.Windows.Forms.RadioButton();
             this.label9 = new System.Windows.Forms.Label();
@@ -57,6 +59,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label12 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
@@ -66,7 +69,7 @@
             // 
             this.lblPersonID.AutoSize = true;
             this.lblPersonID.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
-            this.lblPersonID.Location = new System.Drawing.Point(9, 11);
+            this.lblPersonID.Location = new System.Drawing.Point(40, 11);
             this.lblPersonID.Name = "lblPersonID";
             this.lblPersonID.Size = new System.Drawing.Size(66, 17);
             this.lblPersonID.TabIndex = 6;
@@ -74,6 +77,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnSave);
+            this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.label7);
@@ -81,7 +86,7 @@
             this.panel1.Controls.Add(this.txtAddress);
             this.panel1.Controls.Add(this.cbCountries);
             this.panel1.Controls.Add(this.txtPhone);
-            this.panel1.Controls.Add(this.dateTimePicker1);
+            this.panel1.Controls.Add(this.dtpDateOfBirth);
             this.panel1.Controls.Add(this.rbGenderFemale);
             this.panel1.Controls.Add(this.rbGenderMale);
             this.panel1.Controls.Add(this.label9);
@@ -101,8 +106,28 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(12, 31);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(767, 217);
+            this.panel1.Size = new System.Drawing.Size(767, 244);
             this.panel1.TabIndex = 5;
+            // 
+            // btnSave
+            // 
+            this.btnSave.BackColor = System.Drawing.Color.Chartreuse;
+            this.btnSave.Location = new System.Drawing.Point(526, 218);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 37;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(433, 218);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 36;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // label11
             // 
@@ -149,7 +174,8 @@
             this.txtAddress.Location = new System.Drawing.Point(139, 179);
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(462, 20);
-            this.txtAddress.TabIndex = 8;
+            this.txtAddress.TabIndex = 9;
+            this.txtAddress.Tag = "1";
             this.txtAddress.Leave += new System.EventHandler(this.txtFieldIsEmpty_Leave);
             // 
             // cbCountries
@@ -159,23 +185,25 @@
             this.cbCountries.Location = new System.Drawing.Point(457, 142);
             this.cbCountries.Name = "cbCountries";
             this.cbCountries.Size = new System.Drawing.Size(144, 21);
-            this.cbCountries.TabIndex = 11;
+            this.cbCountries.TabIndex = 12;
+            this.cbCountries.Tag = "1";
             // 
             // txtPhone
             // 
             this.txtPhone.Location = new System.Drawing.Point(457, 98);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(144, 20);
-            this.txtPhone.TabIndex = 10;
+            this.txtPhone.TabIndex = 11;
+            this.txtPhone.Tag = "1";
             this.txtPhone.Leave += new System.EventHandler(this.txtFieldIsEmpty_Leave);
             // 
-            // dateTimePicker1
+            // dtpDateOfBirth
             // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(457, 62);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(144, 20);
-            this.dateTimePicker1.TabIndex = 9;
+            this.dtpDateOfBirth.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpDateOfBirth.Location = new System.Drawing.Point(457, 62);
+            this.dtpDateOfBirth.Name = "dtpDateOfBirth";
+            this.dtpDateOfBirth.Size = new System.Drawing.Size(144, 20);
+            this.dtpDateOfBirth.TabIndex = 10;
             // 
             // rbGenderFemale
             // 
@@ -183,7 +211,7 @@
             this.rbGenderFemale.Location = new System.Drawing.Point(222, 101);
             this.rbGenderFemale.Name = "rbGenderFemale";
             this.rbGenderFemale.Size = new System.Drawing.Size(59, 17);
-            this.rbGenderFemale.TabIndex = 26;
+            this.rbGenderFemale.TabIndex = 7;
             this.rbGenderFemale.TabStop = true;
             this.rbGenderFemale.Text = "Female";
             this.rbGenderFemale.UseVisualStyleBackColor = true;
@@ -236,7 +264,8 @@
             this.txtEmail.Location = new System.Drawing.Point(139, 139);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(144, 20);
-            this.txtEmail.TabIndex = 7;
+            this.txtEmail.TabIndex = 8;
+            this.txtEmail.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmail_Validating);
             // 
             // txtNationalNumber
             // 
@@ -244,6 +273,7 @@
             this.txtNationalNumber.Name = "txtNationalNumber";
             this.txtNationalNumber.Size = new System.Drawing.Size(144, 20);
             this.txtNationalNumber.TabIndex = 5;
+            this.txtNationalNumber.Tag = "1";
             this.txtNationalNumber.TextChanged += new System.EventHandler(this.txtNationalNumber_TextChanged);
             this.txtNationalNumber.Leave += new System.EventHandler(this.txtFieldIsEmpty_Leave);
             // 
@@ -263,6 +293,7 @@
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(144, 20);
             this.txtLastName.TabIndex = 4;
+            this.txtLastName.Tag = "1";
             this.txtLastName.Leave += new System.EventHandler(this.txtFieldIsEmpty_Leave);
             // 
             // txtThirdName
@@ -285,6 +316,7 @@
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(144, 20);
             this.txtFirstName.TabIndex = 1;
+            this.txtFirstName.Tag = "1";
             this.txtFirstName.Leave += new System.EventHandler(this.txtFieldIsEmpty_Leave);
             // 
             // label6
@@ -341,14 +373,25 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("JetBrainsMonoNL NF", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(148, 12);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(28, 14);
+            this.label12.TabIndex = 39;
+            this.label12.Text = "N/A";
+            // 
             // ctrlPersonDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.lblPersonID);
             this.Controls.Add(this.panel1);
             this.Name = "ctrlPersonDetails";
-            this.Size = new System.Drawing.Size(792, 252);
+            this.Size = new System.Drawing.Size(792, 282);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).EndInit();
@@ -365,7 +408,7 @@
         private System.Windows.Forms.TextBox txtAddress;
         private System.Windows.Forms.ComboBox cbCountries;
         private System.Windows.Forms.TextBox txtPhone;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dtpDateOfBirth;
         private System.Windows.Forms.RadioButton rbGenderFemale;
         private System.Windows.Forms.RadioButton rbGenderMale;
         private System.Windows.Forms.Label label9;
@@ -388,5 +431,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Label label12;
     }
 }

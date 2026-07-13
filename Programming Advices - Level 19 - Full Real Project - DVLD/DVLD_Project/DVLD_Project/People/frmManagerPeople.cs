@@ -50,6 +50,7 @@ namespace DVLD_Project.People
         private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new AddNewPerson().ShowDialog();
+            peopleDataGridView.Refresh();
         }
     }
 }

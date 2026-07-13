@@ -25,6 +25,9 @@ namespace DVLD_Project.People
             cbCountries.DisplayMember = "CountryName";  // The column name to display
             cbCountries.ValueMember = "CountryID";     // The column name to use as value
             cbCountries.SelectedIndex = cbCountries.FindString("Morocco");
+
+            ctrlPersonDetails.dateOfBirth.MaxDate = DateTime.Now.AddYears(-18);
+
         }
     }
 }

@@ -57,17 +57,16 @@
             // 
             // ctrlPersonDetails
             // 
-            this.ctrlPersonDetails.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ctrlPersonDetails.Location = new System.Drawing.Point(0, 198);
+            this.ctrlPersonDetails.Location = new System.Drawing.Point(0, 207);
             this.ctrlPersonDetails.Name = "ctrlPersonDetails";
-            this.ctrlPersonDetails.Size = new System.Drawing.Size(800, 252);
+            this.ctrlPersonDetails.Size = new System.Drawing.Size(800, 291);
             this.ctrlPersonDetails.TabIndex = 3;
             // 
             // AddNewPerson
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 486);
             this.Controls.Add(this.ctrlPersonDetails);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);

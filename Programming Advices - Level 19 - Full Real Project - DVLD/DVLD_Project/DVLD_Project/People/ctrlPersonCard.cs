@@ -30,7 +30,7 @@ namespace DVLD_Project.People
             lblAddressValue.Text = person.Address;
             lblPhoneValue.Text = person.Phone;
             lblEmailValue.Text = person.Email;
-            lblCountryValue.Text = person.CountryID.ToString(); // You might want to get country name instead
+            lblCountryValue.Text = Country.Find(person.CountryID).CountryName;
         }
 
     }

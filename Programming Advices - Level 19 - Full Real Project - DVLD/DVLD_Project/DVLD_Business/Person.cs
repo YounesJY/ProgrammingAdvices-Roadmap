@@ -11,9 +11,21 @@ namespace DVLD_Business
     public class Person
     {
         public enum enMode { AddNew = 0, Update = 1 };
+        private string _NationalNumber;
 
         public int PersonID { get; private set; }
-        public string NationalNumber { get; private set; }
+        public string NationalNumber
+        {
+            get { return _NationalNumber; }
+            set
+            {
+                if (_Mode == enMode.Update)
+                {
+                    throw new InvalidOperationException("Cannot modify NationalNumber when in Update mode.");
+                }
+                _NationalNumber = value;
+            }
+        }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string ThirdName { get; set; }
@@ -98,6 +110,69 @@ namespace DVLD_Business
 
             return null;
         }
+
+
+        private bool _AddNewPerson()
+        {
+            this.PersonID = PersonDataAccess.AddNewPerson(
+                this.NationalNumber,
+                this.FirstName,
+                this.SecondName,
+                this.ThirdName,
+                this.LastName,
+                this.Gender,
+                this.DateOfBirth,
+                this.Address,
+                this.Phone,
+                this.Email,
+                this.ProfilePhotoPath,
+                this.CountryID,
+                this.CreatedByUser
+            );
+
+            return (this.PersonID != -1);
+        }
+
+        private bool _UpdatePerson()
+        {
+            return PersonDataAccess.UpdatePerson(
+                this.PersonID,
+                this.NationalNumber,
+                this.FirstName,
+                this.SecondName,
+                this.ThirdName,
+                this.LastName,
+                this.Gender,
+                this.DateOfBirth,
+                this.Address,
+                this.Phone,
+                this.Email,
+                this.ProfilePhotoPath,
+                this.CountryID,
+                this.CreatedByUser
+            );
+        }
+
+
+        public bool Save()
+        {
+            switch (_Mode)
+            {
+                case enMode.AddNew:
+                    if (_AddNewPerson())
+                    {
+                        _Mode = enMode.Update;
+                        return true;
+                    }
+                    break;
+
+                case enMode.Update:
+                    return _UpdatePerson();
+            }
+
+            return false;
+        }
+
 
         public static bool IsPersonExist(int PersonID)
         {
