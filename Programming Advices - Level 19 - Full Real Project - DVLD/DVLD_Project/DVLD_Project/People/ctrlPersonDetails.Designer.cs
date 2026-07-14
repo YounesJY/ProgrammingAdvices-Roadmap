@@ -33,7 +33,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.llSetImage = new System.Windows.Forms.LinkLabel();
             this.btnSave = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -80,7 +80,7 @@
             // 
             this.panel1.Controls.Add(this.llSetImage);
             this.panel1.Controls.Add(this.btnSave);
-            this.panel1.Controls.Add(this.btnCancel);
+            this.panel1.Controls.Add(this.btnClose);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.label7);
@@ -133,15 +133,15 @@
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // btnCancel
+            // btnClose
             // 
-            this.btnCancel.Location = new System.Drawing.Point(433, 218);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 36;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnClose.Location = new System.Drawing.Point(433, 218);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.TabIndex = 36;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // label11
             // 
@@ -293,6 +293,7 @@
             // 
             // pbProfileImage
             // 
+            this.pbProfileImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbProfileImage.Image = global::DVLD_Project.Properties.Resources.male;
             this.pbProfileImage.Location = new System.Drawing.Point(616, 46);
             this.pbProfileImage.Name = "pbProfileImage";
@@ -300,6 +301,7 @@
             this.pbProfileImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbProfileImage.TabIndex = 19;
             this.pbProfileImage.TabStop = false;
+            this.pbProfileImage.Tag = "male";
             // 
             // txtLastName
             // 
@@ -446,7 +448,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.LinkLabel llSetImage;
     }

@@ -24,17 +24,19 @@ namespace DVLD_Project.People
         }
         private void rbGenderMale_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbGenderMale.Checked)
+            if (rbGenderMale.Checked && pbProfileImage.Tag?.ToString() == "female")
             {
                 pbProfileImage.Image = Properties.Resources.male;
+                pbProfileImage.Tag = "male";
             }
         }
 
         private void rbGenderFemale_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbGenderFemale.Checked)
+            if (rbGenderFemale.Checked && pbProfileImage.Tag?.ToString() == "male")
             {
                 pbProfileImage.Image = Properties.Resources.female;
+                pbProfileImage.Tag = "female";
             }
         }
 
@@ -90,9 +92,7 @@ namespace DVLD_Project.People
                     // Create directory if it doesn't exist
                     string imagesDirectory = @"C:\DVLD-People_Images";
                     if (!Directory.Exists(imagesDirectory))
-                    {
                         Directory.CreateDirectory(imagesDirectory);
-                    }
 
                     // Generate GUID for the image name
                     string imageGuid = Guid.NewGuid().ToString();
