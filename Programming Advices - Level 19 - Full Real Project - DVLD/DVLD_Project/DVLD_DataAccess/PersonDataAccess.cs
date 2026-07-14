@@ -91,7 +91,7 @@ namespace DVLD_DataAccess
                     Address = (string)reader["Address"];
                     Phone = (string)reader["Phone"];
                     Email = (reader["Email"] == DBNull.Value) ? "" : (string)reader["Email"];
-                    ProfilePhotoPath = (reader["ProfilePhotoPath"] == DBNull.Value) ? "" : (string)reader["ImagePath"];
+                    ProfilePhotoPath = (reader["ProfilePhotoPath"] == DBNull.Value) ? "" : (string)reader["ProfilePhotoPath"];
                     CountryID = (int)reader["NationalityCountryID"];
                     //  CreatedByUser = (int)reader["CreatedByUser"];
                 }
@@ -201,7 +201,7 @@ namespace DVLD_DataAccess
                          Phone = @Phone,
                          Email = @Email,
                          ProfilePhotoPath = @ProfilePhotoPath,
-                         NationalityCountryID = @NationalityCountryID,
+                         NationalityCountryID = @NationalityCountryID
                     WHERE PersonID = @PersonID
             ";
 
@@ -310,6 +310,28 @@ namespace DVLD_DataAccess
             }
 
             return isFound;
+        }
+
+        public static bool DeletePerson(int PersonID)
+        {
+            int rowsAffected = 0;
+
+            using (SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString))
+            using (SqlCommand command = new SqlCommand("DELETE FROM People WHERE PersonID = @PersonID", connection))
+            {
+                command.Parameters.AddWithValue("@PersonID", PersonID);
+                try
+                {
+                    connection.Open();
+                    rowsAffected = command.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    rowsAffected = 0;
+                }
+            }
+
+            return (rowsAffected > 0);
         }
     }
 }

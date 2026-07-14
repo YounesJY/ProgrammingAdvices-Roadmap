@@ -66,6 +66,7 @@
             // 
             // peopleDataGridView
             // 
+            this.peopleDataGridView.AllowUserToAddRows = false;
             this.peopleDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.peopleDataGridView.ContextMenuStrip = this.PeopleContextMenuStrip;
             this.peopleDataGridView.Location = new System.Drawing.Point(4, 252);
@@ -86,7 +87,7 @@
             this.sendEmailToolStripMenuItem,
             this.makeAToolStripMenuItem});
             this.PeopleContextMenuStrip.Name = "PeopleContextMenuStrip";
-            this.PeopleContextMenuStrip.Size = new System.Drawing.Size(163, 148);
+            this.PeopleContextMenuStrip.Size = new System.Drawing.Size(181, 170);
             // 
             // showDetailsToolStripMenuItem
             // 
@@ -110,14 +111,16 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 

@@ -1,6 +1,6 @@
 ﻿namespace DVLD_Project.People
 {
-    partial class AddNewPerson
+    partial class AddUpdatePerson
     {
         /// <summary>
         /// Required designer variable.
@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblFromLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ctrlPersonDetails = new DVLD_Project.People.ctrlPersonDetails();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // lblFromLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("JetBrainsMonoNL NF", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label1.Location = new System.Drawing.Point(229, 157);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(314, 47);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Add New Person";
+            this.lblFromLabel.AutoSize = true;
+            this.lblFromLabel.Font = new System.Drawing.Font("JetBrainsMonoNL NF", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFromLabel.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblFromLabel.Location = new System.Drawing.Point(229, 157);
+            this.lblFromLabel.Name = "lblFromLabel";
+            this.lblFromLabel.Size = new System.Drawing.Size(314, 47);
+            this.lblFromLabel.TabIndex = 1;
+            this.lblFromLabel.Text = "Add New Person";
             // 
             // pictureBox1
             // 
@@ -62,16 +62,16 @@
             this.ctrlPersonDetails.Size = new System.Drawing.Size(800, 291);
             this.ctrlPersonDetails.TabIndex = 3;
             // 
-            // AddNewPerson
+            // AddEditPerson
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 486);
             this.Controls.Add(this.ctrlPersonDetails);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblFromLabel);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "AddNewPerson";
-            this.Text = "AddNewPerson";
+            this.Name = "AddEditPerson";
+            this.Text = "AddNew/Edit Person";
             this.Load += new System.EventHandler(this.AddNewPerson_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -80,8 +80,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private ctrlPersonDetails ctrlPersonDetails;
+        private System.Windows.Forms.Label lblFromLabel;
     }
 }

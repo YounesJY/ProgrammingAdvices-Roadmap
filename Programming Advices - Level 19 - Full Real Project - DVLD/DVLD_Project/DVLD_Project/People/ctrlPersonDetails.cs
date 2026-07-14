@@ -22,6 +22,54 @@ namespace DVLD_Project.People
             InitializeComponent();
             rbGenderMale.Checked = true;
         }
+
+        public void fillWithPersonDetails(int PersonID)
+        {
+            Person person = Person.Find(PersonID);
+
+            if (person == null)
+            {
+                MessageBox.Show("Person not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            lblPersonID.Text = person.PersonID.ToString();
+            txtNationalNumber.Text = person.NationalNumber;
+            txtFirstName.Text = person.FirstName;
+            txtSecondName.Text = person.SecondName;
+            txtThirdName.Text = person.ThirdName;
+            txtLastName.Text = person.LastName;
+
+            // Set Gender
+            if (person.Gender == (byte)Person.enGender.Male)
+                rbGenderMale.Checked = true;
+            else
+                rbGenderFemale.Checked = true;
+
+            dtpDateOfBirth.Value = person.DateOfBirth;
+            txtAddress.Text = person.Address;
+            txtPhone.Text = person.Phone;
+            txtEmail.Text = person.Email;
+
+            cbCountries.DataSource = Country.getAllCountries();
+            cbCountries.DisplayMember = "CountryName";  // The column name to display
+            cbCountries.ValueMember = "CountryID";     // The column name to use as value
+            cbCountries.SelectedIndex = person.CountryID;
+
+            // Set Image
+            if (!string.IsNullOrEmpty(person.ProfilePhotoPath) && File.Exists(person.ProfilePhotoPath))
+            {
+                pbProfileImage.Image = Image.FromFile(person.ProfilePhotoPath);
+                pbProfileImage.Tag = person.ProfilePhotoPath;
+            }
+            else
+            {
+                pbProfileImage.Image = (person.Gender == (byte)Person.enGender.Male) ?
+                    Resources.male : Resources.female;
+                pbProfileImage.Tag = person.Gender == (byte)Person.enGender.Male ? "male" : "female";
+            }
+        }
+
         private void rbGenderMale_CheckedChanged(object sender, EventArgs e)
         {
             if (rbGenderMale.Checked && pbProfileImage.Tag?.ToString() == "female")
@@ -137,7 +185,7 @@ namespace DVLD_Project.People
             }
 
             // Check NationalNumber specifically (since it uses TextChanged, not Validating)
-            if (!string.IsNullOrWhiteSpace(txtNationalNumber.Text) && Person.IsPersonExist(txtNationalNumber.Text.Trim()))
+            if (!string.IsNullOrWhiteSpace(txtNationalNumber.Text) && Person.IsPersonExist(txtNationalNumber.Text.Trim()) && ((AddUpdatePerson)this.ParentForm).mode == AddUpdatePerson.Mode.Add)
             {
                 MessageBox.Show("This National Number already exists. Please enter a unique number.", "Validation Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -145,14 +193,20 @@ namespace DVLD_Project.People
                 return;
             }
 
-            Person person = new Person();
+            Person person;
+            if (((AddUpdatePerson)this.ParentForm).mode == AddUpdatePerson.Mode.Add)
+            {
+                person = new Person();
+            }
+            else
+                person = Person.Find(int.Parse(lblPersonID.Text));
 
             person.FirstName = txtFirstName.Text.Trim();
             person.SecondName = txtSecondName.Text.Trim();
             person.ThirdName = txtThirdName.Text.Trim();
             person.LastName = txtLastName.Text.Trim();
             person.NationalNumber = txtNationalNumber.Text.Trim();
-            person.Gender = rbGenderMale.Checked ? (byte)0 : (byte)1;
+            person.Gender = rbGenderMale.Checked ? Person.enGender.Male : Person.enGender.Female;
             person.DateOfBirth = dtpDateOfBirth.Value;
             person.Address = txtAddress.Text.Trim();
             person.Phone = txtPhone.Text.Trim();
@@ -172,6 +226,11 @@ namespace DVLD_Project.People
         }
         private void txtNationalNumber_Validating(object sender, CancelEventArgs e)
         {
+            if ((Person.IsPersonExist(txtNationalNumber.Text.Trim()) && ((AddUpdatePerson)this.ParentForm).mode == AddUpdatePerson.Mode.Update))
+            {
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(txtNationalNumber.Text))
             {
                 errorProvider.SetError(txtNationalNumber, "National Number is required.");

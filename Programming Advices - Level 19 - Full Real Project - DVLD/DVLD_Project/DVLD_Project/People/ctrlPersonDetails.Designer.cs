@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.lblPersonID = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.llSetImage = new System.Windows.Forms.LinkLabel();
             this.btnSave = new System.Windows.Forms.Button();
@@ -60,21 +59,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label12 = new System.Windows.Forms.Label();
+            this.lblPersonID = new System.Windows.Forms.Label();
+            this.lblPersonIDLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
-            // 
-            // lblPersonID
-            // 
-            this.lblPersonID.AutoSize = true;
-            this.lblPersonID.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
-            this.lblPersonID.Location = new System.Drawing.Point(40, 11);
-            this.lblPersonID.Name = "lblPersonID";
-            this.lblPersonID.Size = new System.Drawing.Size(66, 17);
-            this.lblPersonID.TabIndex = 6;
-            this.lblPersonID.Text = "PersonID";
             // 
             // panel1
             // 
@@ -389,25 +379,36 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // label12
+            // lblPersonID
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("JetBrainsMonoNL NF", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(148, 12);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(28, 14);
-            this.label12.TabIndex = 39;
-            this.label12.Text = "N/A";
+            this.lblPersonID.AutoSize = true;
+            this.lblPersonID.Font = new System.Drawing.Font("JetBrainsMonoNL NF", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPersonID.Location = new System.Drawing.Point(148, 12);
+            this.lblPersonID.Name = "lblPersonID";
+            this.lblPersonID.Size = new System.Drawing.Size(28, 14);
+            this.lblPersonID.TabIndex = 39;
+            this.lblPersonID.Text = "N/A";
+            // 
+            // lblPersonIDLabel
+            // 
+            this.lblPersonIDLabel.AutoSize = true;
+            this.lblPersonIDLabel.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
+            this.lblPersonIDLabel.Location = new System.Drawing.Point(40, 12);
+            this.lblPersonIDLabel.Name = "lblPersonIDLabel";
+            this.lblPersonIDLabel.Size = new System.Drawing.Size(66, 17);
+            this.lblPersonIDLabel.TabIndex = 40;
+            this.lblPersonIDLabel.Text = "PersonID";
             // 
             // ctrlPersonDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label12);
+            this.Controls.Add(this.lblPersonIDLabel);
             this.Controls.Add(this.lblPersonID);
             this.Controls.Add(this.panel1);
             this.Name = "ctrlPersonDetails";
             this.Size = new System.Drawing.Size(792, 282);
+
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).EndInit();
@@ -418,8 +419,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lblPersonID;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox txtAddress;
         private System.Windows.Forms.ComboBox cbCountries;
@@ -449,7 +448,8 @@
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblPersonID;
         private System.Windows.Forms.LinkLabel llSetImage;
+        private System.Windows.Forms.Label lblPersonIDLabel;
     }
 }

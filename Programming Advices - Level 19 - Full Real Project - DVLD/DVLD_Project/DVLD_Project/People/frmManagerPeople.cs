@@ -36,9 +36,9 @@ namespace DVLD_Project.People
             cbFilterRows.SelectedIndex = 0;
         }
 
+
         private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             // Check if a row is selected
             if (peopleDataGridView.SelectedRows.Count > 0)
             {
@@ -51,24 +51,43 @@ namespace DVLD_Project.People
                 // Open the details form
                 new frmPersonDetails(PersonID).ShowDialog();
             }
+        }
 
+
+        private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new AddUpdatePerson().ShowDialog();
+            peopleDataGridView.DataSource = Person.GetPeople();
+            peopleDataGridView.Refresh();
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (peopleDataGridView.SelectedRows.Count > 0)
+            {
+                // Get the selected row
+                DataGridViewRow selectedRow = peopleDataGridView.SelectedRows[0];
+
+                // Get PersonID from the row (assuming PersonID is in column index 0 or use column name)
+                int PersonID = Convert.ToInt32(selectedRow.Cells["PersonID"].Value);
+
+                // Open the details form
+                new AddUpdatePerson(PersonID).ShowDialog();
+            }
+            peopleDataGridView.DataSource = Person.GetPeople();
+            peopleDataGridView.Refresh();
+        }
+
+
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            addNewPersonToolStripMenuItem_Click(sender, e);
         }
 
         private void peopleDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             showDetailsToolStripMenuItem_Click(sender, e);
-        }
-
-        private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new AddNewPerson().ShowDialog();
-            peopleDataGridView.DataSource = Person.GetPeople();
-            peopleDataGridView.Refresh();
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-            addNewPersonToolStripMenuItem_Click(sender, e);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -133,6 +152,38 @@ namespace DVLD_Project.People
         private void mtbFilterSeach_TextChanged(object sender, EventArgs e)
         {
             FilterPeople();
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Check if a row is selected
+            if (peopleDataGridView.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a person to delete.", "No Selection",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DataGridViewRow selectedRow = peopleDataGridView.SelectedRows[0];
+            int PersonID = Convert.ToInt32(selectedRow.Cells["PersonID"].Value);
+            string PersonName = selectedRow.Cells["FirstName"].Value?.ToString() ?? "this person";
+
+            // Confirm deletion
+            DialogResult result = MessageBox.Show($"Are you sure you want to delete {PersonName}?\n\nThis action cannot be undone.", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                // Delete the person
+                if (Person.Delete(PersonID))
+                {
+                    MessageBox.Show($"Person deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Refresh the DataGridView
+                    peopleDataGridView.DataSource = Person.GetPeople();
+                    lblNumberOfRecordsValue.Text = peopleDataGridView.RowCount.ToString();
+                }
+                else
+                    MessageBox.Show("Failed to delete person.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
