@@ -54,7 +54,7 @@ namespace DVLD_Project.People
             cbCountries.DataSource = Country.getAllCountries();
             cbCountries.DisplayMember = "CountryName";  // The column name to display
             cbCountries.ValueMember = "CountryID";     // The column name to use as value
-            cbCountries.SelectedIndex = person.CountryID;
+            cbCountries.SelectedIndex = person.CountryInfo.CountryID;
 
             // Set Image
             if (!string.IsNullOrEmpty(person.ProfilePhotoPath) && File.Exists(person.ProfilePhotoPath))
@@ -122,7 +122,6 @@ namespace DVLD_Project.People
             string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             return System.Text.RegularExpressions.Regex.IsMatch(email, pattern);
         }
-
         private void llSetImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Create OpenFileDialog
@@ -166,13 +165,12 @@ namespace DVLD_Project.People
                 }
             }
         }
+        //private bool isFormFilledCorrectly()
+        //{
+        //    return !String.IsNullOrEmpty(txtFirstName.Text) && !String.IsNullOrEmpty(txtLastName.Text)
+        //    && !String.IsNullOrEmpty(txtEmail.Text) && !String.IsNullOrEmpty(txtAddress.Text);
 
-        private bool isFormFilledCorrectly()
-        {
-            return !String.IsNullOrEmpty(txtFirstName.Text) && !String.IsNullOrEmpty(txtLastName.Text)
-            && !String.IsNullOrEmpty(txtEmail.Text) && !String.IsNullOrEmpty(txtAddress.Text);
-
-        }
+        //}
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -185,7 +183,7 @@ namespace DVLD_Project.People
             }
 
             // Check NationalNumber specifically (since it uses TextChanged, not Validating)
-            if (!string.IsNullOrWhiteSpace(txtNationalNumber.Text) && Person.IsPersonExist(txtNationalNumber.Text.Trim()) && ((AddUpdatePerson)this.ParentForm).mode == AddUpdatePerson.Mode.Add)
+            if (!string.IsNullOrWhiteSpace(txtNationalNumber.Text.Trim()) && Person.IsPersonExist(txtNationalNumber.Text.Trim()) && ((AddUpdatePerson)this.ParentForm).Mode == AddUpdatePerson.enMode.Add)
             {
                 MessageBox.Show("This National Number already exists. Please enter a unique number.", "Validation Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -194,7 +192,7 @@ namespace DVLD_Project.People
             }
 
             Person person;
-            if (((AddUpdatePerson)this.ParentForm).mode == AddUpdatePerson.Mode.Add)
+            if (((AddUpdatePerson)this.ParentForm).Mode == AddUpdatePerson.enMode.Add)
             {
                 person = new Person();
             }
@@ -211,7 +209,7 @@ namespace DVLD_Project.People
             person.Address = txtAddress.Text.Trim();
             person.Phone = txtPhone.Text.Trim();
             person.Email = txtEmail.Text.Trim();
-            person.CountryID = (int)cbCountries.SelectedValue;
+            person.CountryInfo.CountryID = (int)cbCountries.SelectedValue;
             person.ProfilePhotoPath = pbProfileImage.Tag?.ToString() ?? "";
             //    person.CreatedByUser = 1;
 
@@ -226,7 +224,7 @@ namespace DVLD_Project.People
         }
         private void txtNationalNumber_Validating(object sender, CancelEventArgs e)
         {
-            if ((Person.IsPersonExist(txtNationalNumber.Text.Trim()) && ((AddUpdatePerson)this.ParentForm).mode == AddUpdatePerson.Mode.Update))
+            if ((Person.IsPersonExist(txtNationalNumber.Text.Trim()) && ((AddUpdatePerson)this.ParentForm).Mode == AddUpdatePerson.enMode.Update))
             {
                 return;
             }
@@ -248,7 +246,6 @@ namespace DVLD_Project.People
                 errorProvider.SetError(txtNationalNumber, "");
             }
         }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.ParentForm.Close();

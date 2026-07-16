@@ -23,9 +23,9 @@ namespace DVLD_Project
             new frmManagerPeople().ShowDialog();
         }
 
-        private void peopleToolStripMenuItem_DoubleClick(object sender, EventArgs e)
+        private void usersToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            new frmManagerPeople().ShowDialog();
+
         }
     }
 }

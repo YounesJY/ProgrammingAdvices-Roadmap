@@ -11,33 +11,22 @@ namespace DVLD_Business
 {
     public class Country
     {
-        public enum enMode { AddNew = 0, Update = 1 };
-        public enMode Mode = enMode.AddNew;
-
-
-        public int ID { set; get; }
+        public int CountryID { set; get; }
         public string CountryName { set; get; }
 
 
         private Country(int ID, string CountryName)
         {
-            this.ID = ID;
+            this.CountryID = ID;
             this.CountryName = CountryName;
-
-            Mode = enMode.Update;
         }
-
-        public Country() : this(-1, "")
-        {
-            Mode = enMode.AddNew;
-        }
+        public Country() : this(-1, null) { }
 
 
         public static DataTable getAllCountries()
         {
             return CountryDataAccess.GetAllCountries();
         }
-
         public static Country Find(int ID)
         {
             string CountryName = "";
@@ -47,7 +36,6 @@ namespace DVLD_Business
 
             return null;
         }
-
         public static Country Find(string CountryName)
         {
             int ID = -1;
@@ -57,6 +45,5 @@ namespace DVLD_Business
 
             return null;
         }
-
     }
 }

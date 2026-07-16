@@ -28,10 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblFromLabel = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.ctrlPersonDetails = new DVLD_Project.People.ctrlPersonDetails();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.lblPersonIDLabel = new System.Windows.Forms.Label();
+            this.llSetImage = new System.Windows.Forms.LinkLabel();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtAddress = new System.Windows.Forms.TextBox();
+            this.cbCountries = new System.Windows.Forms.ComboBox();
+            this.txtPhone = new System.Windows.Forms.TextBox();
+            this.dtpDateOfBirth = new System.Windows.Forms.DateTimePicker();
+            this.rbGenderFemale = new System.Windows.Forms.RadioButton();
+            this.rbGenderMale = new System.Windows.Forms.RadioButton();
+            this.label9 = new System.Windows.Forms.Label();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.txtNationalNumber = new System.Windows.Forms.TextBox();
+            this.pbProfileImage = new System.Windows.Forms.PictureBox();
+            this.txtLastName = new System.Windows.Forms.TextBox();
+            this.txtThirdName = new System.Windows.Forms.TextBox();
+            this.txtSecondName = new System.Windows.Forms.TextBox();
+            this.txtFirstName = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblPersonID = new System.Windows.Forms.Label();
+            this.DateOfbirth = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblFromLabel
@@ -39,49 +72,387 @@
             this.lblFromLabel.AutoSize = true;
             this.lblFromLabel.Font = new System.Drawing.Font("JetBrainsMonoNL NF", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFromLabel.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lblFromLabel.Location = new System.Drawing.Point(229, 157);
+            this.lblFromLabel.Location = new System.Drawing.Point(235, 32);
             this.lblFromLabel.Name = "lblFromLabel";
             this.lblFromLabel.Size = new System.Drawing.Size(314, 47);
             this.lblFromLabel.TabIndex = 1;
             this.lblFromLabel.Text = "Add New Person";
             // 
-            // pictureBox1
+            // lblPersonIDLabel
             // 
-            this.pictureBox1.Image = global::DVLD_Project.Properties.Resources.isolated_young_handsome_man_different_poses_white_background_illustration;
-            this.pictureBox1.Location = new System.Drawing.Point(271, -18);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(228, 195);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
+            this.lblPersonIDLabel.AutoSize = true;
+            this.lblPersonIDLabel.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
+            this.lblPersonIDLabel.Location = new System.Drawing.Point(9, 82);
+            this.lblPersonIDLabel.Name = "lblPersonIDLabel";
+            this.lblPersonIDLabel.Size = new System.Drawing.Size(66, 17);
+            this.lblPersonIDLabel.TabIndex = 43;
+            this.lblPersonIDLabel.Text = "PersonID";
             // 
-            // ctrlPersonDetails
+            // llSetImage
             // 
-            this.ctrlPersonDetails.Location = new System.Drawing.Point(0, 207);
-            this.ctrlPersonDetails.Name = "ctrlPersonDetails";
-            this.ctrlPersonDetails.Size = new System.Drawing.Size(800, 291);
-            this.ctrlPersonDetails.TabIndex = 3;
+            this.llSetImage.AutoSize = true;
+            this.llSetImage.Location = new System.Drawing.Point(661, 218);
+            this.llSetImage.Name = "llSetImage";
+            this.llSetImage.Size = new System.Drawing.Size(55, 13);
+            this.llSetImage.TabIndex = 39;
+            this.llSetImage.TabStop = true;
+            this.llSetImage.Text = "Set Image";
             // 
-            // AddEditPerson
+            // btnSave
+            // 
+            this.btnSave.BackColor = System.Drawing.Color.Chartreuse;
+            this.btnSave.Location = new System.Drawing.Point(526, 218);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 37;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = false;
+            // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(433, 218);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.TabIndex = 36;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(613, 4);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(27, 13);
+            this.label11.TabIndex = 34;
+            this.label11.Text = "Last";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(454, 4);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(31, 13);
+            this.label10.TabIndex = 33;
+            this.label10.Text = "Third";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(295, 4);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(44, 13);
+            this.label7.TabIndex = 32;
+            this.label7.Text = "Second";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(136, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(26, 13);
+            this.label1.TabIndex = 31;
+            this.label1.Text = "First";
+            // 
+            // txtAddress
+            // 
+            this.txtAddress.Location = new System.Drawing.Point(139, 179);
+            this.txtAddress.Name = "txtAddress";
+            this.txtAddress.Size = new System.Drawing.Size(462, 20);
+            this.txtAddress.TabIndex = 9;
+            this.txtAddress.Tag = "1";
+            // 
+            // cbCountries
+            // 
+            this.cbCountries.FormattingEnabled = true;
+            this.cbCountries.ItemHeight = 13;
+            this.cbCountries.Location = new System.Drawing.Point(457, 142);
+            this.cbCountries.Name = "cbCountries";
+            this.cbCountries.Size = new System.Drawing.Size(144, 21);
+            this.cbCountries.TabIndex = 12;
+            this.cbCountries.Tag = "1";
+            // 
+            // txtPhone
+            // 
+            this.txtPhone.Location = new System.Drawing.Point(457, 98);
+            this.txtPhone.Name = "txtPhone";
+            this.txtPhone.Size = new System.Drawing.Size(144, 20);
+            this.txtPhone.TabIndex = 11;
+            this.txtPhone.Tag = "1";
+            // 
+            // dtpDateOfBirth
+            // 
+            this.dtpDateOfBirth.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpDateOfBirth.Location = new System.Drawing.Point(457, 62);
+            this.dtpDateOfBirth.Name = "dtpDateOfBirth";
+            this.dtpDateOfBirth.Size = new System.Drawing.Size(144, 20);
+            this.dtpDateOfBirth.TabIndex = 10;
+            // 
+            // rbGenderFemale
+            // 
+            this.rbGenderFemale.AutoSize = true;
+            this.rbGenderFemale.Location = new System.Drawing.Point(222, 101);
+            this.rbGenderFemale.Name = "rbGenderFemale";
+            this.rbGenderFemale.Size = new System.Drawing.Size(59, 17);
+            this.rbGenderFemale.TabIndex = 7;
+            this.rbGenderFemale.TabStop = true;
+            this.rbGenderFemale.Text = "Female";
+            this.rbGenderFemale.UseVisualStyleBackColor = true;
+            // 
+            // rbGenderMale
+            // 
+            this.rbGenderMale.AutoSize = true;
+            this.rbGenderMale.Location = new System.Drawing.Point(139, 102);
+            this.rbGenderMale.Name = "rbGenderMale";
+            this.rbGenderMale.Size = new System.Drawing.Size(48, 17);
+            this.rbGenderMale.TabIndex = 6;
+            this.rbGenderMale.TabStop = true;
+            this.rbGenderMale.Text = "Male";
+            this.rbGenderMale.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
+            this.label9.Location = new System.Drawing.Point(349, 142);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(59, 17);
+            this.label9.TabIndex = 24;
+            this.label9.Text = "Country";
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
+            this.label8.Location = new System.Drawing.Point(349, 102);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(46, 17);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "Phone";
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.Location = new System.Drawing.Point(139, 139);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(144, 20);
+            this.txtEmail.TabIndex = 8;
+            // 
+            // txtNationalNumber
+            // 
+            this.txtNationalNumber.Location = new System.Drawing.Point(139, 62);
+            this.txtNationalNumber.Name = "txtNationalNumber";
+            this.txtNationalNumber.Size = new System.Drawing.Size(144, 20);
+            this.txtNationalNumber.TabIndex = 5;
+            this.txtNationalNumber.Tag = "1";
+            // 
+            // pbProfileImage
+            // 
+            this.pbProfileImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbProfileImage.Image = global::DVLD_Project.Properties.Resources.male;
+            this.pbProfileImage.Location = new System.Drawing.Point(616, 46);
+            this.pbProfileImage.Name = "pbProfileImage";
+            this.pbProfileImage.Size = new System.Drawing.Size(144, 153);
+            this.pbProfileImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbProfileImage.TabIndex = 19;
+            this.pbProfileImage.TabStop = false;
+            this.pbProfileImage.Tag = "male";
+            // 
+            // txtLastName
+            // 
+            this.txtLastName.Location = new System.Drawing.Point(616, 20);
+            this.txtLastName.Name = "txtLastName";
+            this.txtLastName.Size = new System.Drawing.Size(144, 20);
+            this.txtLastName.TabIndex = 4;
+            this.txtLastName.Tag = "1";
+            // 
+            // txtThirdName
+            // 
+            this.txtThirdName.Location = new System.Drawing.Point(457, 20);
+            this.txtThirdName.Name = "txtThirdName";
+            this.txtThirdName.Size = new System.Drawing.Size(144, 20);
+            this.txtThirdName.TabIndex = 3;
+            // 
+            // txtSecondName
+            // 
+            this.txtSecondName.Location = new System.Drawing.Point(298, 20);
+            this.txtSecondName.Name = "txtSecondName";
+            this.txtSecondName.Size = new System.Drawing.Size(144, 20);
+            this.txtSecondName.TabIndex = 2;
+            // 
+            // txtFirstName
+            // 
+            this.txtFirstName.Location = new System.Drawing.Point(139, 20);
+            this.txtFirstName.Name = "txtFirstName";
+            this.txtFirstName.Size = new System.Drawing.Size(144, 20);
+            this.txtFirstName.TabIndex = 1;
+            this.txtFirstName.Tag = "1";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
+            this.label6.Location = new System.Drawing.Point(28, 182);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(57, 17);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Address";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
+            this.label5.Location = new System.Drawing.Point(28, 142);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 17);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Email";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
+            this.label4.Location = new System.Drawing.Point(28, 102);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(53, 17);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Gender";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
+            this.label3.Location = new System.Drawing.Point(28, 62);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(80, 17);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "National Nu";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
+            this.label2.Location = new System.Drawing.Point(28, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(43, 17);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Name";
+            // 
+            // lblPersonID
+            // 
+            this.lblPersonID.AutoSize = true;
+            this.lblPersonID.Font = new System.Drawing.Font("JetBrainsMonoNL NF", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPersonID.Location = new System.Drawing.Point(92, 85);
+            this.lblPersonID.Name = "lblPersonID";
+            this.lblPersonID.Size = new System.Drawing.Size(28, 14);
+            this.lblPersonID.TabIndex = 42;
+            this.lblPersonID.Text = "N/A";
+            // 
+            // DateOfbirth
+            // 
+            this.DateOfbirth.AutoSize = true;
+            this.DateOfbirth.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
+            this.DateOfbirth.Location = new System.Drawing.Point(349, 65);
+            this.DateOfbirth.Name = "DateOfbirth";
+            this.DateOfbirth.Size = new System.Drawing.Size(93, 17);
+            this.DateOfbirth.TabIndex = 22;
+            this.DateOfbirth.Text = "Date Of Birth";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.llSetImage);
+            this.panel1.Controls.Add(this.btnSave);
+            this.panel1.Controls.Add(this.btnClose);
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.label10);
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.txtAddress);
+            this.panel1.Controls.Add(this.cbCountries);
+            this.panel1.Controls.Add(this.txtPhone);
+            this.panel1.Controls.Add(this.dtpDateOfBirth);
+            this.panel1.Controls.Add(this.rbGenderFemale);
+            this.panel1.Controls.Add(this.rbGenderMale);
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.DateOfbirth);
+            this.panel1.Controls.Add(this.txtEmail);
+            this.panel1.Controls.Add(this.txtNationalNumber);
+            this.panel1.Controls.Add(this.pbProfileImage);
+            this.panel1.Controls.Add(this.txtLastName);
+            this.panel1.Controls.Add(this.txtThirdName);
+            this.panel1.Controls.Add(this.txtSecondName);
+            this.panel1.Controls.Add(this.txtFirstName);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Location = new System.Drawing.Point(12, 102);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(776, 244);
+            this.panel1.TabIndex = 41;
+            // 
+            // AddUpdatePerson
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 486);
-            this.Controls.Add(this.ctrlPersonDetails);
+            this.ClientSize = new System.Drawing.Size(800, 352);
+            this.Controls.Add(this.lblPersonIDLabel);
+            this.Controls.Add(this.lblPersonID);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblFromLabel);
-            this.Controls.Add(this.pictureBox1);
-            this.Name = "AddEditPerson";
+            this.Name = "AddUpdatePerson";
             this.Text = "AddNew/Edit Person";
             this.Load += new System.EventHandler(this.AddNewPerson_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private ctrlPersonDetails ctrlPersonDetails;
         private System.Windows.Forms.Label lblFromLabel;
+        private System.Windows.Forms.Label lblPersonIDLabel;
+        private System.Windows.Forms.LinkLabel llSetImage;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtAddress;
+        private System.Windows.Forms.ComboBox cbCountries;
+        private System.Windows.Forms.TextBox txtPhone;
+        private System.Windows.Forms.DateTimePicker dtpDateOfBirth;
+        private System.Windows.Forms.RadioButton rbGenderFemale;
+        private System.Windows.Forms.RadioButton rbGenderMale;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.Label lblPersonID;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label DateOfbirth;
+        private System.Windows.Forms.TextBox txtEmail;
+        private System.Windows.Forms.TextBox txtNationalNumber;
+        private System.Windows.Forms.PictureBox pbProfileImage;
+        private System.Windows.Forms.TextBox txtLastName;
+        private System.Windows.Forms.TextBox txtThirdName;
+        private System.Windows.Forms.TextBox txtSecondName;
+        private System.Windows.Forms.TextBox txtFirstName;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -6,7 +6,6 @@ namespace DVLD_DataAccess
 {
     public static class PersonDataAccess
     {
-
         public static DataTable GetPeople()
         {
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
@@ -55,7 +54,7 @@ namespace DVLD_DataAccess
 
             return dataTable;
         }
-        public static bool GetPersonInfoByID(int PersonID, ref string NationalNumber, ref string FirstName, ref string SecondName,
+        public static bool GetPersonInfoByPersonID(int PersonID, ref string NationalNumber, ref string FirstName, ref string SecondName,
                                               ref string ThirdName, ref string LastName, ref byte Gender, ref DateTime DateOfBirth,
                                               ref string Address, ref string Phone, ref string Email, ref string ProfilePhotoPath,
                                               ref int CountryID, ref int CreatedByUser)
@@ -114,10 +113,65 @@ namespace DVLD_DataAccess
 
             return isFound;
         }
+        public static bool GetPersonInfoByNationalNumber(ref int PersonID, string NationalNumber, ref string FirstName, ref string SecondName,
+                                              ref string ThirdName, ref string LastName, ref byte Gender, ref DateTime DateOfBirth,
+                                              ref string Address, ref string Phone, ref string Email, ref string ProfilePhotoPath,
+                                              ref int CountryID, ref int CreatedByUser)
+        {
+            bool isFound = false;
+            SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            string query = @"
+                    SELECT * 
+                    FROM People 
+                    WHERE NationalNumber = @NationalNumber
+            ";
 
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@NationalNumber", NationalNumber);
 
-        // ================ DAL Layer (PersonDataAccess.cs) ================
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
 
+                if (reader.Read())
+                {
+                    // The record was found
+                    isFound = true;
+
+                    PersonID = (int) reader["PersonID"];
+                    FirstName = (string)reader["FirstName"];
+                    SecondName = (reader["SecondName"] == DBNull.Value) ? "" : (string)reader["SecondName"];
+                    ThirdName = (reader["ThirdName"] == DBNull.Value) ? "" : (string)reader["ThirdName"];
+                    LastName = (string)reader["LastName"];
+                    Gender = (byte)reader["Gender"];
+                    DateOfBirth = (DateTime)reader["DateOfBirth"];
+                    Address = (string)reader["Address"];
+                    Phone = (string)reader["Phone"];
+                    Email = (reader["Email"] == DBNull.Value) ? "" : (string)reader["Email"];
+                    ProfilePhotoPath = (reader["ProfilePhotoPath"] == DBNull.Value) ? "" : (string)reader["ProfilePhotoPath"];
+                    CountryID = (int)reader["NationalityCountryID"];
+                    //  CreatedByUser = (int)reader["CreatedByUser"];
+                }
+                else
+                {
+                    // The record was not found
+                    isFound = false;
+                }
+
+                reader.Close();
+            }
+            catch (Exception)
+            {
+                isFound = false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+        }
         public static int AddNewPerson(string NationalNumber, string FirstName, string SecondName, string ThirdName,
                                         string LastName, byte Gender, DateTime DateOfBirth, string Address,
                                         string Phone, string Email, string ProfilePhotoPath, int CountryID, int CreatedByUser)
@@ -126,9 +180,10 @@ namespace DVLD_DataAccess
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
             string query = @"
-                    INSERT INTO People (NationalNumber, FirstName, SecondName, ThirdName, LastName, Gender, DateOfBirth, Address, Phone, Email, ProfilePhotoPath, NationalityCountryID)
+                    INSERT INTO 
+                        People (NationalNumber, FirstName, SecondName, ThirdName, LastName, Gender, DateOfBirth, Address, Phone, Email, ProfilePhotoPath, NationalityCountryID)
                     VALUES 
-                    (@NationalNumber, @FirstName, @SecondName, @ThirdName, @LastName, @Gender, @DateOfBirth, @Address, @Phone, @Email, @ProfilePhotoPath, @NationalityCountryID);
+                        (@NationalNumber, @FirstName, @SecondName, @ThirdName, @LastName, @Gender, @DateOfBirth, @Address, @Phone, @Email, @ProfilePhotoPath, @NationalityCountryID);
                     SELECT SCOPE_IDENTITY();
             ";
 
@@ -179,7 +234,6 @@ namespace DVLD_DataAccess
 
             return PersonID;
         }
-
         public static bool UpdatePerson(int PersonID, string NationalNumber, string FirstName, string SecondName,
                                          string ThirdName, string LastName, byte Gender, DateTime DateOfBirth,
                                          string Address, string Phone, string Email, string ProfilePhotoPath,
@@ -251,6 +305,27 @@ namespace DVLD_DataAccess
 
             return (rowsAffected > 0);
         }
+        public static bool DeletePerson(int PersonID)
+        {
+            int rowsAffected = 0;
+
+            using (SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString))
+            using (SqlCommand command = new SqlCommand("DELETE FROM People WHERE PersonID = @PersonID", connection))
+            {
+                command.Parameters.AddWithValue("@PersonID", PersonID);
+                try
+                {
+                    connection.Open();
+                    rowsAffected = command.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    rowsAffected = 0;
+                }
+            }
+
+            return (rowsAffected > 0);
+        }
 
 
         public static bool IsPersonExist(int PersonID)
@@ -310,28 +385,6 @@ namespace DVLD_DataAccess
             }
 
             return isFound;
-        }
-
-        public static bool DeletePerson(int PersonID)
-        {
-            int rowsAffected = 0;
-
-            using (SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString))
-            using (SqlCommand command = new SqlCommand("DELETE FROM People WHERE PersonID = @PersonID", connection))
-            {
-                command.Parameters.AddWithValue("@PersonID", PersonID);
-                try
-                {
-                    connection.Open();
-                    rowsAffected = command.ExecuteNonQuery();
-                }
-                catch (Exception)
-                {
-                    rowsAffected = 0;
-                }
-            }
-
-            return (rowsAffected > 0);
         }
     }
 }

@@ -8,10 +8,13 @@ using DVLD_DataAccess;
 
 namespace DVLD_Business
 {
-    public class    Person
+    public class Person
     {
-        public enum enMode : byte{ AddNew = 0, Update = 1 };
+        public enum enMode : byte { AddNew = 0, Update = 1 };
         public enum enGender : byte { Male, Female };
+
+
+        private enMode _Mode = enMode.AddNew;
         private string _NationalNumber;
 
         public int PersonID { get; private set; }
@@ -20,7 +23,7 @@ namespace DVLD_Business
             get { return _NationalNumber; }
             set
             {
-                /*
+                /* You should handle this
                 if (_Mode == enMode.Update)
                 {
                     throw new InvalidOperationException("Cannot modify NationalNumber when in Update mode.");
@@ -40,9 +43,8 @@ namespace DVLD_Business
         public string Phone { get; set; }
         public string Email { get; set; }
         public string ProfilePhotoPath { get; set; }
-        public int CountryID { get; set; }
+        public Country CountryInfo { get; private set; }
         public int CreatedByUser { get; set; }
-        private enMode _Mode = enMode.AddNew;
 
 
         private Person(int PersonID, string NationalNumber, string FirstName, string SecondName, string ThirdName,
@@ -61,11 +63,10 @@ namespace DVLD_Business
             this.Phone = Phone;
             this.Email = Email;
             this.ProfilePhotoPath = ProfilePhotoPath;
-            this.CountryID = CountryID;
+            this.CountryInfo = Country.Find(CountryID);
             this.CreatedByUser = CreatedByUser;
             this._Mode = enMode.Update;
         }
-
         public Person() : this(-1, "", "", "", "", "", enGender.Male, DateTime.Now, "", "", "", "", -1, -1)
         {
             this._Mode = enMode.AddNew;
@@ -74,25 +75,6 @@ namespace DVLD_Business
         public static DataTable GetPeople()
         {
             return PersonDataAccess.GetPeople();
-        }
-
-        public static Person Find(string NationalNumber)
-        {
-            int PersonID = -1;
-            string FirstName = "", SecondName = "", ThirdName = "", LastName = "";
-            string Address = "", Phone = "", Email = "", ProfilePhotoPath = "";
-            byte Gender = ((byte)enGender.Male);
-            DateTime DateOfBirth = DateTime.Now;
-            int CountryID = -1;
-            int CreatedByUser = -1;
-
-
-            if (PersonDataAccess.GetPersonInfoByID(PersonID, ref NationalNumber, ref FirstName, ref SecondName,
-            ref ThirdName, ref LastName, ref Gender, ref DateOfBirth, ref Address, ref Phone, ref Email, ref ProfilePhotoPath,ref CountryID, ref CreatedByUser))
-                return new Person(PersonID, NationalNumber, FirstName, SecondName, ThirdName, LastName,
-                (enGender)Gender, DateOfBirth, Address, Phone, Email, ProfilePhotoPath, CountryID, CreatedByUser);
-
-            return null;
         }
         public static Person Find(int PersonID)
         {
@@ -104,7 +86,7 @@ namespace DVLD_Business
             int CreatedByUser = -1;
 
 
-            if (PersonDataAccess.GetPersonInfoByID(PersonID, ref NationalNumber, ref FirstName, ref SecondName,
+            if (PersonDataAccess.GetPersonInfoByPersonID(PersonID, ref NationalNumber, ref FirstName, ref SecondName,
             ref ThirdName, ref LastName, ref Gender, ref DateOfBirth, ref Address, ref Phone, ref Email, ref ProfilePhotoPath,
             ref CountryID, ref CreatedByUser))
                 return new Person(PersonID, NationalNumber, FirstName, SecondName, ThirdName, LastName,
@@ -112,8 +94,24 @@ namespace DVLD_Business
 
             return null;
         }
+        public static Person Find(string NationalNumber)
+        {
+            int PersonID = -1;
+            string FirstName = "", SecondName = "", ThirdName = "", LastName = "";
+            string Address = "", Phone = "", Email = "", ProfilePhotoPath = "";
+            byte Gender = ((byte)enGender.Male);
+            DateTime DateOfBirth = DateTime.Now;
+            int CountryID = -1;
+            int CreatedByUser = -1;
 
 
+            if (PersonDataAccess.GetPersonInfoByNationalNumber(ref PersonID, NationalNumber, ref FirstName, ref SecondName,
+            ref ThirdName, ref LastName, ref Gender, ref DateOfBirth, ref Address, ref Phone, ref Email, ref ProfilePhotoPath, ref CountryID, ref CreatedByUser))
+                return new Person(PersonID, NationalNumber, FirstName, SecondName, ThirdName, LastName,
+                (enGender)Gender, DateOfBirth, Address, Phone, Email, ProfilePhotoPath, CountryID, CreatedByUser);
+
+            return null;
+        }
         private bool _AddNewPerson()
         {
             this.PersonID = PersonDataAccess.AddNewPerson(
@@ -122,19 +120,18 @@ namespace DVLD_Business
                 this.SecondName,
                 this.ThirdName,
                 this.LastName,
-                (byte) this.Gender,
+                (byte)this.Gender,
                 this.DateOfBirth,
                 this.Address,
                 this.Phone,
                 this.Email,
                 this.ProfilePhotoPath,
-                this.CountryID,
+                this.CountryInfo.CountryID,
                 this.CreatedByUser
             );
 
             return (this.PersonID != -1);
         }
-
         private bool _UpdatePerson()
         {
             return PersonDataAccess.UpdatePerson(
@@ -150,7 +147,7 @@ namespace DVLD_Business
                 this.Phone,
                 this.Email,
                 this.ProfilePhotoPath,
-                this.CountryID,
+                this.CountryInfo.CountryID,
                 this.CreatedByUser
             );
         }

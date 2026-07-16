@@ -23,6 +23,7 @@ namespace DVLD_Project.People
             Nationality
         }
 
+
         public frmManagerPeople()
         {
             InitializeComponent();
@@ -52,15 +53,12 @@ namespace DVLD_Project.People
                 new frmPersonDetails(PersonID).ShowDialog();
             }
         }
-
-
         private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new AddUpdatePerson().ShowDialog();
             peopleDataGridView.DataSource = Person.GetPeople();
             peopleDataGridView.Refresh();
         }
-
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (peopleDataGridView.SelectedRows.Count > 0)
@@ -104,7 +102,18 @@ namespace DVLD_Project.People
                 lblNumberOfRecordsValue.Text = peopleDataGridView.RowCount.ToString();
             }
             else
+            {
                 mtbFilterSeach.Visible = true;
+                mtbFilterSeach.Clear();
+                if (cbFilterRows.SelectedItem.ToString() == enPeopleFilter.PersonID.ToString())
+                {
+                    mtbFilterSeach.Mask = "00000000";
+                    mtbFilterSeach.Select(0, 0); // Cursor at first position
+                    mtbFilterSeach.Focus();
+                }
+                else
+                    mtbFilterSeach.Mask = "";
+            }
         }
 
         private void FilterPeople()
@@ -185,5 +194,22 @@ namespace DVLD_Project.People
                     MessageBox.Show("Failed to delete person.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void sendEmailToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This feature is not implemented yet. Coming soon!",
+                            "Feature Not Available",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+        }
+
+        private void makeAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This feature is not implemented yet. Coming soon!",
+                            "Feature Not Available",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+        }
+
     }
 }

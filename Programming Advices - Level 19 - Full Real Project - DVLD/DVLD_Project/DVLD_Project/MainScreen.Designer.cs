@@ -57,7 +57,7 @@
             // applicationsToolStripMenuItem
             // 
             this.applicationsToolStripMenuItem.Font = new System.Drawing.Font("JetBrainsMonoNL NF SemiBold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.applicationsToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.inventory;
+            this.applicationsToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.Applications;
             this.applicationsToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.applicationsToolStripMenuItem.Name = "applicationsToolStripMenuItem";
             this.applicationsToolStripMenuItem.RightToLeftAutoMirrorImage = true;
@@ -72,7 +72,6 @@
             this.peopleToolStripMenuItem.Size = new System.Drawing.Size(140, 53);
             this.peopleToolStripMenuItem.Text = "People";
             this.peopleToolStripMenuItem.Click += new System.EventHandler(this.peopleToolStripMenuItem_Click);
-            this.peopleToolStripMenuItem.DoubleClick += new System.EventHandler(this.peopleToolStripMenuItem_DoubleClick);
             // 
             // driversToolStripMenuItem
             // 
@@ -89,6 +88,7 @@
             this.usersToolStripMenuItem1.Name = "usersToolStripMenuItem1";
             this.usersToolStripMenuItem1.Size = new System.Drawing.Size(129, 53);
             this.usersToolStripMenuItem1.Text = "Users";
+            this.usersToolStripMenuItem1.Click += new System.EventHandler(this.usersToolStripMenuItem1_Click);
             // 
             // accountSettingsToolStripMenuItem
             // 
@@ -107,9 +107,12 @@
             this.ClientSize = new System.Drawing.Size(956, 552);
             this.Controls.Add(this.menuStrip);
             this.Cursor = System.Windows.Forms.Cursors.Default;
+            this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MainScreen";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);

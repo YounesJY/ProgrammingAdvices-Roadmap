@@ -82,7 +82,6 @@ namespace DVLD_DataAccess
             return isFound;
         }
 
-
         public static bool GetCountryInfoByName(string CountryName, ref int ID)
         {
             bool isFound = false;

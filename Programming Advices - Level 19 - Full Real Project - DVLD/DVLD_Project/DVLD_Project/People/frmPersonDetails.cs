@@ -28,5 +28,10 @@ namespace DVLD_Project.People
         {
 
         }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

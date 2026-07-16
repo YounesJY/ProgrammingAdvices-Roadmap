@@ -71,7 +71,7 @@
             this.peopleDataGridView.ContextMenuStrip = this.PeopleContextMenuStrip;
             this.peopleDataGridView.Location = new System.Drawing.Point(4, 252);
             this.peopleDataGridView.Name = "peopleDataGridView";
-            this.peopleDataGridView.Size = new System.Drawing.Size(946, 198);
+            this.peopleDataGridView.Size = new System.Drawing.Size(841, 198);
             this.peopleDataGridView.TabIndex = 2;
             this.peopleDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.peopleDataGridView_CellDoubleClick);
             // 
@@ -87,7 +87,7 @@
             this.sendEmailToolStripMenuItem,
             this.makeAToolStripMenuItem});
             this.PeopleContextMenuStrip.Name = "PeopleContextMenuStrip";
-            this.PeopleContextMenuStrip.Size = new System.Drawing.Size(181, 170);
+            this.PeopleContextMenuStrip.Size = new System.Drawing.Size(163, 148);
             // 
             // showDetailsToolStripMenuItem
             // 
@@ -111,14 +111,14 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -132,16 +132,18 @@
             this.sendEmailToolStripMenuItem.Name = "sendEmailToolStripMenuItem";
             this.sendEmailToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.sendEmailToolStripMenuItem.Text = "Send Email";
+            this.sendEmailToolStripMenuItem.Click += new System.EventHandler(this.sendEmailToolStripMenuItem_Click);
             // 
             // makeAToolStripMenuItem
             // 
             this.makeAToolStripMenuItem.Name = "makeAToolStripMenuItem";
             this.makeAToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.makeAToolStripMenuItem.Text = "Make A  Call";
+            this.makeAToolStripMenuItem.Click += new System.EventHandler(this.makeAToolStripMenuItem_Click);
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::DVLD_Project.Properties.Resources.Manage_People;
+            this.pictureBox1.Image = global::DVLD_Project.Properties.Resources.Manage_People1;
             this.pictureBox1.Location = new System.Drawing.Point(408, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(217, 212);
@@ -153,7 +155,7 @@
             // 
             this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox2.Image = global::DVLD_Project.Properties.Resources.addPerson;
-            this.pictureBox2.Location = new System.Drawing.Point(907, 210);
+            this.pictureBox2.Location = new System.Drawing.Point(802, 204);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(43, 42);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -235,7 +237,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(953, 486);
+            this.ClientSize = new System.Drawing.Size(851, 486);
             this.Controls.Add(this.mtbFilterSeach);
             this.Controls.Add(this.cbFilterRows);
             this.Controls.Add(this.lblFilter);

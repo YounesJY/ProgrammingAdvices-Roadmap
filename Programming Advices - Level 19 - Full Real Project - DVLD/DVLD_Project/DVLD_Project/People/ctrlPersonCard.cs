@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,6 +13,8 @@ namespace DVLD_Project.People
 {
     public partial class ctrlPersonCard : UserControl
     {
+        private int _personID;
+
         public ctrlPersonCard()
         {
             InitializeComponent();
@@ -20,7 +22,9 @@ namespace DVLD_Project.People
 
         public void loadPersonDetailsToCard(int PersonID)
         {
+            this._personID = PersonID;
             Person person = Person.Find(PersonID);
+
 
             lblPersonIDValue.Text = person.PersonID.ToString();
             lblNationalNumberValue.Text = person.NationalNumber;
@@ -30,8 +34,18 @@ namespace DVLD_Project.People
             lblAddressValue.Text = person.Address;
             lblPhoneValue.Text = person.Phone;
             lblEmailValue.Text = person.Email;
-            lblCountryValue.Text = Country.Find(person.CountryID).CountryName;
+            lblCountryValue.Text = Country.Find(person.CountryInfo.CountryID).CountryName;
+            if (!string.IsNullOrEmpty(person.ProfilePhotoPath) && File.Exists(person.ProfilePhotoPath))
+            {
+                pbProfileImage.Image = Image.FromFile(person.ProfilePhotoPath);
+                pbProfileImage.Tag = person.ProfilePhotoPath;
+            }
         }
 
+        private void lblEditPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            new AddUpdatePerson(this._personID).ShowDialog();
+            this.loadPersonDetailsToCard(_personID);
+        }
     }
 }

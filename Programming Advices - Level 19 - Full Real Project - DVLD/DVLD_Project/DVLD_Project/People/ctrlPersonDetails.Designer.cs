@@ -408,7 +408,6 @@
             this.Controls.Add(this.panel1);
             this.Name = "ctrlPersonDetails";
             this.Size = new System.Drawing.Size(792, 282);
-
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).EndInit();
