@@ -41,7 +41,7 @@
             this.sendEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.makeAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pbAddPerson = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.lblNumberOfRecords = new System.Windows.Forms.Label();
             this.lblNumberOfRecordsValue = new System.Windows.Forms.Label();
@@ -51,14 +51,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.peopleDataGridView)).BeginInit();
             this.PeopleContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAddPerson)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("JetBrainsMonoNL NF", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(402, 210);
+            this.label1.Location = new System.Drawing.Point(348, 165);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(223, 36);
             this.label1.TabIndex = 0;
@@ -67,6 +67,7 @@
             // peopleDataGridView
             // 
             this.peopleDataGridView.AllowUserToAddRows = false;
+            this.peopleDataGridView.AllowUserToDeleteRows = false;
             this.peopleDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.peopleDataGridView.ContextMenuStrip = this.PeopleContextMenuStrip;
             this.peopleDataGridView.Location = new System.Drawing.Point(4, 252);
@@ -144,24 +145,24 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::DVLD_Project.Properties.Resources.Manage_People1;
-            this.pictureBox1.Location = new System.Drawing.Point(408, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(375, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(217, 212);
+            this.pictureBox1.Size = new System.Drawing.Size(169, 158);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // pictureBox2
+            // pbAddPerson
             // 
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox2.Image = global::DVLD_Project.Properties.Resources.addPerson;
-            this.pictureBox2.Location = new System.Drawing.Point(802, 204);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(43, 42);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 3;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            this.pbAddPerson.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbAddPerson.Image = global::DVLD_Project.Properties.Resources.addPerson;
+            this.pbAddPerson.Location = new System.Drawing.Point(802, 200);
+            this.pbAddPerson.Name = "pbAddPerson";
+            this.pbAddPerson.Size = new System.Drawing.Size(43, 42);
+            this.pbAddPerson.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbAddPerson.TabIndex = 3;
+            this.pbAddPerson.TabStop = false;
+            this.pbAddPerson.Click += new System.EventHandler(this.pbAddPerson_Click);
             // 
             // btnClose
             // 
@@ -244,7 +245,7 @@
             this.Controls.Add(this.lblNumberOfRecordsValue);
             this.Controls.Add(this.lblNumberOfRecords);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pbAddPerson);
             this.Controls.Add(this.peopleDataGridView);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
@@ -254,7 +255,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.peopleDataGridView)).EndInit();
             this.PeopleContextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAddPerson)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,7 +275,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem sendEmailToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem makeAToolStripMenuItem;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pbAddPerson;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblNumberOfRecords;
         private System.Windows.Forms.Label lblNumberOfRecordsValue;

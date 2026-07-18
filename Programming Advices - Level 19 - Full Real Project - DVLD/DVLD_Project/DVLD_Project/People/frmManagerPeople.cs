@@ -56,8 +56,7 @@ namespace DVLD_Project.People
         private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new AddUpdatePerson().ShowDialog();
-            peopleDataGridView.DataSource = Person.GetPeople();
-            peopleDataGridView.Refresh();
+            refreshFromData();
         }
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -72,50 +71,13 @@ namespace DVLD_Project.People
                 // Open the details form
                 new AddUpdatePerson(PersonID).ShowDialog();
             }
+            refreshFromData();
+        }
+
+        private void refreshFromData()
+        {
             peopleDataGridView.DataSource = Person.GetPeople();
-            peopleDataGridView.Refresh();
         }
-
-
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-            addNewPersonToolStripMenuItem_Click(sender, e);
-        }
-
-        private void peopleDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            showDetailsToolStripMenuItem_Click(sender, e);
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void cbFilterRows_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbFilterRows.SelectedItem.ToString() == enPeopleFilter.None.ToString())
-            {
-                peopleDataGridView.DataSource = Person.GetPeople();
-                mtbFilterSeach.Visible = false;
-                lblNumberOfRecordsValue.Text = peopleDataGridView.RowCount.ToString();
-            }
-            else
-            {
-                mtbFilterSeach.Visible = true;
-                mtbFilterSeach.Clear();
-                if (cbFilterRows.SelectedItem.ToString() == enPeopleFilter.PersonID.ToString())
-                {
-                    mtbFilterSeach.Mask = "00000000";
-                    mtbFilterSeach.Select(0, 0); // Cursor at first position
-                    mtbFilterSeach.Focus();
-                }
-                else
-                    mtbFilterSeach.Mask = "";
-            }
-        }
-
         private void FilterPeople()
         {
             string filterColumn = cbFilterRows.SelectedItem.ToString();
@@ -158,11 +120,44 @@ namespace DVLD_Project.People
             lblNumberOfRecordsValue.Text = dv.Count.ToString();
         }
 
+        private void pbAddPerson_Click(object sender, EventArgs e)
+        {
+            addNewPersonToolStripMenuItem_Click(sender, e);
+        }
+        private void peopleDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            showDetailsToolStripMenuItem_Click(sender, e);
+        }
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void cbFilterRows_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbFilterRows.SelectedItem.ToString() == enPeopleFilter.None.ToString())
+            {
+                peopleDataGridView.DataSource = Person.GetPeople();
+                mtbFilterSeach.Visible = false;
+                lblNumberOfRecordsValue.Text = peopleDataGridView.RowCount.ToString();
+            }
+            else
+            {
+                mtbFilterSeach.Visible = true;
+                mtbFilterSeach.Clear();
+                if (cbFilterRows.SelectedItem.ToString() == enPeopleFilter.PersonID.ToString())
+                {
+                    mtbFilterSeach.Mask = "00000000";
+                    mtbFilterSeach.Select(0, 0); // Cursor at first position
+                    mtbFilterSeach.Focus();
+                }
+                else
+                    mtbFilterSeach.Mask = "";
+            }
+        }
         private void mtbFilterSeach_TextChanged(object sender, EventArgs e)
         {
             FilterPeople();
         }
-
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Check if a row is selected
@@ -194,7 +189,6 @@ namespace DVLD_Project.People
                     MessageBox.Show("Failed to delete person.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void sendEmailToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("This feature is not implemented yet. Coming soon!",
@@ -202,7 +196,6 @@ namespace DVLD_Project.People
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
         }
-
         private void makeAToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("This feature is not implemented yet. Coming soon!",
@@ -210,6 +203,5 @@ namespace DVLD_Project.People
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
         }
-
     }
 }

@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ctrlPersonCard = new DVLD_Project.People.ctrlPersonCard();
             this.btnClose = new System.Windows.Forms.Button();
+            this.ctrlPersonCard = new DVLD_Project.People.ctrlPersonCard();
             this.SuspendLayout();
             // 
             // label1
@@ -51,13 +51,6 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // ctrlPersonCard
-            // 
-            this.ctrlPersonCard.Location = new System.Drawing.Point(12, 72);
-            this.ctrlPersonCard.Name = "ctrlPersonCard";
-            this.ctrlPersonCard.Size = new System.Drawing.Size(734, 249);
-            this.ctrlPersonCard.TabIndex = 0;
-            // 
             // btnClose
             // 
             this.btnClose.Location = new System.Drawing.Point(671, 327);
@@ -67,6 +60,13 @@
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // ctrlPersonCard
+            // 
+            this.ctrlPersonCard.Location = new System.Drawing.Point(12, 61);
+            this.ctrlPersonCard.Name = "ctrlPersonCard";
+            this.ctrlPersonCard.Size = new System.Drawing.Size(734, 260);
+            this.ctrlPersonCard.TabIndex = 0;
             // 
             // frmPersonDetails
             // 
@@ -78,7 +78,6 @@
             this.Controls.Add(this.ctrlPersonCard);
             this.Name = "frmPersonDetails";
             this.Text = "frmPersonDetails";
-            this.Load += new System.EventHandler(this.frmPersonDetails_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

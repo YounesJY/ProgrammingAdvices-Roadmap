@@ -97,6 +97,7 @@
             this.llSetImage.TabIndex = 39;
             this.llSetImage.TabStop = true;
             this.llSetImage.Text = "Set Image";
+            this.llSetImage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llSetImage_LinkClicked);
             // 
             // btnSave
             // 
@@ -107,6 +108,7 @@
             this.btnSave.TabIndex = 37;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnClose
             // 
@@ -116,6 +118,7 @@
             this.btnClose.TabIndex = 36;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // label11
             // 
@@ -164,6 +167,7 @@
             this.txtAddress.Size = new System.Drawing.Size(462, 20);
             this.txtAddress.TabIndex = 9;
             this.txtAddress.Tag = "1";
+            this.txtAddress.Validating += new System.ComponentModel.CancelEventHandler(this.EmptyTextBox_Validating);
             // 
             // cbCountries
             // 
@@ -201,6 +205,7 @@
             this.rbGenderFemale.TabStop = true;
             this.rbGenderFemale.Text = "Female";
             this.rbGenderFemale.UseVisualStyleBackColor = true;
+            this.rbGenderFemale.CheckedChanged += new System.EventHandler(this.rbGenderFemale_CheckedChanged);
             // 
             // rbGenderMale
             // 
@@ -212,6 +217,7 @@
             this.rbGenderMale.TabStop = true;
             this.rbGenderMale.Text = "Male";
             this.rbGenderMale.UseVisualStyleBackColor = true;
+            this.rbGenderMale.CheckedChanged += new System.EventHandler(this.rbGenderMale_CheckedChanged);
             // 
             // label9
             // 
@@ -243,6 +249,7 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(144, 20);
             this.txtEmail.TabIndex = 8;
+            this.txtEmail.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmail_Validating);
             // 
             // txtNationalNumber
             // 
@@ -251,6 +258,7 @@
             this.txtNationalNumber.Size = new System.Drawing.Size(144, 20);
             this.txtNationalNumber.TabIndex = 5;
             this.txtNationalNumber.Tag = "1";
+            this.txtNationalNumber.Validating += new System.ComponentModel.CancelEventHandler(this.txtNationalNumber_Validating);
             // 
             // pbProfileImage
             // 
@@ -271,6 +279,7 @@
             this.txtLastName.Size = new System.Drawing.Size(144, 20);
             this.txtLastName.TabIndex = 4;
             this.txtLastName.Tag = "1";
+            this.txtLastName.Validating += new System.ComponentModel.CancelEventHandler(this.EmptyTextBox_Validating);
             // 
             // txtThirdName
             // 
@@ -293,6 +302,7 @@
             this.txtFirstName.Size = new System.Drawing.Size(144, 20);
             this.txtFirstName.TabIndex = 1;
             this.txtFirstName.Tag = "1";
+            this.txtFirstName.Validating += new System.ComponentModel.CancelEventHandler(this.EmptyTextBox_Validating);
             // 
             // label6
             // 
@@ -403,6 +413,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(800, 352);
             this.Controls.Add(this.lblPersonIDLabel);
             this.Controls.Add(this.lblPersonID);

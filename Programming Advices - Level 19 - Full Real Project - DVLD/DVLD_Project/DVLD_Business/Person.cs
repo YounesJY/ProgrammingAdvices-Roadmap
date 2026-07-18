@@ -43,7 +43,7 @@ namespace DVLD_Business
         public string Phone { get; set; }
         public string Email { get; set; }
         public string ProfilePhotoPath { get; set; }
-        public Country CountryInfo { get; private set; }
+        public Country CountryInfo { get; set; }
         public int CreatedByUser { get; set; }
 
 
