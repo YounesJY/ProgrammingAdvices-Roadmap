@@ -36,7 +36,7 @@ namespace DVLD_Business
         public string SecondName { get; set; }
         public string ThirdName { get; set; }
         public string LastName { get; set; }
-        public string Name { get => $"{FirstName} {SecondName} {ThirdName} {LastName}"; }
+        public string Name { get => $"{FirstName} {SecondName} {ThirdName} {LastName}";}
         public enGender Gender { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Address { get; set; }

@@ -12,7 +12,7 @@ namespace DVLD_Project.People
     public partial class AddUpdatePerson : Form
     {
         public enum enMode { AddNew, Update };
-        public event Action<object, int> OnPersonCreation;
+        public event Action<object, int> OnPersonAddUpdate;
         private Person _person;
 
         public int PersonID { get; private set; }
@@ -148,15 +148,14 @@ namespace DVLD_Project.People
             {
                 errorProvider.SetError(txtNationalNumber, "A person with this National Number already exists.");
                 e.Cancel = true;
+                return;
             }
-
-            else
-                errorProvider.SetError(txtNationalNumber, "");
 
             if (txtNationalNumber.Text.Trim() != this._person.NationalNumber && Person.IsPersonExist(txtNationalNumber.Text.Trim()) && this.Mode == AddUpdatePerson.enMode.Update)
             {
                 errorProvider.SetError(txtNationalNumber, "A person with this National Number already exists.");
                 e.Cancel = true;
+                return;
             }
         }
         private void rbGenderMale_CheckedChanged(object sender, EventArgs e)
@@ -246,29 +245,31 @@ namespace DVLD_Project.People
                 return;
             }
 
-            Person person;
-            person = (this.Mode == AddUpdatePerson.enMode.AddNew) ? new Person() : Person.Find(int.Parse(lblPersonID.Text));
+            _person = (this.Mode == AddUpdatePerson.enMode.AddNew) ? new Person() : Person.Find(int.Parse(lblPersonID.Text));
 
-            person.FirstName = txtFirstName.Text.Trim();
-            person.SecondName = txtSecondName.Text.Trim();
-            person.ThirdName = txtThirdName.Text.Trim();
-            person.LastName = txtLastName.Text.Trim();
-            person.NationalNumber = txtNationalNumber.Text.Trim();
-            person.Gender = rbGenderMale.Checked ? Person.enGender.Male : Person.enGender.Female;
-            person.DateOfBirth = dtpDateOfBirth.Value;
-            person.Address = txtAddress.Text.Trim();
-            person.Phone = txtPhone.Text.Trim();
-            person.Email = txtEmail.Text.Trim();
-            person.CountryInfo = Country.Find(cbCountries.SelectedIndex);
-            person.ProfilePhotoPath = pbProfileImage.Tag?.ToString() ?? "";
+            _person.NationalNumber = txtNationalNumber.Text.Trim();
+            _person.FirstName = txtFirstName.Text.Trim();
+            _person.SecondName = txtSecondName.Text.Trim();
+            _person.ThirdName = txtThirdName.Text.Trim();
+            _person.LastName = txtLastName.Text.Trim();
+            _person.NationalNumber = txtNationalNumber.Text.Trim();
+            _person.Gender = rbGenderMale.Checked ? Person.enGender.Male : Person.enGender.Female;
+            _person.DateOfBirth = dtpDateOfBirth.Value;
+            _person.Address = txtAddress.Text.Trim();
+            _person.Phone = txtPhone.Text.Trim();
+            _person.Email = txtEmail.Text.Trim();
+            _person.CountryInfo = Country.Find(cbCountries.SelectedIndex);
+            _person.ProfilePhotoPath = pbProfileImage.Tag?.ToString() ?? "";
             //    person.CreatedByUser = 1;
 
-            if (person.Save())
+            if (_person.Save())
             {
                 MessageBox.Show("Person saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Mode = enMode.Update;
                 setLabels();
-                OnPersonCreation?.Invoke(this, person.PersonID);
+                this.Mode = enMode.Update;
+                lblPersonID.Text = _person.PersonID.ToString();
+
+                OnPersonAddUpdate?.Invoke(this, _person.PersonID);
             }
             else
                 MessageBox.Show("Failed to save person.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

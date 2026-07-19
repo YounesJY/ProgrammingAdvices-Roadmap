@@ -14,6 +14,7 @@ namespace DVLD_Project.People
     public partial class ctrlPersonCard : UserControl
     {
         private int _personID;
+        public event Action<object, int> OnPersonUpdate;
 
         public ctrlPersonCard()
         {
@@ -46,6 +47,7 @@ namespace DVLD_Project.People
         {
             new AddUpdatePerson(this._personID).ShowDialog();
             this.loadPersonDetailsToCard(_personID);
+            OnPersonUpdate?.Invoke(this, this._personID);
         }
     }
 }

@@ -28,7 +28,6 @@ namespace DVLD_Project.People
         {
             InitializeComponent();
         }
-
         private void ManagerPeople_Load(object sender, EventArgs e)
         {
             peopleDataGridView.DataSource = Person.GetPeople();
@@ -40,23 +39,24 @@ namespace DVLD_Project.People
 
         private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Check if a row is selected
             if (peopleDataGridView.SelectedRows.Count > 0)
             {
-                // Get the selected row
                 DataGridViewRow selectedRow = peopleDataGridView.SelectedRows[0];
-
-                // Get PersonID from the row (assuming PersonID is in column index 0 or use column name)
                 int PersonID = Convert.ToInt32(selectedRow.Cells["PersonID"].Value);
 
-                // Open the details form
-                new frmPersonDetails(PersonID).ShowDialog();
+                frmPersonDetails form = new frmPersonDetails(PersonID);
+
+                // Traditional null check (works in all versions)
+                if (form.PersonCard != null)
+                    form.PersonCard.OnPersonUpdate += (publisher, personID) => refreshFormData();
+
+                form.ShowDialog();
             }
         }
         private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new AddUpdatePerson().ShowDialog();
-            refreshFromData();
+            refreshFormData();
         }
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -71,10 +71,10 @@ namespace DVLD_Project.People
                 // Open the details form
                 new AddUpdatePerson(PersonID).ShowDialog();
             }
-            refreshFromData();
+            refreshFormData();
         }
 
-        private void refreshFromData()
+        private void refreshFormData()
         {
             peopleDataGridView.DataSource = Person.GetPeople();
         }

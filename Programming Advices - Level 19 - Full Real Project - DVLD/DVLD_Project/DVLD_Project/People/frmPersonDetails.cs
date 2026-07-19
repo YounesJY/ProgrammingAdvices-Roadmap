@@ -5,6 +5,8 @@ namespace DVLD_Project.People
 {
     public partial class frmPersonDetails : Form
     {
+        public ctrlPersonCard PersonCard { get => ctrlPersonCard;}
+
         public frmPersonDetails()
         {
             InitializeComponent();
