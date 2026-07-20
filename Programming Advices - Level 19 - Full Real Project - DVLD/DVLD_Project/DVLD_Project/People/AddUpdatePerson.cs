@@ -13,9 +13,11 @@ namespace DVLD_Project.People
     {
         public enum enMode { AddNew, Update };
         public event Action<object, int> OnPersonAddUpdate;
-        private Person _person;
 
-        public int PersonID { get; private set; }
+        private Person _person = null;
+        private int _personId = -1;
+
+
         public enMode Mode { get; private set; }
 
 
@@ -29,7 +31,7 @@ namespace DVLD_Project.People
         {
             InitializeComponent();
             Mode = enMode.Update;
-            this.PersonID = PersonID;
+            this._personId = PersonID;
         }
         private void AddNewPerson_Load(object sender, EventArgs e)
         {
@@ -38,6 +40,10 @@ namespace DVLD_Project.People
                 fillWithPersonDetails();
         }
 
+        private void setLabels()
+        {
+            lblFromLabel.Text = (Mode == enMode.AddNew) ? "Add New Person" : "Update Person";
+        }
         private void resetDefualtValues()
         {
             this._person = new Person();
@@ -46,10 +52,6 @@ namespace DVLD_Project.People
 
             //set default image for the person.
             rbGenderMale.Checked = true;
-
-            //hide/show the remove linke incase there is no image for the person.
-            //llRemoveImage.Visible = (pbProfileImage.ImageLocation != null);
-
             //we set the max date to 18 years from today, and set the default value the same.
             dtpDateOfBirth.MaxDate = DateTime.Now.AddYears(-18);
             dtpDateOfBirth.Value = dtpDateOfBirth.MaxDate;
@@ -65,15 +67,13 @@ namespace DVLD_Project.People
             txtPhone.Text = "";
             txtEmail.Text = "";
             txtAddress.Text = "";
-            cbCountries.SelectedIndex = cbCountries.FindString("Morocco");
-        }
-        private void setLabels()
-        {
-            lblFromLabel.Text = (Mode == enMode.AddNew) ? "Add New Person" : "Update Person";
+            cbCountry.SelectedIndex = cbCountry.FindString("Morocco");
+
+            llRemoveImage.Visible = false;
         }
         private void fillWithPersonDetails()
         {
-            _person = Person.Find(this.PersonID);
+            _person = Person.Find(this._personId);
 
             if (_person == null)
             {
@@ -99,27 +99,25 @@ namespace DVLD_Project.People
             txtAddress.Text = _person.Address;
             txtPhone.Text = _person.Phone;
             txtEmail.Text = _person.Email;
-            cbCountries.SelectedIndex = _person.CountryInfo.CountryID;
+            cbCountry.SelectedIndex = _person.CountryInfo.CountryID;
 
             // Set Image
             if (!string.IsNullOrEmpty(_person.ProfilePhotoPath) && File.Exists(_person.ProfilePhotoPath))
-            {
-                pbProfileImage.Image = Image.FromFile(_person.ProfilePhotoPath);
-                pbProfileImage.Tag = _person.ProfilePhotoPath;
-            }
+                pbProfileImage.ImageLocation = _person.ProfilePhotoPath;
             else
             {
-                pbProfileImage.Image = (_person.Gender == (byte)Person.enGender.Male) ?
-                    Resources.male : Resources.female;
-                pbProfileImage.Tag = _person.Gender == (byte)Person.enGender.Male ? "male" : "female";
+                pbProfileImage.Image = (_person.Gender == (byte)Person.enGender.Male) ? Resources.male : Resources.female;
+                pbProfileImage.ImageLocation = null;
             }
+            //hide/show the remove linke incase there is no image for the person.
+            llRemoveImage.Visible = (pbProfileImage.ImageLocation != null);
         }
         private void fillCountriesInComoboBox()
         {
-            cbCountries.DataSource = Country.getAllCountries();
-            cbCountries.DisplayMember = "CountryName";  // The column name to display
-            cbCountries.ValueMember = "CountryID";     // The column name to use as value
-            cbCountries.SelectedIndex = cbCountries.FindString("Morocco");
+            cbCountry.DataSource = Country.getAllCountries();
+            cbCountry.DisplayMember = "CountryName";  // The column name to display
+            cbCountry.ValueMember = "CountryID";     // The column name to use as value
+            cbCountry.SelectedIndex = cbCountry.FindString("Morocco");
         }
 
 
@@ -160,18 +158,18 @@ namespace DVLD_Project.People
         }
         private void rbGenderMale_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbGenderMale.Checked && pbProfileImage.Tag?.ToString() == "female")
+            if (rbGenderMale.Checked && pbProfileImage.Location == null)
             {
                 pbProfileImage.Image = Properties.Resources.male;
-                pbProfileImage.Tag = "male";
+                pbProfileImage.ImageLocation = null;
             }
         }
         private void rbGenderFemale_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbGenderFemale.Checked && pbProfileImage.Tag?.ToString() == "male")
+            if (rbGenderFemale.Checked && pbProfileImage.Location == null)
             {
                 pbProfileImage.Image = Properties.Resources.female;
-                pbProfileImage.Tag = "female";
+                pbProfileImage.ImageLocation = null;
             }
         }
         private void txtEmail_Validating(object sender, CancelEventArgs e)
@@ -189,45 +187,75 @@ namespace DVLD_Project.People
         {
             // Create OpenFileDialog
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
-            openFileDialog.Title = "Select a Profile Image";
+            openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = true;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                try
-                {
-                    // Get the selected file path
-                    string sourceFilePath = openFileDialog.FileName;
+                // Process the selected file
+                string selectedFilePath = openFileDialog.FileName;
+                //pbProfileImage.Load(selectedFilePath); // this can cause image lock for delation
+                pbProfileImage.ImageLocation = selectedFilePath;
 
-                    // Create directory if it doesn't exist
-                    string imagesDirectory = @"C:\DVLD-People_Images";
-                    if (!Directory.Exists(imagesDirectory))
-                        Directory.CreateDirectory(imagesDirectory);
-
-                    // Generate GUID for the image name
-                    string imageGuid = Guid.NewGuid().ToString();
-                    string fileExtension = Path.GetExtension(sourceFilePath);
-                    string newFileName = imageGuid + fileExtension;
-                    string destinationFilePath = Path.Combine(imagesDirectory, newFileName);
-
-                    // Copy the image to the destination folder
-                    File.Copy(sourceFilePath, destinationFilePath, true);
-
-                    // Save the path in the person object
-                    pbProfileImage.Tag = destinationFilePath;
-
-                    // Display the image in the PictureBox
-                    pbProfileImage.Image = Image.FromFile(destinationFilePath);
-                    pbProfileImage.SizeMode = PictureBoxSizeMode.Zoom;
-
-                    MessageBox.Show("Image uploaded successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error uploading image: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                llRemoveImage.Visible = true;
             }
         }
+        private void llRemoveImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            pbProfileImage.ImageLocation = null;
+            pbProfileImage.Image = (rbGenderMale.Checked) ? Resources.male : Resources.female;
+            llRemoveImage.Visible = false;
+        }
+        private bool handlePersonImage()
+        {
+            //this procedure will handle the person image,
+            //it will take care of deleting the old image from the folder
+            //in case the image changed. and it will rename the new image with guid and 
+            // place it in the images folder.
+
+
+            //_Person.ProfilePhotoPath contains the old Image, we check if it changed then we copy the new image
+            if (_person.ProfilePhotoPath != pbProfileImage.ImageLocation)
+            {
+                // this case means that the person still holds the old profile image that's been loadoed from DB
+                // and it's not the current one in the control
+                if (!String.IsNullOrEmpty(_person.ProfilePhotoPath))
+                {
+                    //first we delete the old image from the folder in case there is any.
+
+                    try
+                    {
+                        File.Delete(_person.ProfilePhotoPath);
+                    }
+                    catch (IOException)
+                    {
+                        // We could not delete the file.
+                        //log it later   
+                    }
+                }
+
+                if (!String.IsNullOrEmpty(pbProfileImage.ImageLocation))
+                {
+                    //then we copy the new image to the image folder after we rename it
+                    string SourceImageFile = pbProfileImage.ImageLocation.ToString();
+
+                    if (Utils.CopyImageToProjectImagesFolder(ref SourceImageFile))
+                    {
+                        pbProfileImage.ImageLocation = SourceImageFile;
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error Copying Image File", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+
+            }
+            return true;
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (!this.ValidateChildren())
@@ -236,6 +264,9 @@ namespace DVLD_Project.People
                 MessageBox.Show("Some fileds are not valide!, put the mouse over the red icon(s) to see the error", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            if (!handlePersonImage())
+                return;
 
             // Check NationalNumber specifically (since it uses TextChanged, not Validating)
             if (!string.IsNullOrWhiteSpace(txtNationalNumber.Text.Trim()) && Person.IsPersonExist(txtNationalNumber.Text.Trim()) && this.Mode == enMode.AddNew)
@@ -258,8 +289,8 @@ namespace DVLD_Project.People
             _person.Address = txtAddress.Text.Trim();
             _person.Phone = txtPhone.Text.Trim();
             _person.Email = txtEmail.Text.Trim();
-            _person.CountryInfo = Country.Find(cbCountries.SelectedIndex);
-            _person.ProfilePhotoPath = pbProfileImage.Tag?.ToString() ?? "";
+            _person.CountryInfo = Country.Find(cbCountry.SelectedIndex);
+            _person.ProfilePhotoPath = pbProfileImage.ImageLocation; ;
             //    person.CreatedByUser = 1;
 
             if (_person.Save())

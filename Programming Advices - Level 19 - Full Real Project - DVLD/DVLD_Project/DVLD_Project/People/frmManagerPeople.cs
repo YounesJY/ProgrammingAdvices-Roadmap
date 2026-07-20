@@ -1,6 +1,7 @@
 ﻿using DVLD_Business;
 using System;
 using System.Data;
+using System.Security.Policy;
 using System.Windows.Forms;
 
 namespace DVLD_Project.People
@@ -43,14 +44,13 @@ namespace DVLD_Project.People
             {
                 DataGridViewRow selectedRow = peopleDataGridView.SelectedRows[0];
                 int PersonID = Convert.ToInt32(selectedRow.Cells["PersonID"].Value);
-
                 frmPersonDetails form = new frmPersonDetails(PersonID);
 
                 // Traditional null check (works in all versions)
                 if (form.PersonCard != null)
-                    form.PersonCard.OnPersonUpdate += (publisher, personID) => refreshFormData();
-
+                    form.PersonCard.OnPersonUpdate += RefreshHandler;
                 form.ShowDialog();
+                form.PersonCard.OnPersonUpdate -= RefreshHandler; // <- Remember to unsubscribe when the form closes
             }
         }
         private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
@@ -78,6 +78,15 @@ namespace DVLD_Project.People
         {
             peopleDataGridView.DataSource = Person.GetPeople();
         }
+        private void RefreshHandler(object sender, int personID)
+        {
+            MessageBox.Show("Person information updated and data refreshed.",
+                "Success",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            refreshFormData();
+        }
+
         private void FilterPeople()
         {
             string filterColumn = cbFilterRows.SelectedItem.ToString();

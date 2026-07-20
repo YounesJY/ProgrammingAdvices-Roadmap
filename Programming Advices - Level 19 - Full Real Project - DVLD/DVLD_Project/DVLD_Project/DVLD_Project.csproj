@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Global Classes\clsFormat.cs" />
+    <Compile Include="Global Classes\clsGlobal.cs" />
+    <Compile Include="Global Classes\Utils.cs" />
+    <Compile Include="Global Classes\Validatoin.cs" />
     <Compile Include="LoginFrom.cs">
       <SubType>Form</SubType>
     </Compile>

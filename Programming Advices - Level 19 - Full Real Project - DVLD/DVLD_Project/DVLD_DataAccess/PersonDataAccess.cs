@@ -90,7 +90,7 @@ namespace DVLD_DataAccess
                     Address = (string)reader["Address"];
                     Phone = (string)reader["Phone"];
                     Email = (reader["Email"] == DBNull.Value) ? "" : (string)reader["Email"];
-                    ProfilePhotoPath = (reader["ProfilePhotoPath"] == DBNull.Value) ? "" : (string)reader["ProfilePhotoPath"];
+                    ProfilePhotoPath = (reader["ProfilePhotoPath"] == DBNull.Value) ? null : (string)reader["ProfilePhotoPath"];
                     CountryID = (int)reader["NationalityCountryID"];
                     //  CreatedByUser = (int)reader["CreatedByUser"];
                 }
@@ -139,7 +139,7 @@ namespace DVLD_DataAccess
                     // The record was found
                     isFound = true;
 
-                    PersonID = (int) reader["PersonID"];
+                    PersonID = (int)reader["PersonID"];
                     FirstName = (string)reader["FirstName"];
                     SecondName = (reader["SecondName"] == DBNull.Value) ? "" : (string)reader["SecondName"];
                     ThirdName = (reader["ThirdName"] == DBNull.Value) ? "" : (string)reader["ThirdName"];
@@ -149,7 +149,7 @@ namespace DVLD_DataAccess
                     Address = (string)reader["Address"];
                     Phone = (string)reader["Phone"];
                     Email = (reader["Email"] == DBNull.Value) ? "" : (string)reader["Email"];
-                    ProfilePhotoPath = (reader["ProfilePhotoPath"] == DBNull.Value) ? "" : (string)reader["ProfilePhotoPath"];
+                    ProfilePhotoPath = (reader["ProfilePhotoPath"] == DBNull.Value) ? null : (string)reader["ProfilePhotoPath"];
                     CountryID = (int)reader["NationalityCountryID"];
                     //  CreatedByUser = (int)reader["CreatedByUser"];
                 }

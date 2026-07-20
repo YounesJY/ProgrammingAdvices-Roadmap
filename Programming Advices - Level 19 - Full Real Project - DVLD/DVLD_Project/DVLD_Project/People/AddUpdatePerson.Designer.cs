@@ -39,7 +39,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtAddress = new System.Windows.Forms.TextBox();
-            this.cbCountries = new System.Windows.Forms.ComboBox();
+            this.cbCountry = new System.Windows.Forms.ComboBox();
             this.txtPhone = new System.Windows.Forms.TextBox();
             this.dtpDateOfBirth = new System.Windows.Forms.DateTimePicker();
             this.rbGenderFemale = new System.Windows.Forms.RadioButton();
@@ -62,6 +62,7 @@
             this.lblPersonID = new System.Windows.Forms.Label();
             this.DateOfbirth = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.llRemoveImage = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).BeginInit();
             this.panel1.SuspendLayout();
@@ -91,7 +92,7 @@
             // llSetImage
             // 
             this.llSetImage.AutoSize = true;
-            this.llSetImage.Location = new System.Drawing.Point(661, 218);
+            this.llSetImage.Location = new System.Drawing.Point(661, 202);
             this.llSetImage.Name = "llSetImage";
             this.llSetImage.Size = new System.Drawing.Size(55, 13);
             this.llSetImage.TabIndex = 39;
@@ -112,6 +113,7 @@
             // 
             // btnClose
             // 
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.Location = new System.Drawing.Point(433, 218);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
@@ -171,13 +173,13 @@
             // 
             // cbCountries
             // 
-            this.cbCountries.FormattingEnabled = true;
-            this.cbCountries.ItemHeight = 13;
-            this.cbCountries.Location = new System.Drawing.Point(457, 142);
-            this.cbCountries.Name = "cbCountries";
-            this.cbCountries.Size = new System.Drawing.Size(144, 21);
-            this.cbCountries.TabIndex = 12;
-            this.cbCountries.Tag = "1";
+            this.cbCountry.FormattingEnabled = true;
+            this.cbCountry.ItemHeight = 13;
+            this.cbCountry.Location = new System.Drawing.Point(457, 142);
+            this.cbCountry.Name = "cbCountries";
+            this.cbCountry.Size = new System.Drawing.Size(144, 21);
+            this.cbCountry.TabIndex = 12;
+            this.cbCountry.Tag = "1";
             // 
             // txtPhone
             // 
@@ -376,6 +378,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.llRemoveImage);
             this.panel1.Controls.Add(this.llSetImage);
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Controls.Add(this.btnClose);
@@ -384,7 +387,7 @@
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtAddress);
-            this.panel1.Controls.Add(this.cbCountries);
+            this.panel1.Controls.Add(this.cbCountry);
             this.panel1.Controls.Add(this.txtPhone);
             this.panel1.Controls.Add(this.dtpDateOfBirth);
             this.panel1.Controls.Add(this.rbGenderFemale);
@@ -409,11 +412,24 @@
             this.panel1.Size = new System.Drawing.Size(776, 244);
             this.panel1.TabIndex = 41;
             // 
+            // llRemoveImage
+            // 
+            this.llRemoveImage.AutoSize = true;
+            this.llRemoveImage.Location = new System.Drawing.Point(665, 223);
+            this.llRemoveImage.Name = "llRemoveImage";
+            this.llRemoveImage.Size = new System.Drawing.Size(47, 13);
+            this.llRemoveImage.TabIndex = 113;
+            this.llRemoveImage.TabStop = true;
+            this.llRemoveImage.Text = "Remove";
+            this.llRemoveImage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llRemoveImage_LinkClicked);
+            // 
             // AddUpdatePerson
             // 
+            this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+            this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(800, 352);
             this.Controls.Add(this.lblPersonIDLabel);
             this.Controls.Add(this.lblPersonID);
@@ -442,7 +458,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtAddress;
-        private System.Windows.Forms.ComboBox cbCountries;
+        private System.Windows.Forms.ComboBox cbCountry;
         private System.Windows.Forms.TextBox txtPhone;
         private System.Windows.Forms.DateTimePicker dtpDateOfBirth;
         private System.Windows.Forms.RadioButton rbGenderFemale;
@@ -465,5 +481,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.LinkLabel llRemoveImage;
     }
 }

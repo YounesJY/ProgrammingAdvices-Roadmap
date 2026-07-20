@@ -36,7 +36,7 @@ namespace DVLD_Business
         public string SecondName { get; set; }
         public string ThirdName { get; set; }
         public string LastName { get; set; }
-        public string Name { get => $"{FirstName} {SecondName} {ThirdName} {LastName}";}
+        public string Name { get => $"{FirstName} {SecondName} {ThirdName} {LastName}"; }
         public enGender Gender { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Address { get; set; }
@@ -67,7 +67,7 @@ namespace DVLD_Business
             this.CreatedByUser = CreatedByUser;
             this._Mode = enMode.Update;
         }
-        public Person() : this(-1, "", "", "", "", "", enGender.Male, DateTime.Now, "", "", "", "", -1, -1)
+        public Person() : this(-1, "", "", "", "", "", enGender.Male, DateTime.Now, "", "", "", null, -1, -1)
         {
             this._Mode = enMode.AddNew;
         }
@@ -79,7 +79,7 @@ namespace DVLD_Business
         public static Person Find(int PersonID)
         {
             string NationalNumber = "", FirstName = "", SecondName = "", ThirdName = "", LastName = "";
-            string Address = "", Phone = "", Email = "", ProfilePhotoPath = "";
+            string Address = "", Phone = "", Email = "", ProfilePhotoPath = null;
             byte Gender = (byte)enGender.Male;
             DateTime DateOfBirth = DateTime.Now;
             int CountryID = -1;
@@ -98,7 +98,7 @@ namespace DVLD_Business
         {
             int PersonID = -1;
             string FirstName = "", SecondName = "", ThirdName = "", LastName = "";
-            string Address = "", Phone = "", Email = "", ProfilePhotoPath = "";
+            string Address = "", Phone = "", Email = "", ProfilePhotoPath = null;
             byte Gender = ((byte)enGender.Male);
             DateTime DateOfBirth = DateTime.Now;
             int CountryID = -1;
