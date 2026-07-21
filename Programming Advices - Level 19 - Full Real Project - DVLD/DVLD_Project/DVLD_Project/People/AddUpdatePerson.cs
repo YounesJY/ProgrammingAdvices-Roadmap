@@ -68,7 +68,7 @@ namespace DVLD_Project.People
             txtEmail.Text = "";
             txtAddress.Text = "";
             cbCountry.SelectedIndex = cbCountry.FindString("Morocco");
-
+            pbProfileImage.ImageLocation = null;
             llRemoveImage.Visible = false;
         }
         private void fillWithPersonDetails()
@@ -158,7 +158,7 @@ namespace DVLD_Project.People
         }
         private void rbGenderMale_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbGenderMale.Checked && pbProfileImage.Location == null)
+            if (rbGenderMale.Checked && pbProfileImage.ImageLocation == null)
             {
                 pbProfileImage.Image = Properties.Resources.male;
                 pbProfileImage.ImageLocation = null;
@@ -166,7 +166,7 @@ namespace DVLD_Project.People
         }
         private void rbGenderFemale_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbGenderFemale.Checked && pbProfileImage.Location == null)
+            if (rbGenderFemale.Checked && pbProfileImage.ImageLocation == null)
             {
                 pbProfileImage.Image = Properties.Resources.female;
                 pbProfileImage.ImageLocation = null;

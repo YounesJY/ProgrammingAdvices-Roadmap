@@ -14,17 +14,17 @@ namespace DVLD_Project.People
     public partial class ctrlPersonCard : UserControl
     {
         private int _personID;
-        public event Action<object, int> OnPersonUpdate;
+        public event Action<object, int> OnPersonCardDetailsUpdated;
 
         public ctrlPersonCard()
         {
             InitializeComponent();
         }
 
-        public void loadPersonDetailsToCard(int PersonID)
+        public void loadPersonDetailsToCard(int personID)
         {
-            this._personID = PersonID;
-            Person person = Person.Find(PersonID);
+            this._personID = personID;
+            Person person = Person.Find(personID);
 
 
             lblPersonIDValue.Text = person.PersonID.ToString();
@@ -42,12 +42,17 @@ namespace DVLD_Project.People
                 pbProfileImage.Tag = person.ProfilePhotoPath;
             }
         }
-
         private void lblEditPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            new AddUpdatePerson(this._personID).ShowDialog();
+            AddUpdatePerson addUpdatePerson = new AddUpdatePerson(this._personID);
+            addUpdatePerson.OnPersonAddUpdate += refreshDataOnUpdate;
+            addUpdatePerson.ShowDialog();
+            addUpdatePerson.OnPersonAddUpdate -= refreshDataOnUpdate;
+        }
+        private void refreshDataOnUpdate(object sender, int PersonID)
+        {
             this.loadPersonDetailsToCard(_personID);
-            OnPersonUpdate?.Invoke(this, this._personID);
+            OnPersonCardDetailsUpdated?.Invoke(this, this._personID);
         }
     }
 }

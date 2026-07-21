@@ -48,9 +48,9 @@ namespace DVLD_Project.People
 
                 // Traditional null check (works in all versions)
                 if (form.PersonCard != null)
-                    form.PersonCard.OnPersonUpdate += RefreshHandler;
+                    form.PersonCard.OnPersonCardDetailsUpdated += RefreshHandler;
                 form.ShowDialog();
-                form.PersonCard.OnPersonUpdate -= RefreshHandler; // <- Remember to unsubscribe when the form closes
+                form.PersonCard.OnPersonCardDetailsUpdated -= RefreshHandler; // <- Remember to unsubscribe when the form closes
             }
         }
         private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)

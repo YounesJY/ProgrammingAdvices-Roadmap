@@ -47,10 +47,28 @@
             this.pbProfileImage = new System.Windows.Forms.PictureBox();
             this.lblCountry = new System.Windows.Forms.Label();
             this.lblCountryValue = new System.Windows.Forms.Label();
-            this.gbPersonCard = new System.Windows.Forms.GroupBox();
             this.lblEditPersonInfo = new System.Windows.Forms.LinkLabel();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.gbPersonCard = new System.Windows.Forms.GroupBox();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.gbPersonCard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // lblPersonID
@@ -67,7 +85,7 @@
             // 
             this.lblPersonIDValue.AutoSize = true;
             this.lblPersonIDValue.Font = new System.Drawing.Font("JetBrainsMono NFM", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPersonIDValue.Location = new System.Drawing.Point(85, 25);
+            this.lblPersonIDValue.Location = new System.Drawing.Point(122, 25);
             this.lblPersonIDValue.Name = "lblPersonIDValue";
             this.lblPersonIDValue.Size = new System.Drawing.Size(40, 17);
             this.lblPersonIDValue.TabIndex = 3;
@@ -87,7 +105,8 @@
             // 
             this.lblNameValue.AutoSize = true;
             this.lblNameValue.Font = new System.Drawing.Font("JetBrainsMono NFM", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNameValue.Location = new System.Drawing.Point(85, 64);
+            this.lblNameValue.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblNameValue.Location = new System.Drawing.Point(122, 63);
             this.lblNameValue.Name = "lblNameValue";
             this.lblNameValue.Size = new System.Drawing.Size(40, 17);
             this.lblNameValue.TabIndex = 5;
@@ -107,7 +126,7 @@
             // 
             this.lblNationalNumberValue.AutoSize = true;
             this.lblNationalNumberValue.Font = new System.Drawing.Font("JetBrainsMono NFM", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNationalNumberValue.Location = new System.Drawing.Point(85, 103);
+            this.lblNationalNumberValue.Location = new System.Drawing.Point(122, 103);
             this.lblNationalNumberValue.Name = "lblNationalNumberValue";
             this.lblNationalNumberValue.Size = new System.Drawing.Size(40, 17);
             this.lblNationalNumberValue.TabIndex = 7;
@@ -127,7 +146,7 @@
             // 
             this.lblGenderValue.AutoSize = true;
             this.lblGenderValue.Font = new System.Drawing.Font("JetBrainsMono NFM", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGenderValue.Location = new System.Drawing.Point(85, 142);
+            this.lblGenderValue.Location = new System.Drawing.Point(122, 142);
             this.lblGenderValue.Name = "lblGenderValue";
             this.lblGenderValue.Size = new System.Drawing.Size(40, 17);
             this.lblGenderValue.TabIndex = 9;
@@ -147,7 +166,7 @@
             // 
             this.lblEmailValue.AutoSize = true;
             this.lblEmailValue.Font = new System.Drawing.Font("JetBrainsMono NFM", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmailValue.Location = new System.Drawing.Point(85, 181);
+            this.lblEmailValue.Location = new System.Drawing.Point(122, 181);
             this.lblEmailValue.Name = "lblEmailValue";
             this.lblEmailValue.Size = new System.Drawing.Size(40, 17);
             this.lblEmailValue.TabIndex = 11;
@@ -167,7 +186,7 @@
             // 
             this.lblAddressValue.AutoSize = true;
             this.lblAddressValue.Font = new System.Drawing.Font("JetBrainsMono NFM", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAddressValue.Location = new System.Drawing.Point(85, 220);
+            this.lblAddressValue.Location = new System.Drawing.Point(122, 220);
             this.lblAddressValue.Name = "lblAddressValue";
             this.lblAddressValue.Size = new System.Drawing.Size(40, 17);
             this.lblAddressValue.TabIndex = 13;
@@ -187,7 +206,7 @@
             // 
             this.lblDateOfBirthValue.AutoSize = true;
             this.lblDateOfBirthValue.Font = new System.Drawing.Font("JetBrainsMono NFM", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDateOfBirthValue.Location = new System.Drawing.Point(379, 142);
+            this.lblDateOfBirthValue.Location = new System.Drawing.Point(423, 141);
             this.lblDateOfBirthValue.Name = "lblDateOfBirthValue";
             this.lblDateOfBirthValue.Size = new System.Drawing.Size(40, 17);
             this.lblDateOfBirthValue.TabIndex = 15;
@@ -207,7 +226,7 @@
             // 
             this.lblPhoneValue.AutoSize = true;
             this.lblPhoneValue.Font = new System.Drawing.Font("JetBrainsMono NFM", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPhoneValue.Location = new System.Drawing.Point(379, 180);
+            this.lblPhoneValue.Location = new System.Drawing.Point(423, 181);
             this.lblPhoneValue.Name = "lblPhoneValue";
             this.lblPhoneValue.Size = new System.Drawing.Size(40, 17);
             this.lblPhoneValue.TabIndex = 17;
@@ -237,14 +256,46 @@
             // 
             this.lblCountryValue.AutoSize = true;
             this.lblCountryValue.Font = new System.Drawing.Font("JetBrainsMono NFM", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCountryValue.Location = new System.Drawing.Point(379, 220);
+            this.lblCountryValue.Location = new System.Drawing.Point(423, 219);
             this.lblCountryValue.Name = "lblCountryValue";
             this.lblCountryValue.Size = new System.Drawing.Size(40, 17);
             this.lblCountryValue.TabIndex = 20;
             this.lblCountryValue.Text = "????";
             // 
+            // lblEditPersonInfo
+            // 
+            this.lblEditPersonInfo.AutoSize = true;
+            this.lblEditPersonInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEditPersonInfo.Location = new System.Drawing.Point(589, 220);
+            this.lblEditPersonInfo.Name = "lblEditPersonInfo";
+            this.lblEditPersonInfo.Size = new System.Drawing.Size(123, 20);
+            this.lblEditPersonInfo.TabIndex = 21;
+            this.lblEditPersonInfo.TabStop = true;
+            this.lblEditPersonInfo.Text = "Edit Person Info";
+            this.lblEditPersonInfo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblEditPersonInfo_LinkClicked);
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Image = global::DVLD_Project.Properties.Resources.id;
+            this.pictureBox8.Location = new System.Drawing.Point(85, 16);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox8.TabIndex = 137;
+            this.pictureBox8.TabStop = false;
+            // 
             // gbPersonCard
             // 
+            this.gbPersonCard.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.gbPersonCard.Controls.Add(this.pictureBox9);
+            this.gbPersonCard.Controls.Add(this.pictureBox7);
+            this.gbPersonCard.Controls.Add(this.pictureBox6);
+            this.gbPersonCard.Controls.Add(this.pictureBox5);
+            this.gbPersonCard.Controls.Add(this.pictureBox4);
+            this.gbPersonCard.Controls.Add(this.pictureBox3);
+            this.gbPersonCard.Controls.Add(this.pictureBox2);
+            this.gbPersonCard.Controls.Add(this.pictureBox1);
+            this.gbPersonCard.Controls.Add(this.pictureBox8);
             this.gbPersonCard.Controls.Add(this.lblEditPersonInfo);
             this.gbPersonCard.Controls.Add(this.lblCountryValue);
             this.gbPersonCard.Controls.Add(this.lblCountry);
@@ -273,17 +324,85 @@
             this.gbPersonCard.TabStop = false;
             this.gbPersonCard.Text = "Person informations";
             // 
-            // lblEditPersonInfo
+            // pictureBox9
             // 
-            this.lblEditPersonInfo.AutoSize = true;
-            this.lblEditPersonInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEditPersonInfo.Location = new System.Drawing.Point(589, 220);
-            this.lblEditPersonInfo.Name = "lblEditPersonInfo";
-            this.lblEditPersonInfo.Size = new System.Drawing.Size(123, 20);
-            this.lblEditPersonInfo.TabIndex = 21;
-            this.lblEditPersonInfo.TabStop = true;
-            this.lblEditPersonInfo.Text = "Edit Person Info";
-            this.lblEditPersonInfo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblEditPersonInfo_LinkClicked);
+            this.pictureBox9.Image = global::DVLD_Project.Properties.Resources.Country_32;
+            this.pictureBox9.Location = new System.Drawing.Point(387, 211);
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox9.TabIndex = 145;
+            this.pictureBox9.TabStop = false;
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Image = global::DVLD_Project.Properties.Resources.Phone_32;
+            this.pictureBox7.Location = new System.Drawing.Point(387, 172);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox7.TabIndex = 144;
+            this.pictureBox7.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = global::DVLD_Project.Properties.Resources.Calendar_32;
+            this.pictureBox6.Location = new System.Drawing.Point(387, 133);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox6.TabIndex = 143;
+            this.pictureBox6.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::DVLD_Project.Properties.Resources.Address_32;
+            this.pictureBox5.Location = new System.Drawing.Point(85, 211);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox5.TabIndex = 142;
+            this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::DVLD_Project.Properties.Resources.Email_32;
+            this.pictureBox4.Location = new System.Drawing.Point(85, 172);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 141;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::DVLD_Project.Properties.Resources.Person_32;
+            this.pictureBox3.Location = new System.Drawing.Point(85, 55);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 140;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::DVLD_Project.Properties.Resources.Number_32;
+            this.pictureBox2.Location = new System.Drawing.Point(85, 94);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 139;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::DVLD_Project.Properties.Resources.Man_32;
+            this.pictureBox1.Location = new System.Drawing.Point(85, 133);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 138;
+            this.pictureBox1.TabStop = false;
             // 
             // ctrlPersonCard
             // 
@@ -293,8 +412,17 @@
             this.Name = "ctrlPersonCard";
             this.Size = new System.Drawing.Size(729, 252);
             ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.gbPersonCard.ResumeLayout(false);
             this.gbPersonCard.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -320,7 +448,16 @@
         private System.Windows.Forms.PictureBox pbProfileImage;
         private System.Windows.Forms.Label lblCountry;
         private System.Windows.Forms.Label lblCountryValue;
-        private System.Windows.Forms.GroupBox gbPersonCard;
         private System.Windows.Forms.LinkLabel lblEditPersonInfo;
+        private System.Windows.Forms.PictureBox pictureBox8;
+        private System.Windows.Forms.GroupBox gbPersonCard;
+        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox9;
+        private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.PictureBox pictureBox6;
     }
 }

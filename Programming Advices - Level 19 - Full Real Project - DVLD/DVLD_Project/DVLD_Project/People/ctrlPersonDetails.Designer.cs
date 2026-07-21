@@ -291,7 +291,7 @@
             this.pbProfileImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbProfileImage.TabIndex = 19;
             this.pbProfileImage.TabStop = false;
-            this.pbProfileImage.Tag = "male";
+            this.pbProfileImage.Tag = "";
             // 
             // txtLastName
             // 

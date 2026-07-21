@@ -171,12 +171,12 @@
             this.txtAddress.Tag = "1";
             this.txtAddress.Validating += new System.ComponentModel.CancelEventHandler(this.EmptyTextBox_Validating);
             // 
-            // cbCountries
+            // cbCountry
             // 
             this.cbCountry.FormattingEnabled = true;
             this.cbCountry.ItemHeight = 13;
             this.cbCountry.Location = new System.Drawing.Point(457, 142);
-            this.cbCountry.Name = "cbCountries";
+            this.cbCountry.Name = "cbCountry";
             this.cbCountry.Size = new System.Drawing.Size(144, 21);
             this.cbCountry.TabIndex = 12;
             this.cbCountry.Tag = "1";
@@ -429,6 +429,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(800, 352);
             this.Controls.Add(this.lblPersonIDLabel);
