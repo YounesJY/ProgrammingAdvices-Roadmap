@@ -183,7 +183,7 @@ namespace DVLD_Project.People
             }
 
             // Check NationalNumber specifically (since it uses TextChanged, not Validating)
-            if (!string.IsNullOrWhiteSpace(txtNationalNumber.Text.Trim()) && Person.IsPersonExist(txtNationalNumber.Text.Trim()) && ((AddUpdatePerson)this.ParentForm).Mode == AddUpdatePerson.enMode.AddNew)
+            if (!string.IsNullOrWhiteSpace(txtNationalNumber.Text.Trim()) && Person.IsPersonExist(txtNationalNumber.Text.Trim()) && ((frmAddUpdatePerson)this.ParentForm).Mode == frmAddUpdatePerson.enMode.AddNew)
             {
                 MessageBox.Show("This National Number already exists. Please enter a unique number.", "Validation Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -192,7 +192,7 @@ namespace DVLD_Project.People
             }
 
             Person person;
-            if (((AddUpdatePerson)this.ParentForm).Mode == AddUpdatePerson.enMode.AddNew)
+            if (((frmAddUpdatePerson)this.ParentForm).Mode == frmAddUpdatePerson.enMode.AddNew)
             {
                 person = new Person();
             }
@@ -224,7 +224,7 @@ namespace DVLD_Project.People
         }
         private void txtNationalNumber_Validating(object sender, CancelEventArgs e)
         {
-            if ((Person.IsPersonExist(txtNationalNumber.Text.Trim()) && ((AddUpdatePerson)this.ParentForm).Mode == AddUpdatePerson.enMode.Update))
+            if ((Person.IsPersonExist(txtNationalNumber.Text.Trim()) && ((frmAddUpdatePerson)this.ParentForm).Mode == frmAddUpdatePerson.enMode.Update))
             {
                 return;
             }

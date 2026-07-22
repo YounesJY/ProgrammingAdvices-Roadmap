@@ -74,6 +74,12 @@
     <Compile Include="People\ctrlPersonCard.Designer.cs">
       <DependentUpon>ctrlPersonCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="People\ctrlPersonCardWithFilters.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="People\ctrlPersonCardWithFilters.Designer.cs">
+      <DependentUpon>ctrlPersonCardWithFilters.cs</DependentUpon>
+    </Compile>
     <Compile Include="People\ctrlPersonDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -102,6 +108,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="People\ctrlPersonCard.resx">
       <DependentUpon>ctrlPersonCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="People\ctrlPersonCardWithFilters.resx">
+      <DependentUpon>ctrlPersonCardWithFilters.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="People\ctrlPersonDetails.resx">
       <DependentUpon>ctrlPersonDetails.cs</DependentUpon>

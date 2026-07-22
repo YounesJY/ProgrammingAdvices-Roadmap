@@ -1,6 +1,6 @@
 ﻿namespace DVLD_Project.People
 {
-    partial class AddUpdatePerson
+    partial class frmAddUpdatePerson
     {
         /// <summary>
         /// Required designer variable.

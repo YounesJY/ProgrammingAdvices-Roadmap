@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace DVLD_Project.People
 {
-    public partial class AddUpdatePerson : Form
+    public partial class frmAddUpdatePerson : Form
     {
         public enum enMode { AddNew, Update };
         public event Action<object, int> OnPersonAddUpdate;
@@ -21,13 +21,13 @@ namespace DVLD_Project.People
         public enMode Mode { get; private set; }
 
 
-        public AddUpdatePerson()
+        public frmAddUpdatePerson()
         {
             InitializeComponent();
             Mode = enMode.AddNew;
             this._person = new Person();
         }
-        public AddUpdatePerson(int PersonID)
+        public frmAddUpdatePerson(int PersonID)
         {
             InitializeComponent();
             Mode = enMode.Update;
@@ -142,14 +142,14 @@ namespace DVLD_Project.People
                 return;
             }
 
-            if (Person.IsPersonExist(txtNationalNumber.Text.Trim()) && this.Mode == AddUpdatePerson.enMode.AddNew)
+            if (Person.IsPersonExist(txtNationalNumber.Text.Trim()) && this.Mode == frmAddUpdatePerson.enMode.AddNew)
             {
                 errorProvider.SetError(txtNationalNumber, "A person with this National Number already exists.");
                 e.Cancel = true;
                 return;
             }
 
-            if (txtNationalNumber.Text.Trim() != this._person.NationalNumber && Person.IsPersonExist(txtNationalNumber.Text.Trim()) && this.Mode == AddUpdatePerson.enMode.Update)
+            if (txtNationalNumber.Text.Trim() != this._person.NationalNumber && Person.IsPersonExist(txtNationalNumber.Text.Trim()) && this.Mode == frmAddUpdatePerson.enMode.Update)
             {
                 errorProvider.SetError(txtNationalNumber, "A person with this National Number already exists.");
                 e.Cancel = true;
@@ -276,7 +276,7 @@ namespace DVLD_Project.People
                 return;
             }
 
-            _person = (this.Mode == AddUpdatePerson.enMode.AddNew) ? new Person() : Person.Find(int.Parse(lblPersonID.Text));
+            _person = (this.Mode == frmAddUpdatePerson.enMode.AddNew) ? new Person() : Person.Find(int.Parse(lblPersonID.Text));
 
             _person.NationalNumber = txtNationalNumber.Text.Trim();
             _person.FirstName = txtFirstName.Text.Trim();
