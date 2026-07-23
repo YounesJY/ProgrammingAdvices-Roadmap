@@ -68,6 +68,11 @@ namespace DVLD_Project.People
                 pbProfileImage.Image = Image.FromFile(this.Person.ProfilePhotoPath);
                 pbProfileImage.ImageLocation = this.Person.ProfilePhotoPath;
             }
+            else
+            {
+                pbProfileImage.Image = (this.Person.Gender == Person.enGender.Male) ? Resources.Male_512 : Resources.Female_512;
+                pbProfileImage.ImageLocation = null;
+            }
         }
         public void resetPersonInfo()
         {

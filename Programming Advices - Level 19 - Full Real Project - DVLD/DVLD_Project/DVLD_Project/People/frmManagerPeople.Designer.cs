@@ -43,8 +43,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pbAddPerson = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.Button();
+            this.lblNumberOfRecordsLabel = new System.Windows.Forms.Label();
             this.lblNumberOfRecords = new System.Windows.Forms.Label();
-            this.lblNumberOfRecordsValue = new System.Windows.Forms.Label();
             this.lblFilter = new System.Windows.Forms.Label();
             this.cbFilterRows = new System.Windows.Forms.ComboBox();
             this.mtbFilterSeach = new System.Windows.Forms.MaskedTextBox();
@@ -140,7 +140,7 @@
             this.makeAToolStripMenuItem.Name = "makeAToolStripMenuItem";
             this.makeAToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.makeAToolStripMenuItem.Text = "Make A  Call";
-            this.makeAToolStripMenuItem.Click += new System.EventHandler(this.makeAToolStripMenuItem_Click);
+            this.makeAToolStripMenuItem.Click += new System.EventHandler(this.makeACallStripMenuItem_Click);
             // 
             // pictureBox1
             // 
@@ -166,7 +166,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(875, 452);
+            this.btnClose.Location = new System.Drawing.Point(770, 456);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 37;
@@ -174,25 +174,25 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // lblNumberOfRecordsLabel
+            // 
+            this.lblNumberOfRecordsLabel.AutoSize = true;
+            this.lblNumberOfRecordsLabel.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNumberOfRecordsLabel.Location = new System.Drawing.Point(0, 456);
+            this.lblNumberOfRecordsLabel.Name = "lblNumberOfRecordsLabel";
+            this.lblNumberOfRecordsLabel.Size = new System.Drawing.Size(86, 19);
+            this.lblNumberOfRecordsLabel.TabIndex = 38;
+            this.lblNumberOfRecordsLabel.Text = "# Records: ";
+            // 
             // lblNumberOfRecords
             // 
             this.lblNumberOfRecords.AutoSize = true;
-            this.lblNumberOfRecords.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumberOfRecords.Location = new System.Drawing.Point(0, 456);
+            this.lblNumberOfRecords.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNumberOfRecords.Location = new System.Drawing.Point(92, 456);
             this.lblNumberOfRecords.Name = "lblNumberOfRecords";
-            this.lblNumberOfRecords.Size = new System.Drawing.Size(86, 19);
-            this.lblNumberOfRecords.TabIndex = 38;
-            this.lblNumberOfRecords.Text = "# Records: ";
-            // 
-            // lblNumberOfRecordsValue
-            // 
-            this.lblNumberOfRecordsValue.AutoSize = true;
-            this.lblNumberOfRecordsValue.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumberOfRecordsValue.Location = new System.Drawing.Point(92, 456);
-            this.lblNumberOfRecordsValue.Name = "lblNumberOfRecordsValue";
-            this.lblNumberOfRecordsValue.Size = new System.Drawing.Size(16, 19);
-            this.lblNumberOfRecordsValue.TabIndex = 39;
-            this.lblNumberOfRecordsValue.Text = "?";
+            this.lblNumberOfRecords.Size = new System.Drawing.Size(16, 19);
+            this.lblNumberOfRecords.TabIndex = 39;
+            this.lblNumberOfRecords.Text = "?";
             // 
             // lblFilter
             // 
@@ -239,12 +239,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(851, 486);
+            this.ClientSize = new System.Drawing.Size(847, 486);
             this.Controls.Add(this.mtbFilterSeach);
             this.Controls.Add(this.cbFilterRows);
             this.Controls.Add(this.lblFilter);
-            this.Controls.Add(this.lblNumberOfRecordsValue);
             this.Controls.Add(this.lblNumberOfRecords);
+            this.Controls.Add(this.lblNumberOfRecordsLabel);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.pbAddPerson);
             this.Controls.Add(this.peopleDataGridView);
@@ -278,8 +278,8 @@
         private System.Windows.Forms.ToolStripMenuItem makeAToolStripMenuItem;
         private System.Windows.Forms.PictureBox pbAddPerson;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Label lblNumberOfRecordsLabel;
         private System.Windows.Forms.Label lblNumberOfRecords;
-        private System.Windows.Forms.Label lblNumberOfRecordsValue;
         private System.Windows.Forms.Label lblFilter;
         private System.Windows.Forms.ComboBox cbFilterRows;
         private System.Windows.Forms.MaskedTextBox mtbFilterSeach;

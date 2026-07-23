@@ -1,6 +1,7 @@
 ﻿using DVLD_Business;
 using System;
 using System.Data;
+using System.IO;
 using System.Security.Policy;
 using System.Windows.Forms;
 
@@ -31,26 +32,33 @@ namespace DVLD_Project.People
         }
         private void ManagerPeople_Load(object sender, EventArgs e)
         {
+            resetForm();
+        }
+        private void resetForm()
+        {
             peopleDataGridView.DataSource = Person.GetPeople();
+
             peopleDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            lblNumberOfRecordsValue.Text = peopleDataGridView.RowCount.ToString();
+            lblNumberOfRecords.Text = peopleDataGridView.RowCount.ToString();
             cbFilterRows.SelectedIndex = 0;
         }
 
-
         private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (peopleDataGridView.SelectedRows.Count > 0)
-            {
-                DataGridViewRow selectedRow = peopleDataGridView.SelectedRows[0];
-                int PersonID = Convert.ToInt32(selectedRow.Cells["PersonID"].Value);
-                frmPersonDetails form = new frmPersonDetails(PersonID);
+            int PersonID = Convert.ToInt32(peopleDataGridView.CurrentRow.Cells["PersonID"].Value);
+            frmPersonDetails form = new frmPersonDetails(PersonID);
 
-                // Traditional null check (works in all versions)
+            try
+            {
                 if (form.PersonCard != null)
                     form.PersonCard.OnPersonCardDetailsUpdated += RefreshHandler;
+
                 form.ShowDialog();
-                form.PersonCard.OnPersonCardDetailsUpdated -= RefreshHandler; // <- Remember to unsubscribe when the form closes
+            }
+            finally
+            {
+                if (form.PersonCard != null)
+                    form.PersonCard.OnPersonCardDetailsUpdated -= RefreshHandler;
             }
         }
         private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
@@ -60,18 +68,49 @@ namespace DVLD_Project.People
         }
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (peopleDataGridView.SelectedRows.Count > 0)
+            // Get PersonID from the row (assuming PersonID is in column index 0 or use column name)
+            int PersonID = Convert.ToInt32(peopleDataGridView.CurrentRow.Cells["PersonID"].Value);
+
+            frmAddUpdatePerson form = new frmAddUpdatePerson(PersonID);
+            form.OnPersonAddUpdate += RefreshHandler;
+            form.ShowDialog();
+            form.OnPersonAddUpdate -= RefreshHandler;
+        }
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int PersonID = Convert.ToInt32(peopleDataGridView.CurrentRow.Cells["PersonID"].Value);
+            string PersonName = peopleDataGridView.CurrentRow.Cells["FirstName"].Value?.ToString() ?? "this person";
+            string PersonImage = Person.Find(PersonID).ProfilePhotoPath;
+
+            DialogResult result = MessageBox.Show($"Are you sure you want to delete {PersonName} ?\n\nThis action cannot be undone.", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
             {
-                // Get the selected row
-                DataGridViewRow selectedRow = peopleDataGridView.SelectedRows[0];
-
-                // Get PersonID from the row (assuming PersonID is in column index 0 or use column name)
-                int PersonID = Convert.ToInt32(selectedRow.Cells["PersonID"].Value);
-
-                // Open the details form
-                new frmAddUpdatePerson(PersonID).ShowDialog();
+                if (Person.Delete(PersonID))
+                {
+                    if (PersonImage != null)
+                    {
+                        File.Delete(PersonImage);
+                    }
+                    MessageBox.Show($"Person deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    resetForm();
+                }
+                else
+                    MessageBox.Show("Person was not deleted because it has data linked to it.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            refreshFormData();
+        }
+        private void sendEmailToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This feature is not implemented yet. Coming soon!",
+                            "Feature Not Available",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+        }
+        private void makeACallStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This feature is not implemented yet. Coming soon!",
+                            "Feature Not Available",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
         }
 
         private void refreshFormData()
@@ -86,7 +125,6 @@ namespace DVLD_Project.People
                 MessageBoxIcon.Information);
             refreshFormData();
         }
-
         private void FilterPeople()
         {
             string filterColumn = cbFilterRows.SelectedItem.ToString();
@@ -96,37 +134,45 @@ namespace DVLD_Project.People
             if (string.IsNullOrEmpty(searchValue))
             {
                 peopleDataGridView.DataSource = Person.GetPeople();
-                lblNumberOfRecordsValue.Text = peopleDataGridView.RowCount.ToString();
+                lblNumberOfRecords.Text = peopleDataGridView.RowCount.ToString();
                 return;
             }
 
-            DataTable dt = Person.GetPeople();
-            DataView dv = dt.DefaultView;
+            /*
+                Using DataView filtering instead of direct SQL queries allows us to:
+                1. Filter already-loaded data without additional DB round-trips
+                2. Maintain a consistent dataset in memory for the UI
+                3. Provide real-time filtering as the user types without performance overhead
+                4. Avoid SQL injection risks since we are not constructing raw SQL queries
+            */
+            DataTable datatable = Person.GetPeople();
+            DataView dataview = datatable.DefaultView;
 
             switch (filterColumn)
             {
+                // '=' for [numeric values] and 'LIKE' for [strings]
                 case "PersonID":
                     if (int.TryParse(searchValue, out int personId))
-                        dv.RowFilter = $"PersonID = {personId}";
+                        dataview.RowFilter = $"PersonID = {personId}";
                     else
-                        dv.RowFilter = "PersonID = -1";
+                        dataview.RowFilter = "PersonID = -1";
                     break;
 
                 case "Gender":
                     if (searchValue.ToLower() == "male")
-                        dv.RowFilter = "Gender = 0";
+                        dataview.RowFilter = "Gender = 0";
                     else if (searchValue.ToLower() == "female")
-                        dv.RowFilter = "Gender = 1";
+                        dataview.RowFilter = "Gender = 1";
                     else
-                        dv.RowFilter = $"Gender LIKE '%{searchValue}%'";
+                        dataview.RowFilter = $"Gender LIKE '%{searchValue}%'";
                     break;
                 default:
-                    dv.RowFilter = $"{filterColumn} LIKE '%{searchValue}%'";
+                    dataview.RowFilter = $"{filterColumn} LIKE '%{searchValue}%'";
                     break;
             }
 
-            peopleDataGridView.DataSource = dv;
-            lblNumberOfRecordsValue.Text = dv.Count.ToString();
+            peopleDataGridView.DataSource = dataview;
+            lblNumberOfRecords.Text = dataview.Count.ToString();
         }
 
         private void pbAddPerson_Click(object sender, EventArgs e)
@@ -137,17 +183,13 @@ namespace DVLD_Project.People
         {
             showDetailsToolStripMenuItem_Click(sender, e);
         }
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
         private void cbFilterRows_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbFilterRows.SelectedItem.ToString() == enPeopleFilter.None.ToString())
             {
                 peopleDataGridView.DataSource = Person.GetPeople();
                 mtbFilterSeach.Visible = false;
-                lblNumberOfRecordsValue.Text = peopleDataGridView.RowCount.ToString();
+                lblNumberOfRecords.Text = peopleDataGridView.RowCount.ToString();
             }
             else
             {
@@ -167,50 +209,9 @@ namespace DVLD_Project.People
         {
             FilterPeople();
         }
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void btnClose_Click(object sender, EventArgs e)
         {
-            // Check if a row is selected
-            if (peopleDataGridView.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Please select a person to delete.", "No Selection",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            DataGridViewRow selectedRow = peopleDataGridView.SelectedRows[0];
-            int PersonID = Convert.ToInt32(selectedRow.Cells["PersonID"].Value);
-            string PersonName = selectedRow.Cells["FirstName"].Value?.ToString() ?? "this person";
-
-            // Confirm deletion
-            DialogResult result = MessageBox.Show($"Are you sure you want to delete {PersonName}?\n\nThis action cannot be undone.", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (result == DialogResult.Yes)
-            {
-                // Delete the person
-                if (Person.Delete(PersonID))
-                {
-                    MessageBox.Show($"Person deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // Refresh the DataGridView
-                    peopleDataGridView.DataSource = Person.GetPeople();
-                    lblNumberOfRecordsValue.Text = peopleDataGridView.RowCount.ToString();
-                }
-                else
-                    MessageBox.Show("Failed to delete person.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        private void sendEmailToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("This feature is not implemented yet. Coming soon!",
-                            "Feature Not Available",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
-        }
-        private void makeAToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("This feature is not implemented yet. Coming soon!",
-                            "Feature Not Available",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+            this.Close();
         }
     }
 }
