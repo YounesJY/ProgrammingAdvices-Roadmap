@@ -62,29 +62,35 @@
     <Compile Include="MainScreen.Designer.cs">
       <DependentUpon>MainScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="People\AddUpdatePerson.cs">
+    <Compile Include="People\frmAddUpdatePerson.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="People\AddUpdatePerson.Designer.cs">
-      <DependentUpon>AddUpdatePerson.cs</DependentUpon>
+    <Compile Include="People\frmAddUpdatePerson.Designer.cs">
+      <DependentUpon>frmAddUpdatePerson.cs</DependentUpon>
     </Compile>
-    <Compile Include="People\ctrlPersonCard.cs">
+    <Compile Include="People\Controls\ctrlPersonCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="People\ctrlPersonCard.Designer.cs">
+    <Compile Include="People\Controls\ctrlPersonCard.Designer.cs">
       <DependentUpon>ctrlPersonCard.cs</DependentUpon>
     </Compile>
-    <Compile Include="People\ctrlPersonCardWithFilters.cs">
+    <Compile Include="People\Controls\ctrlPersonCardWithFilters.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="People\ctrlPersonCardWithFilters.Designer.cs">
+    <Compile Include="People\Controls\ctrlPersonCardWithFilters.Designer.cs">
       <DependentUpon>ctrlPersonCardWithFilters.cs</DependentUpon>
     </Compile>
-    <Compile Include="People\ctrlPersonDetails.cs">
+    <Compile Include="People\Controls\ctrlPersonDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="People\ctrlPersonDetails.Designer.cs">
+    <Compile Include="People\Controls\ctrlPersonDetails.Designer.cs">
       <DependentUpon>ctrlPersonDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="People\frmFindPerson.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="People\frmFindPerson.Designer.cs">
+      <DependentUpon>frmFindPerson.cs</DependentUpon>
     </Compile>
     <Compile Include="People\frmPersonDetails.cs">
       <SubType>Form</SubType>
@@ -103,17 +109,20 @@
     <EmbeddedResource Include="MainScreen.resx">
       <DependentUpon>MainScreen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="People\AddUpdatePerson.resx">
-      <DependentUpon>AddUpdatePerson.cs</DependentUpon>
+    <EmbeddedResource Include="People\frmAddUpdatePerson.resx">
+      <DependentUpon>frmAddUpdatePerson.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="People\ctrlPersonCard.resx">
+    <EmbeddedResource Include="People\Controls\ctrlPersonCard.resx">
       <DependentUpon>ctrlPersonCard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="People\ctrlPersonCardWithFilters.resx">
+    <EmbeddedResource Include="People\Controls\ctrlPersonCardWithFilters.resx">
       <DependentUpon>ctrlPersonCardWithFilters.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="People\ctrlPersonDetails.resx">
+    <EmbeddedResource Include="People\Controls\ctrlPersonDetails.resx">
       <DependentUpon>ctrlPersonDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="People\frmFindPerson.resx">
+      <DependentUpon>frmFindPerson.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="People\frmPersonDetails.resx">
       <DependentUpon>frmPersonDetails.cs</DependentUpon>

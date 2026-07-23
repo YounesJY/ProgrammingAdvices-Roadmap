@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DVLD_Project.People;
+using System;
 using System.Windows.Forms;
 
 namespace DVLD_Project
@@ -13,7 +14,7 @@ namespace DVLD_Project
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainScreen());
+            Application.Run(new frmFindPerson());
         }
     }
 }

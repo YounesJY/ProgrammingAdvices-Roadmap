@@ -89,21 +89,27 @@ namespace DVLD_Project.People
         {
             if (string.IsNullOrEmpty(mtbFilterSeach.Text.Trim()))
             {
-                e.Cancel = true;
-                errorProvider.SetError(mtbFilterSeach, "This field is required!");
+                MessageBox.Show("Please enter a search value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            else
-                errorProvider.SetError(mtbFilterSeach, null);
         }
         private void btnAddNewPerson_Click(object sender, EventArgs e)
         {
-            AddUpdatePerson form = new AddUpdatePerson();
+            frmAddUpdatePerson form = new frmAddUpdatePerson();
             form.OnPersonAddUpdate += handleNewPersonAdded;
             form.ShowDialog();
             form.OnPersonAddUpdate -= handleNewPersonAdded;
         }
         private void btnFind_Click(object sender, EventArgs e)
         {
+            // Validate search input
+            if (string.IsNullOrWhiteSpace(mtbFilterSeach.Text))
+            {
+                MessageBox.Show("Please enter a search value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                mtbFilterSeach.Focus();
+                return;
+            }
+
             switch (cbFilterRows.SelectedIndex)
             {
                 case (int)enFilterBy.PersonID:
@@ -117,16 +123,15 @@ namespace DVLD_Project.People
                     break;
             }
 
-            this.PersonId = SelectedPerson.PersonID;
+            if (SelectedPerson != null)
+                this.PersonId = SelectedPerson.PersonID;
+
             if (SelectedPerson != null)
             {
                 MessageBox.Show($"Person found: {SelectedPerson.FirstName} {SelectedPerson.LastName}");
                 PersonId = SelectedPerson.PersonID;
-                //ctrlPersonCard.loadPersonDetailsToCard(person.PersonID);
                 OnPersonSelected?.Invoke(this, SelectedPerson.PersonID);
             }
-            else
-                MessageBox.Show("Person not found.");
         }
     }
 }

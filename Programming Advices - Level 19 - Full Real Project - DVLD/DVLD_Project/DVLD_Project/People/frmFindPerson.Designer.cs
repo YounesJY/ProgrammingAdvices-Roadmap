@@ -28,12 +28,64 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.ctrlPersonCardWithFilters = new DVLD_Project.People.ctrlPersonCardWithFilters();
+            this.SuspendLayout();
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblTitle.Location = new System.Drawing.Point(245, 20);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(239, 39);
+            this.lblTitle.TabIndex = 102;
+            this.lblTitle.Text = "Find Person Info";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnClose
+            // 
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClose.Location = new System.Drawing.Point(604, 397);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(126, 37);
+            this.btnClose.TabIndex = 116;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // ctrlPersonCardWithFilters
+            // 
+            this.ctrlPersonCardWithFilters.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ctrlPersonCardWithFilters.Location = new System.Drawing.Point(2, 62);
+            this.ctrlPersonCardWithFilters.Name = "ctrlPersonCardWithFilters";
+            this.ctrlPersonCardWithFilters.Size = new System.Drawing.Size(728, 327);
+            this.ctrlPersonCardWithFilters.TabIndex = 0;
+            // 
+            // frmFindPerson
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ClientSize = new System.Drawing.Size(735, 438);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.ctrlPersonCardWithFilters);
+            this.Name = "frmFindPerson";
             this.Text = "frmFindPerson";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmFindPerson_FormClosed);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private ctrlPersonCardWithFilters ctrlPersonCardWithFilters;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Button btnClose;
     }
 }

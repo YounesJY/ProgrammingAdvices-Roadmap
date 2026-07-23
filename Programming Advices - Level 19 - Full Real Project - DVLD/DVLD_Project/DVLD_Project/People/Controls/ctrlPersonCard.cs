@@ -86,7 +86,7 @@ namespace DVLD_Project.People
         }
         private void lblEditPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            AddUpdatePerson addUpdatePerson = new AddUpdatePerson(this._personID);
+            frmAddUpdatePerson addUpdatePerson = new frmAddUpdatePerson(this._personID);
             addUpdatePerson.OnPersonAddUpdate += refreshDataOnUpdate;
             addUpdatePerson.ShowDialog();
             addUpdatePerson.OnPersonAddUpdate -= refreshDataOnUpdate;

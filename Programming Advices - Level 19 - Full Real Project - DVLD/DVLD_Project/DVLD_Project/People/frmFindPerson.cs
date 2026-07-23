@@ -12,9 +12,20 @@ namespace DVLD_Project.People
 {
     public partial class frmFindPerson : Form
     {
+        public event Action<object, int> OnPersonSelected;
+
         public frmFindPerson()
         {
             InitializeComponent();
+        }
+
+        private void frmFindPerson_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.OnPersonSelected?.Invoke(this, ctrlPersonCardWithFilters.PersonId);
+        }
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

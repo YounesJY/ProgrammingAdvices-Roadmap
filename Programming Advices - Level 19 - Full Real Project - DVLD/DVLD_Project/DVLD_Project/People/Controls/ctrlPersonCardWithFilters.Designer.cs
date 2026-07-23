@@ -35,8 +35,8 @@
             this.mtbFilterSeach = new System.Windows.Forms.MaskedTextBox();
             this.cbFilterRows = new System.Windows.Forms.ComboBox();
             this.lblFilter = new System.Windows.Forms.Label();
-            this.ctrlPersonCard = new DVLD_Project.People.ctrlPersonCard();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.ctrlPersonCard = new DVLD_Project.People.ctrlPersonCard();
             this.Filter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
@@ -53,7 +53,7 @@
             this.Filter.Size = new System.Drawing.Size(585, 55);
             this.Filter.TabIndex = 1;
             this.Filter.TabStop = false;
-            this.Filter.Text = "groupBox1";
+            this.Filter.Text = "Filters";
             // 
             // btnAddNewPerson
             // 
@@ -87,7 +87,7 @@
             this.mtbFilterSeach.Name = "mtbFilterSeach";
             this.mtbFilterSeach.Size = new System.Drawing.Size(121, 20);
             this.mtbFilterSeach.TabIndex = 45;
-            this.mtbFilterSeach.Validating += new System.ComponentModel.CancelEventHandler(this.mtbFilterSeach_Validating);
+            this.mtbFilterSeach.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFilterValue_KeyPress);
             // 
             // cbFilterRows
             // 
@@ -111,6 +111,10 @@
             this.lblFilter.TabIndex = 43;
             this.lblFilter.Text = "Filter By";
             // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
             // ctrlPersonCard
             // 
             this.ctrlPersonCard.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -118,10 +122,6 @@
             this.ctrlPersonCard.Name = "ctrlPersonCard";
             this.ctrlPersonCard.Size = new System.Drawing.Size(729, 252);
             this.ctrlPersonCard.TabIndex = 0;
-            // 
-            // errorProvider
-            // 
-            this.errorProvider.ContainerControl = this;
             // 
             // ctrlPersonCardWithFilters
             // 

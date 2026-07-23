@@ -55,7 +55,7 @@ namespace DVLD_Project.People
         }
         private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new AddUpdatePerson().ShowDialog();
+            new frmAddUpdatePerson().ShowDialog();
             refreshFormData();
         }
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
@@ -69,7 +69,7 @@ namespace DVLD_Project.People
                 int PersonID = Convert.ToInt32(selectedRow.Cells["PersonID"].Value);
 
                 // Open the details form
-                new AddUpdatePerson(PersonID).ShowDialog();
+                new frmAddUpdatePerson(PersonID).ShowDialog();
             }
             refreshFormData();
         }
