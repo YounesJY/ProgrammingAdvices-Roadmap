@@ -105,7 +105,7 @@ namespace DVLD_Business
             int CreatedByUser = -1;
 
 
-            if (PersonDataAccess.GetPersonInfoByNationalNumber(ref PersonID, NationalNumber, ref FirstName, ref SecondName,
+            if (PersonDataAccess.GetPersonInfoByNationalNumber(NationalNumber, ref PersonID, ref FirstName, ref SecondName,
             ref ThirdName, ref LastName, ref Gender, ref DateOfBirth, ref Address, ref Phone, ref Email, ref ProfilePhotoPath, ref CountryID, ref CreatedByUser))
                 return new Person(PersonID, NationalNumber, FirstName, SecondName, ThirdName, LastName,
                 (enGender)Gender, DateOfBirth, Address, Phone, Email, ProfilePhotoPath, CountryID, CreatedByUser);

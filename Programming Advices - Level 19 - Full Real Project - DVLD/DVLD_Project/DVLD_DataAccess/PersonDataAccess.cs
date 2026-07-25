@@ -113,7 +113,7 @@ namespace DVLD_DataAccess
 
             return isFound;
         }
-        public static bool GetPersonInfoByNationalNumber(ref int PersonID, string NationalNumber, ref string FirstName, ref string SecondName,
+        public static bool GetPersonInfoByNationalNumber(string NationalNumber, ref int PersonID, ref string FirstName, ref string SecondName,
                                               ref string ThirdName, ref string LastName, ref byte Gender, ref DateTime DateOfBirth,
                                               ref string Address, ref string Phone, ref string Email, ref string ProfilePhotoPath,
                                               ref int CountryID, ref int CreatedByUser)

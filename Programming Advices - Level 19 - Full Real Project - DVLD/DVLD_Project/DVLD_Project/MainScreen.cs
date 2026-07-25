@@ -20,7 +20,7 @@ namespace DVLD_Project
 
         private void peopleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new frmManagerPeople().ShowDialog();
+            new frmListPeople().ShowDialog();
         }
 
         private void usersToolStripMenuItem1_Click(object sender, EventArgs e)

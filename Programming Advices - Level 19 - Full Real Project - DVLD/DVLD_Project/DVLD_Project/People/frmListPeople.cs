@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace DVLD_Project.People
 {
-    public partial class frmManagerPeople : Form
+    public partial class frmListPeople : Form
     {
         public enum enPeopleFilter
         {
@@ -26,7 +26,7 @@ namespace DVLD_Project.People
         }
 
 
-        public frmManagerPeople()
+        public frmListPeople()
         {
             InitializeComponent();
         }

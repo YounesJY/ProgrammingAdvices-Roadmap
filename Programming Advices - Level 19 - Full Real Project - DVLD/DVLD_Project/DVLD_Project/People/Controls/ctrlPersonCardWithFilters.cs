@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static DVLD_Project.People.ctrlPersonCardWithFilters;
-using static DVLD_Project.People.frmManagerPeople;
+using static DVLD_Project.People.frmListPeople;
 
 namespace DVLD_Project.People
 {
