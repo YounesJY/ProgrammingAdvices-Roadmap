@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.mtbFilterSeach = new System.Windows.Forms.MaskedTextBox();
+            this.mtbFilterSearch = new System.Windows.Forms.MaskedTextBox();
             this.lblFilter = new System.Windows.Forms.Label();
             this.lblNumberOfRecords = new System.Windows.Forms.Label();
             this.lblNumberOfRecordsLabel = new System.Windows.Forms.Label();
@@ -44,22 +44,24 @@
             this.showDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PeopleContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.peopleDataGridView = new System.Windows.Forms.DataGridView();
+            this.usersDataGridView = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.pbAddPerson = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cbUserActiveStatus = new System.Windows.Forms.ComboBox();
             this.PeopleContextMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.peopleDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usersDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddPerson)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // mtbFilterSeach
+            // mtbFilterSearch
             // 
-            this.mtbFilterSeach.Location = new System.Drawing.Point(263, 208);
-            this.mtbFilterSeach.Name = "mtbFilterSeach";
-            this.mtbFilterSeach.Size = new System.Drawing.Size(121, 20);
-            this.mtbFilterSeach.TabIndex = 52;
+            this.mtbFilterSearch.Location = new System.Drawing.Point(263, 207);
+            this.mtbFilterSearch.Name = "mtbFilterSearch";
+            this.mtbFilterSearch.Size = new System.Drawing.Size(121, 20);
+            this.mtbFilterSearch.TabIndex = 52;
+            this.mtbFilterSearch.TextChanged += new System.EventHandler(this.mtbFilterSearch_TextChanged);
             // 
             // lblFilter
             // 
@@ -93,7 +95,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(769, 435);
+            this.btnClose.Location = new System.Drawing.Point(636, 435);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 47;
@@ -111,21 +113,15 @@
             this.cbFilterRows.FormattingEnabled = true;
             this.cbFilterRows.Items.AddRange(new object[] {
             "None",
+            "UserID",
             "PersonID",
-            "NationalNumber",
-            "FirstName",
-            "SecondName",
-            "ThirdName",
-            "LastName",
-            "Gender",
-            "Address",
-            "Phone",
-            "Email",
-            "Nationality"});
+            "Fullname",
+            "isActive"});
             this.cbFilterRows.Location = new System.Drawing.Point(95, 207);
             this.cbFilterRows.Name = "cbFilterRows";
             this.cbFilterRows.Size = new System.Drawing.Size(121, 21);
             this.cbFilterRows.TabIndex = 51;
+            this.cbFilterRows.SelectedIndexChanged += new System.EventHandler(this.cbFilterRows_SelectedIndexChanged);
             // 
             // sendEmailToolStripMenuItem
             // 
@@ -181,16 +177,18 @@
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(159, 6);
             // 
-            // peopleDataGridView
+            // usersDataGridView
             // 
-            this.peopleDataGridView.AllowUserToAddRows = false;
-            this.peopleDataGridView.AllowUserToDeleteRows = false;
-            this.peopleDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.peopleDataGridView.ContextMenuStrip = this.PeopleContextMenuStrip;
-            this.peopleDataGridView.Location = new System.Drawing.Point(3, 234);
-            this.peopleDataGridView.Name = "peopleDataGridView";
-            this.peopleDataGridView.Size = new System.Drawing.Size(841, 198);
-            this.peopleDataGridView.TabIndex = 45;
+            this.usersDataGridView.AllowUserToAddRows = false;
+            this.usersDataGridView.AllowUserToDeleteRows = false;
+            this.usersDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.usersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.usersDataGridView.ContextMenuStrip = this.PeopleContextMenuStrip;
+            this.usersDataGridView.Location = new System.Drawing.Point(3, 234);
+            this.usersDataGridView.Name = "usersDataGridView";
+            this.usersDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.usersDataGridView.Size = new System.Drawing.Size(708, 198);
+            this.usersDataGridView.TabIndex = 45;
             // 
             // label1
             // 
@@ -206,7 +204,7 @@
             // 
             this.pbAddPerson.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbAddPerson.Image = global::DVLD_Project.Properties.Resources.addnewUser;
-            this.pbAddPerson.Location = new System.Drawing.Point(801, 186);
+            this.pbAddPerson.Location = new System.Drawing.Point(668, 186);
             this.pbAddPerson.Name = "pbAddPerson";
             this.pbAddPerson.Size = new System.Drawing.Size(43, 42);
             this.pbAddPerson.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -223,12 +221,27 @@
             this.pictureBox1.TabIndex = 44;
             this.pictureBox1.TabStop = false;
             // 
+            // cbUserActiveStatus
+            // 
+            this.cbUserActiveStatus.AutoCompleteCustomSource.AddRange(new string[] {
+            "All",
+            "Active",
+            "Inactive"});
+            this.cbUserActiveStatus.FormattingEnabled = true;
+            this.cbUserActiveStatus.Items.AddRange(new object[] {
+            "All",
+            "Yes",
+            "No"});
+            this.cbUserActiveStatus.Location = new System.Drawing.Point(263, 206);
+            this.cbUserActiveStatus.Name = "cbUserActiveStatus";
+            this.cbUserActiveStatus.Size = new System.Drawing.Size(121, 21);
+            this.cbUserActiveStatus.TabIndex = 53;
+            // 
             // frmListUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(848, 464);
-            this.Controls.Add(this.mtbFilterSeach);
+            this.ClientSize = new System.Drawing.Size(716, 464);
             this.Controls.Add(this.lblFilter);
             this.Controls.Add(this.lblNumberOfRecords);
             this.Controls.Add(this.lblNumberOfRecordsLabel);
@@ -236,12 +249,15 @@
             this.Controls.Add(this.pbAddPerson);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cbFilterRows);
-            this.Controls.Add(this.peopleDataGridView);
+            this.Controls.Add(this.usersDataGridView);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.cbUserActiveStatus);
+            this.Controls.Add(this.mtbFilterSearch);
             this.Name = "frmListUsers";
             this.Text = "frmListUsers";
+            this.Load += new System.EventHandler(this.ManagerUsers_Load);
             this.PeopleContextMenuStrip.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.peopleDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usersDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddPerson)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -251,7 +267,7 @@
 
         #endregion
 
-        private System.Windows.Forms.MaskedTextBox mtbFilterSeach;
+        private System.Windows.Forms.MaskedTextBox mtbFilterSearch;
         private System.Windows.Forms.Label lblFilter;
         private System.Windows.Forms.Label lblNumberOfRecords;
         private System.Windows.Forms.Label lblNumberOfRecordsLabel;
@@ -268,7 +284,8 @@
         private System.Windows.Forms.ToolStripMenuItem showDetailsToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip PeopleContextMenuStrip;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
-        private System.Windows.Forms.DataGridView peopleDataGridView;
+        private System.Windows.Forms.DataGridView usersDataGridView;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cbUserActiveStatus;
     }
 }

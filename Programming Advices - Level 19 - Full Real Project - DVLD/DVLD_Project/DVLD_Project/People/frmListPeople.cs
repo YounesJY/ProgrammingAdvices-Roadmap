@@ -127,8 +127,8 @@ namespace DVLD_Project.People
         }
         private void FilterPeople()
         {
-            string filterColumn = cbFilterRows.SelectedItem.ToString();
-            string searchValue = mtbFilterSeach.Text.Trim();
+            string filterColumn = cbFilterRows.SelectedItem.ToString().ToLower();
+            string searchValue = mtbFilterSearch.Text.Trim();
 
             // If search is empty, show all
             if (string.IsNullOrEmpty(searchValue))
@@ -151,14 +151,14 @@ namespace DVLD_Project.People
             switch (filterColumn)
             {
                 // '=' for [numeric values] and 'LIKE' for [strings]
-                case "PersonID":
+                case "personid":
                     if (int.TryParse(searchValue, out int personId))
                         dataview.RowFilter = $"PersonID = {personId}";
                     else
                         dataview.RowFilter = "PersonID = -1";
                     break;
 
-                case "Gender":
+                case "gender":
                     if (searchValue.ToLower() == "male")
                         dataview.RowFilter = "Gender = 0";
                     else if (searchValue.ToLower() == "female")
@@ -185,24 +185,24 @@ namespace DVLD_Project.People
         }
         private void cbFilterRows_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbFilterRows.SelectedItem.ToString() == enPeopleFilter.None.ToString())
+            if (cbFilterRows.SelectedItem.ToString().ToLower() == enPeopleFilter.None.ToString().ToLower())
             {
                 peopleDataGridView.DataSource = Person.GetPeople();
-                mtbFilterSeach.Visible = false;
+                mtbFilterSearch.Visible = false;
                 lblNumberOfRecords.Text = peopleDataGridView.RowCount.ToString();
             }
             else
             {
-                mtbFilterSeach.Visible = true;
-                mtbFilterSeach.Clear();
-                if (cbFilterRows.SelectedItem.ToString() == enPeopleFilter.PersonID.ToString())
+                mtbFilterSearch.Visible = true;
+                mtbFilterSearch.Clear();
+                if (cbFilterRows.SelectedItem.ToString().ToLower() == enPeopleFilter.PersonID.ToString().ToLower())
                 {
-                    mtbFilterSeach.Mask = "00000000";
-                    mtbFilterSeach.Select(0, 0); // Cursor at first position
-                    mtbFilterSeach.Focus();
+                    mtbFilterSearch.Mask = "00000000";
+                    mtbFilterSearch.Select(0, 0); // Cursor at first position
+                    mtbFilterSearch.Focus();
                 }
                 else
-                    mtbFilterSeach.Mask = "";
+                    mtbFilterSearch.Mask = "";
             }
         }
         private void mtbFilterSeach_TextChanged(object sender, EventArgs e)

@@ -1,4 +1,5 @@
 ﻿using DVLD_Project.People;
+using DVLD_Project.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,9 +24,9 @@ namespace DVLD_Project
             new frmListPeople().ShowDialog();
         }
 
-        private void usersToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void usersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            new frmListUsers().ShowDialog();
         }
     }
 }

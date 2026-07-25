@@ -47,7 +47,7 @@
             this.lblNumberOfRecords = new System.Windows.Forms.Label();
             this.lblFilter = new System.Windows.Forms.Label();
             this.cbFilterRows = new System.Windows.Forms.ComboBox();
-            this.mtbFilterSeach = new System.Windows.Forms.MaskedTextBox();
+            this.mtbFilterSearch = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.peopleDataGridView)).BeginInit();
             this.PeopleContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -226,21 +226,21 @@
             this.cbFilterRows.TabIndex = 41;
             this.cbFilterRows.SelectedIndexChanged += new System.EventHandler(this.cbFilterRows_SelectedIndexChanged);
             // 
-            // mtbFilterSeach
+            // mtbFilterSearch
             // 
-            this.mtbFilterSeach.Location = new System.Drawing.Point(221, 222);
-            this.mtbFilterSeach.Name = "mtbFilterSeach";
-            this.mtbFilterSeach.Size = new System.Drawing.Size(121, 20);
-            this.mtbFilterSeach.TabIndex = 42;
-            this.mtbFilterSeach.TextChanged += new System.EventHandler(this.mtbFilterSeach_TextChanged);
+            this.mtbFilterSearch.Location = new System.Drawing.Point(221, 222);
+            this.mtbFilterSearch.Name = "mtbFilterSearch";
+            this.mtbFilterSearch.Size = new System.Drawing.Size(121, 20);
+            this.mtbFilterSearch.TabIndex = 42;
+            this.mtbFilterSearch.TextChanged += new System.EventHandler(this.mtbFilterSeach_TextChanged);
             // 
-            // frmManagerPeople
+            // frmListPeople
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(847, 486);
-            this.Controls.Add(this.mtbFilterSeach);
+            this.Controls.Add(this.mtbFilterSearch);
             this.Controls.Add(this.cbFilterRows);
             this.Controls.Add(this.lblFilter);
             this.Controls.Add(this.lblNumberOfRecords);
@@ -250,7 +250,7 @@
             this.Controls.Add(this.peopleDataGridView);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "frmManagerPeople";
+            this.Name = "frmListPeople";
             this.Text = "ManagerPeople";
             this.Load += new System.EventHandler(this.ManagerPeople_Load);
             ((System.ComponentModel.ISupportInitialize)(this.peopleDataGridView)).EndInit();
@@ -282,6 +282,6 @@
         private System.Windows.Forms.Label lblNumberOfRecords;
         private System.Windows.Forms.Label lblFilter;
         private System.Windows.Forms.ComboBox cbFilterRows;
-        private System.Windows.Forms.MaskedTextBox mtbFilterSeach;
+        private System.Windows.Forms.MaskedTextBox mtbFilterSearch;
     }
 }
