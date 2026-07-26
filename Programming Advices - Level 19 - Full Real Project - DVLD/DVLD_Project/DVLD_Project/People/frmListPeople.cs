@@ -30,14 +30,13 @@ namespace DVLD_Project.People
         {
             InitializeComponent();
         }
-        private void ManagerPeople_Load(object sender, EventArgs e)
+        private void ListPeople_Load(object sender, EventArgs e)
         {
             resetForm();
         }
         private void resetForm()
         {
             peopleDataGridView.DataSource = Person.GetPeople();
-
             peopleDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             lblNumberOfRecords.Text = peopleDataGridView.RowCount.ToString();
             cbFilterRows.SelectedIndex = 0;
@@ -63,8 +62,19 @@ namespace DVLD_Project.People
         }
         private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new frmAddUpdatePerson().ShowDialog();
-            refreshFormData();
+            frmAddUpdatePerson form = new frmAddUpdatePerson();
+
+            try
+            {
+                if (form != null)
+                    form.OnPersonAddUpdate += RefreshHandler;
+                form.ShowDialog();
+            }
+            finally
+            {
+                if (form != null)
+                    form.OnPersonAddUpdate -= RefreshHandler;
+            }
         }
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -72,9 +82,17 @@ namespace DVLD_Project.People
             int PersonID = Convert.ToInt32(peopleDataGridView.CurrentRow.Cells["PersonID"].Value);
 
             frmAddUpdatePerson form = new frmAddUpdatePerson(PersonID);
-            form.OnPersonAddUpdate += RefreshHandler;
-            form.ShowDialog();
-            form.OnPersonAddUpdate -= RefreshHandler;
+            try
+            {
+                if (form != null)
+                    form.OnPersonAddUpdate += RefreshHandler;
+                form.ShowDialog();
+            }
+            finally
+            {
+                if (form != null)
+                    form.OnPersonAddUpdate -= RefreshHandler;
+            }   
         }
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {

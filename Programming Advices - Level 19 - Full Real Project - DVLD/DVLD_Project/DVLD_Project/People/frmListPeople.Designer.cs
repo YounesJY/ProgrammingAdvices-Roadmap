@@ -252,7 +252,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "frmListPeople";
             this.Text = "ManagerPeople";
-            this.Load += new System.EventHandler(this.ManagerPeople_Load);
+            this.Load += new System.EventHandler(this.ListPeople_Load);
             ((System.ComponentModel.ISupportInitialize)(this.peopleDataGridView)).EndInit();
             this.PeopleContextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

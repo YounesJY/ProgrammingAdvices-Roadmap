@@ -16,41 +16,120 @@ namespace DVLD_Project.Users
             UserName,
             IsActive
         }
-        public enum enUsersFilterByActive
+
+        public enum enUserActiveStatus
         {
             All,
-            Active,
-            Inactive
+            Yes,
+            No
         }
+
 
         public frmListUsers()
         {
             InitializeComponent();
         }
-        private void ManagerUsers_Load(object sender, EventArgs e)
+        private void ListUsers_Load(object sender, EventArgs e)
         {
             ResetForm();
         }
+
         private void ResetForm()
         {
             usersDataGridView.DataSource = User.GetAllUsers();
             usersDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            usersDataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
 
             lblNumberOfRecords.Text = usersDataGridView.RowCount.ToString();
-            cbFilterRows.SelectedIndex = 0;
-            mtbFilterSearch.Visible = false;
-            cbUserActiveStatus.Visible = false;
+            cbFilterRows.SelectedIndex = (int)enUsersFilter.None;
         }
-
         private void RefreshFormData()
         {
             usersDataGridView.DataSource = User.GetAllUsers();
+            usersDataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
+            lblNumberOfRecords.Text = usersDataGridView.RowCount.ToString();
+        }
+        private void RefreshHandler(object sender, int userID)
+        {
+            MessageBox.Show("User information updated and data refreshed.",
+                "Success",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            RefreshFormData();
+        }
+
+        private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (usersDataGridView.CurrentRow != null)
+            {
+                int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
+                frmUserInfo userInfoForm = new frmUserInfo(UserID);
+
+                try
+                {
+                    if (userInfoForm != null)
+                        userInfoForm.OnUserInfoUpdated += RefreshHandler;
+                    userInfoForm.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred while showing user details: {ex.Message}",
+                                    "Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    if (userInfoForm != null)
+                        userInfoForm.OnUserInfoUpdated -= RefreshHandler;
+                }
+            }
+        }
+        private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // AddNewUser();
+        }
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (usersDataGridView.CurrentRow != null)
+            {
+                int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
+                //  EditUser(UserID);
+            }
+
+
+        }
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (usersDataGridView.CurrentRow != null)
+            {
+                if (MessageBox.Show("Are you sure you want to delete this user?\n\nThis action cannot be undone.",
+                    "Confirm Delete",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
+                    //                DeleteUser(UserID);
+                }
+            }
+        }
+        private void sendEmailToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This feature is not implemented yet. Coming soon!",
+                            "Feature Not Available",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+        }
+        private void makeACalllStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This feature is not implemented yet. Coming soon!",
+                            "Feature Not Available",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
         }
 
         private void FilterUsers()
         {
-            int filterColumn = cbFilterRows.SelectedIndex;
+            string filterColumn = cbFilterRows.SelectedItem.ToString().ToLower();
             string searchValue = mtbFilterSearch.Text.Trim();
 
             // If search is empty, show all
@@ -74,38 +153,56 @@ namespace DVLD_Project.Users
             switch (filterColumn)
             {
                 // '=' for [numeric values] and 'LIKE' for [strings]
-                case (int)enUsersFilter.UserID:
+                case "userid":
                     if (int.TryParse(searchValue, out int userId))
                         dataView.RowFilter = $"UserID = {userId}";
                     else
                         dataView.RowFilter = "UserID = -1";
                     break;
 
-                case (int)enUsersFilter.PersonID:
+                case "personid":
                     if (int.TryParse(searchValue, out int personId))
                         dataView.RowFilter = $"PersonID = {personId}";
                     else
                         dataView.RowFilter = "PersonID = -1";
                     break;
 
-                case (int)enUsersFilter.IsActive:
-                    if (cbUserActiveStatus.SelectedIndex == (int)enUsersFilterByActive.Active)
-                        dataView.RowFilter = "IsActive = 1";
-                    else if (cbUserActiveStatus.SelectedIndex == (int)enUsersFilterByActive.Inactive)
-                        dataView.RowFilter = "IsActive = 0";
-                    break;
-                default: // FullName, UserName
-                    dataView.RowFilter = $"{cbFilterRows.SelectedItem.ToString()} LIKE '%{searchValue}%'";
+                default:
+                    dataView.RowFilter = $"{filterColumn} LIKE '%{searchValue}%'";
                     break;
             }
 
             usersDataGridView.DataSource = dataView;
             lblNumberOfRecords.Text = dataView.Count.ToString();
         }
+        private void FilterUserStatus()
+        {
+            string searchValue = cbUserActiveStatus.SelectedItem.ToString().ToLower().Trim();
+            DataTable dataTable = User.GetAllUsers();
+            DataView dataView = dataTable.DefaultView;
 
+            if (searchValue == enUserActiveStatus.Yes.ToString().ToLower() || searchValue == enUserActiveStatus.No.ToString().ToLower())
+                dataView.RowFilter = $"IsActive = {(searchValue == enUserActiveStatus.Yes.ToString().ToLower() ? (int)enUserActiveStatus.Yes : (int)enUserActiveStatus.No)}";
+
+            usersDataGridView.DataSource = dataView;
+            lblNumberOfRecords.Text = dataView.Count.ToString();
+        }
+        private void pbAddUser_Click(object sender, EventArgs e)
+        {
+            //  AddNewUser();
+        }
+
+        private void usersDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
+                //ShowUserDetails(UserID);
+            }
+        }
         private void cbFilterRows_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbFilterRows.SelectedIndex == (int)enUsersFilter.None)
+            if (cbFilterRows.SelectedItem.ToString().ToLower() == enUsersFilter.None.ToString().ToLower())
             {
                 usersDataGridView.DataSource = User.GetAllUsers();
                 mtbFilterSearch.Visible = false;
@@ -114,11 +211,11 @@ namespace DVLD_Project.Users
             }
             else
             {
-                mtbFilterSearch.Visible = !cbFilterRows.SelectedItem.ToString().ToLower().Equals(enUsersFilter.IsActive.ToString().ToLower());
-                cbUserActiveStatus.Visible = cbFilterRows.SelectedItem.ToString().ToLower().Equals(enUsersFilter.IsActive.ToString().ToLower());
+                mtbFilterSearch.Visible = cbFilterRows.SelectedItem.ToString().ToLower() != enUsersFilter.IsActive.ToString().ToLower();
+                cbUserActiveStatus.Visible = cbFilterRows.SelectedItem.ToString().ToLower() == enUsersFilter.IsActive.ToString().ToLower();
                 mtbFilterSearch.Clear();
 
-                if (cbFilterRows.SelectedIndex == (int)enUsersFilter.UserID || cbFilterRows.SelectedIndex == (int)enUsersFilter.PersonID)
+                if (cbFilterRows.SelectedItem.ToString().ToLower() == enUsersFilter.UserID.ToString().ToLower() || cbFilterRows.SelectedItem.ToString().ToLower() == enUsersFilter.PersonID.ToString().ToLower())
                 {
                     mtbFilterSearch.Mask = "00000000";
                     mtbFilterSearch.Select(0, 0);
@@ -128,21 +225,24 @@ namespace DVLD_Project.Users
                     mtbFilterSearch.Mask = "";
             }
         }
+        private void cbUserActiveStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FilterUserStatus();
+        }
+
+
         private void mtbFilterSearch_TextChanged(object sender, EventArgs e)
         {
             FilterUsers();
         }
-        private void pbAddUser_Click(object sender, EventArgs e)
-        {
-            // TODO: Implement add new user
-        }
-        private void usersDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // TODO: Implement show user details
-        }
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void usersDataGridView_DoubleClick(object sender, EventArgs e)
+        {
+            showDetailsToolStripMenuItem_Click(sender, e);
         }
     }
 }

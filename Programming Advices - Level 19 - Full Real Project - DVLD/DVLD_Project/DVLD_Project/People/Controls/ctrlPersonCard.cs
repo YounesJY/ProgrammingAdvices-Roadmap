@@ -15,7 +15,6 @@ namespace DVLD_Project.People
     public partial class ctrlPersonCard : UserControl
     {
         enum enGender { Male, Female }
-        private int _personID;
         public Person Person { get; private set; }
         public event Action<object, int> OnPersonCardDetailsUpdated;
 
@@ -50,7 +49,6 @@ namespace DVLD_Project.People
 
         private void fillPersonInfo()
         {
-            this._personID = this.Person.PersonID;
             lblPersonIDValue.Text = this.Person.PersonID.ToString();
             lblNationalNumberValue.Text = this.Person.NationalNumber;
             lblNameValue.Text = this.Person.Name;
@@ -76,7 +74,7 @@ namespace DVLD_Project.People
         }
         public void resetPersonInfo()
         {
-            this._personID = -1;
+            this.Person = null;
             lblPersonID.Text = "[????]";
             lblNationalNumber.Text = "[????]";
             lblName.Text = "[????]";
@@ -91,15 +89,28 @@ namespace DVLD_Project.People
         }
         private void lblEditPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            frmAddUpdatePerson addUpdatePerson = new frmAddUpdatePerson(this._personID);
-            addUpdatePerson.OnPersonAddUpdate += refreshDataOnUpdate;
-            addUpdatePerson.ShowDialog();
-            addUpdatePerson.OnPersonAddUpdate -= refreshDataOnUpdate;
+            frmAddUpdatePerson addUpdatePerson = new frmAddUpdatePerson(this.Person.PersonID);
+
+            try
+            {
+                if (addUpdatePerson != null)
+                    addUpdatePerson.OnPersonAddUpdate += refreshDataOnUpdate;
+                addUpdatePerson.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error while updating person info: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (addUpdatePerson != null)
+                    addUpdatePerson.OnPersonAddUpdate -= refreshDataOnUpdate;
+            }
         }
         private void refreshDataOnUpdate(object sender, int PersonID)
         {
-            this.loadPersonDetailsToCard(_personID);
-            OnPersonCardDetailsUpdated?.Invoke(this, this._personID);
+            this.loadPersonDetailsToCard(this.Person.PersonID);
+            OnPersonCardDetailsUpdated?.Invoke(this, this.Person.PersonID);
         }
     }
 }
