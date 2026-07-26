@@ -13,38 +13,34 @@ namespace DVLD_Project.Users
 {
 
     public partial class frmAddNewUpdateUser : Form
-    {   
+    {
         public event Action<object, int> OnUserAddedOrUpdated;
+        enum enFormMode { Add, Update }
 
+        private enFormMode formMode;
         public frmAddNewUpdateUser()
         {
             InitializeComponent();
+            formMode = enFormMode.Add;
         }
 
         public frmAddNewUpdateUser(int userID)
         {
             InitializeComponent();
+            formMode = enFormMode.Update;
             LoadUserData(userID);
         }
 
-        
-
         private void LoadUserData(int userID)
         {
-            // Load user data from the database based on the provided userID
-            // and populate the form fields accordingly.
-            // Example:
             User user = User.Find(userID);
             if (user != null)
-            {
-             ctrlPersonCardWithFilters = new People.ctrlPersonCardWithFilters(user.PersonID);
-            }
+                ctrlPersonCardWithFilters.loadPersonDetailsToCard(user.PersonID);
             else
             {
                 MessageBox.Show("User not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
         }
-
     }
 }

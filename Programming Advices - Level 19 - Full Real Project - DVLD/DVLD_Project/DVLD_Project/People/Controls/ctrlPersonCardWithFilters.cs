@@ -20,31 +20,24 @@ namespace DVLD_Project.People
             PersonID,
             NationalNumber
         }
-        public enum enMode { Default, Find }
         public event Action<object, int> OnPersonSelected;
 
         public int PersonId { get; private set; }
         public Person SelectedPerson { get => this.ctrlPersonCard.Person; private set { SelectedPerson = value; } }
-        private enMode _mode = enMode.Default;
 
 
         public ctrlPersonCardWithFilters()
         {
             InitializeComponent();
-            _mode = enMode.Default;
-        }
-        public ctrlPersonCardWithFilters(int personId)
-        {
-            InitializeComponent();
-            _mode = enMode.Find;
-            this.PersonId = personId;
-            ctrlPersonCard.loadPersonDetailsToCard(this.PersonId);
         }
         private void ctrlPersonCardWithFilters_Load(object sender, EventArgs e)
         {
             resetToDefautValues();
-            if (this._mode == enMode.Find)
-                ctrlPersonCard.loadPersonDetailsToCard(PersonId);
+        }
+        public void loadPersonDetailsToCard(int personId)
+        {
+            this.PersonId = personId;
+            ctrlPersonCard.loadPersonDetailsToCard(personId);
         }
 
         private void resetToDefautValues()

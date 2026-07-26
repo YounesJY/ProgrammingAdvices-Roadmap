@@ -59,58 +59,103 @@ namespace DVLD_Project.Users
 
         private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (usersDataGridView.CurrentRow != null)
-            {
-                int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
-                frmUserInfo userInfoForm = new frmUserInfo(UserID);
+            int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
+            frmUserInfo userInfoForm = new frmUserInfo(UserID);
 
-                try
+            try
+            {
+                if (userInfoForm != null)
+                    userInfoForm.OnUserInfoUpdated += RefreshHandler;
+                userInfoForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while showing user details: {ex.Message}",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (userInfoForm != null)
+                    userInfoForm.OnUserInfoUpdated -= RefreshHandler;
+            }
+
+        }
+        private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAddNewUpdateUser frmAddNewUpdateUser = new frmAddNewUpdateUser();
+
+            try
+            {
+                if (frmAddNewUpdateUser != null)
+                    frmAddNewUpdateUser.OnUserAddedOrUpdated += RefreshHandler;
+                frmAddNewUpdateUser.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while adding a new user: {ex.Message}",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (frmAddNewUpdateUser != null)
+                    frmAddNewUpdateUser.OnUserAddedOrUpdated -= RefreshHandler;
+            }
+        }
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
+            frmAddNewUpdateUser frmAddNewUpdateUser = new frmAddNewUpdateUser(UserID);
+
+            try
+            {
+                if (frmAddNewUpdateUser != null)
+                    frmAddNewUpdateUser.OnUserAddedOrUpdated += RefreshHandler;
+                frmAddNewUpdateUser.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while editing user: {ex.Message}",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (frmAddNewUpdateUser != null)
+                    frmAddNewUpdateUser.OnUserAddedOrUpdated -= RefreshHandler;
+            }
+        }
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
+            string username = usersDataGridView.CurrentRow.Cells["Username"].Value?.ToString() ?? "this user";
+            
+            if (MessageBox.Show("Are you sure you want to delete this user?\n\nThis action cannot be undone.",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                if (User.Delete(userID))
                 {
-                    if (userInfoForm != null)
-                        userInfoForm.OnUserInfoUpdated += RefreshHandler;
-                    userInfoForm.ShowDialog();
+                    MessageBox.Show($"User '{username}' has been deleted successfully.",
+                                    "User Deleted",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+                    RefreshFormData();
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show($"An error occurred while showing user details: {ex.Message}",
+                    MessageBox.Show($"Failed to delete user '{username}' due to data relationship constraints.",
                                     "Error",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Error);
                 }
-                finally
-                {
-                    if (userInfoForm != null)
-                        userInfoForm.OnUserInfoUpdated -= RefreshHandler;
-                }
-            }
-        }
-        private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // AddNewUser();
-        }
-        private void editToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (usersDataGridView.CurrentRow != null)
-            {
-                int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
-                //  EditUser(UserID);
             }
 
-
-        }
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (usersDataGridView.CurrentRow != null)
-            {
-                if (MessageBox.Show("Are you sure you want to delete this user?\n\nThis action cannot be undone.",
-                    "Confirm Delete",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning) == DialogResult.Yes)
-                {
-                    int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
-                    //                DeleteUser(UserID);
-                }
-            }
         }
         private void sendEmailToolStripMenuItem_Click(object sender, EventArgs e)
         {

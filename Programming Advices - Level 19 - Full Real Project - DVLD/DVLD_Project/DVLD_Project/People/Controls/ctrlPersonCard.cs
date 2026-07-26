@@ -75,16 +75,16 @@ namespace DVLD_Project.People
         public void resetPersonInfo()
         {
             this.Person = null;
-            lblPersonID.Text = "[????]";
-            lblNationalNumber.Text = "[????]";
-            lblName.Text = "[????]";
+            lblPersonIDValue.Text = "[????]";
+            lblNationalNumberValue.Text = "[????]";
+            lblNameValue.Text = "[????]";
             pbGender.Image = Resources.Man_32;
-            lblGender.Text = "[????]";
-            lblEmail.Text = "[????]";
-            lblPhone.Text = "[????]";
-            lblDateOfBirth.Text = "[????]";
-            lblCountry.Text = "[????]";
-            lblAddress.Text = "[????]";
+            lblGenderValue.Text = "[????]";
+            lblEmailValue.Text = "[????]";
+            lblPhoneValue.Text = "[????]";
+            lblDateOfBirthValue.Text = "[????]";
+            lblCountryValue.Text = "[????]";
+            lblAddressValue.Text = "[????]";
             pbProfileImage.Image = Resources.Male_512;
         }
         private void lblEditPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

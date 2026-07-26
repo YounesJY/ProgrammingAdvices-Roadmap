@@ -234,6 +234,7 @@
             this.pbAddPerson.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbAddPerson.TabIndex = 46;
             this.pbAddPerson.TabStop = false;
+            this.pbAddPerson.Click += new System.EventHandler(this.addNewPersonToolStripMenuItem_Click);
             // 
             // pictureBox1
             // 
