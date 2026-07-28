@@ -12,9 +12,9 @@ namespace DVLD_Business
         public int UserID { get; private set; }
         public int PersonID { get; private set; }
         public Person PersonInfo { get; private set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public bool IsActive { get; set; }
+        public string UserName { get; private set; }
+        public string Password { get; private set; }
+        public bool IsActive { get; private set; }
 
 
         private User(int UserID, int PersonID, string UserName, string Password, bool IsActive)
@@ -70,6 +70,18 @@ namespace DVLD_Business
                 return new User(UserID, PersonID, UserName, Password, IsActive);
 
             return null;
+        }
+
+        public static User create(int PersonID, string UserName, string Password, bool IsActive)
+        {
+            User user = new User();
+
+            user.PersonID = PersonID;
+            user.UserName = UserName;
+            user.Password = Password;
+            user.IsActive = IsActive;
+
+            return user;
         }
 
         private bool _AddNewUser()

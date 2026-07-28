@@ -16,7 +16,6 @@ namespace DVLD_Project.Users
             UserName,
             IsActive
         }
-
         public enum enUserActiveStatus
         {
             All,
@@ -56,6 +55,7 @@ namespace DVLD_Project.Users
                 MessageBoxIcon.Information);
             RefreshFormData();
         }
+
 
         private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -133,7 +133,7 @@ namespace DVLD_Project.Users
         {
             int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
             string username = usersDataGridView.CurrentRow.Cells["Username"].Value?.ToString() ?? "this user";
-            
+
             if (MessageBox.Show("Are you sure you want to delete this user?\n\nThis action cannot be undone.",
                 "Confirm Delete",
                 MessageBoxButtons.YesNo,
