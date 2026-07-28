@@ -126,5 +126,10 @@ namespace DVLD_Project.People
                 OnPersonSelected?.Invoke(this, SelectedPerson.PersonID);
             }
         }
+
+        public void FilterFocus()
+        {
+            mtbFilterSeach.Focus();
+        }
     }
 }

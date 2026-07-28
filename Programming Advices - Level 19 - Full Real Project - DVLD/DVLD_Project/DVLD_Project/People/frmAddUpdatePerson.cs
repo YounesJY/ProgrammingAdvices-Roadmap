@@ -121,7 +121,7 @@ namespace DVLD_Project.People
         }
 
 
-        private void EmptyTextBox_Validating(object sender, EventArgs e)
+        private void EmptyTextBox_Validating(object sender, CancelEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
 
@@ -129,6 +129,7 @@ namespace DVLD_Project.People
             {
                 errorProvider.SetError(textBox, "This field is required !.");
                 textBox.Focus();
+                e.Cancel = true;
             }
             else
                 errorProvider.SetError(textBox, "");

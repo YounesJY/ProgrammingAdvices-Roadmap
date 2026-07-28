@@ -1,63 +1,80 @@
 ﻿using DVLD_Business;
+using DVLD_Project.People;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DVLD_Project.Users
 {
-
     public partial class frmAddNewUpdateUser : Form
     {
         public event Action<object, int> OnUserAddedOrUpdated;
-        enum enFormMode { AddNew, Update }
-        private enFormMode formMode;
+        enum enMode { AddNew, Update }
+        private enMode _mode;
         private User _user;
+        private int _userID;
 
         public frmAddNewUpdateUser()
         {
             InitializeComponent();
-            formMode = enFormMode.AddNew;
+            _mode = enMode.AddNew;
         }
         public frmAddNewUpdateUser(int userID)
         {
             InitializeComponent();
-            formMode = enFormMode.Update;
-            LoadUserData(userID);
+            _mode = enMode.Update;
+            _userID = userID;
         }
-
         private void frmAddNewUpdateUser_Load(object sender, EventArgs e)
         {
-            if (formMode == enFormMode.AddNew)
-            {
-                btnNext.Enabled = true;
-                btnSave.Enabled = false;
-                tpUserLoginInfo.Enabled = false;
-                tcAddUpdateUser.SelectedTab = tcAddUpdateUser.TabPages["tpPersonalInformations"];
-            }
-            if (formMode == enFormMode.Update)
-            {
-                txtUserName.Text = _user.UserName;
-                txtPassword.Text = _user.Password;
-                txtConfirmPassword.Text = _user.Password;
-                chkIsActive.Checked = _user.IsActive;
-
-                btnNext.Enabled = false;
-                btnSave.Enabled = true;
-                tpUserLoginInfo.Enabled = true;
-                tcAddUpdateUser.SelectedTab = tcAddUpdateUser.TabPages["tpPersonalInformations"];
-            }
+            ResetDefualtValues();
+            if (this._mode == enMode.Update)
+                LoadUserData(this._userID);
         }
+
         private void LoadUserData(int userID)
         {
             _user = User.Find(userID);
-            if (_user != null)
-                ctrlPersonCardWithFilters.loadPersonDetailsToCard(_user.PersonID);
-            else
+            if (_user == null)
             {
                 MessageBox.Show("User not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
+                return;
             }
+
+            ctrlPersonCardWithFilters.loadPersonDetailsToCard(_user.PersonID);
+
+            btnNext.Enabled = false;
+            btnSave.Enabled = true;
+            tpUserLoginInfo.Enabled = true;
+            tcAddUpdateUser.SelectedTab = tcAddUpdateUser.TabPages["tpPersonalInformations"];
+            
+            lblUserID.Text = _user.UserID.ToString();
+            txtUserName.Text = _user.UserName;
+            txtPassword.Text = _user.Password;
+            txtConfirmPassword.Text = _user.Password;
+            chkIsActive.Checked = _user.IsActive;
+        }
+        private void setFormLabels()
+        {
+            this.Text = this.lblTitle.Text = (this._mode == enMode.AddNew) ? "Add New User" : "Update User";
+        }
+        private void ResetDefualtValues()
+        {
+            setFormLabels();
+
+            _user = new User();
+            ctrlPersonCardWithFilters.FilterFocus();
+
+            btnNext.Enabled = true;
+            btnSave.Enabled = false;
+            tpUserLoginInfo.Enabled = false;
+            tcAddUpdateUser.SelectedTab = tcAddUpdateUser.TabPages["tpPersonalInformations"];
+
+            txtUserName.Text = string.Empty;
+            txtPassword.Text = string.Empty;
+            txtConfirmPassword.Text = string.Empty;
+            chkIsActive.Checked = true;
         }
 
 
@@ -67,33 +84,33 @@ namespace DVLD_Project.Users
             {
                 errorProvider.SetError(txtUserName, "Username is required.");
                 txtUserName.Focus();
+                e.Cancel = true;
             }
-            else if (formMode == enFormMode.AddNew && User.IsUserExistForPersonID(ctrlPersonCardWithFilters.SelectedPerson.PersonID))
+            else if (_mode == enMode.AddNew && User.IsUserExistForPersonID(ctrlPersonCardWithFilters.SelectedPerson.PersonID))
             {
                 errorProvider.SetError(txtUserName, "Username already exists.");
                 txtUserName.Focus();
+                e.Cancel = true;
             }
-            else if (formMode == enFormMode.Update && User.IsUserExistForPersonID(ctrlPersonCardWithFilters.SelectedPerson.PersonID) && txtUserName.Text != _user.UserName)
+            else if (_mode == enMode.Update && User.IsUserExistForPersonID(ctrlPersonCardWithFilters.SelectedPerson.PersonID) && txtUserName.Text != _user.UserName)
             {
                 errorProvider.SetError(txtUserName, "Username already exists.");
                 txtUserName.Focus();
+                e.Cancel = true;
             }
             else
-            {
                 errorProvider.SetError(txtUserName, string.Empty);
-            }
         }
         private void txtPassword_Validating(object sender, CancelEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtPassword.Text))
             {
                 errorProvider.SetError(txtPassword, "Password is required.");
+                e.Cancel = true;
                 txtPassword.Focus();
             }
             else
-            {
                 errorProvider.SetError(txtPassword, string.Empty);
-            }
         }
         private void txtConfirmPassword_Validating(object sender, CancelEventArgs e)
         {
@@ -101,11 +118,10 @@ namespace DVLD_Project.Users
             {
                 errorProvider.SetError(txtConfirmPassword, "Passwords do not match.");
                 txtConfirmPassword.Focus();
+                e.Cancel = true;
             }
             else
-            {
                 errorProvider.SetError(txtConfirmPassword, string.Empty);
-            }
         }
 
         private void btnNext_Click(object sender, EventArgs e)
