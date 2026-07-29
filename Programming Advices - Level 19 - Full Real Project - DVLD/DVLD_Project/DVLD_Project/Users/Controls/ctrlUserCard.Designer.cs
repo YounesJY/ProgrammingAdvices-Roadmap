@@ -51,7 +51,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox1.Location = new System.Drawing.Point(0, 255);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(790, 86);
+            this.groupBox1.Size = new System.Drawing.Size(770, 86);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Login Information";
@@ -127,7 +127,7 @@
             this.ctrlPersonCard.Dock = System.Windows.Forms.DockStyle.Top;
             this.ctrlPersonCard.Location = new System.Drawing.Point(0, 0);
             this.ctrlPersonCard.Name = "ctrlPersonCard";
-            this.ctrlPersonCard.Size = new System.Drawing.Size(790, 252);
+            this.ctrlPersonCard.Size = new System.Drawing.Size(770, 252);
             this.ctrlPersonCard.TabIndex = 3;
             // 
             // ctrlUserCard
@@ -137,7 +137,7 @@
             this.Controls.Add(this.ctrlPersonCard);
             this.Controls.Add(this.groupBox1);
             this.Name = "ctrlUserCard";
-            this.Size = new System.Drawing.Size(790, 341);
+            this.Size = new System.Drawing.Size(770, 341);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

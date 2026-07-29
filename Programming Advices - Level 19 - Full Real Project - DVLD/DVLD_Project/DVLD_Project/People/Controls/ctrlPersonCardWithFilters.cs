@@ -24,7 +24,7 @@ namespace DVLD_Project.People
 
         public int PersonId { get; private set; }
         public Person SelectedPerson { get => this.ctrlPersonCard.Person; private set { SelectedPerson = value; } }
-
+        public GroupBox FilterGroupBox { get => this.gbFilter; private set { FilterGroupBox = value; } }
 
         public ctrlPersonCardWithFilters()
         {

@@ -129,6 +129,31 @@ namespace DVLD_Project.Users
                     frmAddNewUpdateUser.OnUserAddedOrUpdated -= RefreshHandler;
             }
         }
+        private void ChangePasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
+            frmChangeUserPassword frmChangeUserPassword = new frmChangeUserPassword(UserID);
+
+            try
+            {
+                if (frmChangeUserPassword != null)
+                    frmChangeUserPassword.OnUserPasswordChanged += RefreshHandler;
+                frmChangeUserPassword.ShowDialog();
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An error occurred while changing the user's password.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (frmChangeUserPassword != null)
+                    frmChangeUserPassword.OnUserPasswordChanged -= RefreshHandler;
+            }
+        }
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
@@ -289,5 +314,6 @@ namespace DVLD_Project.Users
         {
             showDetailsToolStripMenuItem_Click(sender, e);
         }
+
     }
 }

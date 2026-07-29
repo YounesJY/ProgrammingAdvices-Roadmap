@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.Filter = new System.Windows.Forms.GroupBox();
+            this.gbFilter = new System.Windows.Forms.GroupBox();
             this.btnAddNewPerson = new System.Windows.Forms.Button();
             this.btnFind = new System.Windows.Forms.Button();
             this.mtbFilterSeach = new System.Windows.Forms.MaskedTextBox();
@@ -37,23 +37,23 @@
             this.lblFilter = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.ctrlPersonCard = new DVLD_Project.People.ctrlPersonCard();
-            this.Filter.SuspendLayout();
+            this.gbFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
-            // Filter
+            // gbFilter
             // 
-            this.Filter.Controls.Add(this.btnAddNewPerson);
-            this.Filter.Controls.Add(this.btnFind);
-            this.Filter.Controls.Add(this.mtbFilterSeach);
-            this.Filter.Controls.Add(this.cbFilterRows);
-            this.Filter.Controls.Add(this.lblFilter);
-            this.Filter.Location = new System.Drawing.Point(65, 3);
-            this.Filter.Name = "Filter";
-            this.Filter.Size = new System.Drawing.Size(585, 55);
-            this.Filter.TabIndex = 1;
-            this.Filter.TabStop = false;
-            this.Filter.Text = "Filters";
+            this.gbFilter.Controls.Add(this.btnAddNewPerson);
+            this.gbFilter.Controls.Add(this.btnFind);
+            this.gbFilter.Controls.Add(this.mtbFilterSeach);
+            this.gbFilter.Controls.Add(this.cbFilterRows);
+            this.gbFilter.Controls.Add(this.lblFilter);
+            this.gbFilter.Location = new System.Drawing.Point(65, 3);
+            this.gbFilter.Name = "gbFilter";
+            this.gbFilter.Size = new System.Drawing.Size(585, 55);
+            this.gbFilter.TabIndex = 1;
+            this.gbFilter.TabStop = false;
+            this.gbFilter.Text = "Filters";
             // 
             // btnAddNewPerson
             // 
@@ -128,13 +128,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Controls.Add(this.Filter);
+            this.Controls.Add(this.gbFilter);
             this.Controls.Add(this.ctrlPersonCard);
             this.Name = "ctrlPersonCardWithFilters";
             this.Size = new System.Drawing.Size(729, 327);
             this.Load += new System.EventHandler(this.ctrlPersonCardWithFilters_Load);
-            this.Filter.ResumeLayout(false);
-            this.Filter.PerformLayout();
+            this.gbFilter.ResumeLayout(false);
+            this.gbFilter.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
@@ -143,7 +143,7 @@
         #endregion
 
         private ctrlPersonCard ctrlPersonCard;
-        private System.Windows.Forms.GroupBox Filter;
+        private System.Windows.Forms.GroupBox gbFilter;
         private System.Windows.Forms.MaskedTextBox mtbFilterSeach;
         private System.Windows.Forms.ComboBox cbFilterRows;
         private System.Windows.Forms.Label lblFilter;

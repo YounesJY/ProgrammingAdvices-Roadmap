@@ -28,13 +28,13 @@ namespace DVLD_Project.Users
         }
         private void frmUserInfo_Load(object sender, EventArgs e)
         {
-            userCard.LoadUserData(_userID);
+            ctrlUserCard.LoadUserData(_userID);
 
-            if (userCard != null)
-                userCard.OnUserCardDetailsUpdated += userCard_OnUserCardDetailsUpdated;
+            if (ctrlUserCard != null)
+                ctrlUserCard.OnUserCardDetailsUpdated += ctrlUserCard_OnUserCardDetailsUpdated;
         }
 
-        private void userCard_OnUserCardDetailsUpdated(object sender, int userID)
+        private void ctrlUserCard_OnUserCardDetailsUpdated(object sender, int userID)
         {
             OnUserInfoUpdated?.Invoke(this, userID);
         }

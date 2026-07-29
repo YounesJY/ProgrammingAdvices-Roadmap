@@ -32,9 +32,7 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.tcAddUpdateUser = new System.Windows.Forms.TabControl();
             this.tpPersonalInformations = new System.Windows.Forms.TabPage();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.btnNext = new System.Windows.Forms.Button();
-            this.ctrlPersonCardWithFilters = new DVLD_Project.People.ctrlPersonCardWithFilters();
             this.tpUserLoginInfo = new System.Windows.Forms.TabPage();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.lblUserID = new System.Windows.Forms.Label();
@@ -51,19 +49,15 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.ctrlPersonCardWithFilters = new DVLD_Project.People.ctrlPersonCardWithFilters();
             this.tcAddUpdateUser.SuspendLayout();
             this.tpPersonalInformations.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.tpUserLoginInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,7 +84,6 @@
             // 
             // tpPersonalInformations
             // 
-            this.tpPersonalInformations.Controls.Add(this.pictureBox4);
             this.tpPersonalInformations.Controls.Add(this.btnNext);
             this.tpPersonalInformations.Controls.Add(this.ctrlPersonCardWithFilters);
             this.tpPersonalInformations.Location = new System.Drawing.Point(4, 22);
@@ -101,19 +94,11 @@
             this.tpPersonalInformations.Text = "Personal Informations";
             this.tpPersonalInformations.UseVisualStyleBackColor = true;
             // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::DVLD_Project.Properties.Resources.Next_64;
-            this.pictureBox4.Location = new System.Drawing.Point(762, 352);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(38, 35);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox4.TabIndex = 124;
-            this.pictureBox4.TabStop = false;
-            // 
             // btnNext
             // 
+            this.btnNext.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnNext.Image = global::DVLD_Project.Properties.Resources.Next_32;
             this.btnNext.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNext.Location = new System.Drawing.Point(677, 351);
             this.btnNext.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -121,17 +106,8 @@
             this.btnNext.Size = new System.Drawing.Size(126, 37);
             this.btnNext.TabIndex = 123;
             this.btnNext.Text = "Next";
-            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.UseVisualStyleBackColor = false;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // ctrlPersonCardWithFilters
-            // 
-            this.ctrlPersonCardWithFilters.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ctrlPersonCardWithFilters.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ctrlPersonCardWithFilters.Location = new System.Drawing.Point(3, 3);
-            this.ctrlPersonCardWithFilters.Name = "ctrlPersonCardWithFilters";
-            this.ctrlPersonCardWithFilters.Size = new System.Drawing.Size(799, 329);
-            this.ctrlPersonCardWithFilters.TabIndex = 1;
             // 
             // tpUserLoginInfo
             // 
@@ -299,6 +275,7 @@
             // 
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnClose.Image = global::DVLD_Project.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnClose.Location = new System.Drawing.Point(548, 491);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -312,6 +289,7 @@
             // 
             this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSave.Image = global::DVLD_Project.Properties.Resources.Save_32;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSave.Location = new System.Drawing.Point(677, 491);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -322,55 +300,40 @@
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = global::DVLD_Project.Properties.Resources.Save_32;
-            this.pictureBox5.Location = new System.Drawing.Point(765, 492);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(38, 35);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox5.TabIndex = 125;
-            this.pictureBox5.TabStop = false;
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Image = global::DVLD_Project.Properties.Resources.Close_32;
-            this.pictureBox6.Location = new System.Drawing.Point(636, 492);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(38, 35);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox6.TabIndex = 126;
-            this.pictureBox6.TabStop = false;
-            // 
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
+            // 
+            // ctrlPersonCardWithFilters
+            // 
+            this.ctrlPersonCardWithFilters.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ctrlPersonCardWithFilters.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ctrlPersonCardWithFilters.Location = new System.Drawing.Point(3, 3);
+            this.ctrlPersonCardWithFilters.Name = "ctrlPersonCardWithFilters";
+            this.ctrlPersonCardWithFilters.Size = new System.Drawing.Size(799, 329);
+            this.ctrlPersonCardWithFilters.TabIndex = 1;
             // 
             // frmAddNewUpdateUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(810, 533);
-            this.Controls.Add(this.pictureBox5);
-            this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.tcAddUpdateUser);
             this.Controls.Add(this.lblTitle);
             this.Name = "frmAddNewUpdateUser";
             this.Text = " ";
+            this.Activated += new System.EventHandler(this.frmAddNewUpdateUser_Activated);
             this.Load += new System.EventHandler(this.frmAddNewUpdateUser_Load);
             this.tcAddUpdateUser.ResumeLayout(false);
             this.tpPersonalInformations.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.tpUserLoginInfo.ResumeLayout(false);
             this.tpUserLoginInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
@@ -399,9 +362,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.PictureBox pictureBox6;
-        private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

@@ -38,7 +38,6 @@ namespace DVLD_Project.Users.Controls
 
             ctrlPersonCard.OnPersonCardDetailsUpdated += refreshDataOnUpdate;
         }
-
         private void refreshDataOnUpdate(object sender, int PersonID)
         {
             this.LoadUserData(this._user.UserID);

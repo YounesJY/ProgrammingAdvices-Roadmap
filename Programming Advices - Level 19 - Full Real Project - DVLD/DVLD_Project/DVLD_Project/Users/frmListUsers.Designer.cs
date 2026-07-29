@@ -44,6 +44,7 @@
             this.showDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UserContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.ChangePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usersDataGridView = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.cbUserActiveStatus = new System.Windows.Forms.ComboBox();
@@ -105,7 +106,7 @@
             // makeACalllStripMenuItem
             // 
             this.makeACalllStripMenuItem.Name = "makeACalllStripMenuItem";
-            this.makeACalllStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.makeACalllStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.makeACalllStripMenuItem.Text = "Make A Call";
             this.makeACalllStripMenuItem.Click += new System.EventHandler(this.makeACalllStripMenuItem_Click);
             // 
@@ -127,40 +128,40 @@
             // sendEmailToolStripMenuItem
             // 
             this.sendEmailToolStripMenuItem.Name = "sendEmailToolStripMenuItem";
-            this.sendEmailToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.sendEmailToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.sendEmailToolStripMenuItem.Text = "Send Email";
             this.sendEmailToolStripMenuItem.Click += new System.EventHandler(this.sendEmailToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // addNewPersonToolStripMenuItem
             // 
             this.addNewPersonToolStripMenuItem.Name = "addNewPersonToolStripMenuItem";
-            this.addNewPersonToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.addNewPersonToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addNewPersonToolStripMenuItem.Text = "Add New User";
             this.addNewPersonToolStripMenuItem.Click += new System.EventHandler(this.addNewPersonToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(146, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
             // 
             // showDetailsToolStripMenuItem
             // 
             this.showDetailsToolStripMenuItem.Name = "showDetailsToolStripMenuItem";
-            this.showDetailsToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.showDetailsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.showDetailsToolStripMenuItem.Text = "Show Details";
             this.showDetailsToolStripMenuItem.Click += new System.EventHandler(this.showDetailsToolStripMenuItem_Click);
             // 
@@ -173,15 +174,23 @@
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem,
             this.toolStripMenuItem2,
+            this.ChangePasswordToolStripMenuItem,
             this.sendEmailToolStripMenuItem,
             this.makeACalllStripMenuItem});
             this.UserContextMenuStrip.Name = "PeopleContextMenuStrip";
-            this.UserContextMenuStrip.Size = new System.Drawing.Size(150, 148);
+            this.UserContextMenuStrip.Size = new System.Drawing.Size(181, 192);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(146, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+            // 
+            // ChangePasswordToolStripMenuItem
+            // 
+            this.ChangePasswordToolStripMenuItem.Name = "ChangePasswordToolStripMenuItem";
+            this.ChangePasswordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ChangePasswordToolStripMenuItem.Text = "Change Password";
+            this.ChangePasswordToolStripMenuItem.Click += new System.EventHandler(this.ChangePasswordToolStripMenuItem_Click);
             // 
             // usersDataGridView
             // 
@@ -296,5 +305,6 @@
         private System.Windows.Forms.DataGridView usersDataGridView;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbUserActiveStatus;
+        private System.Windows.Forms.ToolStripMenuItem ChangePasswordToolStripMenuItem;
     }
 }

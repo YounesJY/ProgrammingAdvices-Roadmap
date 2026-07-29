@@ -26,11 +26,16 @@ namespace DVLD_Project.Users
             this._mode = enMode.Update;
             this._userID = userID;
         }
+
         private void frmAddNewUpdateUser_Load(object sender, EventArgs e)
         {
             resetDefualtValues();
             if (this._mode == enMode.Update)
                 fillFromWithUserData(this._userID);
+        }
+        private void frmAddNewUpdateUser_Activated(object sender, EventArgs e)
+        {
+            ctrlPersonCardWithFilters.FilterFocus();
         }
 
 
@@ -45,6 +50,11 @@ namespace DVLD_Project.Users
             }
 
             ctrlPersonCardWithFilters.loadPersonDetailsToCard(_user.PersonID);
+            /*
+                This will prevent rebinding a user to a different Person*
+                If you want to allow changing the associated person, you can remove this line and handle it accordingly (all cases are handled in the btnSave())
+            */
+            ctrlPersonCardWithFilters.FilterGroupBox.Enabled = false;
 
             btnNext.Enabled = false;
             btnSave.Enabled = true;
@@ -65,9 +75,7 @@ namespace DVLD_Project.Users
         private void resetDefualtValues()
         {
             setFormLabels();
-
             _user = new User();
-            ctrlPersonCardWithFilters.FilterFocus();
 
             btnNext.Enabled = true;
             btnSave.Enabled = false;
@@ -119,7 +127,6 @@ namespace DVLD_Project.Users
             if (txtPassword.Text != txtConfirmPassword.Text)
             {
                 errorProvider.SetError(txtConfirmPassword, "Passwords do not match.");
-                txtConfirmPassword.Focus();
                 e.Cancel = true;
             }
             else
@@ -159,6 +166,12 @@ namespace DVLD_Project.Users
                 return;
             }
 
+            /*
+                this case is where we are updating an existing user and trying to change the associated person 
+                the line  ctrlPersonCardWithFilters.FilterGroupBox.Enabled = false; in the fillFromWithUserData() method prevents this,
+                but if you want to allow changing the associated person, you can remove that line and handle it here
+             */
+
             if (this._mode == enMode.Update && this._user.PersonID != ctrlPersonCardWithFilters.SelectedPerson.PersonID && User.IsUserExistForPersonID(ctrlPersonCardWithFilters.SelectedPerson.PersonID))
             {
                 MessageBox.Show("User already exists for this person.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -191,5 +204,6 @@ namespace DVLD_Project.Users
             else
                 MessageBox.Show("Failed to save user.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
     }
 }

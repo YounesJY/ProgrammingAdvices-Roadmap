@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.userCard = new DVLD_Project.Users.Controls.ctrlUserCard();
+            this.ctrlUserCard = new DVLD_Project.Users.Controls.ctrlUserCard();
             this.SuspendLayout();
             // 
             // label1
@@ -37,27 +37,27 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("JetBrainsMonoNL NFM", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label1.Location = new System.Drawing.Point(228, 9);
+            this.label1.Location = new System.Drawing.Point(239, 8);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(286, 49);
             this.label1.TabIndex = 2;
             this.label1.Text = "User Details";
             // 
-            // userCard
+            // ctrlUserCard
             // 
-            this.userCard.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.userCard.Location = new System.Drawing.Point(0, 60);
-            this.userCard.Name = "userCard";
-            this.userCard.Size = new System.Drawing.Size(818, 341);
-            this.userCard.TabIndex = 3;
+            this.ctrlUserCard.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ctrlUserCard.Location = new System.Drawing.Point(0, 60);
+            this.ctrlUserCard.Name = "ctrlUserCard";
+            this.ctrlUserCard.Size = new System.Drawing.Size(765, 341);
+            this.ctrlUserCard.TabIndex = 3;
             // 
             // frmUserInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(818, 401);
-            this.Controls.Add(this.userCard);
+            this.ClientSize = new System.Drawing.Size(765, 401);
+            this.Controls.Add(this.ctrlUserCard);
             this.Controls.Add(this.label1);
             this.Name = "frmUserInfo";
             this.Text = "frmUserInfo";
@@ -69,6 +69,6 @@
 
         #endregion
         private System.Windows.Forms.Label label1;
-        private Controls.ctrlUserCard userCard;
+        private Controls.ctrlUserCard ctrlUserCard;
     }
 }
