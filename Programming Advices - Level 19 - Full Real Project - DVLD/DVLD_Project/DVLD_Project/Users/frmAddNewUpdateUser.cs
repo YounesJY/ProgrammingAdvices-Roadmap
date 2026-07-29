@@ -14,6 +14,7 @@ namespace DVLD_Project.Users
         private User _user;
         private int _userID;
 
+
         public frmAddNewUpdateUser()
         {
             InitializeComponent();
@@ -22,17 +23,18 @@ namespace DVLD_Project.Users
         public frmAddNewUpdateUser(int userID)
         {
             InitializeComponent();
-            _mode = enMode.Update;
-            _userID = userID;
+            this._mode = enMode.Update;
+            this._userID = userID;
         }
         private void frmAddNewUpdateUser_Load(object sender, EventArgs e)
         {
-            ResetDefualtValues();
+            resetDefualtValues();
             if (this._mode == enMode.Update)
-                LoadUserData(this._userID);
+                fillFromWithUserData(this._userID);
         }
 
-        private void LoadUserData(int userID)
+
+        private void fillFromWithUserData(int userID)
         {
             _user = User.Find(userID);
             if (_user == null)
@@ -48,7 +50,7 @@ namespace DVLD_Project.Users
             btnSave.Enabled = true;
             tpUserLoginInfo.Enabled = true;
             tcAddUpdateUser.SelectedTab = tcAddUpdateUser.TabPages["tpPersonalInformations"];
-            
+
             lblUserID.Text = _user.UserID.ToString();
             txtUserName.Text = _user.UserName;
             txtPassword.Text = _user.Password;
@@ -57,9 +59,10 @@ namespace DVLD_Project.Users
         }
         private void setFormLabels()
         {
-            this.Text = this.lblTitle.Text = (this._mode == enMode.AddNew) ? "Add New User" : "Update User";
+            this.Text = (this._mode == enMode.AddNew) ? "Add New User" : "Update User";
+            this.lblTitle.Text = this.Text;
         }
-        private void ResetDefualtValues()
+        private void resetDefualtValues()
         {
             setFormLabels();
 
@@ -77,7 +80,6 @@ namespace DVLD_Project.Users
             chkIsActive.Checked = true;
         }
 
-
         private void txtUserName_Validating(object sender, CancelEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtUserName.Text))
@@ -86,16 +88,16 @@ namespace DVLD_Project.Users
                 txtUserName.Focus();
                 e.Cancel = true;
             }
-            else if (_mode == enMode.AddNew && User.IsUserExistForPersonID(ctrlPersonCardWithFilters.SelectedPerson.PersonID))
+            else if (_mode == enMode.AddNew && User.IsUserExist(txtUserName.Text))
             {
                 errorProvider.SetError(txtUserName, "Username already exists.");
                 txtUserName.Focus();
                 e.Cancel = true;
             }
-            else if (_mode == enMode.Update && User.IsUserExistForPersonID(ctrlPersonCardWithFilters.SelectedPerson.PersonID) && txtUserName.Text != _user.UserName)
+            else if (_mode == enMode.Update && User.IsUserExist(txtUserName.Text) && this._user.UserName != txtUserName.Text)
             {
                 errorProvider.SetError(txtUserName, "Username already exists.");
-                txtUserName.Focus();
+                // txtUserName.Focus();
                 e.Cancel = true;
             }
             else
@@ -106,8 +108,8 @@ namespace DVLD_Project.Users
             if (string.IsNullOrWhiteSpace(txtPassword.Text))
             {
                 errorProvider.SetError(txtPassword, "Password is required.");
-                e.Cancel = true;
                 txtPassword.Focus();
+                e.Cancel = true;
             }
             else
                 errorProvider.SetError(txtPassword, string.Empty);
@@ -151,6 +153,18 @@ namespace DVLD_Project.Users
                 return;
             }
 
+            if (this._mode == enMode.AddNew && User.IsUserExistForPersonID(ctrlPersonCardWithFilters.SelectedPerson.PersonID))
+            {
+                MessageBox.Show("User already exists for this person.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (this._mode == enMode.Update && this._user.PersonID != ctrlPersonCardWithFilters.SelectedPerson.PersonID && User.IsUserExistForPersonID(ctrlPersonCardWithFilters.SelectedPerson.PersonID))
+            {
+                MessageBox.Show("User already exists for this person.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (!this.ValidateChildren())
             {
                 //Here we dont continue becuase the form is not valid
@@ -164,17 +178,18 @@ namespace DVLD_Project.Users
                 txtPassword.Text,
                 chkIsActive.Checked
             );
-
             if (this._user.Save())
             {
                 MessageBox.Show("User saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                this._mode = enMode.Update;
+                setFormLabels();
+                fillFromWithUserData(this._user.UserID);
+
                 OnUserAddedOrUpdated?.Invoke(this, this._user.UserID);
-                this.Close();
             }
             else
-            {
                 MessageBox.Show("Failed to save user.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
     }
 }
