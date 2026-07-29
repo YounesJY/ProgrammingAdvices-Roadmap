@@ -21,6 +21,15 @@ namespace DVLD_Project.People
             NationalNumber
         }
         public event Action<object, int> OnPersonSelected;
+        /// <summary>
+        /// Event Exposure Pattern: Expose inner control's event to external subscribers
+        /// This allows forms to listen to person detail updates without accessing internal controls
+        /// </summary>
+        public event Action<object, int> OnPersonCardDetailsUpdated
+        {
+            add { this.ctrlPersonCard.OnPersonCardDetailsUpdated += value; }
+            remove { this.ctrlPersonCard.OnPersonCardDetailsUpdated -= value; }
+        }
 
         public int PersonId { get; private set; }
         public Person SelectedPerson { get => this.ctrlPersonCard.Person; private set { SelectedPerson = value; } }
@@ -130,6 +139,12 @@ namespace DVLD_Project.People
         public void FilterFocus()
         {
             mtbFilterSeach.Focus();
+        }
+
+
+        public void personCardDetailsUpdatedEventHandler(Action<object, int> action)
+        {
+            this.ctrlPersonCard.OnPersonCardDetailsUpdated += action;
         }
     }
 }

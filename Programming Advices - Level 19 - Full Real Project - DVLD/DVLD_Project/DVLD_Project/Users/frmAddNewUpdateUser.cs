@@ -8,7 +8,14 @@ namespace DVLD_Project.Users
 {
     public partial class frmAddNewUpdateUser : Form
     {
+        // [Form own Event] Event to notify when a user is added or updated
         public event Action<object, int> OnUserAddedOrUpdated;
+        // [Inner Event] Event to notify when person details are updated
+        public event Action<object, int> OnPersonDetailsUpdated
+        {
+            add { ctrlPersonCardWithFilters.OnPersonCardDetailsUpdated += value; }
+            remove { ctrlPersonCardWithFilters.OnPersonCardDetailsUpdated -= value; }
+        }
         enum enMode { AddNew, Update }
         private enMode _mode;
         private User _user;
@@ -30,15 +37,29 @@ namespace DVLD_Project.Users
         private void frmAddNewUpdateUser_Load(object sender, EventArgs e)
         {
             resetDefualtValues();
+            // Subscribe to person card details updated event
+            OnPersonDetailsUpdated += HandlePersonDetailsUpdated;
             if (this._mode == enMode.Update)
                 fillFromWithUserData(this._userID);
         }
+
+
         private void frmAddNewUpdateUser_Activated(object sender, EventArgs e)
         {
             ctrlPersonCardWithFilters.FilterFocus();
         }
+        private void frmAddNewUpdateUser_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Cleanup: Unsubscribe from event when form closes to prevent memory leaks
+            OnPersonDetailsUpdated -= HandlePersonDetailsUpdated;
+        }
 
 
+        private void HandlePersonDetailsUpdated(object arg1, int arg2)
+        {
+            if (this._mode == enMode.Update && this._user != null)
+                fillFromWithUserData(this._user.UserID);
+        }
         private void fillFromWithUserData(int userID)
         {
             _user = User.Find(userID);
@@ -204,6 +225,5 @@ namespace DVLD_Project.Users
             else
                 MessageBox.Show("Failed to save user.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-
     }
 }

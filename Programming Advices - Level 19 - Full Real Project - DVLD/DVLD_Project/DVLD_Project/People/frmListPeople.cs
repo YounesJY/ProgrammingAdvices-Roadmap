@@ -49,6 +49,27 @@ namespace DVLD_Project.People
 
             try
             {
+                /*
+                    ====================================================================
+                    EVENT SUBSCRIPTION PATTERN with Try/Finally for Cleanup
+                    ====================================================================
+                    WHAT: Subscribe to the OnPersonCardDetailsUpdated event from the form
+                
+                    WHY:  - Notification: When a person's details are updated in the 
+                            detail form, we want to refresh our list
+                        - Try/Finally: Ensures we ALWAYS unsubscribe, even if an 
+                            exception occurs (prevents memory leaks)
+                
+                    HOW:  1. Create a form and subscribe to its event (in try block)
+                        2. Show the form (user can update data)
+                        3. Form fires the event when data is saved
+                        4. Our RefreshHandler method is called
+                        5. Finally block guarantees unsubscription (cleanup)
+                
+                    MEMORY LEAK PREVENTION: If we don't unsubscribe (-=), the event 
+                    handler keeps a reference to this form, preventing garbage collection
+                    ====================================================================
+                */
                 if (form.PersonCard != null)
                     form.PersonCard.OnPersonCardDetailsUpdated += RefreshHandler;
 
@@ -56,6 +77,7 @@ namespace DVLD_Project.People
             }
             finally
             {
+                // Always unsubscribe to prevent memory leaks
                 if (form.PersonCard != null)
                     form.PersonCard.OnPersonCardDetailsUpdated -= RefreshHandler;
             }

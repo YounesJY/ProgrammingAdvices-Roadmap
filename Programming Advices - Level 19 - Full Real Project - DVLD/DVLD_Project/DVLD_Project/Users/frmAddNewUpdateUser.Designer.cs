@@ -325,6 +325,7 @@
             this.Name = "frmAddNewUpdateUser";
             this.Text = " ";
             this.Activated += new System.EventHandler(this.frmAddNewUpdateUser_Activated);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAddNewUpdateUser_FormClosing);
             this.Load += new System.EventHandler(this.frmAddNewUpdateUser_Load);
             this.tcAddUpdateUser.ResumeLayout(false);
             this.tpPersonalInformations.ResumeLayout(false);

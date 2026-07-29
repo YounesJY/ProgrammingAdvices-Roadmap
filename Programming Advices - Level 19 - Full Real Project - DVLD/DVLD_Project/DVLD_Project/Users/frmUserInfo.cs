@@ -14,7 +14,12 @@ namespace DVLD_Project.Users
 {
     public partial class frmUserInfo : Form
     {
-        public event Action<object, int> OnUserInfoUpdated;
+        // [Inner Event] Event to notify when person card details are updated
+        public event Action<object, int> OnPersonCardDetailsUpdated
+        {
+            add { ctrlUserCard.OnUserCardDetailsUpdated += value; }
+            remove { ctrlUserCard.OnUserCardDetailsUpdated -= value; }
+        } 
         private int _userID;
         private frmUserInfo()
         {
@@ -31,12 +36,17 @@ namespace DVLD_Project.Users
             ctrlUserCard.LoadUserData(_userID);
 
             if (ctrlUserCard != null)
-                ctrlUserCard.OnUserCardDetailsUpdated += ctrlUserCard_OnUserCardDetailsUpdated;
+                ctrlUserCard.OnUserCardDetailsUpdated += CtrlUserCard_OnUserCardDetailsUpdated; ;
+        }
+        private void frmUserInfo_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (ctrlUserCard != null)
+                ctrlUserCard.OnUserCardDetailsUpdated -= CtrlUserCard_OnUserCardDetailsUpdated;
         }
 
-        private void ctrlUserCard_OnUserCardDetailsUpdated(object sender, int userID)
+        private void CtrlUserCard_OnUserCardDetailsUpdated(object arg1, int arg2)
         {
-            OnUserInfoUpdated?.Invoke(this, userID);
+           ctrlUserCard.LoadUserData(_userID);
         }
     }
 }

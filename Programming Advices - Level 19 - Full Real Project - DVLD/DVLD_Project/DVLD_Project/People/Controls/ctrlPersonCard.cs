@@ -18,6 +18,7 @@ namespace DVLD_Project.People
         public Person Person { get; private set; }
         public event Action<object, int> OnPersonCardDetailsUpdated;
 
+
         public ctrlPersonCard()
         {
             InitializeComponent();
@@ -87,6 +88,7 @@ namespace DVLD_Project.People
             lblAddressValue.Text = "[????]";
             pbProfileImage.Image = Resources.Male_512;
         }
+
         private void lblEditPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             frmAddUpdatePerson addUpdatePerson = new frmAddUpdatePerson(this.Person.PersonID);

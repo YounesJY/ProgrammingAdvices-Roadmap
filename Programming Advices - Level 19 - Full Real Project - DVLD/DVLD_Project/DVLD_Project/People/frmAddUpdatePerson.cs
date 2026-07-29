@@ -12,6 +12,7 @@ namespace DVLD_Project.People
     public partial class frmAddUpdatePerson : Form
     {
         public enum enMode { AddNew, Update };
+        // [Form own Event] Event to notify when a person is added or updated
         public event Action<object, int> OnPersonAddUpdate;
 
         private Person _person = null;

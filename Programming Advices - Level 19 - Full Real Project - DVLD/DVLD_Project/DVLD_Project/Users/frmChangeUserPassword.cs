@@ -15,6 +15,11 @@ namespace DVLD_Project.Users
     public partial class frmChangeUserPassword : Form
     {
         public event Action<object, int> OnUserPasswordChanged;
+        public event Action<object, int> OnPersonCardDetailsUpdated
+        {
+            add { ctrlUserCard.OnUserCardDetailsUpdated += value; }
+            remove { ctrlUserCard.OnUserCardDetailsUpdated -= value; }
+        }
 
         private int _userID = -1;
         private User _user = null;

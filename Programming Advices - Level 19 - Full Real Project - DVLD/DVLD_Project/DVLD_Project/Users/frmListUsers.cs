@@ -62,10 +62,11 @@ namespace DVLD_Project.Users
             int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
             frmUserInfo userInfoForm = new frmUserInfo(UserID);
 
+            // [This teaches how to handle events for inner controls via Event Exposure pattern]
             try
             {
                 if (userInfoForm != null)
-                    userInfoForm.OnUserInfoUpdated += RefreshHandler;
+                    userInfoForm.OnPersonCardDetailsUpdated += RefreshHandler;
                 userInfoForm.ShowDialog();
             }
             catch (Exception ex)
@@ -78,7 +79,7 @@ namespace DVLD_Project.Users
             finally
             {
                 if (userInfoForm != null)
-                    userInfoForm.OnUserInfoUpdated -= RefreshHandler;
+                    userInfoForm.OnPersonCardDetailsUpdated -= RefreshHandler;
             }
 
         }
@@ -86,10 +87,16 @@ namespace DVLD_Project.Users
         {
             frmAddNewUpdateUser frmAddNewUpdateUser = new frmAddNewUpdateUser();
 
+            // this teaches how to handle events for inner controls via Event Exposure pattern
+            // and also how to properly subscribe and unsubscribe to events to avoid memory leaks
+            // [Always Remember] a form has it's own events + it can expose events from its inner controls to the outside world
             try
             {
                 if (frmAddNewUpdateUser != null)
+                {
                     frmAddNewUpdateUser.OnUserAddedOrUpdated += RefreshHandler;
+                    frmAddNewUpdateUser.OnPersonDetailsUpdated += RefreshHandler;
+                }
                 frmAddNewUpdateUser.ShowDialog();
             }
             catch (Exception ex)
@@ -102,7 +109,10 @@ namespace DVLD_Project.Users
             finally
             {
                 if (frmAddNewUpdateUser != null)
+                {
                     frmAddNewUpdateUser.OnUserAddedOrUpdated -= RefreshHandler;
+                    frmAddNewUpdateUser.OnPersonDetailsUpdated -= RefreshHandler;
+                }
             }
         }
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
@@ -110,10 +120,17 @@ namespace DVLD_Project.Users
             int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
             frmAddNewUpdateUser frmAddNewUpdateUser = new frmAddNewUpdateUser(UserID);
 
+            // this teaches how to handle events for inner controls via Event Exposure pattern
+            // and also how to properly subscribe and unsubscribe to events to avoid memory leaks
+            // [Always Remember] a form has it's own events + it can expose events from its inner controls to the outside world
+
             try
             {
                 if (frmAddNewUpdateUser != null)
+                {
                     frmAddNewUpdateUser.OnUserAddedOrUpdated += RefreshHandler;
+                    frmAddNewUpdateUser.OnPersonDetailsUpdated += RefreshHandler;
+                }
                 frmAddNewUpdateUser.ShowDialog();
             }
             catch (Exception ex)
@@ -126,7 +143,10 @@ namespace DVLD_Project.Users
             finally
             {
                 if (frmAddNewUpdateUser != null)
+                {
                     frmAddNewUpdateUser.OnUserAddedOrUpdated -= RefreshHandler;
+                    frmAddNewUpdateUser.OnPersonDetailsUpdated -= RefreshHandler;
+                }
             }
         }
         private void ChangePasswordToolStripMenuItem_Click(object sender, EventArgs e)
@@ -134,10 +154,16 @@ namespace DVLD_Project.Users
             int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
             frmChangeUserPassword frmChangeUserPassword = new frmChangeUserPassword(UserID);
 
+            // this teaches how to handle events for inner controls via Event Exposure pattern
+            // and also how to properly subscribe and unsubscribe to events to avoid memory leaks
+            // [Always Remember] a form has it's own events + it can expose events from its inner controls to the outside world
             try
             {
                 if (frmChangeUserPassword != null)
+                {
+                    frmChangeUserPassword.OnPersonCardDetailsUpdated += RefreshHandler;
                     frmChangeUserPassword.OnUserPasswordChanged += RefreshHandler;
+                }
                 frmChangeUserPassword.ShowDialog();
 
             }
@@ -151,7 +177,10 @@ namespace DVLD_Project.Users
             finally
             {
                 if (frmChangeUserPassword != null)
+                {
+                    frmChangeUserPassword.OnPersonCardDetailsUpdated -= RefreshHandler;
                     frmChangeUserPassword.OnUserPasswordChanged -= RefreshHandler;
+                }
             }
         }
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -299,8 +328,6 @@ namespace DVLD_Project.Users
         {
             FilterUserStatus();
         }
-
-
         private void mtbFilterSearch_TextChanged(object sender, EventArgs e)
         {
             FilterUsers();
@@ -309,11 +336,9 @@ namespace DVLD_Project.Users
         {
             this.Close();
         }
-
         private void usersDataGridView_DoubleClick(object sender, EventArgs e)
         {
             showDetailsToolStripMenuItem_Click(sender, e);
         }
-
     }
 }
