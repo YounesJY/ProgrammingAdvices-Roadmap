@@ -121,7 +121,24 @@ namespace DVLD_Project.People
             cbCountry.SelectedIndex = cbCountry.FindString("Morocco");
         }
 
-
+        /*
+            ===============================
+            ===== VERY IMPORTANT NOTE =====
+            ===============================
+        */
+        /*
+            [WHY both    field.Focus()  And e.Cancel = true]
+            In the context of the Validating event in Windows Forms, 
+            both field.Focus() and e.Cancel = true are used together to ensure proper validation behavior. Here's why both are necessary:
+            1. field.Focus(): This method sets the input focus to the specific control (field) that is being validated. 
+                It ensures that if validation fails, the user is immediately directed back to the control that needs correction. 
+                This improves user experience by guiding them to the exact location where they need to make changes.
+            2. e.Cancel = true: This property is part of the CancelEventArgs passed to the Validating event handler.
+                Setting e.Cancel to true indicates that the validation has failed and prevents the control from losing focus. 
+                It effectively cancels the event, keeping the user on the current control until they provide valid input. 
+                Without this, the user could move to another control even if the current input is invalid, which could lead to confusion or errors.
+            In summary, field.Focus() directs the user to the control that needs attention, while e.Cancel = true prevents them from leaving that control until they correct the input.
+        */
         private void EmptyTextBox_Validating(object sender, CancelEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -140,6 +157,7 @@ namespace DVLD_Project.People
             if (string.IsNullOrWhiteSpace(txtNationalNumber.Text))
             {
                 errorProvider.SetError(txtNationalNumber, "National Number is required.");
+                txtNationalNumber.Focus();
                 e.Cancel = true;
                 return;
             }
@@ -147,6 +165,7 @@ namespace DVLD_Project.People
             if (Person.IsPersonExist(txtNationalNumber.Text.Trim()) && this.Mode == frmAddUpdatePerson.enMode.AddNew)
             {
                 errorProvider.SetError(txtNationalNumber, "A person with this National Number already exists.");
+                txtNationalNumber.Focus();
                 e.Cancel = true;
                 return;
             }
@@ -154,6 +173,7 @@ namespace DVLD_Project.People
             if (txtNationalNumber.Text.Trim() != this._person.NationalNumber && Person.IsPersonExist(txtNationalNumber.Text.Trim()) && this.Mode == frmAddUpdatePerson.enMode.Update)
             {
                 errorProvider.SetError(txtNationalNumber, "A person with this National Number already exists.");
+                txtNationalNumber.Focus();
                 e.Cancel = true;
                 return;
             }

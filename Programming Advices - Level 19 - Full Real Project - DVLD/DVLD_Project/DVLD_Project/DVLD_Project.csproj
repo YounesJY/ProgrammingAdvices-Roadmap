@@ -173,6 +173,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Users\frmAddNewUpdateUser.resx">
       <DependentUpon>frmAddNewUpdateUser.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Users\frmChangeUserPassword.resx">
       <DependentUpon>frmChangeUserPassword.cs</DependentUpon>

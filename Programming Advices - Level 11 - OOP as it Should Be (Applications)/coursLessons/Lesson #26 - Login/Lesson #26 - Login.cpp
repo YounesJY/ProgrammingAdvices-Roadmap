@@ -7,4 +7,4 @@ int main() {
     LoginScreen::showLoginScreen();
     system("pause>0");
     return 0;
-}
+}   

@@ -29,7 +29,7 @@ namespace DVLD_Business
         }
         public static Country Find(int ID)
         {
-            string CountryName = "";
+            string CountryName = string.Empty;
 
             if (CountryDataAccess.GetCountryInfoByID(ID, ref CountryName))
                 return new Country(ID, CountryName);

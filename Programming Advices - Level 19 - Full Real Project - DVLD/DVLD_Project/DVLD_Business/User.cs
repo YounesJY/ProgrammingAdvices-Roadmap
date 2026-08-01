@@ -28,7 +28,7 @@ namespace DVLD_Business
 
             this._Mode = enMode.Update;
         }
-        public User() : this(-1, -1, "", "", false)
+        public User() : this(-1, -1, string.Empty, string.Empty, false)
         {
             this._Mode = enMode.AddNew;
         }
@@ -38,10 +38,10 @@ namespace DVLD_Business
             return UserDataAccess.GetAllUsers();
         }
 
-        public static User Find(int UserID)
+        public static User FindByUserID(int UserID)
         {
             int PersonID = -1;
-            string UserName = "", Password = "";
+            string UserName = string.Empty, Password = string.Empty;
             bool IsActive = false;
 
             if (UserDataAccess.GetUserInfoByUserID(UserID, ref PersonID, ref UserName, ref Password, ref IsActive))
@@ -52,7 +52,7 @@ namespace DVLD_Business
         public static User FindByPersonID(int PersonID)
         {
             int UserID = -1;
-            string UserName = "", Password = "";
+            string UserName = string.Empty, Password = string.Empty;
             bool IsActive = false;
 
             if (UserDataAccess.GetUserInfoByPersonID(PersonID, ref UserID, ref UserName, ref Password, ref IsActive))

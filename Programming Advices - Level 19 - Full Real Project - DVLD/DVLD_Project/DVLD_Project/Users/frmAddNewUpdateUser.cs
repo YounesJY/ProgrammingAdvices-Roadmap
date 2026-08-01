@@ -62,7 +62,7 @@ namespace DVLD_Project.Users
         }
         private void fillFromWithUserData(int userID)
         {
-            _user = User.Find(userID);
+            _user = User.FindByUserID(userID);
             if (_user == null)
             {
                 MessageBox.Show("User not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -126,7 +126,7 @@ namespace DVLD_Project.Users
             else if (_mode == enMode.Update && User.IsUserExist(txtUserName.Text) && this._user.UserName != txtUserName.Text)
             {
                 errorProvider.SetError(txtUserName, "Username already exists.");
-                // txtUserName.Focus();
+                txtUserName.Focus();
                 e.Cancel = true;
             }
             else
@@ -148,6 +148,7 @@ namespace DVLD_Project.Users
             if (txtPassword.Text != txtConfirmPassword.Text)
             {
                 errorProvider.SetError(txtConfirmPassword, "Passwords do not match.");
+                txtConfirmPassword.Focus();
                 e.Cancel = true;
             }
             else

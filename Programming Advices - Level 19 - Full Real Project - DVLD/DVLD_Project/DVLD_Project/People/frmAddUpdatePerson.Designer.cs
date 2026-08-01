@@ -285,7 +285,7 @@
             // 
             // txtThirdName
             // 
-            this.txtThirdName.Location = new System.Drawing.Point(457, 20);
+            this.txtThirdName.Location = new System.Drawing.Point(448, 22);
             this.txtThirdName.Name = "txtThirdName";
             this.txtThirdName.Size = new System.Drawing.Size(144, 20);
             this.txtThirdName.TabIndex = 3;
@@ -423,7 +423,7 @@
             this.llRemoveImage.Text = "Remove";
             this.llRemoveImage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llRemoveImage_LinkClicked);
             // 
-            // AddUpdatePerson
+            // frmAddUpdatePerson
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -436,7 +436,7 @@
             this.Controls.Add(this.lblPersonID);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblFromLabel);
-            this.Name = "AddUpdatePerson";
+            this.Name = "frmAddUpdatePerson";
             this.Text = "AddNew/Edit Person";
             this.Load += new System.EventHandler(this.AddNewPerson_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();

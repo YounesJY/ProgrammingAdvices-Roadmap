@@ -37,12 +37,12 @@ namespace DVLD_Project
             User user = User.FindByUsernameAndPassword(txtUserName.Text, txtPassword.Text);
             if (user == null)
             {
-                MessageBox.Show("Invalid Username or Password !", "Invalid Credentials", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid username or password!", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (user != null && !user.IsActive)
             {
-                MessageBox.Show("This account is not active, please contact your admin!", "Invalid Account", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Your account is inactive. Please contact the administrator.", "Account Inactive", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -53,9 +53,10 @@ namespace DVLD_Project
             else
                 Global.ClearStoredCredentials();
 
-            this.Hide();
             MainScreen mainScreen = new MainScreen();
             mainScreen.FormClosed += (s, args) => this.Show();
+
+            this.Hide();
             mainScreen.Show();
         }
         private void btnClose_Click(object sender, EventArgs e)

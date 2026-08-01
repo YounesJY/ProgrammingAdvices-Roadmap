@@ -22,7 +22,7 @@ namespace DVLD_Project.Users.Controls
         }
         public void LoadUserData(int userID)
         {
-            _user = User.Find(userID);
+            _user = User.FindByUserID(userID);
             if (_user != null)
                 fillPersonInfo();
             else

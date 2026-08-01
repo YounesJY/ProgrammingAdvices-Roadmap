@@ -63,10 +63,12 @@ public:
     }
    
     __declspec(property(get = getPhone, put = setPhone)) string phone;
+
    
     string fullName() {
         return _firstName + " " + _lastName;
     }
+
 
     void print() {
         cout << "\nInfo:";
