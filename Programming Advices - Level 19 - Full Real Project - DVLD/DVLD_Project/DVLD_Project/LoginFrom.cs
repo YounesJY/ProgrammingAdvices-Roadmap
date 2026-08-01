@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DVLD_Business;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,51 @@ namespace DVLD_Project
         public LoginFrom()
         {
             InitializeComponent();
+        }
+        private void LoginFrom_Load(object sender, EventArgs e)
+        {
+            var (username, password) = Global.GetStoredCredentials();
+            if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+            {
+                txtUserName.Text = username;
+                txtPassword.Text = password;
+            }
+        }
+        private void LoginFrom_Activated(object sender, EventArgs e)
+        {
+            this.txtUserName.Focus();
+        }
+
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            User user = User.FindByUsernameAndPassword(txtUserName.Text, txtPassword.Text);
+            if (user == null)
+            {
+                MessageBox.Show("Invalid Username or Password !", "Invalid Credentials", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (user != null && !user.IsActive)
+            {
+                MessageBox.Show("This account is not active, please contact your admin!", "Invalid Account", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
+            Global.currentLoggedInUser = user;
+            if (chkRememberMe.Checked)
+                Global.RememberLoggedInUser(txtUserName.Text, txtPassword.Text);
+            else
+                Global.ClearStoredCredentials();
+
+            this.Hide();
+            MainScreen mainScreen = new MainScreen();
+            mainScreen.FormClosed += (s, args) => this.Show();
+            mainScreen.Show();
+        }
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Global Classes\clsFormat.cs" />
     <Compile Include="Global Classes\clsGlobal.cs" />
+    <Compile Include="Global Classes\Global.cs" />
     <Compile Include="Global Classes\Utils.cs" />
     <Compile Include="Global Classes\Validatoin.cs" />
     <Compile Include="LoginFrom.cs">
@@ -136,6 +137,9 @@
     <Compile Include="Users\frmUserInfo.Designer.cs">
       <DependentUpon>frmUserInfo.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="LoginFrom.resx">
+      <DependentUpon>LoginFrom.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainScreen.resx">
       <DependentUpon>MainScreen.cs</DependentUpon>
     </EmbeddedResource>

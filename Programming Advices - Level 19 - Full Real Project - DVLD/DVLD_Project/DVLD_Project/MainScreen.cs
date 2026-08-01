@@ -1,4 +1,5 @@
-﻿using DVLD_Project.People;
+﻿using DVLD_Business;
+using DVLD_Project.People;
 using DVLD_Project.Users;
 using System;
 using System.Windows.Forms;
@@ -16,10 +17,23 @@ namespace DVLD_Project
         {
             new frmListPeople().ShowDialog();
         }
-
         private void usersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new frmListUsers().ShowDialog();
+        }
+
+
+        private void currentUserToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmUserInfo(Global.currentLoggedInUser.UserID).ShowDialog();
+        }
+        private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmChangeUserPassword(Global.currentLoggedInUser.UserID).ShowDialog();
+        }
+        private void singOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

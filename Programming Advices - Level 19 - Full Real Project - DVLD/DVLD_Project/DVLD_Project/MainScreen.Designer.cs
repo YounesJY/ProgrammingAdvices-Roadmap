@@ -34,6 +34,9 @@
             this.driversToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accountSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.currentUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.singOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -92,11 +95,39 @@
             // 
             // accountSettingsToolStripMenuItem
             // 
+            this.accountSettingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.currentUserToolStripMenuItem,
+            this.changePasswordToolStripMenuItem,
+            this.singOutToolStripMenuItem});
             this.accountSettingsToolStripMenuItem.Font = new System.Drawing.Font("JetBrainsMonoNL NF SemiBold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.accountSettingsToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.account;
             this.accountSettingsToolStripMenuItem.Name = "accountSettingsToolStripMenuItem";
             this.accountSettingsToolStripMenuItem.Size = new System.Drawing.Size(250, 53);
             this.accountSettingsToolStripMenuItem.Text = "Account Settings";
+            // 
+            // currentUserToolStripMenuItem
+            // 
+            this.currentUserToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.PersonDetails_32;
+            this.currentUserToolStripMenuItem.Name = "currentUserToolStripMenuItem";
+            this.currentUserToolStripMenuItem.Size = new System.Drawing.Size(305, 56);
+            this.currentUserToolStripMenuItem.Text = "Current User Info";
+            this.currentUserToolStripMenuItem.Click += new System.EventHandler(this.currentUserToolStripMenuItem_Click);
+            // 
+            // changePasswordToolStripMenuItem
+            // 
+            this.changePasswordToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.Password_32;
+            this.changePasswordToolStripMenuItem.Name = "changePasswordToolStripMenuItem";
+            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(305, 56);
+            this.changePasswordToolStripMenuItem.Text = "ChangePassword";
+            this.changePasswordToolStripMenuItem.Click += new System.EventHandler(this.changePasswordToolStripMenuItem_Click);
+            // 
+            // singOutToolStripMenuItem
+            // 
+            this.singOutToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.sign_out_32__2;
+            this.singOutToolStripMenuItem.Name = "singOutToolStripMenuItem";
+            this.singOutToolStripMenuItem.Size = new System.Drawing.Size(305, 56);
+            this.singOutToolStripMenuItem.Text = "Sign Out";
+            this.singOutToolStripMenuItem.Click += new System.EventHandler(this.singOutToolStripMenuItem_Click);
             // 
             // MainScreen
             // 
@@ -127,5 +158,8 @@
         private System.Windows.Forms.ToolStripMenuItem driversToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem accountSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem currentUserToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changePasswordToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem singOutToolStripMenuItem;
     }
 }
