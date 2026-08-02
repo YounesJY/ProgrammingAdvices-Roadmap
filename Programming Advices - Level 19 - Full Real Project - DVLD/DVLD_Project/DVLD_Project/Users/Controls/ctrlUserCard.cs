@@ -14,33 +14,34 @@ namespace DVLD_Project.Users.Controls
 {
     public partial class ctrlUserCard : UserControl
     {
+        // [Control Own Event]
         public event Action<object, int> OnUserCardDetailsUpdated;
         private User _user;
         public ctrlUserCard()
         {
             InitializeComponent();
         }
-        public void LoadUserData(int userID)
+        public void loadUserDataToCard(int userID)
         {
             _user = User.FindByUserID(userID);
             if (_user != null)
-                fillPersonInfo();
+                fillUserInfo();
             else
                 MessageBox.Show("User not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void fillPersonInfo()
+        private void fillUserInfo()
         {
             ctrlPersonCard.loadPersonDetailsToCard(_user.PersonID);
             lblUserID.Text = _user.UserID.ToString();
             lblUserName.Text = _user.UserName;
-            lblIsActive.Text = _user.IsActive ? "Active" : "Inactive";
+            lblIsActive.Text = _user.IsActive ? "Yes" : "No";
 
             ctrlPersonCard.OnPersonCardDetailsUpdated += refreshDataOnUpdate;
         }
         private void refreshDataOnUpdate(object sender, int PersonID)
         {
-            this.LoadUserData(this._user.UserID);
+            this.loadUserDataToCard(this._user.UserID);
             OnUserCardDetailsUpdated?.Invoke(this, this._user.UserID);
         }
     }

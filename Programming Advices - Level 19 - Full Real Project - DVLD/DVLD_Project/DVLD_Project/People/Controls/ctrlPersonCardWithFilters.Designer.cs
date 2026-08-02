@@ -120,7 +120,7 @@
             this.ctrlPersonCard.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.ctrlPersonCard.Location = new System.Drawing.Point(0, 75);
             this.ctrlPersonCard.Name = "ctrlPersonCard";
-            this.ctrlPersonCard.Size = new System.Drawing.Size(729, 252);
+            this.ctrlPersonCard.Size = new System.Drawing.Size(769, 252);
             this.ctrlPersonCard.TabIndex = 0;
             // 
             // ctrlPersonCardWithFilters
@@ -131,7 +131,7 @@
             this.Controls.Add(this.gbFilter);
             this.Controls.Add(this.ctrlPersonCard);
             this.Name = "ctrlPersonCardWithFilters";
-            this.Size = new System.Drawing.Size(729, 327);
+            this.Size = new System.Drawing.Size(769, 327);
             this.Load += new System.EventHandler(this.ctrlPersonCardWithFilters_Load);
             this.gbFilter.ResumeLayout(false);
             this.gbFilter.PerformLayout();

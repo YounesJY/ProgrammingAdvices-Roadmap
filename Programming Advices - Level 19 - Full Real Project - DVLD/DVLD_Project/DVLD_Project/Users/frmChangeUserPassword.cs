@@ -9,7 +9,9 @@ namespace DVLD_Project.Users
 {
     public partial class frmChangeUserPassword : Form
     {
+        // [Form Own Event]
         public event Action<object, int> OnUserPasswordChanged;
+        // [Inner Control Event] --> [Event Exposure Pattern]
         public event Action<object, int> OnPersonCardDetailsUpdated
         {
             add { ctrlUserCard.OnUserCardDetailsUpdated += value; }
@@ -19,25 +21,19 @@ namespace DVLD_Project.Users
         private int _userID = ValidationConstants.INVALID_ID;
         private User _user = null;
 
-        private frmChangeUserPassword()
-        {
-            InitializeComponent();
-            this._userID = ValidationConstants.INVALID_ID;
-        }
         public frmChangeUserPassword(int userID)
         {
             InitializeComponent();
             _userID = userID;
         }
-
         private void frmChangeUserPassword_Load(object sender, EventArgs e)
         {
             resetDefualtValues();
-            fillFromWithUserData();
+            fillFormWithUserData();
         }
 
 
-        private void fillFromWithUserData()
+        private void fillFormWithUserData()
         {
             _user = User.FindByUserID(this._userID);
             if (_user == null)
@@ -47,7 +43,7 @@ namespace DVLD_Project.Users
                 return;
             }
 
-            ctrlUserCard.LoadUserData(this._userID);
+            ctrlUserCard.loadUserDataToCard(this._userID);
         }
         private void resetDefualtValues()
         {

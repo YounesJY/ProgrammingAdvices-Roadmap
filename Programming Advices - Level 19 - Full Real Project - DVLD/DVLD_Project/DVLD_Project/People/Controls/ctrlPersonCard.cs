@@ -25,6 +25,13 @@ namespace DVLD_Project.People
         }
         public void loadPersonDetailsToCard(int personID)
         {
+            if (personID <= 0)
+            {
+                resetPersonInfo();
+                MessageBox.Show($"Invalid PersonID = {personID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             this.Person = Person.Find(personID);
             if (Person == null)
             {
@@ -32,19 +39,25 @@ namespace DVLD_Project.People
                 MessageBox.Show($"No Person with PersonID = {personID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
             fillPersonInfo();
         }
         public void loadPersonDetailsToCard(string nationalNumber)
         {
+            if (string.IsNullOrWhiteSpace(nationalNumber))
+            {
+                resetPersonInfo();
+                MessageBox.Show($"Invalid National Number = {nationalNumber}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             this.Person = Person.Find(nationalNumber);
             if (Person == null)
             {
                 resetPersonInfo();
+
                 MessageBox.Show($"No Person with National No. = {nationalNumber}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
             fillPersonInfo();
         }
 
@@ -72,6 +85,8 @@ namespace DVLD_Project.People
                 pbProfileImage.Image = (this.Person.Gender == Person.enGender.Male) ? Resources.Male_512 : Resources.Female_512;
                 pbProfileImage.ImageLocation = null;
             }
+
+            lblEditPersonInfo.Enabled = true;
         }
         public void resetPersonInfo()
         {
@@ -87,6 +102,7 @@ namespace DVLD_Project.People
             lblCountryValue.Text = "[????]";
             lblAddressValue.Text = "[????]";
             pbProfileImage.Image = Resources.Male_512;
+            lblEditPersonInfo.Visible = this.Person != null;
         }
 
         private void lblEditPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

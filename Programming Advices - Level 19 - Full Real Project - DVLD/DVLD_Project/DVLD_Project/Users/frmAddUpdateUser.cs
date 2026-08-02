@@ -3,46 +3,59 @@ using DVLD_Project.People;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using DVLD_Common;
 
 namespace DVLD_Project.Users
 {
-    public partial class frmAddNewUpdateUser : Form
+    public partial class frmAddUpdateUser : Form
     {
         // [Form own Event] Event to notify when a user is added or updated
         public event Action<object, int> OnUserAddedOrUpdated;
-        // [Inner Event] Event to notify when person details are updated
+        // [Inner Control Event] -> [Event Expose Pattern]  Event to notify when person details are updated
         public event Action<object, int> OnPersonDetailsUpdated
         {
             add { ctrlPersonCardWithFilters.OnPersonCardDetailsUpdated += value; }
             remove { ctrlPersonCardWithFilters.OnPersonCardDetailsUpdated -= value; }
         }
         enum enMode { AddNew, Update }
-        private enMode _mode;
+
         private User _user;
         private int _userID;
+        private enMode _mode;
 
 
-        public frmAddNewUpdateUser()
+        public frmAddUpdateUser()
         {
             InitializeComponent();
-            _mode = enMode.AddNew;
+            this._userID = ValidationConstants.INVALID_ID;
+            this._mode = enMode.AddNew;
         }
-        public frmAddNewUpdateUser(int userID)
+        public frmAddUpdateUser(int userID)
         {
             InitializeComponent();
-            this._mode = enMode.Update;
             this._userID = userID;
+            this._mode = enMode.Update;
         }
-
         private void frmAddNewUpdateUser_Load(object sender, EventArgs e)
         {
             resetDefualtValues();
-            // Subscribe to person card details updated event
+            // Subscribe to person card details updated event [using Event Expose Pattern]
+            /*
+                [Event Expose Pattern] is about exposing an event from a child control to the parent form,
+            allowing the parent form to respond to events that occur within the child control.
+
+                This is useful for decoupling the child control from the parent form,
+            allowing for better modularity and reusability of the child control.
+
+                Does it valiolate encapsulation? 
+            Not really, because the child control is still responsible for its own internal state and behavior.
+            we ONLY expose the event to allow the parent form to respond to changes in the child control's state,
+            without giving the parent form direct access to the child control's internal state or behavior.
+            */
             OnPersonDetailsUpdated += HandlePersonDetailsUpdated;
             if (this._mode == enMode.Update)
-                fillFromWithUserData(this._userID);
+                fillFormWithUserData(this._userID);
         }
-
 
         private void frmAddNewUpdateUser_Activated(object sender, EventArgs e)
         {
@@ -58,9 +71,9 @@ namespace DVLD_Project.Users
         private void HandlePersonDetailsUpdated(object arg1, int arg2)
         {
             if (this._mode == enMode.Update && this._user != null)
-                fillFromWithUserData(this._user.UserID);
+                fillFormWithUserData(this._user.UserID);
         }
-        private void fillFromWithUserData(int userID)
+        private void fillFormWithUserData(int userID)
         {
             _user = User.FindByUserID(userID);
             if (_user == null)
@@ -72,8 +85,9 @@ namespace DVLD_Project.Users
 
             ctrlPersonCardWithFilters.loadPersonDetailsToCard(_user.PersonID);
             /*
-                This will prevent rebinding a user to a different Person*
-                If you want to allow changing the associated person, you can remove this line and handle it accordingly (all cases are handled in the btnSave())
+                This will prevent rebinding a user to a different Person
+            If you want to allow changing the associated person,
+            you can remove this line and handle it accordingly (all cases are handled in the btnSave())
             */
             ctrlPersonCardWithFilters.FilterGroupBox.Enabled = false;
 
@@ -171,8 +185,8 @@ namespace DVLD_Project.Users
 
             btnSave.Enabled = true;
             tpUserLoginInfo.Enabled = true;
-            tcAddUpdateUser.SelectedTab = tcAddUpdateUser.TabPages["tpUserLoginInfo"];
-            this.tcAddUpdateUser.SelectedTab = this.tpUserLoginInfo;
+            tcAddUpdateUser.SelectedTab = this.tpUserLoginInfo;
+            // tcAddUpdateUser.SelectedTab = tcAddUpdateUser.TabPages["tpUserLoginInfo"];
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -219,7 +233,7 @@ namespace DVLD_Project.Users
 
                 this._mode = enMode.Update;
                 setFormLabels();
-                fillFromWithUserData(this._user.UserID);
+                fillFormWithUserData(this._user.UserID);
 
                 OnUserAddedOrUpdated?.Invoke(this, this._user.UserID);
             }

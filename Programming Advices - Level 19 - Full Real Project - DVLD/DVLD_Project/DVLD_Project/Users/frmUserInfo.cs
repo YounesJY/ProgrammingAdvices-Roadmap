@@ -19,13 +19,13 @@ namespace DVLD_Project.Users
         {
             add { ctrlUserCard.OnUserCardDetailsUpdated += value; }
             remove { ctrlUserCard.OnUserCardDetailsUpdated -= value; }
-        } 
+        }
         private int _userID;
+
         private frmUserInfo()
         {
             InitializeComponent();
         }
-
         public frmUserInfo(int userID)
         {
             InitializeComponent();
@@ -33,20 +33,7 @@ namespace DVLD_Project.Users
         }
         private void frmUserInfo_Load(object sender, EventArgs e)
         {
-            ctrlUserCard.LoadUserData(_userID);
-
-            if (ctrlUserCard != null)
-                ctrlUserCard.OnUserCardDetailsUpdated += CtrlUserCard_OnUserCardDetailsUpdated; ;
-        }
-        private void frmUserInfo_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (ctrlUserCard != null)
-                ctrlUserCard.OnUserCardDetailsUpdated -= CtrlUserCard_OnUserCardDetailsUpdated;
-        }
-
-        private void CtrlUserCard_OnUserCardDetailsUpdated(object arg1, int arg2)
-        {
-           ctrlUserCard.LoadUserData(_userID);
+            ctrlUserCard.loadUserDataToCard(_userID);
         }
     }
 }
