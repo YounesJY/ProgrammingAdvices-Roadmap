@@ -242,7 +242,7 @@ namespace DVLD_Project.People
                     mtbFilterSearch.Focus();
                 }
                 else
-                    mtbFilterSearch.Mask = "";
+                    mtbFilterSearch.Mask = string.Empty;
             }
         }
         private void mtbFilterSeach_TextChanged(object sender, EventArgs e)

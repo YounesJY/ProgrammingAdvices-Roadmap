@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using DVLD_Common;
 
 namespace DVLD_DataAccess
 {
@@ -82,14 +83,14 @@ namespace DVLD_DataAccess
 
                     NationalNumber = (string)reader["NationalNumber"];
                     FirstName = (string)reader["FirstName"];
-                    SecondName = (reader["SecondName"] == DBNull.Value) ? "" : (string)reader["SecondName"];
-                    ThirdName = (reader["ThirdName"] == DBNull.Value) ? "" : (string)reader["ThirdName"];
+                    SecondName = (reader["SecondName"] == DBNull.Value) ? string.Empty : (string)reader["SecondName"];
+                    ThirdName = (reader["ThirdName"] == DBNull.Value) ? string.Empty : (string)reader["ThirdName"];
                     LastName = (string)reader["LastName"];
                     Gender = (byte)reader["Gender"];
                     DateOfBirth = (DateTime)reader["DateOfBirth"];
                     Address = (string)reader["Address"];
                     Phone = (string)reader["Phone"];
-                    Email = (reader["Email"] == DBNull.Value) ? "" : (string)reader["Email"];
+                    Email = (reader["Email"] == DBNull.Value) ? string.Empty : (string)reader["Email"];
                     ProfilePhotoPath = (reader["ProfilePhotoPath"] == DBNull.Value) ? null : (string)reader["ProfilePhotoPath"];
                     CountryID = (int)reader["NationalityCountryID"];
                     //  CreatedByUser = (int)reader["CreatedByUser"];
@@ -141,14 +142,14 @@ namespace DVLD_DataAccess
 
                     PersonID = (int)reader["PersonID"];
                     FirstName = (string)reader["FirstName"];
-                    SecondName = (reader["SecondName"] == DBNull.Value) ? "" : (string)reader["SecondName"];
-                    ThirdName = (reader["ThirdName"] == DBNull.Value) ? "" : (string)reader["ThirdName"];
+                    SecondName = (reader["SecondName"] == DBNull.Value) ? string.Empty : (string)reader["SecondName"];
+                    ThirdName = (reader["ThirdName"] == DBNull.Value) ? string.Empty : (string)reader["ThirdName"];
                     LastName = (string)reader["LastName"];
                     Gender = (byte)reader["Gender"];
                     DateOfBirth = (DateTime)reader["DateOfBirth"];
                     Address = (string)reader["Address"];
                     Phone = (string)reader["Phone"];
-                    Email = (reader["Email"] == DBNull.Value) ? "" : (string)reader["Email"];
+                    Email = (reader["Email"] == DBNull.Value) ? string.Empty : (string)reader["Email"];
                     ProfilePhotoPath = (reader["ProfilePhotoPath"] == DBNull.Value) ? null : (string)reader["ProfilePhotoPath"];
                     CountryID = (int)reader["NationalityCountryID"];
                     //  CreatedByUser = (int)reader["CreatedByUser"];
@@ -176,7 +177,7 @@ namespace DVLD_DataAccess
                                         string LastName, byte Gender, DateTime DateOfBirth, string Address,
                                         string Phone, string Email, string ProfilePhotoPath, int CountryID, int CreatedByUser)
         {
-            int PersonID = -1;
+            int PersonID = ValidationConstants.INVALID_ID;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
             string query = @"
@@ -225,7 +226,7 @@ namespace DVLD_DataAccess
             }
             catch (Exception)
             {
-                PersonID = -1;
+                PersonID = ValidationConstants.INVALID_ID;
             }
             finally
             {

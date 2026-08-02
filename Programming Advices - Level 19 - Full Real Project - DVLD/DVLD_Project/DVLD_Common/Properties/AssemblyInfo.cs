@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DVLD_Business")]
+[assembly: AssemblyTitle("DVLD_Common")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DVLD_Business")]
+[assembly: AssemblyProduct("DVLD_Common")]
 [assembly: AssemblyCopyright("Copyright ©  2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e480d4bc-8dbd-4856-a499-be07a1aa23d7")]
+[assembly: Guid("9ecdc959-4524-4b95-bcf9-145aac710db5")]
 
 // Version information for an assembly consists of the following four values:
 //

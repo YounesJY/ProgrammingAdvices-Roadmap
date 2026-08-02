@@ -1,14 +1,9 @@
 ﻿using DVLD_Business;
 using DVLD_Project.People;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using DVLD_Common;
 
 namespace DVLD_Project.Users
 {
@@ -21,13 +16,13 @@ namespace DVLD_Project.Users
             remove { ctrlUserCard.OnUserCardDetailsUpdated -= value; }
         }
 
-        private int _userID = -1;
+        private int _userID = ValidationConstants.INVALID_ID;
         private User _user = null;
 
         private frmChangeUserPassword()
         {
             InitializeComponent();
-            this._userID = -1;
+            this._userID = ValidationConstants.INVALID_ID;
         }
         public frmChangeUserPassword(int userID)
         {
@@ -70,8 +65,8 @@ namespace DVLD_Project.Users
             In the context of the Validating event in Windows Forms, 
             both field.Focus() and e.Cancel = true are used together to ensure proper validation behavior. Here's why both are necessary:
             1. field.Focus(): This method sets the input focus to the specific control (field) that is being validated. 
-               It ensures that if validation fails, the user is immediately directed back to the control that needs correction. 
-               This improves user experience by guiding them to the exact location where they need to make changes.
+                It ensures that if validation fails, the user is immediately directed back to the control that needs correction. 
+                This improves user experience by guiding them to the exact location where they need to make changes.
             2. e.Cancel = true: This property is part of the CancelEventArgs passed to the Validating event handler.
                 Setting e.Cancel to true indicates that the validation has failed and prevents the control from losing focus. 
                 It effectively cancels the event, keeping the user on the current control until they provide valid input. 

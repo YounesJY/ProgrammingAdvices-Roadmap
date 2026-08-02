@@ -2,10 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static DVLD_Business.Person;
+using DVLD_Common;
 
 namespace DVLD_Business
 {
@@ -20,7 +17,7 @@ namespace DVLD_Business
             this.CountryID = ID;
             this.CountryName = CountryName;
         }
-        public Country() : this(-1, null) { }
+        public Country() : this(ValidationConstants.INVALID_ID, null) { }
 
 
         public static DataTable getAllCountries()
@@ -38,7 +35,7 @@ namespace DVLD_Business
         }
         public static Country Find(string CountryName)
         {
-            int ID = -1;
+            int ID = ValidationConstants.INVALID_ID;
 
             if (CountryDataAccess.GetCountryInfoByName(CountryName, ref ID))
                 return new Country(ID, CountryName);

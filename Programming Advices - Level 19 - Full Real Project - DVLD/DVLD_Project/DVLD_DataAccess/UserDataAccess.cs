@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using DVLD_Common;
 
 namespace DVLD_DataAccess
 {
@@ -188,7 +189,7 @@ namespace DVLD_DataAccess
 
         public static int AddNewUser(int PersonID, string UserName, string Password, bool IsActive)
         {
-            int UserID = -1;
+            int UserID = ValidationConstants.INVALID_ID;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
             string query = @"
@@ -213,7 +214,7 @@ namespace DVLD_DataAccess
             }
             catch (Exception)
             {
-                UserID = -1;
+                UserID = ValidationConstants.INVALID_ID;
             }
             finally
             {

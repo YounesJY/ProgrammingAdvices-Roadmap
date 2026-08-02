@@ -321,7 +321,7 @@ namespace DVLD_Project.Users
                     mtbFilterSearch.Focus();
                 }
                 else
-                    mtbFilterSearch.Mask = "";
+                    mtbFilterSearch.Mask = string.Empty;
             }
         }
         private void cbUserActiveStatus_SelectedIndexChanged(object sender, EventArgs e)

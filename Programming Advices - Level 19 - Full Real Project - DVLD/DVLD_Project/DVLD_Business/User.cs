@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using DVLD_DataAccess;
+using DVLD_Common;
 
 namespace DVLD_Business
 {
@@ -11,7 +12,7 @@ namespace DVLD_Business
 
         public int UserID { get; private set; }
         public int PersonID { get; private set; }
-        public Person PersonInfo { get; private set; }
+        public Person PersonDetails { get; private set; }
         public string UserName { get; private set; }
         public string Password { get; private set; }
         public bool IsActive { get; private set; }
@@ -21,14 +22,14 @@ namespace DVLD_Business
         {
             this.UserID = UserID;
             this.PersonID = PersonID;
-            this.PersonInfo = Person.Find(PersonID);
+            this.PersonDetails = Person.Find(PersonID);
             this.UserName = UserName;
             this.Password = Password;
             this.IsActive = IsActive;
 
             this._Mode = enMode.Update;
         }
-        public User() : this(-1, -1, string.Empty, string.Empty, false)
+        public User() : this(ValidationConstants.INVALID_ID, ValidationConstants.INVALID_ID, string.Empty, string.Empty, false)
         {
             this._Mode = enMode.AddNew;
         }
@@ -40,7 +41,7 @@ namespace DVLD_Business
 
         public static User FindByUserID(int UserID)
         {
-            int PersonID = -1;
+            int PersonID = ValidationConstants.INVALID_ID;
             string UserName = string.Empty, Password = string.Empty;
             bool IsActive = false;
 
@@ -51,7 +52,7 @@ namespace DVLD_Business
         }
         public static User FindByPersonID(int PersonID)
         {
-            int UserID = -1;
+            int UserID = ValidationConstants.INVALID_ID;
             string UserName = string.Empty, Password = string.Empty;
             bool IsActive = false;
 
@@ -62,8 +63,8 @@ namespace DVLD_Business
         }
         public static User FindByUsernameAndPassword(string UserName, string Password)
         {
-            int UserID = -1;
-            int PersonID = -1;
+            int UserID = ValidationConstants.INVALID_ID;
+            int PersonID = ValidationConstants.INVALID_ID;
             bool IsActive = false;
 
             if (UserDataAccess.GetUserInfoByUsernameAndPassword(UserName, Password, ref UserID, ref PersonID, ref IsActive))
@@ -93,7 +94,7 @@ namespace DVLD_Business
                 this.IsActive
             );
 
-            return (this.UserID != -1);
+            return (this.UserID != ValidationConstants.INVALID_ID);
         }
         private bool _UpdateUser()
         {

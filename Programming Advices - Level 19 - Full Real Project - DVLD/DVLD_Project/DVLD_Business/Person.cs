@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DVLD_DataAccess;
+using DVLD_Common;
 
 namespace DVLD_Business
 {
@@ -67,7 +64,7 @@ namespace DVLD_Business
             this.CreatedByUser = CreatedByUser;
             this._Mode = enMode.Update;
         }
-        public Person() : this(-1, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, enGender.Male, DateTime.Now, string.Empty, string.Empty, string.Empty, null, -1, -1)
+        public Person() : this(ValidationConstants.INVALID_ID, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, enGender.Male, DateTime.Now, string.Empty, string.Empty, string.Empty, null, ValidationConstants.INVALID_ID, ValidationConstants.INVALID_ID)
         {
             this._Mode = enMode.AddNew;
         }
@@ -82,8 +79,8 @@ namespace DVLD_Business
             string Address = string.Empty, Phone = string.Empty, Email = string.Empty, ProfilePhotoPath = null;
             byte Gender = (byte)enGender.Male;
             DateTime DateOfBirth = DateTime.Now;
-            int CountryID = -1;
-            int CreatedByUser = -1;
+            int CountryID = ValidationConstants.INVALID_ID;
+            int CreatedByUser = ValidationConstants.INVALID_ID;
 
 
             if (PersonDataAccess.GetPersonInfoByPersonID(PersonID, ref NationalNumber, ref FirstName, ref SecondName,
@@ -96,13 +93,13 @@ namespace DVLD_Business
         }
         public static Person Find(string NationalNumber)
         {
-            int PersonID = -1;
+            int PersonID = ValidationConstants.INVALID_ID;
             string FirstName = string.Empty, SecondName = string.Empty, ThirdName = string.Empty, LastName = string.Empty;
             string Address = string.Empty, Phone = string.Empty, Email = string.Empty, ProfilePhotoPath = null;
             byte Gender = ((byte)enGender.Male);
             DateTime DateOfBirth = DateTime.Now;
-            int CountryID = -1;
-            int CreatedByUser = -1;
+            int CountryID = ValidationConstants.INVALID_ID;
+            int CreatedByUser = ValidationConstants.INVALID_ID;
 
 
             if (PersonDataAccess.GetPersonInfoByNationalNumber(NationalNumber, ref PersonID, ref FirstName, ref SecondName,
@@ -130,7 +127,7 @@ namespace DVLD_Business
                 this.CreatedByUser
             );
 
-            return (this.PersonID != -1);
+            return (this.PersonID != ValidationConstants.INVALID_ID);
         }
         private bool _UpdatePerson()
         {

@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using DVLD_Common;
 
 namespace DVLD_Project.People
 {
@@ -16,7 +17,7 @@ namespace DVLD_Project.People
         public event Action<object, int> OnPersonAddUpdate;
 
         private Person _person = null;
-        private int _personId = -1;
+        private int _personId = ValidationConstants.INVALID_ID;
 
 
         public enMode Mode { get; private set; }
@@ -59,15 +60,15 @@ namespace DVLD_Project.People
             //should not allow adding age more than 100 years
             dtpDateOfBirth.MinDate = DateTime.Now.AddYears(-100);
 
-            txtFirstName.Text = "";
-            txtSecondName.Text = "";
-            txtThirdName.Text = "";
-            txtLastName.Text = "";
-            txtNationalNumber.Text = "";
+            txtFirstName.Text = string.Empty;
+            txtSecondName.Text = string.Empty;
+            txtThirdName.Text = string.Empty;
+            txtLastName.Text = string.Empty;
+            txtNationalNumber.Text = string.Empty;
             rbGenderMale.Checked = true;
-            txtPhone.Text = "";
-            txtEmail.Text = "";
-            txtAddress.Text = "";
+            txtPhone.Text = string.Empty;
+            txtEmail.Text = string.Empty;
+            txtAddress.Text = string.Empty;
             cbCountry.SelectedIndex = cbCountry.FindString("Morocco");
             pbProfileImage.ImageLocation = null;
             llRemoveImage.Visible = false;
@@ -150,7 +151,7 @@ namespace DVLD_Project.People
                 e.Cancel = true;
             }
             else
-                errorProvider.SetError(textBox, "");
+                errorProvider.SetError(textBox, string.Empty);
         }
         private void txtNationalNumber_Validating(object sender, CancelEventArgs e)
         {
@@ -203,7 +204,7 @@ namespace DVLD_Project.People
                 txtEmail.Focus();
             }
             else
-                errorProvider.SetError(txtEmail, "");
+                errorProvider.SetError(txtEmail, string.Empty);
         }
         private void llSetImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
