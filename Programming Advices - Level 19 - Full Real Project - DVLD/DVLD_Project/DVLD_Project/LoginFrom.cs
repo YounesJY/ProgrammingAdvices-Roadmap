@@ -19,11 +19,13 @@ namespace DVLD_Project
         }
         private void LoginFrom_Load(object sender, EventArgs e)
         {
-            var (username, password) = Global.GetStoredCredentials();
-            if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+            string username = null;
+            string password = null;
+            if (Global.GetStoredCredentials(ref username, ref password))
             {
                 txtUserName.Text = username;
                 txtPassword.Text = password;
+                chkRememberMe.Checked = true;
             }
         }
         private void LoginFrom_Activated(object sender, EventArgs e)
@@ -53,6 +55,22 @@ namespace DVLD_Project
             else
                 Global.ClearStoredCredentials();
 
+            /*
+                ===========================================================
+                    Very Important Note on Application Lifecycle Management 
+                =========================================================== 
+
+                IMPORTANT: Using delegate/event pattern instead of passing LoginFrom reference to MainScreen
+                
+                Why NOT pass a reference?
+                    If MainScreen had a reference to LoginFrom and called _frmLogin.Show() on sign out,
+                the application would never close. The LoginForm would keep both forms alive.
+                    The Solution: Use FormClosed event with delegate
+                When user signs out, MainScreen.Close() is called → FormClosed event fires →
+                The subscribed delegate automatically executes this.Show() to bring LoginForm back.
+                This way LoginForm controls its own visibility without MainScreen needing a reference to it.
+                Result: Clean separation of concerns + proper application lifecycle management 
+            */
             MainScreen mainScreen = new MainScreen();
             mainScreen.FormClosed += (s, args) => this.Show();
 

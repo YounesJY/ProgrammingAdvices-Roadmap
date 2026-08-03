@@ -33,6 +33,7 @@ namespace DVLD_Project
         }
         private void singOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Global.currentLoggedInUser = null;
             this.Close();
         }
     }

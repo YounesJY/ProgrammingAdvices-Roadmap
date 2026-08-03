@@ -23,7 +23,7 @@ namespace DVLD_Business
                 System.Diagnostics.Debug.WriteLine($"Error writing login record: {ex.Message}");
             }
         }
-        internal static (string username, string password) GetStoredCredentials()
+        internal static bool GetStoredCredentials(ref string username, ref string password)
         {
             try
             {
@@ -36,15 +36,20 @@ namespace DVLD_Business
                         var lastLine = lines[lines.Length - 1];
                         var parts = lastLine.Split(',');
                         if (parts.Length == 2)
-                            return (parts[0], parts[1]);
+                        {
+                            username = parts[0];
+                            password = parts[1];
+                            return true;
+                        }
                     }
                 }
+
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error reading login record: {ex.Message}");
             }
-            return (null, null);
+            return false;
         }
         internal static void ClearStoredCredentials()
         {
