@@ -191,7 +191,7 @@
             this.ChangePasswordToolStripMenuItem.Name = "ChangePasswordToolStripMenuItem";
             this.ChangePasswordToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.ChangePasswordToolStripMenuItem.Text = "Change Password";
-            this.ChangePasswordToolStripMenuItem.Click += new System.EventHandler(this.ChangePasswordToolStripMenuItem_Click);
+            this.ChangePasswordToolStripMenuItem.Click += new System.EventHandler(this.changePasswordToolStripMenuItem_Click);
             // 
             // usersDataGridView
             // 

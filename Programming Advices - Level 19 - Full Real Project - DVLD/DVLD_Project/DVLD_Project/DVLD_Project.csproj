@@ -46,6 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Applications\ApplicationTypes\frmEditApplicationTypes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Applications\ApplicationTypes\frmEditApplicationTypes.Designer.cs">
+      <DependentUpon>frmEditApplicationTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Applications\ApplicationTypes\frmListApplicationTypes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Applications\ApplicationTypes\frmListApplicationTypes.Designer.cs">
+      <DependentUpon>frmListApplicationTypes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Global Classes\clsFormat.cs" />
     <Compile Include="Global Classes\clsGlobal.cs" />
     <Compile Include="Global Classes\Global.cs" />
@@ -137,6 +149,12 @@
     <Compile Include="Users\frmUserInfo.Designer.cs">
       <DependentUpon>frmUserInfo.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Applications\ApplicationTypes\frmEditApplicationTypes.resx">
+      <DependentUpon>frmEditApplicationTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Applications\ApplicationTypes\frmListApplicationTypes.resx">
+      <DependentUpon>frmListApplicationTypes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginFrom.resx">
       <DependentUpon>LoginFrom.cs</DependentUpon>
     </EmbeddedResource>

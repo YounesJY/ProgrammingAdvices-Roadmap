@@ -12,8 +12,8 @@ namespace DVLD_Business
         private enMode _Mode = enMode.AddNew;
 
         public int ApplicationTypeID { get; private set; }
-        public string ApplicationTypeTitle { get; private set; }
-        public float ApplicationFees { get; private set; }
+        public string ApplicationTypeTitle { get; set; }
+        public float ApplicationFees { get; set; }
 
 
         private ApplicationType(int ApplicationTypeID, string ApplicationTypeTitle, float ApplicationFees)
@@ -34,7 +34,6 @@ namespace DVLD_Business
         {
             return ApplicationTypeDataAccess.GetAllApplicationTypes();
         }
-
         public static ApplicationType Find(int ApplicationTypeID)
         {
             string ApplicationTypeTitle = string.Empty;
@@ -55,7 +54,6 @@ namespace DVLD_Business
 
             return (this.ApplicationTypeID != ValidationConstants.INVALID_ID);
         }
-
         private bool _UpdateApplicationType()
         {
             return ApplicationTypeDataAccess.UpdateApplicationType(

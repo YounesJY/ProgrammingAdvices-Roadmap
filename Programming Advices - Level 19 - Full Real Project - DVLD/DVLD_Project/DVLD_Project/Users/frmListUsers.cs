@@ -30,10 +30,10 @@ namespace DVLD_Project.Users
         }
         private void ListUsers_Load(object sender, EventArgs e)
         {
-            ResetForm();
+            resetForm();
         }
 
-        private void ResetForm()
+        private void resetForm()
         {
             usersDataGridView.DataSource = User.GetAllUsers();
             usersDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -41,32 +41,32 @@ namespace DVLD_Project.Users
             lblNumberOfRecords.Text = usersDataGridView.RowCount.ToString();
             cbFilterRows.SelectedIndex = (int)enUsersFilter.None;
         }
-        private void RefreshFormData()
+        private void refreshFormData()
         {
             usersDataGridView.DataSource = User.GetAllUsers();
-            usersDataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
+            usersDataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.ColumnHeader);
             lblNumberOfRecords.Text = usersDataGridView.RowCount.ToString();
         }
-        private void RefreshHandler(object sender, int userID)
+        private void refreshHandler(object sender, int userID)
         {
             MessageBox.Show("User information updated and data refreshed.",
                 "Success",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
-            RefreshFormData();
+            refreshFormData();
         }
 
 
         private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
-            frmUserInfo userInfoForm = new frmUserInfo(UserID);
+            int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
+            frmUserInfo userInfoForm = new frmUserInfo(userID);
 
             // [This teaches how to handle events for inner controls via Event Exposure pattern]
             try
             {
                 if (userInfoForm != null)
-                    userInfoForm.OnPersonCardDetailsUpdated += RefreshHandler;
+                    userInfoForm.OnPersonCardDetailsUpdated += refreshHandler;
                 userInfoForm.ShowDialog();
             }
             catch (Exception ex)
@@ -79,7 +79,7 @@ namespace DVLD_Project.Users
             finally
             {
                 if (userInfoForm != null)
-                    userInfoForm.OnPersonCardDetailsUpdated -= RefreshHandler;
+                    userInfoForm.OnPersonCardDetailsUpdated -= refreshHandler;
             }
 
         }
@@ -94,8 +94,8 @@ namespace DVLD_Project.Users
             {
                 if (frmAddNewUpdateUser != null)
                 {
-                    frmAddNewUpdateUser.OnUserAddedOrUpdated += RefreshHandler;
-                    frmAddNewUpdateUser.OnPersonDetailsUpdated += RefreshHandler;
+                    frmAddNewUpdateUser.OnUserAddedOrUpdated += refreshHandler;
+                    frmAddNewUpdateUser.OnPersonDetailsUpdated += refreshHandler;
                 }
                 frmAddNewUpdateUser.ShowDialog();
             }
@@ -110,15 +110,15 @@ namespace DVLD_Project.Users
             {
                 if (frmAddNewUpdateUser != null)
                 {
-                    frmAddNewUpdateUser.OnUserAddedOrUpdated -= RefreshHandler;
-                    frmAddNewUpdateUser.OnPersonDetailsUpdated -= RefreshHandler;
+                    frmAddNewUpdateUser.OnUserAddedOrUpdated -= refreshHandler;
+                    frmAddNewUpdateUser.OnPersonDetailsUpdated -= refreshHandler;
                 }
             }
         }
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
-            frmAddUpdateUser frmAddNewUpdateUser = new frmAddUpdateUser(UserID);
+            int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
+            frmAddUpdateUser frmAddNewUpdateUser = new frmAddUpdateUser(userID);
 
             // this teaches how to handle events for inner controls via Event Exposure pattern
             // and also how to properly subscribe and unsubscribe to events to avoid memory leaks
@@ -128,8 +128,8 @@ namespace DVLD_Project.Users
             {
                 if (frmAddNewUpdateUser != null)
                 {
-                    frmAddNewUpdateUser.OnUserAddedOrUpdated += RefreshHandler;
-                    frmAddNewUpdateUser.OnPersonDetailsUpdated += RefreshHandler;
+                    frmAddNewUpdateUser.OnUserAddedOrUpdated += refreshHandler;
+                    frmAddNewUpdateUser.OnPersonDetailsUpdated += refreshHandler;
                 }
                 frmAddNewUpdateUser.ShowDialog();
             }
@@ -144,15 +144,15 @@ namespace DVLD_Project.Users
             {
                 if (frmAddNewUpdateUser != null)
                 {
-                    frmAddNewUpdateUser.OnUserAddedOrUpdated -= RefreshHandler;
-                    frmAddNewUpdateUser.OnPersonDetailsUpdated -= RefreshHandler;
+                    frmAddNewUpdateUser.OnUserAddedOrUpdated -= refreshHandler;
+                    frmAddNewUpdateUser.OnPersonDetailsUpdated -= refreshHandler;
                 }
             }
         }
-        private void ChangePasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
-            new frmChangeUserPassword(UserID).ShowDialog();
+            int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
+            new frmChangeUserPassword(userID).ShowDialog();
 
             /*
                 ===============================
@@ -215,7 +215,7 @@ namespace DVLD_Project.Users
                                     "User Deleted",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Information);
-                    RefreshFormData();
+                    refreshFormData();
                 }
                 else
                 {
@@ -242,7 +242,7 @@ namespace DVLD_Project.Users
                             MessageBoxIcon.Information);
         }
 
-        private void FilterUsers()
+        private void filterUsers()
         {
             string filterColumn = cbFilterRows.SelectedItem.ToString().ToLower();
             string searchValue = mtbFilterSearch.Text.Trim();
@@ -290,7 +290,7 @@ namespace DVLD_Project.Users
             usersDataGridView.DataSource = dataView;
             lblNumberOfRecords.Text = dataView.Count.ToString();
         }
-        private void FilterUsersByActiveStatus()
+        private void filterUsersByActiveStatus()
         {
             string searchValue = cbUserActiveStatus.SelectedItem.ToString().ToLower().Trim();
             DataTable dataTable = User.GetAllUsers();
@@ -321,7 +321,7 @@ namespace DVLD_Project.Users
                 mtbFilterSearch.Visible = false;
                 cbUserActiveStatus.Visible = true;
                 cbUserActiveStatus.SelectedItem = enUserActiveStatus.All.ToString(); // Default to "All"
-                FilterUsersByActiveStatus();
+                filterUsersByActiveStatus();
             }
             else
             {
@@ -342,11 +342,11 @@ namespace DVLD_Project.Users
         }
         private void cbUserActiveStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FilterUsersByActiveStatus();
+            filterUsersByActiveStatus();
         }
         private void mtbFilterSearch_TextChanged(object sender, EventArgs e)
         {
-            FilterUsers();
+            filterUsers();
         }
         private void usersDataGridView_DoubleClick(object sender, EventArgs e)
         {

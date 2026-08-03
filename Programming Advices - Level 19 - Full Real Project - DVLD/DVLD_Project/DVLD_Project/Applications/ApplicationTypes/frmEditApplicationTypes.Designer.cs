@@ -36,12 +36,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtFees = new System.Windows.Forms.TextBox();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnClose = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
@@ -61,7 +61,7 @@
             // 
             this.lblApplicationTypeID.AutoSize = true;
             this.lblApplicationTypeID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblApplicationTypeID.Location = new System.Drawing.Point(134, 72);
+            this.lblApplicationTypeID.Location = new System.Drawing.Point(183, 72);
             this.lblApplicationTypeID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblApplicationTypeID.Name = "lblApplicationTypeID";
             this.lblApplicationTypeID.Size = new System.Drawing.Size(39, 20);
@@ -87,6 +87,7 @@
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(282, 20);
             this.txtTitle.TabIndex = 141;
+            this.txtTitle.Validating += new System.ComponentModel.CancelEventHandler(this.txtTitle_Validating);
             // 
             // label1
             // 
@@ -118,10 +119,11 @@
             this.txtFees.Name = "txtFees";
             this.txtFees.Size = new System.Drawing.Size(282, 20);
             this.txtFees.TabIndex = 142;
+            this.txtFees.Validating += new System.ComponentModel.CancelEventHandler(this.txtFees_Validating);
             // 
-            // errorProvider1
+            // errorProvider
             // 
-            this.errorProvider1.ContainerControl = this;
+            this.errorProvider.ContainerControl = this;
             // 
             // btnClose
             // 
@@ -174,8 +176,10 @@
             // 
             // frmEditApplicationTypes
             // 
+            this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(533, 244);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lblApplicationTypeID);
@@ -191,7 +195,7 @@
             this.Name = "frmEditApplicationTypes";
             this.Text = "frmEditApplicationTypes";
             this.Load += new System.EventHandler(this.frmEditApplicationTypes_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
@@ -208,7 +212,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtFees;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.PictureBox pictureBox8;

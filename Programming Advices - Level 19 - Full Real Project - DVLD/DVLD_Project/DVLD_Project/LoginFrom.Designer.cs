@@ -30,18 +30,18 @@
         {
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.label4 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnClose = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.chkRememberMe = new System.Windows.Forms.CheckBox();
-            this.btnLogin = new System.Windows.Forms.Button();
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.btnLogin = new System.Windows.Forms.Button();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
@@ -87,7 +87,7 @@
             this.splitContainer.Panel2.Controls.Add(this.pictureBox3);
             this.splitContainer.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitContainer.Size = new System.Drawing.Size(912, 520);
-            this.splitContainer.SplitterDistance = 447;
+            this.splitContainer.SplitterDistance = 446;
             this.splitContainer.SplitterWidth = 6;
             this.splitContainer.TabIndex = 2;
             // 
@@ -102,16 +102,6 @@
             this.label4.Size = new System.Drawing.Size(100, 20);
             this.label4.TabIndex = 136;
             this.label4.Text = "Version 1.0";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::DVLD_Project.Properties.Resources.IconLogo;
-            this.pictureBox1.Location = new System.Drawing.Point(87, 35);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(218, 201);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 136;
-            this.pictureBox1.TabStop = false;
             // 
             // label3
             // 
@@ -149,21 +139,6 @@
             this.label1.Text = "Welcom To ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnClose
-            // 
-            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Image = global::DVLD_Project.Properties.Resources.closeBlack32;
-            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(414, -1);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(44, 37);
-            this.btnClose.TabIndex = 5;
-            this.btnClose.Tag = "5";
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -187,21 +162,6 @@
             this.chkRememberMe.Tag = "";
             this.chkRememberMe.Text = "Remember Me.";
             this.chkRememberMe.UseVisualStyleBackColor = true;
-            // 
-            // btnLogin
-            // 
-            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnLogin.Image = global::DVLD_Project.Properties.Resources.sign_in_32;
-            this.btnLogin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLogin.Location = new System.Drawing.Point(270, 278);
-            this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(126, 37);
-            this.btnLogin.TabIndex = 4;
-            this.btnLogin.Tag = "";
-            this.btnLogin.Text = "Login";
-            this.btnLogin.UseVisualStyleBackColor = true;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // txtUserName
             // 
@@ -246,6 +206,46 @@
             this.txtPassword.TabIndex = 2;
             this.txtPassword.Tag = "";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::DVLD_Project.Properties.Resources.IconLogo;
+            this.pictureBox1.Location = new System.Drawing.Point(87, 35);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(218, 201);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 136;
+            this.pictureBox1.TabStop = false;
+            // 
+            // btnClose
+            // 
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Image = global::DVLD_Project.Properties.Resources.closeBlack32;
+            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClose.Location = new System.Drawing.Point(414, -1);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(44, 37);
+            this.btnClose.TabIndex = 5;
+            this.btnClose.Tag = "5";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnLogin.Image = global::DVLD_Project.Properties.Resources.sign_in_32;
+            this.btnLogin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLogin.Location = new System.Drawing.Point(270, 278);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(126, 37);
+            this.btnLogin.TabIndex = 4;
+            this.btnLogin.Tag = "";
+            this.btnLogin.Text = "Login";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
             // pictureBox8
             // 
             this.pictureBox8.Image = global::DVLD_Project.Properties.Resources.Person_32;
@@ -268,8 +268,10 @@
             // 
             // LoginFrom
             // 
+            this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(912, 520);
             this.Controls.Add(this.splitContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

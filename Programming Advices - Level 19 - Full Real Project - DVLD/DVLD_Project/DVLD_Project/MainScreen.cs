@@ -36,5 +36,10 @@ namespace DVLD_Project
             Global.currentLoggedInUser = null;
             this.Close();
         }
+
+        private void manageApplicationTypesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Applications.ApplicationTypes.frmListApplicationTypes().ShowDialog();
+        }
     }
 }
