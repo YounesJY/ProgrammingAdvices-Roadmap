@@ -60,7 +60,7 @@
             this.Controls.Add(this.ctrlUserCard);
             this.Controls.Add(this.label1);
             this.Name = "frmUserInfo";
-            this.Text = "frmUserInfo";
+            this.Text = "User Info";
             this.Load += new System.EventHandler(this.frmUserInfo_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

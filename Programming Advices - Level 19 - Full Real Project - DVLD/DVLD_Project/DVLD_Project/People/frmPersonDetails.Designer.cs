@@ -78,7 +78,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ctrlPersonCard);
             this.Name = "frmPersonDetails";
-            this.Text = "frmPersonDetails";
+            this.Text = "Person Details";
             this.ResumeLayout(false);
             this.PerformLayout();
 

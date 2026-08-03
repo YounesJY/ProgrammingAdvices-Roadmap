@@ -204,7 +204,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBox3);
             this.Name = "frmChangeUserPassword";
-            this.Text = "frmChangeUserPassword";
+            this.Text = "Change User Password";
             this.Load += new System.EventHandler(this.frmChangeUserPassword_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

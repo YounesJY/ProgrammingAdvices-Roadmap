@@ -76,7 +76,7 @@
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.ctrlPersonCardWithFilters);
             this.Name = "frmFindPerson";
-            this.Text = "frmFindPerson";
+            this.Text = "Find Person";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmFindPerson_FormClosed);
             this.ResumeLayout(false);
 

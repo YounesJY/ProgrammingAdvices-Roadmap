@@ -7,7 +7,7 @@ using DVLD_Common;
 
 namespace DVLD_Project.Users
 {
-    public partial class frmAddUpdateUser : Form
+    public partial class frmAddEditUser : Form
     {
         // [Form own Event] Event to notify when a user is added or updated
         public event Action<object, int> OnUserAddedOrUpdated;
@@ -24,13 +24,13 @@ namespace DVLD_Project.Users
         private enMode _mode;
 
 
-        public frmAddUpdateUser()
+        public frmAddEditUser()
         {
             InitializeComponent();
             this._userID = ValidationConstants.INVALID_ID;
             this._mode = enMode.AddNew;
         }
-        public frmAddUpdateUser(int userID)
+        public frmAddEditUser(int userID)
         {
             InitializeComponent();
             this._userID = userID;

@@ -94,19 +94,19 @@ namespace DVLD_Project.Users
         }
         private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmAddUpdateUser frmAddNewUpdateUser = new frmAddUpdateUser();
+            frmAddEditUser frmAddEditUser = new frmAddEditUser();
 
             // this teaches how to handle events for inner controls via Event Exposure pattern
             // and also how to properly subscribe and unsubscribe to events to avoid memory leaks
             // [Always Remember] a form has it's own events + it can expose events from its inner controls to the outside world
             try
             {
-                if (frmAddNewUpdateUser != null)
+                if (frmAddEditUser != null)
                 {
-                    frmAddNewUpdateUser.OnUserAddedOrUpdated += refreshHandler;
-                    frmAddNewUpdateUser.OnPersonDetailsUpdated += refreshHandler;
+                    frmAddEditUser.OnUserAddedOrUpdated += refreshHandler;
+                    frmAddEditUser.OnPersonDetailsUpdated += refreshHandler;
                 }
-                frmAddNewUpdateUser.ShowDialog();
+                frmAddEditUser.ShowDialog();
             }
             catch (Exception ex)
             {
@@ -117,10 +117,10 @@ namespace DVLD_Project.Users
             }
             finally
             {
-                if (frmAddNewUpdateUser != null)
+                if (frmAddEditUser != null)
                 {
-                    frmAddNewUpdateUser.OnUserAddedOrUpdated -= refreshHandler;
-                    frmAddNewUpdateUser.OnPersonDetailsUpdated -= refreshHandler;
+                    frmAddEditUser.OnUserAddedOrUpdated -= refreshHandler;
+                    frmAddEditUser.OnPersonDetailsUpdated -= refreshHandler;
                 }
             }
         }
@@ -136,7 +136,7 @@ namespace DVLD_Project.Users
             }
 
             int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
-            frmAddUpdateUser frmAddNewUpdateUser = new frmAddUpdateUser(userID);
+            frmAddEditUser frmAddEditUser = new frmAddEditUser(userID);
 
             // this teaches how to handle events for inner controls via Event Exposure pattern
             // and also how to properly subscribe and unsubscribe to events to avoid memory leaks
@@ -144,12 +144,12 @@ namespace DVLD_Project.Users
 
             try
             {
-                if (frmAddNewUpdateUser != null)
+                if (frmAddEditUser != null)
                 {
-                    frmAddNewUpdateUser.OnUserAddedOrUpdated += refreshHandler;
-                    frmAddNewUpdateUser.OnPersonDetailsUpdated += refreshHandler;
+                    frmAddEditUser.OnUserAddedOrUpdated += refreshHandler;
+                    frmAddEditUser.OnPersonDetailsUpdated += refreshHandler;
                 }
-                frmAddNewUpdateUser.ShowDialog();
+                frmAddEditUser.ShowDialog();
             }
             catch (Exception ex)
             {
@@ -160,10 +160,10 @@ namespace DVLD_Project.Users
             }
             finally
             {
-                if (frmAddNewUpdateUser != null)
+                if (frmAddEditUser != null)
                 {
-                    frmAddNewUpdateUser.OnUserAddedOrUpdated -= refreshHandler;
-                    frmAddNewUpdateUser.OnPersonDetailsUpdated -= refreshHandler;
+                    frmAddEditUser.OnUserAddedOrUpdated -= refreshHandler;
+                    frmAddEditUser.OnPersonDetailsUpdated -= refreshHandler;
                 }
             }
         }

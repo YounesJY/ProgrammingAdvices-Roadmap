@@ -273,7 +273,7 @@
             this.Controls.Add(this.cbUserActiveStatus);
             this.Controls.Add(this.mtbFilterSearch);
             this.Name = "frmListUsers";
-            this.Text = "frmListUsers";
+            this.Text = "List Users";
             this.Load += new System.EventHandler(this.ListUsers_Load);
             this.UserContextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.usersDataGridView)).EndInit();

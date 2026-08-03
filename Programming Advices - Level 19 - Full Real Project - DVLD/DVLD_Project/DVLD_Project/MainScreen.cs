@@ -41,5 +41,10 @@ namespace DVLD_Project
         {
             new Applications.ApplicationTypes.frmListApplicationTypes().ShowDialog();
         }
+
+        private void manageTestTypesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Tests.TestTypes.frmListTestTypes().ShowDialog();
+        }
     }
 }

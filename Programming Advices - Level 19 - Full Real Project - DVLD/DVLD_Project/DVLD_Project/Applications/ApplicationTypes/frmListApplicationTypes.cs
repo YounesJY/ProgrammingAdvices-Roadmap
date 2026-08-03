@@ -64,9 +64,7 @@ namespace DVLD_Project.Applications.ApplicationTypes
             try
             {
                 if (frmEditApplicationTypes != null)
-                {
                     frmEditApplicationTypes.OnApplicationTypeUpdated += refreshHandler;
-                }
                 frmEditApplicationTypes.ShowDialog();
             }
             catch (Exception ex)
