@@ -1,4 +1,5 @@
-﻿using DVLD_Business;
+﻿using DVLD.Classes;
+using DVLD_Business;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -67,6 +68,14 @@ namespace DVLD_Project.Applications.ApplicationTypes
                 txtFees.Focus();
                 e.Cancel = true;
             }
+            /*
+                else if (!Validation.IsNumber(txtFees.Text))
+                {
+                    errorProvider.SetError(txtFees, "Please enter a valid number for fees.");
+                    txtFees.Focus();
+                    e.Cancel = true;
+                }
+            */
             else if (!float.TryParse(txtFees.Text, out float fees) || fees < 0)
             {
                 errorProvider.SetError(txtFees, "Please enter a valid non-negative fee.");

@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace DVLD.Classes
 {
-    public class Validatoin
+    public class Validation
     {
         public static bool ValidateEmail(string emailAddress)
         {

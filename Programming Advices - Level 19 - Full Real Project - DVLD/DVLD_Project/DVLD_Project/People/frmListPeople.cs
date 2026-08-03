@@ -44,6 +44,15 @@ namespace DVLD_Project.People
 
         private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (peopleDataGridView.RowCount == 0)
+            {
+                MessageBox.Show("No person selected to show details.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
             int PersonID = Convert.ToInt32(peopleDataGridView.CurrentRow.Cells["PersonID"].Value);
             frmPersonDetails form = new frmPersonDetails(PersonID);
 
@@ -100,6 +109,14 @@ namespace DVLD_Project.People
         }
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (peopleDataGridView.RowCount == 0)
+            {
+                MessageBox.Show("No person selected to edit.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
             // Get PersonID from the row (assuming PersonID is in column index 0 or use column name)
             int PersonID = Convert.ToInt32(peopleDataGridView.CurrentRow.Cells["PersonID"].Value);
 
@@ -118,6 +135,15 @@ namespace DVLD_Project.People
         }
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (peopleDataGridView.RowCount == 0)
+            {
+                MessageBox.Show("No person selected to delete.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
             int PersonID = Convert.ToInt32(peopleDataGridView.CurrentRow.Cells["PersonID"].Value);
             string PersonName = peopleDataGridView.CurrentRow.Cells["FirstName"].Value?.ToString() ?? "this person";
             string PersonImage = Person.Find(PersonID).ProfilePhotoPath;

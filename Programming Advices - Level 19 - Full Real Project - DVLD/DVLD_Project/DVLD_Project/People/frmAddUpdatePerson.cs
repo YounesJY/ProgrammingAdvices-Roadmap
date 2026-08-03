@@ -197,7 +197,7 @@ namespace DVLD_Project.People
         }
         private void txtEmail_Validating(object sender, CancelEventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtEmail.Text) && !Validatoin.ValidateEmail(txtEmail.Text))
+            if (!string.IsNullOrEmpty(txtEmail.Text) && !Validation.ValidateEmail(txtEmail.Text))
             {
                 errorProvider.SetError(txtEmail, "Please enter a valid email address.");
                 e.Cancel = true; // Prevents leaving the control

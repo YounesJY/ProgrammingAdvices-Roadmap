@@ -49,6 +49,15 @@ namespace DVLD_Project.Applications.ApplicationTypes
 
         private void editApplicationTypeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (dgvApplicationTypes.RowCount == 0)
+            {
+                MessageBox.Show("No application type selected to edit.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
             int applicationTypeID = Convert.ToInt32(dgvApplicationTypes.CurrentRow.Cells["ApplicationTypeID"].Value);
             frmEditApplicationTypes frmEditApplicationTypes = new frmEditApplicationTypes(applicationTypeID);
 

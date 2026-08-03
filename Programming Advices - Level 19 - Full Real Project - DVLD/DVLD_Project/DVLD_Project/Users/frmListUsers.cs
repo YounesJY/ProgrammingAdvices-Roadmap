@@ -59,6 +59,15 @@ namespace DVLD_Project.Users
 
         private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (usersDataGridView.RowCount == 0)
+            {
+                MessageBox.Show("No user selected to show details.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
             int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
             frmUserInfo userInfoForm = new frmUserInfo(userID);
 
@@ -117,6 +126,15 @@ namespace DVLD_Project.Users
         }
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (usersDataGridView.RowCount == 0)
+            {
+                MessageBox.Show("No user selected to edit.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
             int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
             frmAddUpdateUser frmAddNewUpdateUser = new frmAddUpdateUser(userID);
 
@@ -151,6 +169,15 @@ namespace DVLD_Project.Users
         }
         private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (usersDataGridView.RowCount == 0)
+            {
+                MessageBox.Show("No user selected to change password.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
             int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
             new frmChangeUserPassword(userID).ShowDialog();
 
@@ -201,6 +228,15 @@ namespace DVLD_Project.Users
         }
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (usersDataGridView.RowCount == 0)
+            {
+                MessageBox.Show("No user selected to delete.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
             int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
             string username = usersDataGridView.CurrentRow.Cells["Username"].Value?.ToString() ?? "this user";
 
