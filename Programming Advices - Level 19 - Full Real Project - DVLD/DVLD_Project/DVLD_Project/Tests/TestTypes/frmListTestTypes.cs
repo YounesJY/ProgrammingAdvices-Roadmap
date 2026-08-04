@@ -56,7 +56,7 @@ namespace DVLD_Project.Tests.TestTypes
             }
 
             int testTypeID = Convert.ToInt32(dgvTestTypes.CurrentRow.Cells["TestTypeID"].Value);
-            frmEditTestTypes frmEditTestTypes = new frmEditTestTypes(testTypeID);
+            frmEditTestTypes frmEditTestTypes = new frmEditTestTypes((TestType.enTestType)testTypeID);
 
             try
             {

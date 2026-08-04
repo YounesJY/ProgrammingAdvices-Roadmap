@@ -22,13 +22,13 @@ namespace DVLD_Business
 
         public static DataTable getAllCountries()
         {
-            return CountryDataAccess.GetAllCountries();
+            return CountryData.GetAllCountries();
         }
         public static Country Find(int ID)
         {
             string CountryName = string.Empty;
 
-            if (CountryDataAccess.GetCountryInfoByID(ID, ref CountryName))
+            if (CountryData.GetCountryInfoByID(ID, ref CountryName))
                 return new Country(ID, CountryName);
 
             return null;
@@ -37,7 +37,7 @@ namespace DVLD_Business
         {
             int ID = ValidationConstants.INVALID_ID;
 
-            if (CountryDataAccess.GetCountryInfoByName(CountryName, ref ID))
+            if (CountryData.GetCountryInfoByName(CountryName, ref ID))
                 return new Country(ID, CountryName);
 
             return null;

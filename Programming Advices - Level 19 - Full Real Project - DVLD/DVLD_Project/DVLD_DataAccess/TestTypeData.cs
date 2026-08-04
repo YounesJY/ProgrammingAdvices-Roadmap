@@ -147,6 +147,7 @@ namespace DVLD_DataAccess
             }
             catch (Exception)
             {
+                // this can throw an exception if the archimetic value of Fees is too large for the database column type, or if the TestTypeID does not exist
                 //Console.WriteLine("Error: " + ex.Message);
                 return false;
             }

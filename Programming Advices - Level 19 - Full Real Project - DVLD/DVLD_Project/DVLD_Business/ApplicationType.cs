@@ -32,14 +32,14 @@ namespace DVLD_Business
 
         public static DataTable GetAllApplicationTypes()
         {
-            return ApplicationTypeDataAccess.GetAllApplicationTypes();
+            return ApplicationTypeData.GetAllApplicationTypes();
         }
         public static ApplicationType Find(int ApplicationTypeID)
         {
             string ApplicationTypeTitle = string.Empty;
             float ApplicationFees = 0;
 
-            if (ApplicationTypeDataAccess.GetApplicationTypeInfoByID(ApplicationTypeID, ref ApplicationTypeTitle, ref ApplicationFees))
+            if (ApplicationTypeData.GetApplicationTypeInfoByID(ApplicationTypeID, ref ApplicationTypeTitle, ref ApplicationFees))
                 return new ApplicationType(ApplicationTypeID, ApplicationTypeTitle, ApplicationFees);
 
             return null;
@@ -47,7 +47,7 @@ namespace DVLD_Business
 
         private bool _AddNewApplicationType()
         {
-            this.ApplicationTypeID = ApplicationTypeDataAccess.AddNewApplicationType(
+            this.ApplicationTypeID = ApplicationTypeData.AddNewApplicationType(
                 this.ApplicationTypeTitle,
                 this.ApplicationFees
             );
@@ -56,7 +56,7 @@ namespace DVLD_Business
         }
         private bool _UpdateApplicationType()
         {
-            return ApplicationTypeDataAccess.UpdateApplicationType(
+            return ApplicationTypeData.UpdateApplicationType(
                 this.ApplicationTypeID,
                 this.ApplicationTypeTitle,
                 this.ApplicationFees
@@ -65,7 +65,7 @@ namespace DVLD_Business
 
         private bool _DeleteApplicationType()
         {
-            return ApplicationTypeDataAccess.DeleteApplicationType(this.ApplicationTypeID);
+            return ApplicationTypeData.DeleteApplicationType(this.ApplicationTypeID);
         }
 
         public bool Save()
@@ -89,7 +89,7 @@ namespace DVLD_Business
 
         public static bool Delete(int ApplicationTypeID)
         {
-            return ApplicationTypeDataAccess.DeleteApplicationType(ApplicationTypeID);
+            return ApplicationTypeData.DeleteApplicationType(ApplicationTypeID);
         }
     }
 }

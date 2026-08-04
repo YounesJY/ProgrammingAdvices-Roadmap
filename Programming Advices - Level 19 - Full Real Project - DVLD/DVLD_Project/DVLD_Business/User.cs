@@ -36,7 +36,7 @@ namespace DVLD_Business
 
         public static DataTable GetAllUsers()
         {
-            return UserDataAccess.GetAllUsers();
+            return UserData.GetAllUsers();
         }
 
         public static User FindByUserID(int UserID)
@@ -45,7 +45,7 @@ namespace DVLD_Business
             string UserName = string.Empty, Password = string.Empty;
             bool IsActive = false;
 
-            if (UserDataAccess.GetUserInfoByUserID(UserID, ref PersonID, ref UserName, ref Password, ref IsActive))
+            if (UserData.GetUserInfoByUserID(UserID, ref PersonID, ref UserName, ref Password, ref IsActive))
                 return new User(UserID, PersonID, UserName, Password, IsActive);
 
             return null;
@@ -56,7 +56,7 @@ namespace DVLD_Business
             string UserName = string.Empty, Password = string.Empty;
             bool IsActive = false;
 
-            if (UserDataAccess.GetUserInfoByPersonID(PersonID, ref UserID, ref UserName, ref Password, ref IsActive))
+            if (UserData.GetUserInfoByPersonID(PersonID, ref UserID, ref UserName, ref Password, ref IsActive))
                 return new User(UserID, PersonID, UserName, Password, IsActive);
 
             return null;
@@ -67,7 +67,7 @@ namespace DVLD_Business
             int PersonID = ValidationConstants.INVALID_ID;
             bool IsActive = false;
 
-            if (UserDataAccess.GetUserInfoByUsernameAndPassword(UserName, Password, ref UserID, ref PersonID, ref IsActive))
+            if (UserData.GetUserInfoByUsernameAndPassword(UserName, Password, ref UserID, ref PersonID, ref IsActive))
                 return new User(UserID, PersonID, UserName, Password, IsActive);
 
             return null;
@@ -87,7 +87,7 @@ namespace DVLD_Business
 
         private bool _AddNewUser()
         {
-            this.UserID = UserDataAccess.AddNewUser(
+            this.UserID = UserData.AddNewUser(
                 this.PersonID,
                 this.UserName,
                 this.Password,
@@ -98,7 +98,7 @@ namespace DVLD_Business
         }
         private bool _UpdateUser()
         {
-            return UserDataAccess.UpdateUser(
+            return UserData.UpdateUser(
                 this.UserID,
                 this.PersonID,
                 this.UserName,
@@ -127,25 +127,25 @@ namespace DVLD_Business
 
         public static bool IsUserExist(int UserID)
         {
-            return UserDataAccess.IsUserExist(UserID);
+            return UserData.IsUserExist(UserID);
         }
         public static bool IsUserExist(string UserName)
         {
-            return UserDataAccess.IsUserExist(UserName);
+            return UserData.IsUserExist(UserName);
         }
         public static bool IsUserExistForPersonID(int PersonID)
         {
-            return UserDataAccess.IsUserExistForPersonID(PersonID);
+            return UserData.IsUserExistForPersonID(PersonID);
         }
 
         public static bool Delete(int UserID)
         {
-            return UserDataAccess.DeleteUser(UserID);
+            return UserData.DeleteUser(UserID);
         }
 
         public bool ChangePassword(string NewPassword)
         {
-            if (UserDataAccess.ChangePassword(this.UserID, NewPassword))
+            if (UserData.ChangePassword(this.UserID, NewPassword))
             {
                 this.Password = NewPassword;
                 return true;

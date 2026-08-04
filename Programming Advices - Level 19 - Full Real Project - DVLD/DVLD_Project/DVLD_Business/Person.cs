@@ -33,7 +33,7 @@ namespace DVLD_Business
         public string SecondName { get; set; }
         public string ThirdName { get; set; }
         public string LastName { get; set; }
-        public string Name { get => $"{FirstName} {SecondName} {ThirdName} {LastName}"; }
+        public string FullName { get => $"{FirstName} {SecondName} {ThirdName} {LastName}"; }
         public enGender Gender { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Address { get; set; }
@@ -71,7 +71,7 @@ namespace DVLD_Business
 
         public static DataTable GetPeople()
         {
-            return PersonDataAccess.GetPeople();
+            return PersonData.GetPeople();
         }
         public static Person Find(int PersonID)
         {
@@ -83,7 +83,7 @@ namespace DVLD_Business
             int CreatedByUser = ValidationConstants.INVALID_ID;
 
 
-            if (PersonDataAccess.GetPersonInfoByPersonID(PersonID, ref NationalNumber, ref FirstName, ref SecondName,
+            if (PersonData.GetPersonInfoByPersonID(PersonID, ref NationalNumber, ref FirstName, ref SecondName,
             ref ThirdName, ref LastName, ref Gender, ref DateOfBirth, ref Address, ref Phone, ref Email, ref ProfilePhotoPath,
             ref CountryID, ref CreatedByUser))
                 return new Person(PersonID, NationalNumber, FirstName, SecondName, ThirdName, LastName,
@@ -102,7 +102,7 @@ namespace DVLD_Business
             int CreatedByUser = ValidationConstants.INVALID_ID;
 
 
-            if (PersonDataAccess.GetPersonInfoByNationalNumber(NationalNumber, ref PersonID, ref FirstName, ref SecondName,
+            if (PersonData.GetPersonInfoByNationalNumber(NationalNumber, ref PersonID, ref FirstName, ref SecondName,
             ref ThirdName, ref LastName, ref Gender, ref DateOfBirth, ref Address, ref Phone, ref Email, ref ProfilePhotoPath, ref CountryID, ref CreatedByUser))
                 return new Person(PersonID, NationalNumber, FirstName, SecondName, ThirdName, LastName,
                 (enGender)Gender, DateOfBirth, Address, Phone, Email, ProfilePhotoPath, CountryID, CreatedByUser);
@@ -111,7 +111,7 @@ namespace DVLD_Business
         }
         private bool _AddNewPerson()
         {
-            this.PersonID = PersonDataAccess.AddNewPerson(
+            this.PersonID = PersonData.AddNewPerson(
                 this.NationalNumber,
                 this.FirstName,
                 this.SecondName,
@@ -131,7 +131,7 @@ namespace DVLD_Business
         }
         private bool _UpdatePerson()
         {
-            return PersonDataAccess.UpdatePerson(
+            return PersonData.UpdatePerson(
                 this.PersonID,
                 this.NationalNumber,
                 this.FirstName,
@@ -172,16 +172,16 @@ namespace DVLD_Business
 
         public static bool IsPersonExist(int PersonID)
         {
-            return PersonDataAccess.IsPersonExist(PersonID);
+            return PersonData.IsPersonExist(PersonID);
         }
         public static bool IsPersonExist(string NationalNumber)
         {
-            return PersonDataAccess.IsPersonExist(NationalNumber);
+            return PersonData.IsPersonExist(NationalNumber);
         }
 
         public static bool Delete(int PersonID)
         {
-            return PersonDataAccess.DeletePerson(PersonID);
+            return PersonData.DeletePerson(PersonID);
         }
     }
 }

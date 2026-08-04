@@ -65,7 +65,7 @@ namespace DVLD_Project.People
         {
             lblPersonIDValue.Text = this.Person.PersonID.ToString();
             lblNationalNumberValue.Text = this.Person.NationalNumber;
-            lblNameValue.Text = this.Person.Name;
+            lblNameValue.Text = this.Person.FullName;
             lblGenderValue.Text = (this.Person.Gender == Person.enGender.Male) ? "Male" : "Female";
             pbGender.Image = (this.Person.Gender == Person.enGender.Male) ? Resources.Man_32 : Resources.Woman_32;
             lblDateOfBirthValue.Text = this.Person.DateOfBirth.ToString("dd/MM/yyyy");

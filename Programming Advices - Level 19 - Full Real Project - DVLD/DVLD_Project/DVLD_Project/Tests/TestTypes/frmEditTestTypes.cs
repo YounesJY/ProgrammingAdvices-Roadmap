@@ -16,17 +16,17 @@ namespace DVLD_Project.Tests.TestTypes
     {
         public Action<object, int> OnTestTypeUpdated;
 
-        private int _testTypeID;
+        private TestType.enTestType _testTypeID;
         private TestType _testType;
 
-        public frmEditTestTypes(int testType)
+        public frmEditTestTypes(TestType.enTestType testType)
         {
             InitializeComponent();
             this._testTypeID = testType;
         }
         private void frmEditTestTypes_Load(object sender, EventArgs e)
         {
-            this._testType = TestType.Find((TestType.enTestType)this._testTypeID);
+            this._testType = TestType.Find(this._testTypeID);
             if (_testType == null)
             {
                 MessageBox.Show("Test type not found.",
