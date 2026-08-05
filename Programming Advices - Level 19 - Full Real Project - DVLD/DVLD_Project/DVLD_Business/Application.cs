@@ -16,7 +16,8 @@ namespace DVLD_Business
         */
         public enum enApplicationType { NewDrivingLicense = 1, RenewDrivingLicense = 2, ReplaceLostDrivingLicense = 3, ReplaceDamagedDrivingLicense = 4, ReleaseDetainedDrivingLicense = 5, NewInternationalLicense = 6, RetakeTest = 7 }
         public enum enApplicationStatus { New = 1, Cancelled = 2, Completed = 3 }
-        private enMode _Mode = enMode.AddNew;
+        protected enMode _Mode = enMode.AddNew;
+
 
         /*
             * HIGH PRIORITY: [THE CORE PROBLEM]
@@ -88,7 +89,7 @@ namespace DVLD_Business
 
             this._Mode = enMode.AddNew;
         }
-        private Application(int ApplicationID, int ApplicantPersonID, DateTime ApplicationDate, int ApplicationTypeID,
+        protected Application(int ApplicationID, int ApplicantPersonID, DateTime ApplicationDate, int ApplicationTypeID,
             enApplicationStatus ApplicationStatus, DateTime LastStatusDate, float PaidFees, int CreatedByUserID)
         {
             this.ApplicationID = ApplicationID;
@@ -140,13 +141,13 @@ namespace DVLD_Business
             float PaidFees = 0;
             int CreatedByUserID = ValidationConstants.INVALID_ID;
 
-            if (ApplicationData.GetApplicationInfoByID(ApplicationID, ref ApplicantPersonID, ref ApplicationDate, ref ApplicationTypeID, ref ApplicationStatus, ref LastStatusDate, ref PaidFees, ref CreatedByUserID))
+            if (ApplicationData.GetApplicationByID(ApplicationID, ref ApplicantPersonID, ref ApplicationDate, ref ApplicationTypeID, ref ApplicationStatus, ref LastStatusDate, ref PaidFees, ref CreatedByUserID))
                 return new Application(ApplicationID, ApplicantPersonID, ApplicationDate, ApplicationTypeID, (enApplicationStatus)ApplicationStatus, LastStatusDate, PaidFees, CreatedByUserID);
 
             return null;
         }
 
-        public bool Delete()
+        public virtual bool Delete()
         {
             return ApplicationData.DeleteApplication(this.ApplicationID);
         }
@@ -158,7 +159,7 @@ namespace DVLD_Business
         {
             return ApplicationData.UpdateStatus(ApplicationID, (byte)enApplicationStatus.Completed);
         }
-        public bool Save()
+        public virtual bool Save()
         {
             switch (this._Mode)
             {
