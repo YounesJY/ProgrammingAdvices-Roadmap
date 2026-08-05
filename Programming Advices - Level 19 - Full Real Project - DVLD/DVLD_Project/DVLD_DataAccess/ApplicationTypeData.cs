@@ -5,7 +5,7 @@ using DVLD_Common;
 
 namespace DVLD_DataAccess
 {
-    public static class ApplicationTypeDataAccess
+    public static class ApplicationTypeData
     {
         public static DataTable GetAllApplicationTypes()
         {

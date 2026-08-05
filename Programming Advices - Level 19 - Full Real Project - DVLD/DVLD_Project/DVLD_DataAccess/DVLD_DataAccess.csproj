@@ -41,12 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationTypeDataAccess.cs" />
-    <Compile Include="TestTypeDataAccess.cs" />
-    <Compile Include="UserDataAccess.cs" />
-    <Compile Include="CountryDataAccess.cs" />
+    <Compile Include="ApplicationTypeData.cs" />
+    <Compile Include="ApplicationData.cs" />
+    <Compile Include="LicenseClassData.cs" />
+    <Compile Include="TestTypeData.cs" />
+    <Compile Include="UserData.cs" />
+    <Compile Include="CountryData.cs" />
     <Compile Include="DataAccessSettings.cs" />
-    <Compile Include="PersonDataAccess.cs" />
+    <Compile Include="PersonData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

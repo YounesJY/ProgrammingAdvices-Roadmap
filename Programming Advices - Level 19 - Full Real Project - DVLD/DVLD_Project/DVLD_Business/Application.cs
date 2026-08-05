@@ -16,17 +16,34 @@ namespace DVLD_Business
         */
         public enum enApplicationType { NewDrivingLicense = 1, RenewDrivingLicense = 2, ReplaceLostDrivingLicense = 3, ReplaceDamagedDrivingLicense = 4, ReleaseDetainedDrivingLicense = 5, NewInternationalLicense = 6, RetakeTest = 7 }
         public enum enApplicationStatus { New = 1, Cancelled = 2, Completed = 3 }
-
         private enMode _Mode = enMode.AddNew;
+
+        /*
+            * HIGH PRIORITY: [THE CORE PROBLEM]
+            * PLEASE READ THIS CAREFULLY AND UNDERSTAND IT. This is the core problem of this class, and it needs to be fixed.
+            * KEEP IN MIND THAT THIS IS A HIGH PRIORITY ISSUE, AND IT NEEDS TO BE FIXED AS SOON AS POSSIBLE. 
+            * Remember that this class is the core of the application, and it needs to be designed properly to ensure that the application works correctly.
+          
+            There's a serious problem with the design of this class. The Application class is tightly coupled with the Person and User classes, which makes it difficult to test and maintain.
+        It would be better to use dependency injection to pass in the necessary dependencies, rather than having the Application class directly call static methods on the Person and User classes.
+        This would make the code more modular and easier to test.
+        [BUT currently we didn't learn about dependency injection]
+
+
+            Another problem [THE CORE PROBLEM] is that we store the ApplicationTypeID,ApplicantPersonID and CreatedByUserID as integers,
+        but we also store the full ApplicationTypeInfoPerson and User objects.
+        This is redundant and can lead to inconsistencies if the IDs and objects get out of sync.
+        
+        */
 
         public int ApplicationID { get; private set; }
         public int ApplicantPersonID { get; private set; }
+        public Person ApplicantPersonInfo { get; private set; }
         public string ApplicantFullName
         {
             get
             {
-                Person person = Person.Find(ApplicantPersonID);
-                return (person != null) ? person.FullName : "Unknown";
+                return ApplicantPersonInfo != null ? ApplicantPersonInfo.FullName : "Unknown";
             }
         }
         public DateTime ApplicationDate { get; private set; }
@@ -60,12 +77,14 @@ namespace DVLD_Business
         {
             this.ApplicationID = ValidationConstants.INVALID_ID;
             this.ApplicantPersonID = ValidationConstants.INVALID_ID;
+            this.ApplicantPersonInfo = null;
             this.ApplicationDate = DateTime.Now;
             this.ApplicationTypeID = ValidationConstants.INVALID_ID;
             this.ApplicationStatus = enApplicationStatus.New;
             this.LastStatusDate = DateTime.Now;
             this.PaidFees = 0;
             this.CreatedByUserID = ValidationConstants.INVALID_ID;
+            this.CreatedByUserInfo = null;
 
             this._Mode = enMode.AddNew;
         }
@@ -74,6 +93,7 @@ namespace DVLD_Business
         {
             this.ApplicationID = ApplicationID;
             this.ApplicantPersonID = ApplicantPersonID;
+            this.ApplicantPersonInfo = Person.Find(ApplicantPersonID);
             this.ApplicationDate = ApplicationDate;
             this.ApplicationTypeID = ApplicationTypeID;
             this.ApplicationTypeInfo = ApplicationType.Find(ApplicationTypeID);

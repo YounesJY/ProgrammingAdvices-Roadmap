@@ -5,7 +5,7 @@ using DVLD_Common;
 
 namespace DVLD_DataAccess
 {
-    public static class PersonDataAccess
+    public static class PersonData
     {
         public static DataTable GetPeople()
         {

@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace DVLD_DataAccess
 {
-    public class TestTypeDataAccess
+    public class TestTypeData
     {
         public static DataTable GetAllTestTypes()
         {

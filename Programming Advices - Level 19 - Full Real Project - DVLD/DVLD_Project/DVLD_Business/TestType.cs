@@ -31,12 +31,12 @@ namespace DVLD_Business
 
         private bool _AddNewTestType()
         {
-            this.TestTypeID = (enTestType)TestTypeDataAccess.AddNewTestType(this.TestTypeTitle, this.TestTypeDescription, this.TestTypeFees);
+            this.TestTypeID = (enTestType)TestTypeData.AddNewTestType(this.TestTypeTitle, this.TestTypeDescription, this.TestTypeFees);
             return this.TestTypeID != (enTestType)(ValidationConstants.INVALID_ID);
         }
         private bool _UpdateTestType()
         {
-            return TestTypeDataAccess.UpdateTestType((int)this.TestTypeID, this.TestTypeTitle, this.TestTypeDescription, this.TestTypeFees);
+            return TestTypeData.UpdateTestType((int)this.TestTypeID, this.TestTypeTitle, this.TestTypeDescription, this.TestTypeFees);
         }
         public bool Save()
         {
@@ -67,14 +67,14 @@ namespace DVLD_Business
             string Description = string.Empty;
             float Fees = 0;
 
-            if (TestTypeDataAccess.GetTestTypeInfoByID((int)TestTypeID, ref Title, ref Description, ref Fees))
+            if (TestTypeData.GetTestTypeInfoByID((int)TestTypeID, ref Title, ref Description, ref Fees))
                 return new TestType(TestTypeID, Title, Description, Fees);
 
             return null;
         }
         public static DataTable GetAllTestTypes()
         {
-            return TestTypeDataAccess.GetAllTestTypes();
+            return TestTypeData.GetAllTestTypes();
         }
     }
 }

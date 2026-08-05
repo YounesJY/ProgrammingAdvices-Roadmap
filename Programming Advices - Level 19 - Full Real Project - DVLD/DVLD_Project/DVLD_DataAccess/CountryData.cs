@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DVLD_DataAccess
 {
-    public class CountryDataAccess
+    public class CountryData
     {
         public static DataTable GetAllCountries()
         {
