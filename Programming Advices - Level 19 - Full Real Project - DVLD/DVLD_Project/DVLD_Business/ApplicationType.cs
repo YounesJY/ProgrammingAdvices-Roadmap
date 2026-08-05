@@ -8,7 +8,6 @@ namespace DVLD_Business
     public class ApplicationType
     {
         public enum enMode : byte { AddNew = 0, Update = 1 }
-
         private enMode _Mode = enMode.AddNew;
 
         public int ApplicationTypeID { get; private set; }
