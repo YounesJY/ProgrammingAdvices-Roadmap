@@ -16,6 +16,7 @@ namespace DVLD_DataAccess
                     FROM LocalDrivingLicenseApplications_View
                     ORDER BY ApplicationDate DESC
             ";
+
             SqlCommand command = new SqlCommand(query, connection);
 
             try
@@ -214,7 +215,8 @@ namespace DVLD_DataAccess
             return (rowsAffected > 0);
         }
 
-        // These methods are commented out because they are not currently used in the application, but they may be useful for future development.
+        // These methods are commented out because they are not currently used in the application,
+        // but they will be used in the upcoming versions.
         /*
         public static bool DoesPassTestType(int LocalDrivingLicenseApplicationID, int TestTypeID)
         {

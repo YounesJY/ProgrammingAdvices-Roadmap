@@ -40,18 +40,18 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.sendEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.makeAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pbAddPerson = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.lblNumberOfRecordsLabel = new System.Windows.Forms.Label();
             this.lblNumberOfRecords = new System.Windows.Forms.Label();
             this.lblFilter = new System.Windows.Forms.Label();
             this.cbFilterRows = new System.Windows.Forms.ComboBox();
             this.mtbFilterSearch = new System.Windows.Forms.MaskedTextBox();
+            this.pbAddPerson = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.peopleDataGridView)).BeginInit();
             this.PeopleContextMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddPerson)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -142,33 +142,13 @@
             this.makeAToolStripMenuItem.Text = "Make A  Call";
             this.makeAToolStripMenuItem.Click += new System.EventHandler(this.makeACallStripMenuItem_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::DVLD_Project.Properties.Resources.Manage_People1;
-            this.pictureBox1.Location = new System.Drawing.Point(375, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(169, 158);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pbAddPerson
-            // 
-            this.pbAddPerson.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbAddPerson.Image = global::DVLD_Project.Properties.Resources.addPerson;
-            this.pbAddPerson.Location = new System.Drawing.Point(802, 200);
-            this.pbAddPerson.Name = "pbAddPerson";
-            this.pbAddPerson.Size = new System.Drawing.Size(43, 42);
-            this.pbAddPerson.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbAddPerson.TabIndex = 3;
-            this.pbAddPerson.TabStop = false;
-            this.pbAddPerson.Click += new System.EventHandler(this.pbAddPerson_Click);
-            // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(770, 456);
+            this.btnClose.Image = global::DVLD_Project.Properties.Resources.Close_32;
+            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClose.Location = new System.Drawing.Point(738, 456);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.Size = new System.Drawing.Size(107, 36);
             this.btnClose.TabIndex = 37;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -234,12 +214,34 @@
             this.mtbFilterSearch.TabIndex = 42;
             this.mtbFilterSearch.TextChanged += new System.EventHandler(this.mtbFilterSeach_TextChanged);
             // 
+            // pbAddPerson
+            // 
+            this.pbAddPerson.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbAddPerson.Image = global::DVLD_Project.Properties.Resources.addPerson;
+            this.pbAddPerson.Location = new System.Drawing.Point(802, 200);
+            this.pbAddPerson.Name = "pbAddPerson";
+            this.pbAddPerson.Size = new System.Drawing.Size(43, 42);
+            this.pbAddPerson.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbAddPerson.TabIndex = 3;
+            this.pbAddPerson.TabStop = false;
+            this.pbAddPerson.Click += new System.EventHandler(this.pbAddPerson_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::DVLD_Project.Properties.Resources.Manage_People1;
+            this.pictureBox1.Location = new System.Drawing.Point(375, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(169, 158);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
             // frmListPeople
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(847, 486);
+            this.ClientSize = new System.Drawing.Size(847, 495);
             this.Controls.Add(this.mtbFilterSearch);
             this.Controls.Add(this.cbFilterRows);
             this.Controls.Add(this.lblFilter);
@@ -255,8 +257,8 @@
             this.Load += new System.EventHandler(this.ListPeople_Load);
             ((System.ComponentModel.ISupportInitialize)(this.peopleDataGridView)).EndInit();
             this.PeopleContextMenuStrip.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddPerson)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

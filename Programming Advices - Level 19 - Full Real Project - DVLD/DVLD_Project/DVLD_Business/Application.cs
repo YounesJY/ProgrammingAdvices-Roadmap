@@ -147,10 +147,6 @@ namespace DVLD_Business
             return null;
         }
 
-        public virtual bool Delete()
-        {
-            return ApplicationData.DeleteApplication(this.ApplicationID);
-        }
         public bool Cancel()
         {
             return ApplicationData.UpdateStatus(ApplicationID, (byte)enApplicationStatus.Cancelled);
@@ -176,6 +172,10 @@ namespace DVLD_Business
             }
 
             return false;
+        }
+        public virtual bool Delete()
+        {
+            return ApplicationData.DeleteApplication(this.ApplicationID);
         }
 
 
