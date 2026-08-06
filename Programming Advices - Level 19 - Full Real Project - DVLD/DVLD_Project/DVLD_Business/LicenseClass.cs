@@ -1,15 +1,30 @@
-﻿using System;
-using System.Data;
+﻿using DVLD_Common;
 using DVLD_DataAccess;
-using DVLD_Common;
+using System;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
 
 namespace DVLD_Business
 {
     public class LicenseClass
     {
+        public enum enLicenseClass
+        {
+            SmallMotorcycle = 0,
+            HeavyMotorcycleLicense = 1,
+            OrdinaryDrivingLicense = 2,
+            Commercial = 3,
+            Agricultural = 4,
+            SmallAndMediumBus = 5,
+            TruckAndHeavyVehicle = 6
+        }
         public enum enMode : byte { AddNew = 0, Update = 1 }
         private enMode _Mode = enMode.AddNew;
 
+        /*
+            WHY we didn't use an enum for LicenseClassID just like we did for ApplicationTy
+        */
         public int LicenseClassID { get; private set; }
         public string ClassName { get; private set; }
         public string ClassDescription { get; private set; }

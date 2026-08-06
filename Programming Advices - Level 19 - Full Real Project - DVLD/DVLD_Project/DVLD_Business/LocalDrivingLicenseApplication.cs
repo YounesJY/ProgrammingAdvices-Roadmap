@@ -5,7 +5,7 @@ using DVLD_Common;
 
 namespace DVLD_Business
 {
-    public class LocalDrivingLicenseApplication : Application
+    public class LocalDrivingLicenseApplication : ApplicationInfo
     {
         /*
             *  You already have these enums in the base class Application, so you don't need to redefine them here.
@@ -31,7 +31,6 @@ namespace DVLD_Business
 
             this._Mode = enMode.AddNew;
         }
-
         private LocalDrivingLicenseApplication(int LocalDrivingLicenseApplicationID, int ApplicationID, int ApplicantPersonID,
             DateTime ApplicationDate, int ApplicationTypeID, enApplicationStatus ApplicationStatus, DateTime LastStatusDate,
             float PaidFees, int CreatedByUserID, int LicenseClassID)
@@ -66,7 +65,7 @@ namespace DVLD_Business
 
             if (LocalDrivingLicenseApplicationData.GetLocalDrivingLicenseApplicationByID(LocalDrivingLicenseApplicationID, ref ApplicationID, ref LicenseClassID))
             {
-                Application applicationInfo = Application.Find(ApplicationID);
+                ApplicationInfo applicationInfo = ApplicationInfo.Find(ApplicationID);
 
                 if (applicationInfo != null)
                 {
@@ -87,7 +86,7 @@ namespace DVLD_Business
 
             if (LocalDrivingLicenseApplicationData.GetLocalDrivingLicenseApplicationByApplicationID(ApplicationID, ref LocalDrivingLicenseApplicationID, ref LicenseClassID))
             {
-                Application applicationInfo = Application.Find(ApplicationID);
+                ApplicationInfo applicationInfo = ApplicationInfo.Find(ApplicationID);
 
                 if (applicationInfo != null)
                 {
@@ -111,7 +110,7 @@ namespace DVLD_Business
             Should we keep only one _Mode field in the base class and remove the _Mode field from the derived class? That would simplify things.
                 but then we would lose the ability to have different modes for different derived classes. We need to think about this design decision carefully.
              */
-            base._Mode = (Application.enMode)_Mode; // ?? 
+            base._Mode = (ApplicationInfo.enMode)_Mode; // ?? 
 
             if (!base.Save())
                 return false;
@@ -144,6 +143,8 @@ namespace DVLD_Business
         }
 
 
+        // These methods are commented out because they are not yet implemented in the LocalDrivingLicenseApplicationData class.
+        // We can implement them later when we have the necessary data access methods.
         /*
         public bool DoesPassTestType(TestType.enTestType TestTypeID)
         {
