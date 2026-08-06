@@ -235,6 +235,21 @@ namespace DVLD_DataAccess
         {
             int ActiveApplicationID = ValidationConstants.INVALID_ID;
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            /*
+             * ==========================================
+             * === Application Status Reference Table ===
+             * ==========================================
+                In the DB, we have:
+
+                    ApplicationStatusID	ApplicationStatusName	ApplicationStatusDescription
+                    1	                New	                    Application has been created but not processed yet
+                    2	                Cancelled	            Application has been cancelled
+                    3	                Completed	            Application has been successfully completed
+                
+                so we consider ApplicationStatus = 1 as the active application.
+            */
+
             string query = @"
                     SELECT 
                         ActiveApplicationID = ApplicationID 
@@ -258,7 +273,7 @@ namespace DVLD_DataAccess
             }
             catch (Exception)
             {
-                return ActiveApplicationID;
+                ActiveApplicationID = ValidationConstants.INVALID_ID;
             }
             finally
             {
