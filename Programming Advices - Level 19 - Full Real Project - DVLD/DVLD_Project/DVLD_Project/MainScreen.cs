@@ -46,5 +46,10 @@ namespace DVLD_Project
         {
             new Tests.TestTypes.frmListTestTypes().ShowDialog();
         }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Applications.LocalDrivingLicense.frmAddEditLocalDrivingLicenseApplication().ShowDialog();
+        }
     }
 }
