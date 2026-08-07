@@ -22,7 +22,7 @@ namespace DVLD_Business
         */
         public enum enApplicationType { NewDrivingLicense = 1, RenewDrivingLicense = 2, ReplaceLostDrivingLicense = 3, ReplaceDamagedDrivingLicense = 4, ReleaseDetainedDrivingLicense = 5, NewInternationalLicense = 6, RetakeTest = 7 }
         public enum enApplicationStatus { New = 1, Cancelled = 2, Completed = 3 }
-        
+
         /*
             * HIGH PRIORITY: [THE CORE PROBLEM]
             * PLEASE READ THIS CAREFULLY AND UNDERSTAND IT. This is the core problem of this class, and it needs to be fixed.
@@ -73,10 +73,21 @@ namespace DVLD_Business
             We have to fix this problem by either:
                 1. Remove the full objects (ApplicantPersonInfo, ApplicationTypeInfo, CreatedByUserInfo) and only keep the IDs (ApplicantPersonID, ApplicationTypeID, CreatedByUserID). This will make the class simpler and avoid inconsistencies.
                 2. Make these objects lazy-loaded, so that they are only loaded when needed. This will make the class more efficient and avoid unnecessary database calls.
-            So, we can keep the full objects, but we have to make sure that they are loaded correctly when needed. This will make the class more efficient and avoid unnecessary database calls.
+            this can be done by a property getter that checks if the object is null, and if so, loads it from the database using the ID. This will make the class more efficient and avoid unnecessary database calls.
+            exmaple:
+                    public Person ApplicantPersonInfo
+                    {
+                        get
+                        {
+                            if (_ApplicantPersonInfo == null && _ApplicantPersonID != ValidationConstants.INVALID_ID)
+                            {
+                                _ApplicantPersonInfo = Person.Find(_ApplicantPersonID);
+                            }
+                            return _ApplicantPersonInfo;
+                        }
+                    }
                 3. Auto load the full objects when the IDs are set, so that they are always in sync. This will make the class more efficient and avoid unnecessary database calls.
-            and that's by edit the setters of the IDs to load the full objects when the IDs are set. This will make the class more efficient and avoid unnecessary database calls.
-            
+            and that's by edit the setters of the IDs to load the full objects when the IDs are set.
             WE'RE GOING TO FIX THIS PROBLEM BY IMPLEMENTING OPTION 3, which is the best option for this case.
         */
         public int ApplicationID { get; private set; }

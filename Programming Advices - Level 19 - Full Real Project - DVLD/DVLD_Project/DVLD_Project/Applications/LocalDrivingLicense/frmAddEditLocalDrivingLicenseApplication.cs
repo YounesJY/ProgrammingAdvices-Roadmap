@@ -45,7 +45,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             }
         }
         private void frmAddEditLocalDrivingLicenseApplication_Activated(object sender, EventArgs e)
-        {
+            {
             ctrlPersonCardWithFilters.FilterFocus();
         }
 
@@ -104,14 +104,14 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             int activeApplicationID = ApplicationInfo.GetActiveApplicationID(this.ctrlPersonCardWithFilters.SelectedPerson.PersonID, ApplicationInfo.enApplicationType.NewDrivingLicense);
             if (activeApplicationID != ValidationConstants.INVALID_ID)
             {
-                MessageBox.Show($"The selected person already has an active application for a New Driving License with ID {activeApplicationID}.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"The selected person already has an active application for a [New Driving License] with ID [{activeApplicationID}].", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            int activeLicenseID = LicenseInfo.GetActiveLicenseIDByPersonID(this.ctrlPersonCardWithFilters.SelectedPerson.PersonID, (int)LicenseClass.enLicenseClass.OrdinaryDrivingLicense);
+            int activeLicenseID = LicenseInfo.GetActiveLicenseIDByPersonID(this.ctrlPersonCardWithFilters.SelectedPerson.PersonID, LicenseClass.Find(cbLicenseClass.Text).LicenseClassID);
             if (activeLicenseID != ValidationConstants.INVALID_ID)
             {
-                MessageBox.Show($"The selected person already has an active license for an Ordinary Driving License with ID {activeLicenseID}.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"The selected person already has an active license for a [{cbLicenseClass.Text}] with ID [{activeLicenseID}].", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
