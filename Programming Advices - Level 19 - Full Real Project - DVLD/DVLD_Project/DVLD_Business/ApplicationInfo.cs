@@ -22,8 +22,7 @@ namespace DVLD_Business
         */
         public enum enApplicationType { NewDrivingLicense = 1, RenewDrivingLicense = 2, ReplaceLostDrivingLicense = 3, ReplaceDamagedDrivingLicense = 4, ReleaseDetainedDrivingLicense = 5, NewInternationalLicense = 6, RetakeTest = 7 }
         public enum enApplicationStatus { New = 1, Cancelled = 2, Completed = 3 }
-
-
+        
         /*
             * HIGH PRIORITY: [THE CORE PROBLEM]
             * PLEASE READ THIS CAREFULLY AND UNDERSTAND IT. This is the core problem of this class, and it needs to be fixed.
@@ -39,10 +38,59 @@ namespace DVLD_Business
             Another problem [THE CORE PROBLEM] is that we store the ApplicationTypeID,ApplicantPersonID and CreatedByUserID as integers,
         but we also store the full ApplicationTypeInfo, Person and User objects.
         This is redundant and can lead to inconsistencies if the IDs and objects get out of sync. 
-        */
 
+        =============================================
+        === CORE PROBLEM PROVEN & EXPLAINED BELOW ===
+        =============================================
+
+        Here's an example of how this can lead to inconsistencies [rows where * is null], this is an example captured during debugging,:
+
+        -localDrivingLicenseApplication	{DVLD_Business.LocalDrivingLicenseApplication}	DVLD_Business.LocalDrivingLicenseApplication
+		    ApplicantFullName	                "Unknown"	                string
+		    ApplicantPersonID	                13	                        int
+		    ApplicantPersonInfo	              * null	                    DVLD_Business.Person
+    		ApplicationDate	                    {8/7/2026 5:37:03 PM}	    System.DateTime
+		    ApplicationID	                    3004	                    int
+		    ApplicationStatusID	                New	                        DVLD_Business.ApplicationInfo.enApplicationStatus
+		    ApplicationTypeID	                1	                        int
+		    ApplicationTypeInfo	              * null	                    DVLD_Business.ApplicationType
+		    CreatedByUserID	                    1028	                    int
+		    CreatedByUserInfo	              * null	                    DVLD_Business.User
+    		LastStatusDate	                    {8/7/2026 5:37:03 PM}	    System.DateTime
+		    LicenseClassID	                    1	                        int
+		    LicenseClassInfo	              * null	                    DVLD_Business.LicenseClass
+		    LocalDrivingLicenseApplicationID	3003	                    int
+		    PaidFees	                        15	                        float
+		    PersonFullName	                  * "Unknown"	                string
+		    StatusText	                        "New"	                    string
+		    _Mode                           	Update	                    DVLD_Business.ApplicationInfo.enMode
+		    _Mode	                            Update	                    DVLD_Business.ApplicationInfo.enMode
+
+        as you can see: 
+            The ApplicantPersonID is 13, but the ApplicantPersonInfo is null. This means that the Person object was not loaded correctly, and the full name is "Unknown".
+            same thing with ApplicationTypeInfo, LicenseClassInfo and CreatedByUserInfo, they are all null, which means that the objects were not loaded correctly.
+            
+            We have to fix this problem by either:
+                1. Remove the full objects (ApplicantPersonInfo, ApplicationTypeInfo, CreatedByUserInfo) and only keep the IDs (ApplicantPersonID, ApplicationTypeID, CreatedByUserID). This will make the class simpler and avoid inconsistencies.
+                2. Make these objects lazy-loaded, so that they are only loaded when needed. This will make the class more efficient and avoid unnecessary database calls.
+            So, we can keep the full objects, but we have to make sure that they are loaded correctly when needed. This will make the class more efficient and avoid unnecessary database calls.
+                3. Auto load the full objects when the IDs are set, so that they are always in sync. This will make the class more efficient and avoid unnecessary database calls.
+            and that's by edit the setters of the IDs to load the full objects when the IDs are set. This will make the class more efficient and avoid unnecessary database calls.
+            
+            WE'RE GOING TO FIX THIS PROBLEM BY IMPLEMENTING OPTION 3, which is the best option for this case.
+        */
         public int ApplicationID { get; private set; }
-        public int ApplicantPersonID { get; set; }
+        private int _ApplicantPersonID;
+        public int ApplicantPersonID
+        {
+            get { return _ApplicantPersonID; }
+            set
+            {
+                _ApplicantPersonID = value;
+                // Load the full object when the ID is set
+                ApplicantPersonInfo = Person.Find(value);
+            }
+        }
         public Person ApplicantPersonInfo { get; private set; }
         public string ApplicantFullName
         {
@@ -52,7 +100,18 @@ namespace DVLD_Business
             }
         }
         public DateTime ApplicationDate { get; set; }
-        public int ApplicationTypeID { get; set; }
+
+        private int _ApplicationTypeID;
+        public int ApplicationTypeID
+        {
+            get { return _ApplicationTypeID; }
+            set
+            {
+                _ApplicationTypeID = value;
+                // Load the full object when the ID is set
+                ApplicationTypeInfo = ApplicationType.Find(value);
+            }
+        }
         public ApplicationType ApplicationTypeInfo { get; private set; }
         public enApplicationStatus ApplicationStatusID { get; set; }
         public string StatusText
@@ -74,7 +133,17 @@ namespace DVLD_Business
         }
         public DateTime LastStatusDate { get; set; }
         public float PaidFees { get; set; }
-        public int CreatedByUserID { get; set; }
+        private int _CreatedByUserID;
+        public int CreatedByUserID
+        {
+            get { return _CreatedByUserID; }
+            set
+            {
+                _CreatedByUserID = value;
+                // Load the full object when the ID is set
+                CreatedByUserInfo = User.FindByUserID(value);
+            }
+        }
         public User CreatedByUserInfo { get; private set; }
         protected enMode _Mode = enMode.AddNew;
 

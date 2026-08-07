@@ -126,7 +126,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                 CreatedByUserID = Global.currentLoggedInUser.UserID,
 
                 // setting LocalDrivingLicenseApplication properties
-                LicenseClassID = LicenseClass.Find(DEFAULT_LICENSE_CLASS).LicenseClassID
+                LicenseClassID = LicenseClass.Find(cbLicenseClass.Text).LicenseClassID
             };
             /* 
                 [Class initializer] used instead of constructor to set properties directly

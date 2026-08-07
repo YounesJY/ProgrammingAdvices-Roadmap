@@ -24,7 +24,16 @@ namespace DVLD_Business
 
         */
         public int LocalDrivingLicenseApplicationID { get; private set; }
-        public int LicenseClassID { get; set; }
+        private int _LicenseClassID;
+        public int LicenseClassID
+        {
+            get { return _LicenseClassID; }
+            set
+            {
+                _LicenseClassID = value;
+                LicenseClassInfo = LicenseClass.Find(value);
+            }
+        }
         public LicenseClass LicenseClassInfo { get; private set; }
         public string PersonFullName
         {
