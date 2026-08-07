@@ -32,6 +32,7 @@
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tpPersonalInformations = new System.Windows.Forms.TabPage();
             this.btnNext = new System.Windows.Forms.Button();
+            this.ctrlPersonCardWithFilters = new DVLD_Project.People.ctrlPersonCardWithFilters();
             this.tcAddEditLocalDrivingLicense = new System.Windows.Forms.TabControl();
             this.tpApplicationInformations = new System.Windows.Forms.TabPage();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -44,7 +45,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.lblApplicationDate = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.lblLocalDrivingLicebseApplicationID = new System.Windows.Forms.Label();
+            this.lblApplicationID = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
@@ -52,7 +53,6 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
-            this.ctrlPersonCardWithFilters = new DVLD_Project.People.ctrlPersonCardWithFilters();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.tpPersonalInformations.SuspendLayout();
             this.tcAddEditLocalDrivingLicense.SuspendLayout();
@@ -95,6 +95,15 @@
             this.btnNext.UseVisualStyleBackColor = false;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
+            // ctrlPersonCardWithFilters
+            // 
+            this.ctrlPersonCardWithFilters.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ctrlPersonCardWithFilters.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ctrlPersonCardWithFilters.Location = new System.Drawing.Point(3, 3);
+            this.ctrlPersonCardWithFilters.Name = "ctrlPersonCardWithFilters";
+            this.ctrlPersonCardWithFilters.Size = new System.Drawing.Size(799, 329);
+            this.ctrlPersonCardWithFilters.TabIndex = 1;
+            // 
             // tcAddEditLocalDrivingLicense
             // 
             this.tcAddEditLocalDrivingLicense.Controls.Add(this.tpPersonalInformations);
@@ -117,7 +126,7 @@
             this.tpApplicationInformations.Controls.Add(this.label15);
             this.tpApplicationInformations.Controls.Add(this.lblApplicationDate);
             this.tpApplicationInformations.Controls.Add(this.label5);
-            this.tpApplicationInformations.Controls.Add(this.lblLocalDrivingLicebseApplicationID);
+            this.tpApplicationInformations.Controls.Add(this.lblApplicationID);
             this.tpApplicationInformations.Controls.Add(this.label4);
             this.tpApplicationInformations.Controls.Add(this.pictureBox3);
             this.tpApplicationInformations.Controls.Add(this.pictureBox6);
@@ -236,16 +245,16 @@
             this.label5.TabIndex = 147;
             this.label5.Text = "Application Date:";
             // 
-            // lblLocalDrivingLicebseApplicationID
+            // lblApplicationID
             // 
-            this.lblLocalDrivingLicebseApplicationID.AutoSize = true;
-            this.lblLocalDrivingLicebseApplicationID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLocalDrivingLicebseApplicationID.Location = new System.Drawing.Point(272, 48);
-            this.lblLocalDrivingLicebseApplicationID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblLocalDrivingLicebseApplicationID.Name = "lblLocalDrivingLicebseApplicationID";
-            this.lblLocalDrivingLicebseApplicationID.Size = new System.Drawing.Size(49, 20);
-            this.lblLocalDrivingLicebseApplicationID.TabIndex = 146;
-            this.lblLocalDrivingLicebseApplicationID.Text = "[???]";
+            this.lblApplicationID.AutoSize = true;
+            this.lblApplicationID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApplicationID.Location = new System.Drawing.Point(272, 48);
+            this.lblApplicationID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblApplicationID.Name = "lblApplicationID";
+            this.lblApplicationID.Size = new System.Drawing.Size(49, 20);
+            this.lblApplicationID.TabIndex = 146;
+            this.lblApplicationID.Text = "[???]";
             // 
             // label4
             // 
@@ -329,15 +338,6 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // ctrlPersonCardWithFilters
-            // 
-            this.ctrlPersonCardWithFilters.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ctrlPersonCardWithFilters.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ctrlPersonCardWithFilters.Location = new System.Drawing.Point(3, 3);
-            this.ctrlPersonCardWithFilters.Name = "ctrlPersonCardWithFilters";
-            this.ctrlPersonCardWithFilters.Size = new System.Drawing.Size(799, 329);
-            this.ctrlPersonCardWithFilters.TabIndex = 1;
-            // 
             // frmAddEditLocalDrivingLicenseApplication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -389,7 +389,7 @@
         private System.Windows.Forms.Label lblApplicationDate;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label lblLocalDrivingLicebseApplicationID;
+        private System.Windows.Forms.Label lblApplicationID;
         private System.Windows.Forms.Label label4;
     }
 }
