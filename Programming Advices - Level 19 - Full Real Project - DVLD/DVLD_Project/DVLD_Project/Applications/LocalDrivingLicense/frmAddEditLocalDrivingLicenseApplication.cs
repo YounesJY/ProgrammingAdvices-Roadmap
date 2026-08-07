@@ -74,12 +74,6 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
         }
 
 
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void btnNext_Click(object sender, EventArgs e)
         {
             if (this.ctrlPersonCardWithFilters.SelectedPerson == null)
@@ -99,7 +93,6 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             tpApplicationInformations.Enabled = true;
             tcAddEditLocalDrivingLicense.SelectedTab = this.tpApplicationInformations;
         }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (this.ctrlPersonCardWithFilters.SelectedPerson == null)
@@ -157,6 +150,10 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                 MessageBox.Show("Failed to save Local Driving License Application.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
