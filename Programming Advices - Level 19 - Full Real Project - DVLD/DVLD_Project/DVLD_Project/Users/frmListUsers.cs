@@ -30,10 +30,10 @@ namespace DVLD_Project.Users
         }
         private void ListUsers_Load(object sender, EventArgs e)
         {
-            resetForm();
+            ResetForm();
         }
 
-        private void resetForm()
+        private void ResetForm()
         {
             usersDataGridView.DataSource = User.GetAllUsers();
             usersDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -41,19 +41,19 @@ namespace DVLD_Project.Users
             lblNumberOfRecords.Text = usersDataGridView.RowCount.ToString();
             cbFilterRows.SelectedIndex = (int)enUsersFilter.None;
         }
-        private void refreshFormData()
+        private void RefreshFormData()
         {
             usersDataGridView.DataSource = User.GetAllUsers();
             usersDataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.ColumnHeader);
             lblNumberOfRecords.Text = usersDataGridView.RowCount.ToString();
         }
-        private void refreshHandler(object sender, int userID)
+        private void RefreshHandler(object sender, int userID)
         {
             MessageBox.Show("User information updated and data refreshed.",
                 "Success",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
-            refreshFormData();
+            RefreshFormData();
         }
 
 
@@ -75,7 +75,7 @@ namespace DVLD_Project.Users
             try
             {
                 if (userInfoForm != null)
-                    userInfoForm.OnPersonCardDetailsUpdated += refreshHandler;
+                    userInfoForm.OnPersonCardDetailsUpdated += RefreshHandler;
                 userInfoForm.ShowDialog();
             }
             catch (Exception ex)
@@ -88,7 +88,7 @@ namespace DVLD_Project.Users
             finally
             {
                 if (userInfoForm != null)
-                    userInfoForm.OnPersonCardDetailsUpdated -= refreshHandler;
+                    userInfoForm.OnPersonCardDetailsUpdated -= RefreshHandler;
             }
 
         }
@@ -103,8 +103,8 @@ namespace DVLD_Project.Users
             {
                 if (frmAddEditUser != null)
                 {
-                    frmAddEditUser.OnUserAddedOrUpdated += refreshHandler;
-                    frmAddEditUser.OnPersonDetailsUpdated += refreshHandler;
+                    frmAddEditUser.OnUserAddedOrUpdated += RefreshHandler;
+                    frmAddEditUser.OnPersonDetailsUpdated += RefreshHandler;
                 }
                 frmAddEditUser.ShowDialog();
             }
@@ -119,8 +119,8 @@ namespace DVLD_Project.Users
             {
                 if (frmAddEditUser != null)
                 {
-                    frmAddEditUser.OnUserAddedOrUpdated -= refreshHandler;
-                    frmAddEditUser.OnPersonDetailsUpdated -= refreshHandler;
+                    frmAddEditUser.OnUserAddedOrUpdated -= RefreshHandler;
+                    frmAddEditUser.OnPersonDetailsUpdated -= RefreshHandler;
                 }
             }
         }
@@ -146,8 +146,8 @@ namespace DVLD_Project.Users
             {
                 if (frmAddEditUser != null)
                 {
-                    frmAddEditUser.OnUserAddedOrUpdated += refreshHandler;
-                    frmAddEditUser.OnPersonDetailsUpdated += refreshHandler;
+                    frmAddEditUser.OnUserAddedOrUpdated += RefreshHandler;
+                    frmAddEditUser.OnPersonDetailsUpdated += RefreshHandler;
                 }
                 frmAddEditUser.ShowDialog();
             }
@@ -162,8 +162,8 @@ namespace DVLD_Project.Users
             {
                 if (frmAddEditUser != null)
                 {
-                    frmAddEditUser.OnUserAddedOrUpdated -= refreshHandler;
-                    frmAddEditUser.OnPersonDetailsUpdated -= refreshHandler;
+                    frmAddEditUser.OnUserAddedOrUpdated -= RefreshHandler;
+                    frmAddEditUser.OnPersonDetailsUpdated -= RefreshHandler;
                 }
             }
         }
@@ -251,7 +251,7 @@ namespace DVLD_Project.Users
                                     "User Deleted",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Information);
-                    refreshFormData();
+                    RefreshFormData();
                 }
                 else
                 {
@@ -278,7 +278,7 @@ namespace DVLD_Project.Users
                             MessageBoxIcon.Information);
         }
 
-        private void filterUsers()
+        private void FilterUsers()
         {
             string filterColumn = cbFilterRows.SelectedItem.ToString().ToLower();
             string searchValue = mtbFilterSearch.Text.Trim();
@@ -326,7 +326,7 @@ namespace DVLD_Project.Users
             usersDataGridView.DataSource = dataView;
             lblNumberOfRecords.Text = dataView.Count.ToString();
         }
-        private void filterUsersByActiveStatus()
+        private void FilterUsersByActiveStatus()
         {
             string searchValue = cbUserActiveStatus.SelectedItem.ToString().ToLower().Trim();
             DataTable dataTable = User.GetAllUsers();
@@ -357,7 +357,7 @@ namespace DVLD_Project.Users
                 mtbFilterSearch.Visible = false;
                 cbUserActiveStatus.Visible = true;
                 cbUserActiveStatus.SelectedItem = enUserActiveStatus.All.ToString(); // Default to "All"
-                filterUsersByActiveStatus();
+                FilterUsersByActiveStatus();
             }
             else
             {
@@ -378,11 +378,11 @@ namespace DVLD_Project.Users
         }
         private void cbUserActiveStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filterUsersByActiveStatus();
+            FilterUsersByActiveStatus();
         }
         private void mtbFilterSearch_TextChanged(object sender, EventArgs e)
         {
-            filterUsers();
+            FilterUsers();
         }
         private void usersDataGridView_DoubleClick(object sender, EventArgs e)
         {

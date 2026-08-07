@@ -179,7 +179,7 @@ namespace DVLD_Project.People
                             MessageBoxIcon.Information);
         }
 
-        private void refreshFormData()
+        private void RefreshFormData()
         {
             peopleDataGridView.DataSource = Person.GetPeople();
         }
@@ -189,7 +189,7 @@ namespace DVLD_Project.People
                 "Success",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
-            refreshFormData();
+            RefreshFormData();
         }
         private void FilterPeople()
         {

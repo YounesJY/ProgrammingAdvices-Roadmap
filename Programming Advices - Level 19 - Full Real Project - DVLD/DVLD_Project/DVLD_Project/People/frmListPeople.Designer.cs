@@ -228,10 +228,10 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::DVLD_Project.Properties.Resources.Manage_People1;
+            this.pictureBox1.Image = global::DVLD_Project.Properties.Resources.People_400;
             this.pictureBox1.Location = new System.Drawing.Point(375, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(169, 158);
+            this.pictureBox1.Size = new System.Drawing.Size(160, 150);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
