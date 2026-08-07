@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DVLD_Common;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -118,7 +119,7 @@ namespace DVLD_DataAccess
         }
         public static int AddNewDriver(int PersonID, int CreatedByUserID)
         {
-            int DriverID = -1;
+            int DriverID = ValidationConstants.INVALID_ID;
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
             string query = @"
                 INSERT INTO Drivers (PersonID, CreatedByUserID, CreatedDate)
@@ -142,7 +143,7 @@ namespace DVLD_DataAccess
             }
             catch (Exception)
             {
-                DriverID = -1;
+                DriverID = ValidationConstants.INVALID_ID;
             }
             finally
             {
