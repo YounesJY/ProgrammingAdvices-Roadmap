@@ -8,13 +8,24 @@ namespace DVLD_Business
     public class LocalDrivingLicenseApplication : ApplicationInfo
     {
         /*
-            *  You already have these enums in the base class Application, so you don't need to redefine them here.
+            You already have these enums in the base class Application, so you don't need to redefine them here.
         public enum enMode : byte { AddNew = 0, Update = 1 }
         private enMode _Mode = enMode.AddNew;
+
+            ===================================================================================
+            =================================== REFACTORING NOTE: =============================
+            ====== VERY IMPORTANT: DO NOT REMOVE THE _Mode FIELD FROM THIS DERIVED CLASS ======
+            ===================================================================================
+
+            THE COMMENT ABOVE IS TRUE, BUT I THINK IT'S STILL USEFUL TO HAVE A LOCAL _Mode FIELD IN THIS DERIVED CLASS, BECAUSE IT ALLOWS US TO TRACK THE STATE OF THIS SPECIFIC CLASS SEPARATELY FROM THE BASE CLASS. 
+            THE REASON WHY WE HAVE A LOCAL _Mode FIELD IS BECAUSE THE BASE CLASS ApplicationInfo ALSO HAS A _Mode FIELD, AND WE WANT TO KEEP TRACK OF THE STATE OF THIS DERIVED CLASS SEPARATELY.
+            THE DIFFERENCE BETWEEN THE TWO _Mode FIELDS IS THAT THE BASE CLASS _Mode FIELD TRACKS THE STATE OF THE APPLICATION TABLE, WHILE THIS DERIVED CLASS _Mode FIELD TRACKS THE STATE OF THE LocalDrivingLicenseApplication TABLE.
+            THIS DIFFERENCE IS LISTED INSIDE THE Save() METHOD BELOW, WHERE WE SYNCHRONIZE THE TWO _Mode FIELDS BEFORE CALLING base.Save().
+
         */
-        public int LocalDrivingLicenseApplicationID { get; set; }
+        public int LocalDrivingLicenseApplicationID { get; private set; }
         public int LicenseClassID { get; set; }
-        public LicenseClass LicenseClassInfo { get; set; }
+        public LicenseClass LicenseClassInfo { get; private set; }
         public string PersonFullName
         {
             get
@@ -22,7 +33,7 @@ namespace DVLD_Business
                 return base.ApplicantFullName;
             }
         }
-
+        private new enMode _Mode = enMode.AddNew;
 
         public LocalDrivingLicenseApplication()
         {
@@ -72,7 +83,7 @@ namespace DVLD_Business
                     return new LocalDrivingLicenseApplication(
                         LocalDrivingLicenseApplicationID, applicationInfo.ApplicationID,
                         applicationInfo.ApplicantPersonID, applicationInfo.ApplicationDate, applicationInfo.ApplicationTypeID,
-                        applicationInfo.ApplicationStatus, applicationInfo.LastStatusDate,
+                        applicationInfo.ApplicationStatusID, applicationInfo.LastStatusDate,
                         applicationInfo.PaidFees, applicationInfo.CreatedByUserID, LicenseClassID);
                 }
             }
@@ -93,7 +104,7 @@ namespace DVLD_Business
                     return new LocalDrivingLicenseApplication(
                         LocalDrivingLicenseApplicationID, applicationInfo.ApplicationID,
                         applicationInfo.ApplicantPersonID, applicationInfo.ApplicationDate, applicationInfo.ApplicationTypeID,
-                        applicationInfo.ApplicationStatus, applicationInfo.LastStatusDate,
+                        applicationInfo.ApplicationStatusID, applicationInfo.LastStatusDate,
                         applicationInfo.PaidFees, applicationInfo.CreatedByUserID, LicenseClassID);
                 }
             }
@@ -109,9 +120,27 @@ namespace DVLD_Business
                 That's the problem. The base class Save method will use its own _Mode field, which may not reflect the correct state of the derived class.
             Should we keep only one _Mode field in the base class and remove the _Mode field from the derived class? That would simplify things.
                 but then we would lose the ability to have different modes for different derived classes. We need to think about this design decision carefully.
-             */
-            base._Mode = (ApplicationInfo.enMode)_Mode; // ?? 
+            */
 
+            /*
+                READ THIS: The _Mode field in the derived class is used to track the state of the LocalDrivingLicenseApplication table, while the _Mode field in the base class is used to track the state of the Application table.
+                WE CAN'T REMOVE THE _Mode FIELD FROM THE DERIVED CLASS BECAUSE IT IS USED TO TRACK THE STATE OF THE LocalDrivingLicenseApplication TABLE.
+                THIS WILL CAUSE ISSUES WHEN WE TRY TO SAVE OR UPDATE THE LocalDrivingLicenseApplication TABLE, BECAUSE THE BASE CLASS Save METHOD WILL NOT KNOW WHETHER TO INSERT OR UPDATE THE LocalDrivingLicenseApplication TABLE.
+                THE ApplicationInfo save() Method will override the _Mode field in the derived class, which will cause issues when we try to save or update the LocalDrivingLicenseApplication table.
+                
+                [CORE PROBLEM]
+                For examle, if we are adding a new LocalDrivingLicenseApplication, the derived class _Mode field will be set to AddNew,
+            but the base class _Mode field will be set to Update after calling base.Save(),
+            which will cause issues when we try to save or update the LocalDrivingLicenseApplication table.
+                
+            WHILE DEBUGGING, 
+                this._Mode	AddNew	DVLD_Business.ApplicationInfo.enMode
+		        base._Mode	Update	DVLD_Business.ApplicationInfo.enMode
+
+
+             */
+
+            base._Mode = (ApplicationInfo.enMode)this._Mode;
             if (!base.Save())
                 return false;
 

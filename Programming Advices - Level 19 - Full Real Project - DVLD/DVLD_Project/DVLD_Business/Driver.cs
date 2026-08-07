@@ -100,7 +100,7 @@ namespace DVLD_Business
 
         public static DataTable GetLicenses(int DriverID)
         {
-            return License.GetDriverLicenses(DriverID);
+            return LicenseInfo.GetDriverLicenses(DriverID);
         }
         /*
             public static DataTable GetInternationalLicenses(int DriverID)
