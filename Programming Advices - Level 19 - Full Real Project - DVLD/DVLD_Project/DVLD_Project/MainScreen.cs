@@ -1,4 +1,5 @@
 ﻿using DVLD_Business;
+using DVLD_Project.Applications.LocalDrivingLicense;
 using DVLD_Project.People;
 using DVLD_Project.Users;
 using System;
@@ -50,6 +51,11 @@ namespace DVLD_Project
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new Applications.LocalDrivingLicense.frmAddEditLocalDrivingLicenseApplication().ShowDialog();
+        }
+
+        private void localDrivingLicenseApplicationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmListLocalDrivingLicenseApplications().ShowDialog();
         }
     }
 }
