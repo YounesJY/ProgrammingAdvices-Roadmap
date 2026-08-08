@@ -253,7 +253,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Name = "frmListPeople";
-            this.Text = "List People";
+            this.Text = "6";
             this.Load += new System.EventHandler(this.ListPeople_Load);
             ((System.ComponentModel.ISupportInitialize)(this.peopleDataGridView)).EndInit();
             this.PeopleContextMenuStrip.ResumeLayout(false);

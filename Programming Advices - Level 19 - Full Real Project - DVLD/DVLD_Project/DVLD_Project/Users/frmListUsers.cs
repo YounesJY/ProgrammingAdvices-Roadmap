@@ -16,7 +16,7 @@ namespace DVLD_Project.Users
             UserName,
             IsActive
         }
-        public enum enUserActiveStatus
+        public enum enUserActiveStatusFilter
         {
             No,
             Yes,
@@ -332,8 +332,8 @@ namespace DVLD_Project.Users
             DataTable dataTable = User.GetAllUsers();
             DataView dataView = dataTable.DefaultView;
 
-            if (searchValue == enUserActiveStatus.Yes.ToString().ToLower() || searchValue == enUserActiveStatus.No.ToString().ToLower())
-                dataView.RowFilter = $"IsActive = {(searchValue == enUserActiveStatus.Yes.ToString().ToLower() ? (int)enUserActiveStatus.Yes : (int)enUserActiveStatus.No)}";
+            if (searchValue == enUserActiveStatusFilter.Yes.ToString().ToLower() || searchValue == enUserActiveStatusFilter.No.ToString().ToLower())
+                dataView.RowFilter = $"IsActive = {(searchValue == enUserActiveStatusFilter.Yes.ToString().ToLower() ? (int)enUserActiveStatusFilter.Yes : (int)enUserActiveStatusFilter.No)}";
 
             usersDataGridView.DataSource = dataView;
             lblNumberOfRecords.Text = dataView.Count.ToString();
@@ -356,13 +356,13 @@ namespace DVLD_Project.Users
             {
                 mtbFilterSearch.Visible = false;
                 cbUserActiveStatus.Visible = true;
-                cbUserActiveStatus.SelectedItem = enUserActiveStatus.All.ToString(); // Default to "All"
+                cbUserActiveStatus.SelectedItem = enUserActiveStatusFilter.All.ToString(); // Default to "All"
                 FilterUsersByActiveStatus();
             }
             else
             {
-                mtbFilterSearch.Visible = cbFilterRows.SelectedItem.ToString().ToLower() != enUsersFilter.IsActive.ToString().ToLower();
-                cbUserActiveStatus.Visible = cbFilterRows.SelectedItem.ToString().ToLower() == enUsersFilter.IsActive.ToString().ToLower();
+                mtbFilterSearch.Visible = true;
+                cbUserActiveStatus.Visible = false;
                 mtbFilterSearch.Clear();
 
                 if (cbFilterRows.SelectedItem.ToString().ToLower() == enUsersFilter.UserID.ToString().ToLower() || cbFilterRows.SelectedItem.ToString().ToLower() == enUsersFilter.PersonID.ToString().ToLower())

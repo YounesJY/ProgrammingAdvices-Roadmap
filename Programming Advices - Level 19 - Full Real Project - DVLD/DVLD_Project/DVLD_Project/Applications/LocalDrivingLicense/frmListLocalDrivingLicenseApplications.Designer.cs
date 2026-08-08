@@ -34,7 +34,7 @@
             this.lblFilter = new System.Windows.Forms.Label();
             this.lblNumberOfRecords = new System.Windows.Forms.Label();
             this.lblNumberOfRecordsLabel = new System.Windows.Forms.Label();
-            this.dvgLocalDrivingLicenseApplications = new System.Windows.Forms.DataGridView();
+            this.dgvLocalDrivingLicenseApplications = new System.Windows.Forms.DataGridView();
             this.cmsLocalDrivingLicenseApplications = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.showDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -57,7 +57,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dvgLocalDrivingLicenseApplications)).BeginInit();
+            this.cbApplicationStatus = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLocalDrivingLicenseApplications)).BeginInit();
             this.cmsLocalDrivingLicenseApplications.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddNewLocalDrivingLicenseApplication)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -69,27 +70,22 @@
             this.mtbFilterSearch.Name = "mtbFilterSearch";
             this.mtbFilterSearch.Size = new System.Drawing.Size(121, 20);
             this.mtbFilterSearch.TabIndex = 52;
+            this.mtbFilterSearch.TextChanged += new System.EventHandler(this.mtbFilterSearch_TextChanged);
             // 
             // cbFilterRows
             // 
             this.cbFilterRows.FormattingEnabled = true;
             this.cbFilterRows.Items.AddRange(new object[] {
             "None",
-            "PersonID",
+            "ApplicationID",
             "NationalNumber",
-            "FirstName",
-            "SecondName",
-            "ThirdName",
-            "LastName",
-            "Gender",
-            "Address",
-            "Phone",
-            "Email",
-            "Nationality"});
+            "FullName",
+            "Status"});
             this.cbFilterRows.Location = new System.Drawing.Point(120, 200);
             this.cbFilterRows.Name = "cbFilterRows";
             this.cbFilterRows.Size = new System.Drawing.Size(121, 21);
             this.cbFilterRows.TabIndex = 51;
+            this.cbFilterRows.SelectedIndexChanged += new System.EventHandler(this.cbFilterRows_SelectedIndexChanged);
             // 
             // lblFilter
             // 
@@ -121,16 +117,16 @@
             this.lblNumberOfRecordsLabel.TabIndex = 48;
             this.lblNumberOfRecordsLabel.Text = "# Records: ";
             // 
-            // dvgLocalDrivingLicenseApplications
+            // dgvLocalDrivingLicenseApplications
             // 
-            this.dvgLocalDrivingLicenseApplications.AllowUserToAddRows = false;
-            this.dvgLocalDrivingLicenseApplications.AllowUserToDeleteRows = false;
-            this.dvgLocalDrivingLicenseApplications.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dvgLocalDrivingLicenseApplications.ContextMenuStrip = this.cmsLocalDrivingLicenseApplications;
-            this.dvgLocalDrivingLicenseApplications.Location = new System.Drawing.Point(12, 235);
-            this.dvgLocalDrivingLicenseApplications.Name = "dvgLocalDrivingLicenseApplications";
-            this.dvgLocalDrivingLicenseApplications.Size = new System.Drawing.Size(893, 198);
-            this.dvgLocalDrivingLicenseApplications.TabIndex = 45;
+            this.dgvLocalDrivingLicenseApplications.AllowUserToAddRows = false;
+            this.dgvLocalDrivingLicenseApplications.AllowUserToDeleteRows = false;
+            this.dgvLocalDrivingLicenseApplications.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvLocalDrivingLicenseApplications.ContextMenuStrip = this.cmsLocalDrivingLicenseApplications;
+            this.dgvLocalDrivingLicenseApplications.Location = new System.Drawing.Point(12, 235);
+            this.dgvLocalDrivingLicenseApplications.Name = "dgvLocalDrivingLicenseApplications";
+            this.dgvLocalDrivingLicenseApplications.Size = new System.Drawing.Size(893, 198);
+            this.dgvLocalDrivingLicenseApplications.TabIndex = 45;
             // 
             // cmsLocalDrivingLicenseApplications
             // 
@@ -319,6 +315,23 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // cbApplicationStatus
+            // 
+            this.cbApplicationStatus.AutoCompleteCustomSource.AddRange(new string[] {
+            "All",
+            "Active",
+            "Inactive"});
+            this.cbApplicationStatus.FormattingEnabled = true;
+            this.cbApplicationStatus.Items.AddRange(new object[] {
+            "New",
+            "Cancelled",
+            "Completed"});
+            this.cbApplicationStatus.Location = new System.Drawing.Point(265, 200);
+            this.cbApplicationStatus.Name = "cbApplicationStatus";
+            this.cbApplicationStatus.Size = new System.Drawing.Size(121, 21);
+            this.cbApplicationStatus.TabIndex = 128;
+            this.cbApplicationStatus.SelectedIndexChanged += new System.EventHandler(this.cbApplicationStatus_SelectedIndexChanged);
+            // 
             // frmListLocalDrivingLicenseApplications
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -333,11 +346,12 @@
             this.Controls.Add(this.lblNumberOfRecordsLabel);
             this.Controls.Add(this.pbAddNewLocalDrivingLicenseApplication);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.dvgLocalDrivingLicenseApplications);
+            this.Controls.Add(this.dgvLocalDrivingLicenseApplications);
+            this.Controls.Add(this.cbApplicationStatus);
             this.Name = "frmListLocalDrivingLicenseApplications";
             this.Text = "frmListLocalDrivingLicenseApplications";
             this.Load += new System.EventHandler(this.frmListLocalDrivingLicenseApplications_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dvgLocalDrivingLicenseApplications)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLocalDrivingLicenseApplications)).EndInit();
             this.cmsLocalDrivingLicenseApplications.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbAddNewLocalDrivingLicenseApplication)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -355,7 +369,7 @@
         private System.Windows.Forms.Label lblNumberOfRecordsLabel;
         private System.Windows.Forms.PictureBox pbAddNewLocalDrivingLicenseApplication;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.DataGridView dvgLocalDrivingLicenseApplications;
+        private System.Windows.Forms.DataGridView dgvLocalDrivingLicenseApplications;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.ContextMenuStrip cmsLocalDrivingLicenseApplications;
@@ -376,5 +390,6 @@
         private System.Windows.Forms.ToolStripMenuItem showLicenseToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem showPersonLicenseHistoryToolStripMenuItem;
+        private System.Windows.Forms.ComboBox cbApplicationStatus;
     }
 }
