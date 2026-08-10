@@ -140,8 +140,6 @@ namespace DVLD_Project.People
         {
             mtbFilterSeach.Focus();
         }
-
-
         public void personCardDetailsUpdatedEventHandler(Action<object, int> action)
         {
             this.ctrlPersonCard.OnPersonCardDetailsUpdated += action;

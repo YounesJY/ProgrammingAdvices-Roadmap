@@ -1,4 +1,5 @@
 ﻿using DVLD_Business;
+using DVLD_Project.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -55,7 +56,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
         }
         private void RefreshHandler(object sender, int userID)
         {
-            MessageBox.Show("A new local driving license application has been created successfully.",
+            MessageBox.Show("Local driving license applications has been updated and data refreshed successfully.",
                 "Information",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
@@ -186,6 +187,48 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void tsmiEditApplication_Click(object sender, EventArgs e)
+        {
+            if (dgvLocalDrivingLicenseApplications.RowCount == 0)
+            {
+                MessageBox.Show("No application selected to show details.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
+
+            int applicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells["ApplicationID"].Value);
+            frmAddEditLocalDrivingLicenseApplication frmAddEditLocalDrivingLicenseApplication = new frmAddEditLocalDrivingLicenseApplication(applicationID);
+
+            // [This teaches how to handle events for inner controls via Event Exposure pattern]
+            try
+            {
+                if (frmAddEditLocalDrivingLicenseApplication != null)
+                {
+                    frmAddEditLocalDrivingLicenseApplication.OnApplicationUpdate += RefreshHandler;
+                    frmAddEditLocalDrivingLicenseApplication.OnPersonDetailsUpdated += RefreshHandler;
+                }
+                frmAddEditLocalDrivingLicenseApplication.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while showing application details: {ex.Message}",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (frmAddEditLocalDrivingLicenseApplication != null)
+                {
+                    frmAddEditLocalDrivingLicenseApplication.OnApplicationUpdate -= RefreshHandler;
+                    frmAddEditLocalDrivingLicenseApplication.OnPersonDetailsUpdated -= RefreshHandler;
+                }
+            }
         }
     }
 }

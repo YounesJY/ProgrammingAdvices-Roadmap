@@ -17,12 +17,20 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
         // [Form own Event] Event to notify when a user is added or updated
         public event Action<object, int> OnNewApplicationCreated;
         public event Action<object, int> OnNewLocalDrivingLicenseApplicationCreated;
+        public event Action<object, int> OnApplicationUpdate;
+
+        public event Action<object, int> OnPersonDetailsUpdated
+        {
+            add { ctrlPersonCardWithFilters.OnPersonCardDetailsUpdated += value; }
+            remove { ctrlPersonCardWithFilters.OnPersonCardDetailsUpdated -= value; }
+        }
 
         public enum enMode : byte { AddNew = 0, Update = 1 };
         private enMode _Mode = enMode.AddNew;
         private int _ApplicationID = ValidationConstants.INVALID_ID;
         private LocalDrivingLicenseApplication _LocalDrivingLicenseApplication = null;
         private const string DEFAULT_LICENSE_CLASS = "Class 3 - Ordinary Driving License";
+
 
         public frmAddEditLocalDrivingLicenseApplication()
         {
@@ -38,15 +46,18 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
         private void frmAddEditLocalDrivingLicenseApplication_Load(object sender, EventArgs e)
         {
             ResetFormToDefaultValues();
+            OnPersonDetailsUpdated += HandlePersonDetailsUpdated;
+
             if (this._Mode == enMode.Update)
-            {
-                // i'll implement this later, but for now, let's just show a message box to indicate that the update mode is not yet implemented.
-                MessageBox.Show("Update mode is not yet implemented.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+                FillFormWithApplicationDetails();
         }
         private void frmAddEditLocalDrivingLicenseApplication_Activated(object sender, EventArgs e)
-            {
+        {
             ctrlPersonCardWithFilters.FilterFocus();
+        }
+        private void frmAddEditLocalDrivingLicenseApplication_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            OnPersonDetailsUpdated -= HandlePersonDetailsUpdated;
         }
 
         private void setFormLabels()
@@ -71,6 +82,37 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             cbLicenseClass.SelectedIndex = (int)LicenseClass.enLicenseClass.OrdinaryDrivingLicense;
             lblFees.Text = ApplicationType.Find((int)ApplicationInfo.enApplicationType.NewDrivingLicense).ApplicationFees.ToString("C");
             lblCreatedByUser.Text = Global.currentLoggedInUser.UserName;
+        }
+        private void FillFormWithApplicationDetails()
+        {
+            _LocalDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByApplicationID(this._ApplicationID);
+
+            if (_LocalDrivingLicenseApplication == null)
+            {
+                MessageBox.Show("Application not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            }
+
+            btnNext.Enabled = true;
+            btnSave.Enabled = true;
+            tpApplicationInformations.Enabled = true;
+            tcAddEditLocalDrivingLicense.SelectedTab = tcAddEditLocalDrivingLicense.TabPages["tpApplicationInformations"];
+            ctrlPersonCardWithFilters.loadPersonDetailsToCard(_LocalDrivingLicenseApplication.ApplicantPersonID);
+
+
+            lblApplicationID.Text = _LocalDrivingLicenseApplication.ApplicationID.ToString();
+            lblApplicationDate.Text = _LocalDrivingLicenseApplication.ApplicationDate.ToString("dd/MM/yyyy");
+            cbLicenseClass.DataSource = LicenseClass.GetAllLicenseClasses();
+            cbLicenseClass.DisplayMember = "ClassName";
+            cbLicenseClass.SelectedIndex = _LocalDrivingLicenseApplication.LicenseClassID - 1;
+            lblFees.Text = _LocalDrivingLicenseApplication.PaidFees.ToString("C");
+            lblCreatedByUser.Text = _LocalDrivingLicenseApplication.CreatedByUserInfo.UserName;
+        }
+        private void HandlePersonDetailsUpdated(object arg1, int arg2)
+        {
+            if (this._Mode == enMode.Update && this._LocalDrivingLicenseApplication != null)
+                FillFormWithApplicationDetails();
         }
 
 
@@ -101,53 +143,73 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                 return;
             }
 
-            int activeApplicationID = ApplicationInfo.GetActiveApplicationID(this.ctrlPersonCardWithFilters.SelectedPerson.PersonID, ApplicationInfo.enApplicationType.NewDrivingLicense);
-            if (activeApplicationID != ValidationConstants.INVALID_ID)
+            if (this._Mode == enMode.AddNew)
             {
-                MessageBox.Show($"The selected person already has an active application for a [New Driving License] with ID [{activeApplicationID}].", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                int activeApplicationID = ApplicationInfo.GetActiveApplicationID(this.ctrlPersonCardWithFilters.SelectedPerson.PersonID, ApplicationInfo.enApplicationType.NewDrivingLicense);
+                if (activeApplicationID != ValidationConstants.INVALID_ID)
+                {
+                    MessageBox.Show($"The selected person already has an active application for a [New Driving License] with ID [{activeApplicationID}].", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            int activeLicenseID = LicenseInfo.GetActiveLicenseIDByPersonID(this.ctrlPersonCardWithFilters.SelectedPerson.PersonID, LicenseClass.Find(cbLicenseClass.Text).LicenseClassID);
-            if (activeLicenseID != ValidationConstants.INVALID_ID)
-            {
-                MessageBox.Show($"The selected person already has an active license for a [{cbLicenseClass.Text}] with ID [{activeLicenseID}].", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                int activeLicenseID = LicenseInfo.GetActiveLicenseIDByPersonID(this.ctrlPersonCardWithFilters.SelectedPerson.PersonID, LicenseClass.Find(cbLicenseClass.Text).LicenseClassID);
+                if (activeLicenseID != ValidationConstants.INVALID_ID)
+                {
+                    MessageBox.Show($"The selected person already has an active license for a [{cbLicenseClass.Text}] with ID [{activeLicenseID}].", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            LocalDrivingLicenseApplication localDrivingLicenseApplication = new LocalDrivingLicenseApplication
-            {
-                // setting ApplicationInfo properties
-                ApplicantPersonID = this.ctrlPersonCardWithFilters.SelectedPerson.PersonID,
-                ApplicationDate = DateTime.Now,
-                ApplicationTypeID = (int)ApplicationInfo.enApplicationType.NewDrivingLicense,
-                LastStatusDate = DateTime.Now,
-                PaidFees = float.Parse(lblFees.Text, System.Globalization.NumberStyles.Currency),
-                CreatedByUserID = Global.currentLoggedInUser.UserID,
+                LocalDrivingLicenseApplication localDrivingLicenseApplication = new LocalDrivingLicenseApplication
+                {
+                    // setting ApplicationInfo properties
+                    ApplicantPersonID = this.ctrlPersonCardWithFilters.SelectedPerson.PersonID,
+                    ApplicationDate = DateTime.Now,
+                    ApplicationTypeID = (int)ApplicationInfo.enApplicationType.NewDrivingLicense,
+                    LastStatusDate = DateTime.Now,
+                    PaidFees = float.Parse(lblFees.Text, System.Globalization.NumberStyles.Currency),
+                    CreatedByUserID = Global.currentLoggedInUser.UserID,
 
-                // setting LocalDrivingLicenseApplication properties
-                LicenseClassID = LicenseClass.Find(cbLicenseClass.Text).LicenseClassID
-            };
-            /* 
-                [Class initializer] used instead of constructor to set properties directly
-            WHY ? Because the constructor of LocalDrivingLicenseApplication is private, so we can't use it directly. Instead, we can use the class initializer to set the properties directly.
-                It's more readable and maintainable than using a normal setter method or constructor with parameters, especially when there are many properties to set.
-            It also allows us to set only the properties we want to set, without having to provide values for all properties in a constructor.
-            */
+                    // setting LocalDrivingLicenseApplication properties
+                    LicenseClassID = LicenseClass.Find(cbLicenseClass.Text).LicenseClassID
+                };
+                /* 
+                    [Class initializer] used instead of constructor to set properties directly
+                WHY ? Because the constructor of LocalDrivingLicenseApplication is private, so we can't use it directly. Instead, we can use the class initializer to set the properties directly.
+                    It's more readable and maintainable than using a normal setter method or constructor with parameters, especially when there are many properties to set.
+                It also allows us to set only the properties we want to set, without having to provide values for all properties in a constructor.
+                */
 
+                if (localDrivingLicenseApplication.Save())
+                {
+                    MessageBox.Show("Local Driving License Application saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    lblApplicationID.Text = localDrivingLicenseApplication.ApplicationID.ToString();
 
-
-            if (localDrivingLicenseApplication.Save())
-            {
-                MessageBox.Show("Local Driving License Application saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                lblApplicationID.Text = localDrivingLicenseApplication.ApplicationID.ToString();
-                OnNewApplicationCreated?.Invoke(this, localDrivingLicenseApplication.ApplicationID);
-                OnNewLocalDrivingLicenseApplicationCreated?.Invoke(this, localDrivingLicenseApplication.LocalDrivingLicenseApplicationID);
+                    OnNewApplicationCreated?.Invoke(this, localDrivingLicenseApplication.ApplicationID);
+                    OnNewLocalDrivingLicenseApplicationCreated?.Invoke(this, localDrivingLicenseApplication.LocalDrivingLicenseApplicationID);
+                    this._Mode = enMode.Update;
+                }
+                else
+                    MessageBox.Show("Failed to save Local Driving License Application.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                MessageBox.Show("Failed to save Local Driving License Application.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                if (this._LocalDrivingLicenseApplication.LicenseClassInfo.ClassName.Equals(cbLicenseClass.SelectedText))
+                {
+                    MessageBox.Show(
+                        "No changes detected.",
+                        "Information",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    return;
+                }
+
+                this._LocalDrivingLicenseApplication.LicenseClassID = LicenseClass.Find(cbLicenseClass.Text).LicenseClassID;
+                if (this._LocalDrivingLicenseApplication.Save())
+                {
+                    MessageBox.Show("Local Driving License Application updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    OnApplicationUpdate?.Invoke(this, this._LocalDrivingLicenseApplication.LocalDrivingLicenseApplicationID);
+                }
             }
 
         }

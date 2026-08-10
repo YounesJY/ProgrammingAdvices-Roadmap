@@ -36,12 +36,12 @@
             this.lblNumberOfRecordsLabel = new System.Windows.Forms.Label();
             this.dgvLocalDrivingLicenseApplications = new System.Windows.Forms.DataGridView();
             this.cmsLocalDrivingLicenseApplications = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.showDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowApplicationDetails = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DeleteApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiEditApplication = new System.Windows.Forms.ToolStripMenuItem();
+            this.tmsiDeleteApplicationDetails = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.CancelApplicaitonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tmsiCancelApplicationDetails = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ScheduleTestsMenue = new System.Windows.Forms.ToolStripMenuItem();
             this.scheduleVisionTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -131,12 +131,12 @@
             // cmsLocalDrivingLicenseApplications
             // 
             this.cmsLocalDrivingLicenseApplications.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showDetailsToolStripMenuItem,
+            this.tsmiShowApplicationDetails,
             this.toolStripSeparator2,
-            this.editToolStripMenuItem,
-            this.DeleteApplicationToolStripMenuItem,
+            this.tsmiEditApplication,
+            this.tmsiDeleteApplicationDetails,
             this.toolStripSeparator5,
-            this.CancelApplicaitonToolStripMenuItem,
+            this.tmsiCancelApplicationDetails,
             this.toolStripSeparator1,
             this.ScheduleTestsMenue,
             this.toolStripSeparator3,
@@ -146,49 +146,50 @@
             this.toolStripSeparator6,
             this.showPersonLicenseHistoryToolStripMenuItem});
             this.cmsLocalDrivingLicenseApplications.Name = "contextMenuStrip1";
-            this.cmsLocalDrivingLicenseApplications.Size = new System.Drawing.Size(262, 344);
+            this.cmsLocalDrivingLicenseApplications.Size = new System.Drawing.Size(262, 366);
             // 
-            // showDetailsToolStripMenuItem
+            // tsmiShowApplicationDetails
             // 
-            this.showDetailsToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.PersonDetails_32;
-            this.showDetailsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.showDetailsToolStripMenuItem.Name = "showDetailsToolStripMenuItem";
-            this.showDetailsToolStripMenuItem.Size = new System.Drawing.Size(261, 38);
-            this.showDetailsToolStripMenuItem.Text = "&Show Application Details";
+            this.tsmiShowApplicationDetails.Image = global::DVLD_Project.Properties.Resources.PersonDetails_32;
+            this.tsmiShowApplicationDetails.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsmiShowApplicationDetails.Name = "tsmiShowApplicationDetails";
+            this.tsmiShowApplicationDetails.Size = new System.Drawing.Size(261, 38);
+            this.tsmiShowApplicationDetails.Text = "&Show Application Details";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(258, 6);
             // 
-            // editToolStripMenuItem
+            // tsmiEditApplication
             // 
-            this.editToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.edit_32;
-            this.editToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(261, 38);
-            this.editToolStripMenuItem.Text = "&Edit Application";
+            this.tsmiEditApplication.Image = global::DVLD_Project.Properties.Resources.edit_32;
+            this.tsmiEditApplication.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsmiEditApplication.Name = "tsmiEditApplication";
+            this.tsmiEditApplication.Size = new System.Drawing.Size(261, 38);
+            this.tsmiEditApplication.Text = "&Edit Application";
+            this.tsmiEditApplication.Click += new System.EventHandler(this.tsmiEditApplication_Click);
             // 
-            // DeleteApplicationToolStripMenuItem
+            // tmsiDeleteApplicationDetails
             // 
-            this.DeleteApplicationToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.Delete_32_2;
-            this.DeleteApplicationToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.DeleteApplicationToolStripMenuItem.Name = "DeleteApplicationToolStripMenuItem";
-            this.DeleteApplicationToolStripMenuItem.Size = new System.Drawing.Size(261, 38);
-            this.DeleteApplicationToolStripMenuItem.Text = "&Delete Application";
+            this.tmsiDeleteApplicationDetails.Image = global::DVLD_Project.Properties.Resources.Delete_32_2;
+            this.tmsiDeleteApplicationDetails.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tmsiDeleteApplicationDetails.Name = "tmsiDeleteApplicationDetails";
+            this.tmsiDeleteApplicationDetails.Size = new System.Drawing.Size(261, 38);
+            this.tmsiDeleteApplicationDetails.Text = "&Delete Application";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(258, 6);
             // 
-            // CancelApplicaitonToolStripMenuItem
+            // tmsiCancelApplicationDetails
             // 
-            this.CancelApplicaitonToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.Delete_32;
-            this.CancelApplicaitonToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.CancelApplicaitonToolStripMenuItem.Name = "CancelApplicaitonToolStripMenuItem";
-            this.CancelApplicaitonToolStripMenuItem.Size = new System.Drawing.Size(261, 38);
-            this.CancelApplicaitonToolStripMenuItem.Text = "&Cancel Application";
+            this.tmsiCancelApplicationDetails.Image = global::DVLD_Project.Properties.Resources.Delete_32;
+            this.tmsiCancelApplicationDetails.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tmsiCancelApplicationDetails.Name = "tmsiCancelApplicationDetails";
+            this.tmsiCancelApplicationDetails.Size = new System.Drawing.Size(261, 38);
+            this.tmsiCancelApplicationDetails.Text = "&Cancel Application";
             // 
             // toolStripSeparator1
             // 
@@ -373,12 +374,12 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.ContextMenuStrip cmsLocalDrivingLicenseApplications;
-        private System.Windows.Forms.ToolStripMenuItem showDetailsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowApplicationDetails;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem DeleteApplicationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiEditApplication;
+        private System.Windows.Forms.ToolStripMenuItem tmsiDeleteApplicationDetails;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripMenuItem CancelApplicaitonToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tmsiCancelApplicationDetails;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem ScheduleTestsMenue;
         private System.Windows.Forms.ToolStripMenuItem scheduleVisionTestToolStripMenuItem;

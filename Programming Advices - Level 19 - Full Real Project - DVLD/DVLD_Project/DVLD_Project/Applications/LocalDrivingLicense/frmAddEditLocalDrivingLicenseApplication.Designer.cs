@@ -350,6 +350,7 @@
             this.Name = "frmAddEditLocalDrivingLicenseApplication";
             this.Text = "frmAddEditLocalDrivingLicense";
             this.Activated += new System.EventHandler(this.frmAddEditLocalDrivingLicenseApplication_Activated);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAddEditLocalDrivingLicenseApplication_FormClosing);
             this.Load += new System.EventHandler(this.frmAddEditLocalDrivingLicenseApplication_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.tpPersonalInformations.ResumeLayout(false);
