@@ -177,6 +177,7 @@
             this.tmsiDeleteApplicationDetails.Name = "tmsiDeleteApplicationDetails";
             this.tmsiDeleteApplicationDetails.Size = new System.Drawing.Size(261, 38);
             this.tmsiDeleteApplicationDetails.Text = "&Delete Application";
+            this.tmsiDeleteApplicationDetails.Click += new System.EventHandler(this.tmsiDeleteApplicationDetails_Click);
             // 
             // toolStripSeparator5
             // 
@@ -190,6 +191,7 @@
             this.tmsiCancelApplicationDetails.Name = "tmsiCancelApplicationDetails";
             this.tmsiCancelApplicationDetails.Size = new System.Drawing.Size(261, 38);
             this.tmsiCancelApplicationDetails.Text = "&Cancel Application";
+            this.tmsiCancelApplicationDetails.Click += new System.EventHandler(this.tmsiCancelApplicationDetails_Click);
             // 
             // toolStripSeparator1
             // 

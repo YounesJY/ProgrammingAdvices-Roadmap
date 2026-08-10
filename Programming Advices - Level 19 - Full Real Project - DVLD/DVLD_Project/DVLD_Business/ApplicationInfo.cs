@@ -264,10 +264,6 @@ namespace DVLD_Business
         }
 
 
-
-
-
-
         public bool DoesPersonHaveActiveApplication(int ApplicationTypeID)
         {
             return DoesPersonHaveActiveApplication(this.ApplicantPersonID, ApplicationTypeID);

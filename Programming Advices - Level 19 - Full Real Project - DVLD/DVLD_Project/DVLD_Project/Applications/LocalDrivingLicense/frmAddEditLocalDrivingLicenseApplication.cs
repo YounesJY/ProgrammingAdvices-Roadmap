@@ -193,6 +193,14 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             }
             else
             {
+                /*
+                    Currently, the update mode is tend only to update the category of the requested license, and not the person associated with the application
+                changing the applicant person itself seems to be compicated/will compilcate the logic here,
+                it's just better to delete the application and re create it in this case
+
+                I'll try to find a better solution if i can
+                */
+
 
                 if (this._LocalDrivingLicenseApplication.LicenseClassInfo.ClassName.Equals(cbLicenseClass.SelectedText))
                 {

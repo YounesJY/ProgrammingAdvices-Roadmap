@@ -230,5 +230,80 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                 }
             }
         }
+
+        private void tmsiDeleteApplicationDetails_Click(object sender, EventArgs e)
+        {
+            if (dgvLocalDrivingLicenseApplications.RowCount == 0)
+            {
+                MessageBox.Show("No application selected to delete.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
+            int applicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells["ApplicationID"].Value);
+            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByApplicationID(applicationID);
+
+            if (MessageBox.Show("Are you sure you want to delete this application?\n\nThis action cannot be undone.",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                if (localDrivingLicenseApplication.Delete())
+                {
+                    MessageBox.Show($"The application has been deleted successfully.",
+                                    "User Deleted",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+                    RefreshFormData();
+                }
+                else
+                {
+                    MessageBox.Show($"Failed to delete the application due to data relationship constraints.",
+                                    "Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void tmsiCancelApplicationDetails_Click(object sender, EventArgs e)
+        {
+
+            if (dgvLocalDrivingLicenseApplications.RowCount == 0)
+            {
+                MessageBox.Show("No application selected to delete.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
+            int applicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells["ApplicationID"].Value);
+            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByApplicationID(applicationID);
+
+            if (MessageBox.Show("Are you sure you want to cancel this application?\n\nThis action cannot be undone.",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                if (localDrivingLicenseApplication.Cancel())
+                {
+                    MessageBox.Show($"The application has been canceled successfully.",
+                                    "User Deleted",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+                    RefreshFormData();
+                }
+                else
+                {
+                    MessageBox.Show($"Failed to cancel the application due to data relationship constraints.",
+                                    "Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }
