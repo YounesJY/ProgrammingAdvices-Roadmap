@@ -7,14 +7,15 @@ namespace DVLD_Business
 {
     public class TestType
     {
-        public enum enMode { AddNew = 0, Update = 1 }
+        public enum enMode : byte { AddNew = 0, Update = 1 }
         public enum enTestType { VisionTest = 1, WrittenTest = 2, StreetTest = 3 }
 
         public enTestType TestTypeID { get; private set; }
         public string TestTypeTitle { get; set; }
         public string TestTypeDescription { get; set; }
         public float TestTypeFees { get; set; }
-        private enMode Mode { get; set; }
+
+        private enMode _Mode = enMode.AddNew;
 
         private TestType(enTestType ID, string Title, string Description, float Fees)
         {
@@ -22,36 +23,45 @@ namespace DVLD_Business
             this.TestTypeTitle = Title;
             this.TestTypeDescription = Description;
             this.TestTypeFees = Fees;
-            this.Mode = enMode.Update;
+            this._Mode = enMode.Update;
         }
+
         public TestType() : this(enTestType.VisionTest, string.Empty, string.Empty, 0)
         {
-            this.Mode = enMode.AddNew;
+            this._Mode = enMode.AddNew;
         }
 
         private bool _AddNewTestType()
         {
-            this.TestTypeID = (enTestType)TestTypeData.AddNewTestType(this.TestTypeTitle, this.TestTypeDescription, this.TestTypeFees);
+            this.TestTypeID = (enTestType)TestTypeData.AddNewTestType(
+                this.TestTypeTitle,
+                this.TestTypeDescription,
+                this.TestTypeFees
+            );
             return this.TestTypeID != (enTestType)(ValidationConstants.INVALID_ID);
         }
+
         private bool _UpdateTestType()
         {
-            return TestTypeData.UpdateTestType((int)this.TestTypeID, this.TestTypeTitle, this.TestTypeDescription, this.TestTypeFees);
+            return TestTypeData.UpdateTestType(
+                (int)this.TestTypeID,
+                this.TestTypeTitle,
+                this.TestTypeDescription,
+                this.TestTypeFees
+            );
         }
+
         public bool Save()
         {
-            switch (Mode)
+            switch (this._Mode)
             {
                 case enMode.AddNew:
                     if (_AddNewTestType())
                     {
-                        Mode = enMode.Update;
+                        this._Mode = enMode.Update;
                         return true;
                     }
-                    else
-                    {
-                        return false;
-                    }
+                    return false;
 
                 case enMode.Update:
                     return _UpdateTestType();
@@ -72,6 +82,7 @@ namespace DVLD_Business
 
             return null;
         }
+
         public static DataTable GetAllTestTypes()
         {
             return TestTypeData.GetAllTestTypes();

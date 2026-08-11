@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="ApplicationType.cs" />
     <Compile Include="ApplicationInfo.cs" />
+    <Compile Include="Test.cs" />
+    <Compile Include="TestAppointment.cs" />
     <Compile Include="DetainedLicense.cs" />
     <Compile Include="Driver.cs" />
     <Compile Include="LicenseInfo.cs" />
