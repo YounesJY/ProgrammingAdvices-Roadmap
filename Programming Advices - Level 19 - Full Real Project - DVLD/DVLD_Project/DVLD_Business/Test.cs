@@ -9,7 +9,7 @@ namespace DVLD_Business
     public class Test
     {
         public enum enMode : byte { AddNew = 0, Update = 1 }
-        public enum enTestType { VisionTest = 1, WrittenTest = 2, StreetTest = 3 }
+     //   public enum enTestType { VisionTest = 1, WrittenTest = 2, StreetTest = 3 }
 
 
         public int TestID { get; private set; }
@@ -96,7 +96,7 @@ namespace DVLD_Business
 
             return null;
         }
-        public static Test FindLastTestPerPersonAndLicenseClass(int PersonID, int LicenseClassID, enTestType TestTypeID)
+        public static Test FindLastTestPerPersonAndLicenseClass(int PersonID, int LicenseClassID, TestType.enTestType TestTypeID)
         {
             int TestID = ValidationConstants.INVALID_ID;
             int TestAppointmentID = ValidationConstants.INVALID_ID;

@@ -19,16 +19,16 @@ namespace DVLD_Business
         private enMode _Mode = enMode.AddNew;
 
         public int LicenseID { get; private set; }
-        public int ApplicationID { get; private set; }
-        public int DriverID { get; private set; }
-        public int LicenseClassID { get; private set; }
-        public DateTime IssueDate { get; private set; }
-        public DateTime ExpirationDate { get; private set; }
-        public string Notes { get; private set; }
-        public float PaidFees { get; private set; }
-        public bool IsActive { get; private set; }
-        public enIssueReason IssueReason { get; private set; }
-        public int CreatedByUserID { get; private set; }
+        public int ApplicationID { get; set; }
+        public int DriverID { get; set; }
+        public int LicenseClassID { get; set; }
+        public DateTime IssueDate { get; set; }
+        public DateTime ExpirationDate { get; set; }
+        public string Notes { get; set; }
+        public float PaidFees { get; set; }
+        public bool IsActive { get; set; }
+        public enIssueReason IssueReason { get; set; }
+        public int CreatedByUserID { get; set; }
 
         public Driver DriverInfo { get; private set; }
         public LicenseClass LicenseClassInfo { get; private set; }

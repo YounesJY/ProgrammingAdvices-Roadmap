@@ -13,9 +13,9 @@ namespace DVLD_Business
         public int TestAppointmentID { get; private set; }
 
         private int _TestTypeID;
-        public Test.enTestType TestTypeID
+        public TestType.enTestType TestTypeID
         {
-            get { return (Test.enTestType)_TestTypeID; }
+            get { return (TestType.enTestType)_TestTypeID; }
             set
             {
                 _TestTypeID = (int)value;
@@ -57,7 +57,7 @@ namespace DVLD_Business
         public TestAppointment()
         {
             this.TestAppointmentID = ValidationConstants.INVALID_ID;
-            this._TestTypeID = (int)Test.enTestType.VisionTest;
+            this._TestTypeID = (int)TestType.enTestType.VisionTest;
             this.LocalDrivingLicenseApplicationID = ValidationConstants.INVALID_ID;
             this.AppointmentDate = DateTime.Now;
             this.PaidFees = 0;
@@ -122,7 +122,7 @@ namespace DVLD_Business
         }
         public static TestAppointment Find(int TestAppointmentID)
         {
-            int TestTypeID = (int)Test.enTestType.VisionTest;
+            int TestTypeID = (int)TestType.enTestType.VisionTest;
             int LocalDrivingLicenseApplicationID = ValidationConstants.INVALID_ID;
             DateTime AppointmentDate = DateTime.Now;
             float PaidFees = 0;
@@ -141,7 +141,7 @@ namespace DVLD_Business
 
             return null;
         }
-        public static TestAppointment GetLastTestAppointment(int LocalDrivingLicenseApplicationID, Test.enTestType TestTypeID)
+        public static TestAppointment GetLastTestAppointment(int LocalDrivingLicenseApplicationID, TestType.enTestType TestTypeID)
         {
             int TestAppointmentID = ValidationConstants.INVALID_ID;
             DateTime AppointmentDate = DateTime.Now;
@@ -161,12 +161,12 @@ namespace DVLD_Business
 
             return null;
         }
-        public DataTable GetApplicationTestAppointmentsPerTestType(Test.enTestType TestTypeID)
+        public DataTable GetApplicationTestAppointmentsPerTestType(TestType.enTestType TestTypeID)
         {
             return TestAppointmentData.GetApplicationTestAppointmentsPerTestType(
                 this.LocalDrivingLicenseApplicationID, (int)TestTypeID);
         }
-        public static DataTable GetApplicationTestAppointmentsPerTestType(int LocalDrivingLicenseApplicationID, Test.enTestType TestTypeID)
+        public static DataTable GetApplicationTestAppointmentsPerTestType(int LocalDrivingLicenseApplicationID, TestType.enTestType TestTypeID)
         {
             return TestAppointmentData.GetApplicationTestAppointmentsPerTestType(
                 LocalDrivingLicenseApplicationID, (int)TestTypeID);

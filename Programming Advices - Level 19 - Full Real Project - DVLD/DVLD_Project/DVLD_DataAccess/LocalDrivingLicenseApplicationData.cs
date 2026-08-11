@@ -215,9 +215,7 @@ namespace DVLD_DataAccess
             return (rowsAffected > 0);
         }
 
-        // These methods are commented out because they are not currently used in the application,
-        // but they will be used in the upcoming versions.
-        /*
+
         public static bool DoesPassTestType(int LocalDrivingLicenseApplicationID, int TestTypeID)
         {
             bool result = false;
@@ -361,6 +359,5 @@ namespace DVLD_DataAccess
 
             return result;
         }
-        */
     }
 }

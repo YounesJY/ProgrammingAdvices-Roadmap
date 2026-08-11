@@ -180,10 +180,7 @@ namespace DVLD_Business
             return base.Delete();
         }
 
-
-        // These methods are commented out because they are not yet implemented in the LocalDrivingLicenseApplicationData class.
-        // We can implement them later when we have the necessary data access methods.
-        /*
+   
         public bool DoesPassTestType(TestType.enTestType TestTypeID)
         {
             return LocalDrivingLicenseApplicationData.DoesPassTestType(this.LocalDrivingLicenseApplicationID, (int)TestTypeID);
@@ -284,16 +281,16 @@ namespace DVLD_Business
                 DriverID = driver.DriverID;
             }
 
-            License license = new License();
+            LicenseInfo license = new LicenseInfo();
             license.ApplicationID = this.ApplicationID;
             license.DriverID = DriverID;
-            license.LicenseClass = this.LicenseClassID;
+            license.LicenseClassID = this.LicenseClassID;
             license.IssueDate = DateTime.Now;
             license.ExpirationDate = DateTime.Now.AddYears(this.LicenseClassInfo.DefaultValidityLength);
             license.Notes = Notes;
             license.PaidFees = this.LicenseClassInfo.ClassFees;
             license.IsActive = true;
-            license.IssueReason = License.enIssueReason.FirstTime;
+            license.IssueReason = LicenseInfo.enIssueReason.FirstTime;
             license.CreatedByUserID = CreatedByUserID;
 
             if (license.Save())
@@ -310,8 +307,8 @@ namespace DVLD_Business
         }
         public int GetActiveLicenseID()
         {
-            return License.GetActiveLicenseIDByPersonID(this.ApplicantPersonID, this.LicenseClassID);
+            return LicenseInfo.GetActiveLicenseIDByPersonID(this.ApplicantPersonID, this.LicenseClassID);
         }
-        */
+        
     }
 }
