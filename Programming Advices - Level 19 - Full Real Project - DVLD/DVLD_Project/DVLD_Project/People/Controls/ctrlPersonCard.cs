@@ -14,20 +14,21 @@ namespace DVLD_Project.People
 {
     public partial class ctrlPersonCard : UserControl
     {
+        public event Action<object, int> OnPersonCardDetailsUpdated;
+
         enum enGender { Male, Female }
         public Person Person { get; private set; }
-        public event Action<object, int> OnPersonCardDetailsUpdated;
 
 
         public ctrlPersonCard()
         {
             InitializeComponent();
         }
-        public void loadPersonDetailsToCard(int personID)
+        public void LoadPersonDetailsToCard(int personID)
         {
             if (personID <= 0)
             {
-                resetPersonInfo();
+                ResetPersonDetails();
                 MessageBox.Show($"Invalid PersonID = {personID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -35,17 +36,17 @@ namespace DVLD_Project.People
             this.Person = Person.Find(personID);
             if (Person == null)
             {
-                resetPersonInfo();
+                ResetPersonDetails();
                 MessageBox.Show($"No Person with PersonID = {personID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            fillPersonInfo();
+            FillPersonDetails();
         }
-        public void loadPersonDetailsToCard(string nationalNumber)
+        public void LoadPersonDetailsToCard(string nationalNumber)
         {
             if (string.IsNullOrWhiteSpace(nationalNumber))
             {
-                resetPersonInfo();
+                ResetPersonDetails();
                 MessageBox.Show($"Invalid National Number = {nationalNumber}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -53,15 +54,31 @@ namespace DVLD_Project.People
             this.Person = Person.Find(nationalNumber);
             if (Person == null)
             {
-                resetPersonInfo();
+                ResetPersonDetails();
 
                 MessageBox.Show($"No Person with National No. = {nationalNumber}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            fillPersonInfo();
+            FillPersonDetails();
         }
 
-        private void fillPersonInfo()
+        public void ResetPersonDetails()
+        {
+            this.Person = null;
+            lblPersonIDValue.Text = "[????]";
+            lblNationalNumberValue.Text = "[????]";
+            lblNameValue.Text = "[????]";
+            pbGender.Image = Resources.Man_32;
+            lblGenderValue.Text = "[????]";
+            lblEmailValue.Text = "[????]";
+            lblPhoneValue.Text = "[????]";
+            lblDateOfBirthValue.Text = "[????]";
+            lblCountryValue.Text = "[????]";
+            lblAddressValue.Text = "[????]";
+            pbProfileImage.Image = Resources.Male_512;
+            lblEditPersonInfo.Visible = this.Person != null;
+        }
+        private void FillPersonDetails()
         {
             lblPersonIDValue.Text = this.Person.PersonID.ToString();
             lblNationalNumberValue.Text = this.Person.NationalNumber;
@@ -88,22 +105,6 @@ namespace DVLD_Project.People
 
             lblEditPersonInfo.Enabled = true;
         }
-        public void resetPersonInfo()
-        {
-            this.Person = null;
-            lblPersonIDValue.Text = "[????]";
-            lblNationalNumberValue.Text = "[????]";
-            lblNameValue.Text = "[????]";
-            pbGender.Image = Resources.Man_32;
-            lblGenderValue.Text = "[????]";
-            lblEmailValue.Text = "[????]";
-            lblPhoneValue.Text = "[????]";
-            lblDateOfBirthValue.Text = "[????]";
-            lblCountryValue.Text = "[????]";
-            lblAddressValue.Text = "[????]";
-            pbProfileImage.Image = Resources.Male_512;
-            lblEditPersonInfo.Visible = this.Person != null;
-        }
 
         private void lblEditPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -127,7 +128,7 @@ namespace DVLD_Project.People
         }
         private void refreshDataOnUpdate(object sender, int PersonID)
         {
-            this.loadPersonDetailsToCard(this.Person.PersonID);
+            this.LoadPersonDetailsToCard(this.Person.PersonID);
             OnPersonCardDetailsUpdated?.Invoke(this, this.Person.PersonID);
         }
     }

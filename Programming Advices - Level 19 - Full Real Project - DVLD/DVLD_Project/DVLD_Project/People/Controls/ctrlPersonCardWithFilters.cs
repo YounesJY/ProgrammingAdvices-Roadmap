@@ -46,7 +46,7 @@ namespace DVLD_Project.People
         public void loadPersonDetailsToCard(int personId)
         {
             this.PersonId = personId;
-            ctrlPersonCard.loadPersonDetailsToCard(personId);
+            ctrlPersonCard.LoadPersonDetailsToCard(personId);
         }
 
         private void resetToDefautValues()
@@ -60,7 +60,7 @@ namespace DVLD_Project.People
             MessageBox.Show($"Person with ID {personId} has been added/updated.");
 
             this.PersonId = personId;
-            ctrlPersonCard.loadPersonDetailsToCard(personId);
+            ctrlPersonCard.LoadPersonDetailsToCard(personId);
             cbFilterRows.SelectedIndex = (int)enFilterBy.PersonID;
             mtbFilterSeach.Text = personId.ToString();
         }
@@ -116,10 +116,10 @@ namespace DVLD_Project.People
             {
                 case (int)enFilterBy.PersonID:
                     if (int.TryParse(mtbFilterSeach.Text, out int personId))
-                        ctrlPersonCard.loadPersonDetailsToCard(personId);
+                        ctrlPersonCard.LoadPersonDetailsToCard(personId);
                     break;
                 case (int)enFilterBy.NationalNumber:
-                    ctrlPersonCard.loadPersonDetailsToCard(mtbFilterSeach.Text);
+                    ctrlPersonCard.LoadPersonDetailsToCard(mtbFilterSeach.Text);
                     break;
                 default:
                     break;
@@ -140,9 +140,15 @@ namespace DVLD_Project.People
         {
             mtbFilterSeach.Focus();
         }
+
+        /*
+            I forget the reason why this method even exist for, maybe it was important but currently i don't remember it
+        
         public void personCardDetailsUpdatedEventHandler(Action<object, int> action)
         {
             this.ctrlPersonCard.OnPersonCardDetailsUpdated += action;
         }
+
+        */
     }
 }

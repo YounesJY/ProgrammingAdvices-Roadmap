@@ -58,6 +58,18 @@
     <Compile Include="Applications\ApplicationTypes\frmListApplicationTypes.Designer.cs">
       <DependentUpon>frmListApplicationTypes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Applications\Controls\ctrlApplicationDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Applications\Controls\ctrlApplicationDetails.Designer.cs">
+      <DependentUpon>ctrlApplicationDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Applications\LocalDrivingLicense\Controls\ctrlLocalDrivingApplicationDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Applications\LocalDrivingLicense\Controls\ctrlLocalDrivingApplicationDetails.Designer.cs">
+      <DependentUpon>ctrlLocalDrivingApplicationDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Applications\LocalDrivingLicense\frmAddEditLocalDrivingLicenseApplication.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +81,12 @@
     </Compile>
     <Compile Include="Applications\LocalDrivingLicense\frmListLocalDrivingLicenseApplications.Designer.cs">
       <DependentUpon>frmListLocalDrivingLicenseApplications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Applications\LocalDrivingLicense\frmLocalDrivingLicenseApplicationDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Applications\LocalDrivingLicense\frmLocalDrivingLicenseApplicationDetails.Designer.cs">
+      <DependentUpon>frmLocalDrivingLicenseApplicationDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="Global Classes\clsFormat.cs" />
     <Compile Include="Global Classes\clsGlobal.cs" />
@@ -179,11 +197,20 @@
     <EmbeddedResource Include="Applications\ApplicationTypes\frmListApplicationTypes.resx">
       <DependentUpon>frmListApplicationTypes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Applications\Controls\ctrlApplicationDetails.resx">
+      <DependentUpon>ctrlApplicationDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Applications\LocalDrivingLicense\Controls\ctrlLocalDrivingApplicationDetails.resx">
+      <DependentUpon>ctrlLocalDrivingApplicationDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Applications\LocalDrivingLicense\frmAddEditLocalDrivingLicenseApplication.resx">
       <DependentUpon>frmAddEditLocalDrivingLicenseApplication.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Applications\LocalDrivingLicense\frmListLocalDrivingLicenseApplications.resx">
       <DependentUpon>frmListLocalDrivingLicenseApplications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Applications\LocalDrivingLicense\frmLocalDrivingLicenseApplicationDetails.resx">
+      <DependentUpon>frmLocalDrivingLicenseApplicationDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginFrom.resx">
       <DependentUpon>LoginFrom.cs</DependentUpon>

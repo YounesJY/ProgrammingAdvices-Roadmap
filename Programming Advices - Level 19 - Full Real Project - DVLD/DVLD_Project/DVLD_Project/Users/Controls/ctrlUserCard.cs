@@ -32,7 +32,7 @@ namespace DVLD_Project.Users.Controls
 
         private void fillUserInfo()
         {
-            ctrlPersonCard.loadPersonDetailsToCard(_user.PersonID);
+            ctrlPersonCard.LoadPersonDetailsToCard(_user.PersonID);
             lblUserID.Text = _user.UserID.ToString();
             lblUserName.Text = _user.UserName;
             lblIsActive.Text = _user.IsActive ? "Yes" : "No";

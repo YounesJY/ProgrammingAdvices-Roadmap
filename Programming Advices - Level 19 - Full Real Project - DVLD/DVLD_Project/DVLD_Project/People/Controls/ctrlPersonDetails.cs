@@ -69,7 +69,6 @@ namespace DVLD_Project.People
                 pbProfileImage.Tag = person.Gender == (byte)Person.enGender.Male ? "male" : "female";
             }
         }
-
         private void rbGenderMale_CheckedChanged(object sender, EventArgs e)
         {
             if (rbGenderMale.Checked && pbProfileImage.Tag?.ToString() == "female")
@@ -78,7 +77,6 @@ namespace DVLD_Project.People
                 pbProfileImage.Tag = "male";
             }
         }
-
         private void rbGenderFemale_CheckedChanged(object sender, EventArgs e)
         {
             if (rbGenderFemale.Checked && pbProfileImage.Tag?.ToString() == "male")
@@ -103,7 +101,6 @@ namespace DVLD_Project.People
                 errorProvider.SetError(textBox, "");
             }
         }
-
         private void txtEmail_Validating(object sender, CancelEventArgs e)
         {
             if (!string.IsNullOrEmpty(txtEmail.Text) && !IsValidEmail(txtEmail.Text))

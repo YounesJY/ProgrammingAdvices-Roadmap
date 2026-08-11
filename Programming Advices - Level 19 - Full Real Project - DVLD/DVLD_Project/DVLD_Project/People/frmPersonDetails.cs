@@ -10,12 +10,12 @@ namespace DVLD_Project.People
         public frmPersonDetails(int PersonID)
         {
             InitializeComponent();
-            ctrlPersonCard.loadPersonDetailsToCard(PersonID);
+            ctrlPersonCard.LoadPersonDetailsToCard(PersonID);
         }
         public frmPersonDetails(string nationalNumber)
         {
             InitializeComponent();
-            ctrlPersonCard.loadPersonDetailsToCard(nationalNumber);
+            ctrlPersonCard.LoadPersonDetailsToCard(nationalNumber);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
