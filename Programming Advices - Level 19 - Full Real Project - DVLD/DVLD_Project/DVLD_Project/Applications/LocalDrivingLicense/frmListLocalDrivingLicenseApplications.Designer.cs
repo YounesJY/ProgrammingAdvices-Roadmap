@@ -127,6 +127,7 @@
             this.dgvLocalDrivingLicenseApplications.Name = "dgvLocalDrivingLicenseApplications";
             this.dgvLocalDrivingLicenseApplications.Size = new System.Drawing.Size(893, 198);
             this.dgvLocalDrivingLicenseApplications.TabIndex = 45;
+            this.dgvLocalDrivingLicenseApplications.DoubleClick += new System.EventHandler(this.dgvLocalDrivingLicenseApplications_DoubleClick);
             // 
             // cmsLocalDrivingLicenseApplications
             // 
@@ -146,7 +147,7 @@
             this.toolStripSeparator6,
             this.showPersonLicenseHistoryToolStripMenuItem});
             this.cmsLocalDrivingLicenseApplications.Name = "contextMenuStrip1";
-            this.cmsLocalDrivingLicenseApplications.Size = new System.Drawing.Size(262, 366);
+            this.cmsLocalDrivingLicenseApplications.Size = new System.Drawing.Size(262, 344);
             // 
             // tsmiShowApplicationDetails
             // 
@@ -155,6 +156,7 @@
             this.tsmiShowApplicationDetails.Name = "tsmiShowApplicationDetails";
             this.tsmiShowApplicationDetails.Size = new System.Drawing.Size(261, 38);
             this.tsmiShowApplicationDetails.Text = "&Show Application Details";
+            this.tsmiShowApplicationDetails.Click += new System.EventHandler(this.tsmiShowApplicationDetails_Click);
             // 
             // toolStripSeparator2
             // 
@@ -339,6 +341,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(917, 478);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblTitle);

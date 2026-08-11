@@ -76,7 +76,7 @@ namespace DVLD_Project.Applications.Controls
             try
             {
                 if (frmAddEditLocalDrivingLicenseApplication != null)
-                    frmAddEditLocalDrivingLicenseApplication.OnApplicationUpdate += refreshDataOnUpdate;
+                    frmAddEditLocalDrivingLicenseApplication.OnApplicationUpdate += RefreshDataOnUpdate;
                 frmAddEditLocalDrivingLicenseApplication.ShowDialog();
             }
             catch (Exception ex)
@@ -86,10 +86,10 @@ namespace DVLD_Project.Applications.Controls
             finally
             {
                 if (frmAddEditLocalDrivingLicenseApplication != null)
-                    frmAddEditLocalDrivingLicenseApplication.OnApplicationUpdate -= refreshDataOnUpdate;
+                    frmAddEditLocalDrivingLicenseApplication.OnApplicationUpdate -= RefreshDataOnUpdate;
             }
         }
-        private void refreshDataOnUpdate(object arg1, int arg2)
+        private void RefreshDataOnUpdate(object arg1, int arg2)
         {
             this.LoadApplicationDetailsToCard(this._applicationInfo.ApplicationID);
             OnApplicationCardDetailsUpdated?.Invoke(this, this._applicationInfo.ApplicationID);

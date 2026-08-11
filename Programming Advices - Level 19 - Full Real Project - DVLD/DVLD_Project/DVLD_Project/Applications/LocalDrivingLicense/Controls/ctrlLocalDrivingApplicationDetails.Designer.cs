@@ -61,9 +61,10 @@
             this.gbLocalDrivingLicenseApplicationDetails.Controls.Add(this.pictureBox2);
             this.gbLocalDrivingLicenseApplicationDetails.Controls.Add(this.lblLocalDrivingLicenseApplicationID);
             this.gbLocalDrivingLicenseApplicationDetails.Controls.Add(this.label4);
-            this.gbLocalDrivingLicenseApplicationDetails.Location = new System.Drawing.Point(3, 3);
+            this.gbLocalDrivingLicenseApplicationDetails.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gbLocalDrivingLicenseApplicationDetails.Location = new System.Drawing.Point(0, 0);
             this.gbLocalDrivingLicenseApplicationDetails.Name = "gbLocalDrivingLicenseApplicationDetails";
-            this.gbLocalDrivingLicenseApplicationDetails.Size = new System.Drawing.Size(798, 132);
+            this.gbLocalDrivingLicenseApplicationDetails.Size = new System.Drawing.Size(804, 132);
             this.gbLocalDrivingLicenseApplicationDetails.TabIndex = 2;
             this.gbLocalDrivingLicenseApplicationDetails.TabStop = false;
             this.gbLocalDrivingLicenseApplicationDetails.Text = "Driving License Application Info";
@@ -187,7 +188,7 @@
             // ctrlApplicationDetails
             // 
             this.ctrlApplicationDetails.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ctrlApplicationDetails.Location = new System.Drawing.Point(0, 172);
+            this.ctrlApplicationDetails.Location = new System.Drawing.Point(0, 153);
             this.ctrlApplicationDetails.Name = "ctrlApplicationDetails";
             this.ctrlApplicationDetails.Size = new System.Drawing.Size(804, 206);
             this.ctrlApplicationDetails.TabIndex = 3;
@@ -199,7 +200,7 @@
             this.Controls.Add(this.ctrlApplicationDetails);
             this.Controls.Add(this.gbLocalDrivingLicenseApplicationDetails);
             this.Name = "ctrlLocalDrivingApplicationDetails";
-            this.Size = new System.Drawing.Size(804, 378);
+            this.Size = new System.Drawing.Size(804, 359);
             this.gbLocalDrivingLicenseApplicationDetails.ResumeLayout(false);
             this.gbLocalDrivingLicenseApplicationDetails.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

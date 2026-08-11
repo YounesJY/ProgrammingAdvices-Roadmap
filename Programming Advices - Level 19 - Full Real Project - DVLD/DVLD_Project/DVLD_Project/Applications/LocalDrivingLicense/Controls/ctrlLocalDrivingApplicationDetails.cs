@@ -22,7 +22,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense.Controls
         }
 
 
-        public void LoadLocalDrivingApplicationDetailsToCard(int localDrivingApplicationID)
+        public void LoadApplicationDetailsByLocalDrivingApplicationID(int localDrivingApplicationID)
         {
             if (localDrivingApplicationID <= 0)
             {
@@ -36,6 +36,24 @@ namespace DVLD_Project.Applications.LocalDrivingLicense.Controls
             {
                 ResetLocalDrivingApplicationDetails();
                 MessageBox.Show($"No application with ApplicationID = {localDrivingApplicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            FillLocalDrivingApplicationDetails();
+        }
+        public void LoadApplicationDetailsByApplicationID(int applicationID)
+        {
+            if (applicationID <= 0)
+            {
+                ResetLocalDrivingApplicationDetails();
+                MessageBox.Show($"Invalid ApplicationID = {applicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            this._localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByApplicationID(applicationID);
+            if (this._localDrivingLicenseApplication == null)
+            {
+                ResetLocalDrivingApplicationDetails();
+                MessageBox.Show($"No application with ApplicationID = {applicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             FillLocalDrivingApplicationDetails();

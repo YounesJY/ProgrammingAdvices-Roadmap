@@ -160,6 +160,47 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
         {
             FilterLocalDrivingApplications();
         }
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+
+        private void tsmiShowApplicationDetails_Click(object sender, EventArgs e)
+        {
+            if (dgvLocalDrivingLicenseApplications.RowCount == 0)
+            {
+                MessageBox.Show("No application selected to show details.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
+
+            int applicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells["ApplicationID"].Value);
+            frmLocalDrivingLicenseApplicationDetails frmLocalDrivingLicenseApplicationDetails = new frmLocalDrivingLicenseApplicationDetails(applicationID);
+
+            // [This teaches how to handle events for inner controls via Event Exposure pattern]
+            try
+            {
+                if (frmLocalDrivingLicenseApplicationDetails != null)
+                    frmLocalDrivingLicenseApplicationDetails.OnApplicationCardDetailsUpdated += RefreshHandler;
+                frmLocalDrivingLicenseApplicationDetails.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while showing application details: {ex.Message}",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (frmLocalDrivingLicenseApplicationDetails != null)
+                    frmLocalDrivingLicenseApplicationDetails.OnApplicationCardDetailsUpdated -= RefreshHandler;
+            }
+        }
         private void pbAddNewLocalDrivingLicenseApplication_Click(object sender, EventArgs e)
         {
             frmAddEditLocalDrivingLicenseApplication frmAddEditLocalDrivingLicenseApplication = new frmAddEditLocalDrivingLicenseApplication();
@@ -184,11 +225,6 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                     frmAddEditLocalDrivingLicenseApplication.OnNewLocalDrivingLicenseApplicationCreated -= RefreshHandler;
             }
         }
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void tsmiEditApplication_Click(object sender, EventArgs e)
         {
             if (dgvLocalDrivingLicenseApplications.RowCount == 0)
@@ -230,7 +266,43 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                 }
             }
         }
+        private void tmsiCancelApplicationDetails_Click(object sender, EventArgs e)
+        {
 
+            if (dgvLocalDrivingLicenseApplications.RowCount == 0)
+            {
+                MessageBox.Show("No application selected to delete.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
+            int applicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells["ApplicationID"].Value);
+            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByApplicationID(applicationID);
+
+            if (MessageBox.Show("Are you sure you want to cancel this application?\n\nThis action cannot be undone.",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                if (localDrivingLicenseApplication.Cancel())
+                {
+                    MessageBox.Show($"The application has been canceled successfully.",
+                                    "User Deleted",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+                    RefreshFormData();
+                }
+                else
+                {
+                    MessageBox.Show($"Failed to cancel the application due to data relationship constraints.",
+                                    "Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+            }
+        }
         private void tmsiDeleteApplicationDetails_Click(object sender, EventArgs e)
         {
             if (dgvLocalDrivingLicenseApplications.RowCount == 0)
@@ -268,42 +340,9 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             }
         }
 
-        private void tmsiCancelApplicationDetails_Click(object sender, EventArgs e)
+        private void dgvLocalDrivingLicenseApplications_DoubleClick(object sender, EventArgs e)
         {
-
-            if (dgvLocalDrivingLicenseApplications.RowCount == 0)
-            {
-                MessageBox.Show("No application selected to delete.",
-                                "Error",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-                return;
-            }
-
-            int applicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells["ApplicationID"].Value);
-            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByApplicationID(applicationID);
-
-            if (MessageBox.Show("Are you sure you want to cancel this application?\n\nThis action cannot be undone.",
-                "Confirm Delete",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning) == DialogResult.Yes)
-            {
-                if (localDrivingLicenseApplication.Cancel())
-                {
-                    MessageBox.Show($"The application has been canceled successfully.",
-                                    "User Deleted",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Information);
-                    RefreshFormData();
-                }
-                else
-                {
-                    MessageBox.Show($"Failed to cancel the application due to data relationship constraints.",
-                                    "Error",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                }
-            }
+            tsmiShowApplicationDetails_Click(sender, e);
         }
     }
 }

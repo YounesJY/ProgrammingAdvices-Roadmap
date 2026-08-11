@@ -340,8 +340,10 @@
             // 
             // frmAddEditLocalDrivingLicenseApplication
             // 
+            this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(851, 511);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnClose);
