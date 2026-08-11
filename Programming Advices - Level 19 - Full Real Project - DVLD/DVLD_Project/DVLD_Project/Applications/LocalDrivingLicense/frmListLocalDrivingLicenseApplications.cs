@@ -185,7 +185,10 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             try
             {
                 if (frmLocalDrivingLicenseApplicationDetails != null)
+                {
                     frmLocalDrivingLicenseApplicationDetails.OnApplicationCardDetailsUpdated += RefreshHandler;
+                    frmLocalDrivingLicenseApplicationDetails.OnPersonDetailsUpdated += RefreshHandler;
+                }
                 frmLocalDrivingLicenseApplicationDetails.ShowDialog();
             }
             catch (Exception ex)
@@ -198,7 +201,10 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             finally
             {
                 if (frmLocalDrivingLicenseApplicationDetails != null)
+                {
                     frmLocalDrivingLicenseApplicationDetails.OnApplicationCardDetailsUpdated -= RefreshHandler;
+                    frmLocalDrivingLicenseApplicationDetails.OnPersonDetailsUpdated += RefreshHandler;
+                }
             }
         }
         private void pbAddNewLocalDrivingLicenseApplication_Click(object sender, EventArgs e)

@@ -1,4 +1,5 @@
 ﻿using DVLD_Common;
+using DVLD_Project.People;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,12 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             add { this.ctrlLocalDrivingApplicationDetails.OnApplicationCardDetailsUpdated += value; }
             remove { this.ctrlLocalDrivingApplicationDetails.OnApplicationCardDetailsUpdated -= value; }
         }
+        public event Action<object, int> OnPersonDetailsUpdated
+        {
+            add { this.ctrlLocalDrivingApplicationDetails.OnPersonDetailsUpdated += value; }
+            remove { this.ctrlLocalDrivingApplicationDetails.OnPersonDetailsUpdated -= value; }
+        }
+
 
         private frmLocalDrivingLicenseApplicationDetails()
         {
@@ -37,16 +44,24 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
         private void frmLocalDrivingLicenseApplicationDetails_Activated(object sender, EventArgs e)
         {
             this.OnApplicationCardDetailsUpdated += RefreshFormData;
+            this.OnPersonDetailsUpdated += RefreshFormData;
         }
         private void frmLocalDrivingLicenseApplicationDetails_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.OnApplicationCardDetailsUpdated -= RefreshFormData;
+            this.OnPersonDetailsUpdated -= RefreshFormData;
         }
 
 
-        private void RefreshFormData(object obj, int applicationID)
+        /*
+            This method is called based on 2 events but with different "arg" meaning
+        this case of OnPersonDetailsUpdated [arg -> PersonID], while OnApplicationCardDetailsUpdated [arg -> LocalDrivingLicenseApplicationID]
+
+        so you should always refresh the form based on the local variable [_applicationID], not the [arg]
+        */
+        private void RefreshFormData(object obj, int arg)
         {
-            this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByApplicationID(applicationID);
+            this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByApplicationID(this._applicationID);
         }
         private void btnClose_Click(object sender, EventArgs e)
         {

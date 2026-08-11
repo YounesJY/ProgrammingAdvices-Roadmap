@@ -19,7 +19,9 @@ namespace DVLD_Project.Applications.Controls
     public partial class ctrlApplicationDetails : UserControl
     {
         public event Action<object, int> OnApplicationCardDetailsUpdated;
+        public event Action<object, int> OnPersonDetailsUpdated;
         private ApplicationInfo _applicationInfo = null;
+
 
         public ctrlApplicationDetails()
         {
@@ -76,7 +78,10 @@ namespace DVLD_Project.Applications.Controls
             try
             {
                 if (frmAddEditLocalDrivingLicenseApplication != null)
+                {
                     frmAddEditLocalDrivingLicenseApplication.OnApplicationUpdate += RefreshDataOnUpdate;
+                    frmAddEditLocalDrivingLicenseApplication.OnPersonDetailsUpdated += HandlePersonDetailsUpdated;
+                }
                 frmAddEditLocalDrivingLicenseApplication.ShowDialog();
             }
             catch (Exception ex)
@@ -86,13 +91,22 @@ namespace DVLD_Project.Applications.Controls
             finally
             {
                 if (frmAddEditLocalDrivingLicenseApplication != null)
+                {
                     frmAddEditLocalDrivingLicenseApplication.OnApplicationUpdate -= RefreshDataOnUpdate;
+                    frmAddEditLocalDrivingLicenseApplication.OnPersonDetailsUpdated -= HandlePersonDetailsUpdated;
+                }
+
             }
         }
-        private void RefreshDataOnUpdate(object arg1, int arg2)
+
+        private void HandlePersonDetailsUpdated(object sender, int personID)
         {
-            this.LoadApplicationDetailsToCard(this._applicationInfo.ApplicationID);
-            OnApplicationCardDetailsUpdated?.Invoke(this, this._applicationInfo.ApplicationID);
+            OnPersonDetailsUpdated?.Invoke(sender, personID);
+        }
+        private void RefreshDataOnUpdate(object sender, int applicationID)
+        {
+            this.LoadApplicationDetailsToCard(applicationID);
+            OnApplicationCardDetailsUpdated?.Invoke(this, applicationID);
         }
     }
 }

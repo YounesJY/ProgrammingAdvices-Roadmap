@@ -1,6 +1,7 @@
 ﻿using DVLD.Classes;
 using DVLD_Business;
 using DVLD_Common;
+using DVLD_Project.People;
 using System;
 using System.Windows.Forms;
 
@@ -8,11 +9,19 @@ namespace DVLD_Project.Applications.LocalDrivingLicense.Controls
 {
     public partial class ctrlLocalDrivingApplicationDetails : UserControl
     {
+
+        // [Event Exposure]
         public event Action<object, int> OnApplicationCardDetailsUpdated
         {
             add { this.ctrlApplicationDetails.OnApplicationCardDetailsUpdated += value; }
             remove { this.ctrlApplicationDetails.OnApplicationCardDetailsUpdated -= value; }
         }
+        public event Action<object, int> OnPersonDetailsUpdated
+        {
+            add { ctrlApplicationDetails.OnPersonDetailsUpdated += value; }
+            remove { ctrlApplicationDetails.OnPersonDetailsUpdated -= value; }
+        }
+
         private LocalDrivingLicenseApplication _localDrivingLicenseApplication = null;
 
 
