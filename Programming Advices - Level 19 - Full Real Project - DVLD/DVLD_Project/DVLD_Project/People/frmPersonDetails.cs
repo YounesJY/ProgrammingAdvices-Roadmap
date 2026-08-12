@@ -5,7 +5,11 @@ namespace DVLD_Project.People
 {
     public partial class frmPersonDetails : Form
     {
-        public ctrlPersonCard PersonCard { get => ctrlPersonCard; }
+        public event Action<object, int> OnPersonCardDetailsUpdated
+        {
+            add { this.ctrlPersonCard.OnPersonCardDetailsUpdated += value; }
+            remove { this.ctrlPersonCard.OnPersonCardDetailsUpdated -= value; }
+        }
 
         public frmPersonDetails(int PersonID)
         {

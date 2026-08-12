@@ -79,16 +79,16 @@ namespace DVLD_Project.People
                     handler keeps a reference to this form, preventing garbage collection
                     ====================================================================
                 */
-                if (form.PersonCard != null)
-                    form.PersonCard.OnPersonCardDetailsUpdated += RefreshHandler;
+                if (form != null)
+                    form.OnPersonCardDetailsUpdated += RefreshHandler;
 
                 form.ShowDialog();
             }
             finally
             {
                 // Always unsubscribe to prevent memory leaks
-                if (form.PersonCard != null)
-                    form.PersonCard.OnPersonCardDetailsUpdated -= RefreshHandler;
+                if (form != null)
+                    form.OnPersonCardDetailsUpdated -= RefreshHandler;
             }
         }
         private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)

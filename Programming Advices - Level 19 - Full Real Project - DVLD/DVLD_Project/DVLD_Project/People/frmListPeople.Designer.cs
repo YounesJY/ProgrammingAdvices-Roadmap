@@ -144,6 +144,7 @@
             // 
             // btnClose
             // 
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.Image = global::DVLD_Project.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnClose.Location = new System.Drawing.Point(738, 456);
@@ -241,6 +242,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(847, 495);
             this.Controls.Add(this.mtbFilterSearch);
             this.Controls.Add(this.cbFilterRows);
@@ -253,7 +255,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Name = "frmListPeople";
-            this.Text = "6";
+            this.Text = "Manage People";
             this.Load += new System.EventHandler(this.ListPeople_Load);
             ((System.ComponentModel.ISupportInitialize)(this.peopleDataGridView)).EndInit();
             this.PeopleContextMenuStrip.ResumeLayout(false);

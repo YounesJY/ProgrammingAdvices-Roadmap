@@ -77,20 +77,20 @@ namespace DVLD_Project.Applications.Controls
 
             try
             {
-                if (form.PersonCard != null)
+                if (form != null)
                 {
-                    form.PersonCard.OnPersonCardDetailsUpdated += RefreshDataOnUpdate;
-                    form.PersonCard.OnPersonCardDetailsUpdated += HandlePersonDetailsUpdated;
+                    form.OnPersonCardDetailsUpdated += RefreshDataOnUpdate;
+                    form.OnPersonCardDetailsUpdated += HandlePersonDetailsUpdated;
                 }
 
                 form.ShowDialog();
             }
             finally
             {
-                if (form.PersonCard != null)
+                if (form != null)
                 {
-                    form.PersonCard.OnPersonCardDetailsUpdated -= RefreshDataOnUpdate;
-                    form.PersonCard.OnPersonCardDetailsUpdated -= HandlePersonDetailsUpdated;
+                    form.OnPersonCardDetailsUpdated -= RefreshDataOnUpdate;
+                    form.OnPersonCardDetailsUpdated -= HandlePersonDetailsUpdated;
                 }
             }
         }
