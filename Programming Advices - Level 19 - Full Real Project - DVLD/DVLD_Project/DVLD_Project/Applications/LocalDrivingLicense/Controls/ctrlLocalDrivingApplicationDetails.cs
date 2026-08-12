@@ -15,12 +15,6 @@ namespace DVLD_Project.Applications.LocalDrivingLicense.Controls
             add { this.ctrlApplicationDetails.OnApplicationCardDetailsUpdated += value; }
             remove { this.ctrlApplicationDetails.OnApplicationCardDetailsUpdated -= value; }
         }
-        public event Action<object, int> OnPersonDetailsUpdated
-        {
-            add { ctrlApplicationDetails.OnPersonDetailsUpdated += value; }
-            remove { ctrlApplicationDetails.OnPersonDetailsUpdated -= value; }
-        }
-
         private LocalDrivingLicenseApplication _LocalDrivingLicenseApplication = null;
 
 

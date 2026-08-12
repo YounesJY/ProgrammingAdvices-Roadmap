@@ -19,7 +19,6 @@ namespace DVLD_Project.Applications.Controls
     public partial class ctrlApplicationDetails : UserControl
     {
         public event Action<object, int> OnApplicationCardDetailsUpdated;
-        public event Action<object, int> OnPersonDetailsUpdated;
         private ApplicationInfo _applicationInfo = null;
 
 
@@ -78,31 +77,20 @@ namespace DVLD_Project.Applications.Controls
             try
             {
                 if (form != null)
-                {
-                    form.OnPersonCardDetailsUpdated += RefreshDataOnUpdate;
-                    form.OnPersonCardDetailsUpdated += HandlePersonDetailsUpdated;
-                }
+                    form.OnPersonCardDetailsUpdated += RefreshDataOnApplicationUpdate;
 
                 form.ShowDialog();
             }
             finally
             {
                 if (form != null)
-                {
-                    form.OnPersonCardDetailsUpdated -= RefreshDataOnUpdate;
-                    form.OnPersonCardDetailsUpdated -= HandlePersonDetailsUpdated;
-                }
+                    form.OnPersonCardDetailsUpdated -= RefreshDataOnApplicationUpdate;
             }
         }
 
-        private void HandlePersonDetailsUpdated(object sender, int personID)
+        private void RefreshDataOnApplicationUpdate(object sender, int personID)
         {
-            OnPersonDetailsUpdated?.Invoke(sender, personID);
-        }
-        private void RefreshDataOnUpdate(object sender, int applicationID)
-        {
-            this.LoadApplicationDetailsToCard(applicationID);
-            OnApplicationCardDetailsUpdated?.Invoke(this, applicationID);
+            OnApplicationCardDetailsUpdated?.Invoke(this, this._applicationInfo.ApplicationID);
         }
     }
 }

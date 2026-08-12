@@ -38,7 +38,7 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnClose.Image = global::DVLD_Project.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(655, 375);
+            this.btnClose.Location = new System.Drawing.Point(697, 367);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(126, 37);
@@ -52,7 +52,7 @@
             this.ctrlLocalDrivingApplicationDetails.Dock = System.Windows.Forms.DockStyle.Top;
             this.ctrlLocalDrivingApplicationDetails.Location = new System.Drawing.Point(0, 0);
             this.ctrlLocalDrivingApplicationDetails.Name = "ctrlLocalDrivingApplicationDetails";
-            this.ctrlLocalDrivingApplicationDetails.Size = new System.Drawing.Size(785, 359);
+            this.ctrlLocalDrivingApplicationDetails.Size = new System.Drawing.Size(826, 359);
             this.ctrlLocalDrivingApplicationDetails.TabIndex = 19;
             // 
             // frmLocalDrivingLicenseApplicationDetails
@@ -60,7 +60,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(785, 419);
+            this.ClientSize = new System.Drawing.Size(826, 410);
             this.Controls.Add(this.ctrlLocalDrivingApplicationDetails);
             this.Controls.Add(this.btnClose);
             this.Name = "frmLocalDrivingLicenseApplicationDetails";

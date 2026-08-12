@@ -14,18 +14,13 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
 {
     public partial class frmLocalDrivingLicenseApplicationDetails : Form
     {
-        private int _LocalDrivingApplicationID = ValidationConstants.INVALID_ID;
-
         public event Action<object, int> OnApplicationCardDetailsUpdated
         {
             add { this.ctrlLocalDrivingApplicationDetails.OnApplicationCardDetailsUpdated += value; }
             remove { this.ctrlLocalDrivingApplicationDetails.OnApplicationCardDetailsUpdated -= value; }
         }
-        public event Action<object, int> OnPersonDetailsUpdated
-        {
-            add { this.ctrlLocalDrivingApplicationDetails.OnPersonDetailsUpdated += value; }
-            remove { this.ctrlLocalDrivingApplicationDetails.OnPersonDetailsUpdated -= value; }
-        }
+
+        private int _LocalDrivingApplicationID = ValidationConstants.INVALID_ID;
 
 
         private frmLocalDrivingLicenseApplicationDetails()
@@ -40,26 +35,18 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
         private void frmLocalDrivingLicenseApplicationDetails_Load(object sender, EventArgs e)
         {
             this.OnApplicationCardDetailsUpdated += RefreshFormData;
-            this.OnPersonDetailsUpdated += RefreshFormData;
 
             this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByLocalDrivingApplicationID(this._LocalDrivingApplicationID);
         }
         private void frmLocalDrivingLicenseApplicationDetails_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.OnApplicationCardDetailsUpdated -= RefreshFormData;
-            this.OnPersonDetailsUpdated -= RefreshFormData;
         }
 
 
-        /*
-            This method is called based on 2 events but with different "arg" meaning
-        this case of OnPersonDetailsUpdated [arg -> PersonID], while OnApplicationCardDetailsUpdated [arg -> LocalDrivingLicenseApplicationID]
-
-        so you should always refresh the form based on the local variable [_applicationID], not the [arg]
-        */
-        private void RefreshFormData(object obj, int arg)
+        private void RefreshFormData(object obj, int applicationID)
         {
-            this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByLocalDrivingApplicationID(this._LocalDrivingApplicationID);
+            this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByApplicationID(applicationID);
         }
         private void btnClose_Click(object sender, EventArgs e)
         {
