@@ -38,7 +38,6 @@ namespace DVLD_Project.Users
         }
         private void frmAddNewUpdateUser_Load(object sender, EventArgs e)
         {
-            resetDefualtValues();
             // Subscribe to person card details updated event [using Event Expose Pattern]
             /*
                 [Event Expose Pattern] is about exposing an event from a child control to the parent form,
@@ -53,6 +52,8 @@ namespace DVLD_Project.Users
             without giving the parent form direct access to the child control's internal state or behavior.
             */
             OnPersonDetailsUpdated += HandlePersonDetailsUpdated;
+
+            resetDefualtValues();
             if (this._mode == enMode.Update)
                 fillFormWithUserData(this._userID);
         }

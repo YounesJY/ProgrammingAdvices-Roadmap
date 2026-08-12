@@ -14,7 +14,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
 {
     public partial class frmLocalDrivingLicenseApplicationDetails : Form
     {
-        private int _applicationID = ValidationConstants.INVALID_ID;
+        private int _LocalDrivingApplicationID = ValidationConstants.INVALID_ID;
 
         public event Action<object, int> OnApplicationCardDetailsUpdated
         {
@@ -32,19 +32,17 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
         {
             InitializeComponent();
         }
-        public frmLocalDrivingLicenseApplicationDetails(int applicationID)
+        public frmLocalDrivingLicenseApplicationDetails(int localDrivingApplicationID)
         {
             InitializeComponent();
-            this._applicationID = applicationID;
+            this._LocalDrivingApplicationID = localDrivingApplicationID;
         }
         private void frmLocalDrivingLicenseApplicationDetails_Load(object sender, EventArgs e)
         {
-            this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByApplicationID(this._applicationID);
-        }
-        private void frmLocalDrivingLicenseApplicationDetails_Activated(object sender, EventArgs e)
-        {
             this.OnApplicationCardDetailsUpdated += RefreshFormData;
             this.OnPersonDetailsUpdated += RefreshFormData;
+
+            this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByLocalDrivingApplicationID(this._LocalDrivingApplicationID);
         }
         private void frmLocalDrivingLicenseApplicationDetails_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -61,7 +59,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
         */
         private void RefreshFormData(object obj, int arg)
         {
-            this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByApplicationID(this._applicationID);
+            this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByLocalDrivingApplicationID(this._LocalDrivingApplicationID);
         }
         private void btnClose_Click(object sender, EventArgs e)
         {

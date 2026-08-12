@@ -73,29 +73,25 @@ namespace DVLD_Project.Applications.Controls
         }
         private void llViewPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            frmAddEditLocalDrivingLicenseApplication frmAddEditLocalDrivingLicenseApplication = new frmAddEditLocalDrivingLicenseApplication(this._applicationInfo.ApplicationID);
+            frmPersonDetails form = new frmPersonDetails(this._applicationInfo.ApplicantPersonID);
 
             try
             {
-                if (frmAddEditLocalDrivingLicenseApplication != null)
+                if (form.PersonCard != null)
                 {
-                    frmAddEditLocalDrivingLicenseApplication.OnApplicationUpdate += RefreshDataOnUpdate;
-                    frmAddEditLocalDrivingLicenseApplication.OnPersonDetailsUpdated += HandlePersonDetailsUpdated;
+                    form.PersonCard.OnPersonCardDetailsUpdated += RefreshDataOnUpdate;
+                    form.PersonCard.OnPersonCardDetailsUpdated += HandlePersonDetailsUpdated;
                 }
-                frmAddEditLocalDrivingLicenseApplication.ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error while updating application details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                form.ShowDialog();
             }
             finally
             {
-                if (frmAddEditLocalDrivingLicenseApplication != null)
+                if (form.PersonCard != null)
                 {
-                    frmAddEditLocalDrivingLicenseApplication.OnApplicationUpdate -= RefreshDataOnUpdate;
-                    frmAddEditLocalDrivingLicenseApplication.OnPersonDetailsUpdated -= HandlePersonDetailsUpdated;
+                    form.PersonCard.OnPersonCardDetailsUpdated -= RefreshDataOnUpdate;
+                    form.PersonCard.OnPersonCardDetailsUpdated -= HandlePersonDetailsUpdated;
                 }
-
             }
         }
 

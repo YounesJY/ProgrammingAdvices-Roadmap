@@ -9,7 +9,6 @@ namespace DVLD_Project.Applications.LocalDrivingLicense.Controls
 {
     public partial class ctrlLocalDrivingApplicationDetails : UserControl
     {
-
         // [Event Exposure]
         public event Action<object, int> OnApplicationCardDetailsUpdated
         {
@@ -22,7 +21,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense.Controls
             remove { ctrlApplicationDetails.OnPersonDetailsUpdated -= value; }
         }
 
-        private LocalDrivingLicenseApplication _localDrivingLicenseApplication = null;
+        private LocalDrivingLicenseApplication _LocalDrivingLicenseApplication = null;
 
 
         public ctrlLocalDrivingApplicationDetails()
@@ -40,8 +39,8 @@ namespace DVLD_Project.Applications.LocalDrivingLicense.Controls
                 return;
             }
 
-            this._localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
-            if (this._localDrivingLicenseApplication == null)
+            this._LocalDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
+            if (this._LocalDrivingLicenseApplication == null)
             {
                 ResetLocalDrivingApplicationDetails();
                 MessageBox.Show($"No application with ApplicationID = {localDrivingApplicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -58,8 +57,8 @@ namespace DVLD_Project.Applications.LocalDrivingLicense.Controls
                 return;
             }
 
-            this._localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByApplicationID(applicationID);
-            if (this._localDrivingLicenseApplication == null)
+            this._LocalDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByApplicationID(applicationID);
+            if (this._LocalDrivingLicenseApplication == null)
             {
                 ResetLocalDrivingApplicationDetails();
                 MessageBox.Show($"No application with ApplicationID = {applicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -76,14 +75,14 @@ namespace DVLD_Project.Applications.LocalDrivingLicense.Controls
                 llShowLicenceInfo.Enabled = this._localDrivingLicenseApplication.GetActiveLicenseID() != ValidationConstants.INVALID_ID;
             */
 
-            lblLocalDrivingLicenseApplicationID.Text = this._localDrivingLicenseApplication.LocalDrivingLicenseApplicationID.ToString();
-            lblAppliedFor.Text = this._localDrivingLicenseApplication.LicenseClassInfo.ClassName;
-            lblPassedTests.Text = this._localDrivingLicenseApplication.GetPassedTestCount().ToString() + "/3";
-            ctrlApplicationDetails.LoadApplicationDetailsToCard(this._localDrivingLicenseApplication.ApplicationID);
+            lblLocalDrivingLicenseApplicationID.Text = this._LocalDrivingLicenseApplication.LocalDrivingLicenseApplicationID.ToString();
+            lblAppliedFor.Text = this._LocalDrivingLicenseApplication.LicenseClassInfo.ClassName;
+            lblPassedTests.Text = this._LocalDrivingLicenseApplication.GetPassedTestCount().ToString() + "/3";
+            ctrlApplicationDetails.LoadApplicationDetailsToCard(this._LocalDrivingLicenseApplication.ApplicationID);
         }
         private void ResetLocalDrivingApplicationDetails()
         {
-            this._localDrivingLicenseApplication = null;
+            this._LocalDrivingLicenseApplication = null;
             ctrlApplicationDetails.ResetApplicationDetails();
             lblLocalDrivingLicenseApplicationID.Text = "[????]";
             lblAppliedFor.Text = "[????]";

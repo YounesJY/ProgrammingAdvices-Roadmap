@@ -27,9 +27,8 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
 
         public enum enMode : byte { AddNew = 0, Update = 1 };
         private enMode _Mode = enMode.AddNew;
-        private int _ApplicationID = ValidationConstants.INVALID_ID;
+        private int _LocalDrivingApplicationID = ValidationConstants.INVALID_ID;
         private LocalDrivingLicenseApplication _LocalDrivingLicenseApplication = null;
-        private const string DEFAULT_LICENSE_CLASS = "Class 3 - Ordinary Driving License";
 
 
         public frmAddEditLocalDrivingLicenseApplication()
@@ -37,16 +36,16 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             InitializeComponent();
             this._Mode = enMode.AddNew;
         }
-        public frmAddEditLocalDrivingLicenseApplication(int ApplicationID)
+        public frmAddEditLocalDrivingLicenseApplication(int LocalDrivingApplicationID)
         {
             InitializeComponent();
             this._Mode = enMode.Update;
-            this._ApplicationID = ApplicationID;
+            this._LocalDrivingApplicationID = LocalDrivingApplicationID;
         }
         private void frmAddEditLocalDrivingLicenseApplication_Load(object sender, EventArgs e)
         {
-            ResetFormToDefaultValues();
             OnPersonDetailsUpdated += HandlePersonDetailsUpdated;
+            ResetFormToDefaultValues();
 
             if (this._Mode == enMode.Update)
                 FillFormWithApplicationDetails();
@@ -85,7 +84,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
         }
         private void FillFormWithApplicationDetails()
         {
-            _LocalDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByApplicationID(this._ApplicationID);
+            _LocalDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(this._LocalDrivingApplicationID);
 
             if (_LocalDrivingLicenseApplication == null)
             {
@@ -123,12 +122,6 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                 MessageBox.Show("Please select a person first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            //if (User.IsUserExistForPersonID(ctrlPersonCardWithFilters.SelectedPerson.PersonID))
-            //{
-            //    MessageBox.Show("User already exists for this person.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
 
 
             btnSave.Enabled = true;

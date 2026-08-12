@@ -65,7 +65,6 @@
             this.Controls.Add(this.btnClose);
             this.Name = "frmLocalDrivingLicenseApplicationDetails";
             this.Text = "frmLocalDrivingLicenseApplicationDetails";
-            this.Activated += new System.EventHandler(this.frmLocalDrivingLicenseApplicationDetails_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmLocalDrivingLicenseApplicationDetails_FormClosing);
             this.Load += new System.EventHandler(this.frmLocalDrivingLicenseApplicationDetails_Load);
             this.ResumeLayout(false);
