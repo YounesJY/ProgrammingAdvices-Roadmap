@@ -64,10 +64,15 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             this.Text = (this._Mode == enMode.AddNew) ? "Add New Local Driving License Application" : "Update Local Driving License Application";
             this.lblTitle.Text = this.Text;
         }
+        private void FillLicenseClassesInComboBox()
+        {
+            cbLicenseClass.DataSource = LicenseClass.GetAllLicenseClasses();
+            cbLicenseClass.DisplayMember = "ClassName";
+        }
         private void ResetFormToDefaultValues()
         {
             setFormLabels();
-            _LocalDrivingLicenseApplication = new LocalDrivingLicenseApplication();
+            this._LocalDrivingLicenseApplication = new LocalDrivingLicenseApplication();
 
             btnNext.Enabled = true;
             btnSave.Enabled = false;
@@ -76,17 +81,18 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
 
             lblApplicationID.Text = "[???]";
             lblApplicationDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
-            cbLicenseClass.DataSource = LicenseClass.GetAllLicenseClasses();
-            cbLicenseClass.DisplayMember = "ClassName";
+            FillLicenseClassesInComboBox();
             cbLicenseClass.SelectedIndex = (int)LicenseClass.enLicenseClass.OrdinaryDrivingLicense;
             lblFees.Text = ApplicationType.Find((int)ApplicationInfo.enApplicationType.NewDrivingLicense).ApplicationFees.ToString("C");
             lblCreatedByUser.Text = Global.currentLoggedInUser.UserName;
         }
+
+
         private void FillFormWithApplicationDetails()
         {
-            _LocalDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(this._LocalDrivingApplicationID);
+            this._LocalDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(this._LocalDrivingApplicationID);
 
-            if (_LocalDrivingLicenseApplication == null)
+            if (this._LocalDrivingLicenseApplication == null)
             {
                 MessageBox.Show("Application not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
@@ -97,16 +103,14 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             btnSave.Enabled = true;
             tpApplicationInformations.Enabled = true;
             tcAddEditLocalDrivingLicense.SelectedTab = tcAddEditLocalDrivingLicense.TabPages["tpApplicationInformations"];
-            ctrlPersonCardWithFilters.loadPersonDetailsToCard(_LocalDrivingLicenseApplication.ApplicantPersonID);
+            ctrlPersonCardWithFilters.loadPersonDetailsToCard(this._LocalDrivingLicenseApplication.ApplicantPersonID);
 
-
-            lblApplicationID.Text = _LocalDrivingLicenseApplication.ApplicationID.ToString();
-            lblApplicationDate.Text = _LocalDrivingLicenseApplication.ApplicationDate.ToString("dd/MM/yyyy");
-            cbLicenseClass.DataSource = LicenseClass.GetAllLicenseClasses();
-            cbLicenseClass.DisplayMember = "ClassName";
-            cbLicenseClass.SelectedIndex = _LocalDrivingLicenseApplication.LicenseClassID - 1;
-            lblFees.Text = _LocalDrivingLicenseApplication.PaidFees.ToString("C");
-            lblCreatedByUser.Text = _LocalDrivingLicenseApplication.CreatedByUserInfo.UserName;
+            lblApplicationID.Text = this._LocalDrivingLicenseApplication.ApplicationID.ToString();
+            lblApplicationDate.Text = this._LocalDrivingLicenseApplication.ApplicationDate.ToString("dd/MM/yyyy");
+            FillLicenseClassesInComboBox();
+            cbLicenseClass.SelectedIndex = this._LocalDrivingLicenseApplication.LicenseClassID - 1;
+            lblFees.Text = this._LocalDrivingLicenseApplication.PaidFees.ToString("C");
+            lblCreatedByUser.Text = this._LocalDrivingLicenseApplication.CreatedByUserInfo.UserName;
         }
         private void HandlePersonDetailsUpdated(object arg1, int arg2)
         {
@@ -176,10 +180,10 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                 {
                     MessageBox.Show("Local Driving License Application saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     lblApplicationID.Text = localDrivingLicenseApplication.ApplicationID.ToString();
+                    this._Mode = enMode.Update;
 
                     OnNewApplicationCreated?.Invoke(this, localDrivingLicenseApplication.ApplicationID);
                     OnNewLocalDrivingLicenseApplicationCreated?.Invoke(this, localDrivingLicenseApplication.LocalDrivingLicenseApplicationID);
-                    this._Mode = enMode.Update;
                 }
                 else
                     MessageBox.Show("Failed to save Local Driving License Application.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

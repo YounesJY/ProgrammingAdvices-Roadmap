@@ -38,24 +38,22 @@ namespace DVLD_Project
             this.Close();
         }
 
+        private void localDrivingLicenseApplicationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmListLocalDrivingLicenseApplications().ShowDialog();
+        }
+        private void localLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmAddEditLocalDrivingLicenseApplication().ShowDialog();
+        }
+ 
         private void manageApplicationTypesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new Applications.ApplicationTypes.frmListApplicationTypes().ShowDialog();
         }
-
         private void manageTestTypesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new Tests.TestTypes.frmListTestTypes().ShowDialog();
-        }
-
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new Applications.LocalDrivingLicense.frmAddEditLocalDrivingLicenseApplication().ShowDialog();
-        }
-
-        private void localDrivingLicenseApplicationsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new frmListLocalDrivingLicenseApplications().ShowDialog();
         }
     }
 }

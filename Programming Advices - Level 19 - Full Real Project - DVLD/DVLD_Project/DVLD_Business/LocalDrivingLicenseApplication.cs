@@ -145,6 +145,7 @@ namespace DVLD_Business
                 this._Mode	AddNew	DVLD_Business.ApplicationInfo.enMode
 		        base._Mode	Update	DVLD_Business.ApplicationInfo.enMode
 
+            
 
              */
 
@@ -179,7 +180,7 @@ namespace DVLD_Business
             return base.Delete();
         }
 
-   
+
         public bool DoesPassTestType(TestType.enTestType TestTypeID)
         {
             return LocalDrivingLicenseApplicationData.DoesPassTestType(this.LocalDrivingLicenseApplicationID, (int)TestTypeID);
@@ -308,6 +309,6 @@ namespace DVLD_Business
         {
             return LicenseInfo.GetActiveLicenseIDByPersonID(this.ApplicantPersonID, this.LicenseClassID);
         }
-        
+
     }
 }
