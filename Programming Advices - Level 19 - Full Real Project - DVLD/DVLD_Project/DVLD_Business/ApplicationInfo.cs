@@ -89,6 +89,8 @@ namespace DVLD_Business
                 3. Auto load the full objects when the IDs are set, so that they are always in sync. This will make the class more efficient and avoid unnecessary database calls.
             and that's by edit the setters of the IDs to load the full objects when the IDs are set.
             WE'RE GOING TO FIX THIS PROBLEM BY IMPLEMENTING OPTION 3, which is the best option for this case.
+
+            ONE GOOD THING about this solution is that it shows you these full objects auto-updated even in debugging mode when you chnges the associated IDs.
         */
         public int ApplicationID { get; private set; }
         private int _ApplicantPersonID;
@@ -163,14 +165,12 @@ namespace DVLD_Business
         {
             this.ApplicationID = ValidationConstants.INVALID_ID;
             this.ApplicantPersonID = ValidationConstants.INVALID_ID;
-            this.ApplicantPersonInfo = null;
             this.ApplicationDate = DateTime.Now;
             this.ApplicationTypeID = ValidationConstants.INVALID_ID;
             this.ApplicationStatusID = enApplicationStatus.New;
             this.LastStatusDate = DateTime.Now;
             this.PaidFees = 0;
             this.CreatedByUserID = ValidationConstants.INVALID_ID;
-            this.CreatedByUserInfo = null;
 
             this._Mode = enMode.AddNew;
         }
@@ -179,15 +179,12 @@ namespace DVLD_Business
         {
             this.ApplicationID = ApplicationID;
             this.ApplicantPersonID = ApplicantPersonID;
-            this.ApplicantPersonInfo = Person.Find(ApplicantPersonID);
             this.ApplicationDate = ApplicationDate;
             this.ApplicationTypeID = ApplicationTypeID;
-            this.ApplicationTypeInfo = ApplicationType.Find(ApplicationTypeID);
             this.ApplicationStatusID = ApplicationStatusID;
             this.LastStatusDate = LastStatusDate;
             this.PaidFees = PaidFees;
             this.CreatedByUserID = CreatedByUserID;
-            this.CreatedByUserInfo = User.FindByUserID(CreatedByUserID);
 
             this._Mode = enMode.Update;
         }

@@ -58,7 +58,6 @@ namespace DVLD_Business
         {
             this.LocalDrivingLicenseApplicationID = LocalDrivingLicenseApplicationID;
             this.LicenseClassID = LicenseClassID;
-            this.LicenseClassInfo = LicenseClass.Find(LicenseClassID);
 
             this._Mode = enMode.Update;
         }
