@@ -162,7 +162,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                     ApplicantPersonID = this.ctrlPersonCardWithFilters.SelectedPerson.PersonID,
                     ApplicationDate = DateTime.Now,
                     ApplicationTypeID = (int)ApplicationInfo.enApplicationType.NewDrivingLicense,
-                    LastStatusDate = DateTime.Now,
+                        LastStatusDate = DateTime.Now,
                     PaidFees = float.Parse(lblFees.Text, System.Globalization.NumberStyles.Currency),
                     CreatedByUserID = Global.currentLoggedInUser.UserID,
 
@@ -197,7 +197,6 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
 
                 I'll try to find a better solution if i can
                 */
-
 
                 if (this._LocalDrivingLicenseApplication.LicenseClassInfo.ClassName.Equals(cbLicenseClass.SelectedText))
                 {
