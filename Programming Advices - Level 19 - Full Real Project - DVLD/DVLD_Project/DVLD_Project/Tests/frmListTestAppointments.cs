@@ -8,9 +8,15 @@ namespace DVLD_Project.Tests
 {
     public partial class frmListTestAppointments : Form
     {
+        public event Action<object, int> OnApplicationCardDetailsUpdated
+        {
+            add { this.ctrlLocalDrivingApplicationDetails.OnApplicationCardDetailsUpdated += value; }
+            remove { this.ctrlLocalDrivingApplicationDetails.OnApplicationCardDetailsUpdated -= value; }
+        }
 
         private int _LocalDrivingApplicationID = ValidationConstants.INVALID_ID;
         private TestType.enTestType _TestType = TestType.enTestType.VisionTest;
+
 
         public frmListTestAppointments(int localDrivingApplicationID, TestType.enTestType testType)
         {
@@ -18,10 +24,26 @@ namespace DVLD_Project.Tests
             this._LocalDrivingApplicationID = localDrivingApplicationID;
             this._TestType = testType;
         }
-
         private void frmListTestAppointments_Load(object sender, EventArgs e)
         {
+            this.OnApplicationCardDetailsUpdated += RefreshApplicationDetailsOnUpdate;
             LoadData();
+        }
+        private void frmListTestAppointments_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.OnApplicationCardDetailsUpdated -= RefreshApplicationDetailsOnUpdate;
+        }
+
+
+        private void RefreshApplicationDetailsOnUpdate(object sender, int applicationID)
+        {
+            MessageBox.Show("Applications data has been updated and data refreshed successfully.",
+                "Information",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
+
+            this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByApplicationID(applicationID);
         }
 
         private void setFormLabels()
@@ -54,8 +76,5 @@ namespace DVLD_Project.Tests
             this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByLocalDrivingApplicationID(this._LocalDrivingApplicationID);
             LoadTestAppointmentsData();
         }
-
-
-
     }
 }

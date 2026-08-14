@@ -44,20 +44,20 @@
             this.tsmiCancelApplicationDetails = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiScheduleTests = new System.Windows.Forms.ToolStripMenuItem();
-            this.scheduleVisionTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.scheduleWrittenTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.scheduleStreetTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiScheduleVisionTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiScheduleWrittenTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiScheduleStreetTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiIssueDrivingLicenseFirstTime = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiShowLicenseDetails = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiShowPersonLicenseHistory = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.cbApplicationStatus = new System.Windows.Forms.ComboBox();
+            this.btnClose = new System.Windows.Forms.Button();
             this.pbAddNewLocalDrivingLicenseApplication = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.btnClose = new System.Windows.Forms.Button();
-            this.cbApplicationStatus = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLocalDrivingLicenseApplications)).BeginInit();
             this.cmsLocalDrivingLicenseApplications.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddNewLocalDrivingLicenseApplication)).BeginInit();
@@ -204,39 +204,41 @@
             // tsmiScheduleTests
             // 
             this.tsmiScheduleTests.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.scheduleVisionTestToolStripMenuItem,
-            this.scheduleWrittenTestToolStripMenuItem,
-            this.scheduleStreetTestToolStripMenuItem});
+            this.tsmiScheduleVisionTestToolStripMenuItem,
+            this.tsmiScheduleWrittenTestToolStripMenuItem,
+            this.tsmiScheduleStreetTestToolStripMenuItem});
             this.tsmiScheduleTests.Image = global::DVLD_Project.Properties.Resources.Schedule_Test_32;
             this.tsmiScheduleTests.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tsmiScheduleTests.Name = "tsmiScheduleTests";
             this.tsmiScheduleTests.Size = new System.Drawing.Size(261, 38);
             this.tsmiScheduleTests.Text = "Sechdule &Tests";
+            this.tsmiScheduleTests.DropDownOpening += new System.EventHandler(this.tsmiScheduleTests_DropDownOpening);
             // 
-            // scheduleVisionTestToolStripMenuItem
+            // tsmiScheduleVisionTestToolStripMenuItem
             // 
-            this.scheduleVisionTestToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.Vision_Test_32;
-            this.scheduleVisionTestToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.scheduleVisionTestToolStripMenuItem.Name = "scheduleVisionTestToolStripMenuItem";
-            this.scheduleVisionTestToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
-            this.scheduleVisionTestToolStripMenuItem.Text = "Schedule Vision Test";
-            this.scheduleVisionTestToolStripMenuItem.Click += new System.EventHandler(this.scheduleVisionTestToolStripMenuItem_Click);
+            this.tsmiScheduleVisionTestToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
+            this.tsmiScheduleVisionTestToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.Vision_Test_32;
+            this.tsmiScheduleVisionTestToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsmiScheduleVisionTestToolStripMenuItem.Name = "tsmiScheduleVisionTestToolStripMenuItem";
+            this.tsmiScheduleVisionTestToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
+            this.tsmiScheduleVisionTestToolStripMenuItem.Text = "Schedule Vision Test";
+            this.tsmiScheduleVisionTestToolStripMenuItem.Click += new System.EventHandler(this.scheduleVisionTestToolStripMenuItem_Click);
             // 
-            // scheduleWrittenTestToolStripMenuItem
+            // tsmiScheduleWrittenTestToolStripMenuItem
             // 
-            this.scheduleWrittenTestToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.Written_Test_32;
-            this.scheduleWrittenTestToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.scheduleWrittenTestToolStripMenuItem.Name = "scheduleWrittenTestToolStripMenuItem";
-            this.scheduleWrittenTestToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
-            this.scheduleWrittenTestToolStripMenuItem.Text = "Schedule Written Test";
+            this.tsmiScheduleWrittenTestToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.Written_Test_32;
+            this.tsmiScheduleWrittenTestToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsmiScheduleWrittenTestToolStripMenuItem.Name = "tsmiScheduleWrittenTestToolStripMenuItem";
+            this.tsmiScheduleWrittenTestToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
+            this.tsmiScheduleWrittenTestToolStripMenuItem.Text = "Schedule Written Test";
             // 
-            // scheduleStreetTestToolStripMenuItem
+            // tsmiScheduleStreetTestToolStripMenuItem
             // 
-            this.scheduleStreetTestToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.Street_Test_32;
-            this.scheduleStreetTestToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.scheduleStreetTestToolStripMenuItem.Name = "scheduleStreetTestToolStripMenuItem";
-            this.scheduleStreetTestToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
-            this.scheduleStreetTestToolStripMenuItem.Text = "Schedule Street Test";
+            this.tsmiScheduleStreetTestToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.Street_Test_32;
+            this.tsmiScheduleStreetTestToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsmiScheduleStreetTestToolStripMenuItem.Name = "tsmiScheduleStreetTestToolStripMenuItem";
+            this.tsmiScheduleStreetTestToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
+            this.tsmiScheduleStreetTestToolStripMenuItem.Text = "Schedule Street Test";
             // 
             // toolStripSeparator3
             // 
@@ -277,6 +279,49 @@
             this.tsmiShowPersonLicenseHistory.Size = new System.Drawing.Size(261, 38);
             this.tsmiShowPersonLicenseHistory.Text = "Show Person License History";
             // 
+            // lblTitle
+            // 
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblTitle.Location = new System.Drawing.Point(172, 153);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(568, 39);
+            this.lblTitle.TabIndex = 124;
+            this.lblTitle.Text = "Local Driving License Applications";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cbApplicationStatus
+            // 
+            this.cbApplicationStatus.AutoCompleteCustomSource.AddRange(new string[] {
+            "All",
+            "Active",
+            "Inactive"});
+            this.cbApplicationStatus.FormattingEnabled = true;
+            this.cbApplicationStatus.Items.AddRange(new object[] {
+            "New",
+            "Cancelled",
+            "Completed"});
+            this.cbApplicationStatus.Location = new System.Drawing.Point(265, 200);
+            this.cbApplicationStatus.Name = "cbApplicationStatus";
+            this.cbApplicationStatus.Size = new System.Drawing.Size(121, 21);
+            this.cbApplicationStatus.TabIndex = 128;
+            this.cbApplicationStatus.SelectedIndexChanged += new System.EventHandler(this.cbApplicationStatus_SelectedIndexChanged);
+            // 
+            // btnClose
+            // 
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnClose.Image = global::DVLD_Project.Properties.Resources.Close_32;
+            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClose.Location = new System.Drawing.Point(779, 436);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(126, 37);
+            this.btnClose.TabIndex = 127;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // pbAddNewLocalDrivingLicenseApplication
             // 
             this.pbAddNewLocalDrivingLicenseApplication.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -298,49 +343,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 44;
             this.pictureBox1.TabStop = false;
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblTitle.Location = new System.Drawing.Point(172, 153);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(568, 39);
-            this.lblTitle.TabIndex = 124;
-            this.lblTitle.Text = "Local Driving License Applications";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnClose
-            // 
-            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnClose.Image = global::DVLD_Project.Properties.Resources.Close_32;
-            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(779, 436);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(126, 37);
-            this.btnClose.TabIndex = 127;
-            this.btnClose.Text = "Close";
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // cbApplicationStatus
-            // 
-            this.cbApplicationStatus.AutoCompleteCustomSource.AddRange(new string[] {
-            "All",
-            "Active",
-            "Inactive"});
-            this.cbApplicationStatus.FormattingEnabled = true;
-            this.cbApplicationStatus.Items.AddRange(new object[] {
-            "New",
-            "Cancelled",
-            "Completed"});
-            this.cbApplicationStatus.Location = new System.Drawing.Point(265, 200);
-            this.cbApplicationStatus.Name = "cbApplicationStatus";
-            this.cbApplicationStatus.Size = new System.Drawing.Size(121, 21);
-            this.cbApplicationStatus.TabIndex = 128;
-            this.cbApplicationStatus.SelectedIndexChanged += new System.EventHandler(this.cbApplicationStatus_SelectedIndexChanged);
             // 
             // frmListLocalDrivingLicenseApplications
             // 
@@ -392,9 +394,9 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiCancelApplicationDetails;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem tsmiScheduleTests;
-        private System.Windows.Forms.ToolStripMenuItem scheduleVisionTestToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem scheduleWrittenTestToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem scheduleStreetTestToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiScheduleVisionTestToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiScheduleWrittenTestToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiScheduleStreetTestToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem tsmiIssueDrivingLicenseFirstTime;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;

@@ -558,10 +558,58 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
 
             int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
             frmListTestAppointments frmListTestAppointments = new frmListTestAppointments(localDrivingApplicationID, TestType.enTestType.VisionTest);
-            frmListTestAppointments.ShowDialog();
+
+            try
+            {
+                if (frmListTestAppointments != null)
+                    frmListTestAppointments.OnApplicationCardDetailsUpdated += RefreshHandler;
+                frmListTestAppointments.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while showing application details: {ex.Message}",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (frmListTestAppointments != null)
+                    frmListTestAppointments.OnApplicationCardDetailsUpdated -= RefreshHandler;
+            }
         }
 
+        void DisableAllTestMenuItems()
+        {
+            tsmiScheduleVisionTestToolStripMenuItem.Enabled = false;
+            tsmiScheduleWrittenTestToolStripMenuItem.Enabled = false;
+            tsmiScheduleStreetTestToolStripMenuItem.Enabled = false;
+        }
 
+        private void tsmiScheduleTests_DropDownOpening(object sender, EventArgs e)
+        {
+            if (dgvLocalDrivingLicenseApplications.RowCount == 0 || dgvLocalDrivingLicenseApplications.CurrentRow == null)
+            {
+                DisableAllTestMenuItems();
+                return;
+            }
 
+            int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
+            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
+
+            if (localDrivingLicenseApplication == null)
+            {
+                DisableAllTestMenuItems();
+                return;
+            }
+
+            bool visionPassed = localDrivingLicenseApplication.DoesPassTestType(TestType.enTestType.VisionTest);
+            bool writtenPassed = localDrivingLicenseApplication.DoesPassTestType(TestType.enTestType.WrittenTest);
+            bool streetPassed = localDrivingLicenseApplication.DoesPassTestType(TestType.enTestType.StreetTest);
+
+            tsmiScheduleVisionTestToolStripMenuItem.Enabled = !visionPassed;
+            tsmiScheduleWrittenTestToolStripMenuItem.Enabled = visionPassed && !writtenPassed;
+            tsmiScheduleStreetTestToolStripMenuItem.Enabled = writtenPassed && !streetPassed;
+        }
     }
 }
