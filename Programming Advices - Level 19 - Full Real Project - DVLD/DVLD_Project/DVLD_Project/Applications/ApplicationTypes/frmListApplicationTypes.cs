@@ -58,7 +58,7 @@ namespace DVLD_Project.Applications.ApplicationTypes
                 return;
             }
 
-            int applicationTypeID = Convert.ToInt32(dgvApplicationTypes.CurrentRow.Cells["ApplicationTypeID"].Value);
+            int applicationTypeID = Convert.ToInt32(dgvApplicationTypes.CurrentRow.Cells[0].Value);
             frmEditApplicationTypes frmEditApplicationTypes = new frmEditApplicationTypes(applicationTypeID);
 
             try

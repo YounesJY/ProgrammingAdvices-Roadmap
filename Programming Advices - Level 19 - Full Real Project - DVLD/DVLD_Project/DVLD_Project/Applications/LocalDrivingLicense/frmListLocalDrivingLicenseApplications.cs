@@ -332,7 +332,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             }
 
 
-            int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells["L.D.L ApplicationID"].Value);
+            int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
             frmLocalDrivingLicenseApplicationDetails frmLocalDrivingLicenseApplicationDetails = new frmLocalDrivingLicenseApplicationDetails(localDrivingApplicationID);
 
             // [This teaches how to handle events for inner controls via Event Exposure pattern]
@@ -391,7 +391,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             }
 
 
-            int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells["L.D.L ApplicationID"].Value);
+            int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
             frmAddEditLocalDrivingLicenseApplication frmAddEditLocalDrivingLicenseApplication = new frmAddEditLocalDrivingLicenseApplication(localDrivingApplicationID);
 
             // [This teaches how to handle events for inner controls via Event Exposure pattern]
@@ -432,7 +432,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                 return;
             }
 
-            int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells["L.D.L ApplicationID"].Value);
+            int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
             LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
 
             if (MessageBox.Show("Are you sure you want to cancel this application?\n\nThis action cannot be undone.",
@@ -468,7 +468,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                 return;
             }
 
-            int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells["L.D.L ApplicationID"].Value);
+            int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
             LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
 
             if (MessageBox.Show("Are you sure you want to delete this application?\n\nThis action cannot be undone.",

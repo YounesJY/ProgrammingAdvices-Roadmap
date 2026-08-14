@@ -312,7 +312,7 @@ namespace DVLD_Project.Users
                 return;
             }
 
-            int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
+            int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells[0].Value);
             frmUserInfo userInfoForm = new frmUserInfo(userID);
 
             // [This teaches how to handle events for inner controls via Event Exposure pattern]
@@ -379,7 +379,7 @@ namespace DVLD_Project.Users
                 return;
             }
 
-            int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
+            int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells[0].Value);
             frmAddEditUser frmAddEditUser = new frmAddEditUser(userID);
 
             // this teaches how to handle events for inner controls via Event Exposure pattern
@@ -422,7 +422,7 @@ namespace DVLD_Project.Users
                 return;
             }
 
-            int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
+            int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells[0].Value);
             new frmChangeUserPassword(userID).ShowDialog();
 
             /*
@@ -437,7 +437,7 @@ namespace DVLD_Project.Users
                 this is just an example of how to handle events for inner controls via Event Exposure pattern and also how to properly subscribe and unsubscribe to events to avoid memory leaks
             */
             /*
-                int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
+                int UserID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells[0].Value);
                 frmChangeUserPassword frmChangeUserPassword = new frmChangeUserPassword(UserID);
 
                 // this teaches how to handle events for inner controls via Event Exposure pattern
@@ -481,10 +481,10 @@ namespace DVLD_Project.Users
                 return;
             }
 
-            int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells["UserID"].Value);
-            string username = usersDataGridView.CurrentRow.Cells["Username"].Value?.ToString() ?? "this user";
+            int userID = Convert.ToInt32(usersDataGridView.CurrentRow.Cells[0].Value);
+            string username = usersDataGridView.CurrentRow.Cells["UserName"].Value?.ToString() ?? "this user";
 
-            if (MessageBox.Show("Are you sure you want to delete this user?\n\nThis action cannot be undone.",
+            if (MessageBox.Show($"Are you sure you want to delete {username} ?\n\nThis action cannot be undone.",
                 "Confirm Delete",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning) == DialogResult.Yes)

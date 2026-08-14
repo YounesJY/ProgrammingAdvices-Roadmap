@@ -53,7 +53,7 @@ namespace DVLD_Project.People
                 return;
             }
 
-            int PersonID = Convert.ToInt32(peopleDataGridView.CurrentRow.Cells["PersonID"].Value);
+            int PersonID = Convert.ToInt32(peopleDataGridView.CurrentRow.Cells[0].Value);
             frmPersonDetails form = new frmPersonDetails(PersonID);
 
             try
@@ -118,7 +118,7 @@ namespace DVLD_Project.People
                 return;
             }
             // Get PersonID from the row (assuming PersonID is in column index 0 or use column name)
-            int PersonID = Convert.ToInt32(peopleDataGridView.CurrentRow.Cells["PersonID"].Value);
+            int PersonID = Convert.ToInt32(peopleDataGridView.CurrentRow.Cells[0].Value);
 
             frmAddUpdatePerson form = new frmAddUpdatePerson(PersonID);
             try
@@ -144,7 +144,7 @@ namespace DVLD_Project.People
                 return;
             }
 
-            int PersonID = Convert.ToInt32(peopleDataGridView.CurrentRow.Cells["PersonID"].Value);
+            int PersonID = Convert.ToInt32(peopleDataGridView.CurrentRow.Cells[0].Value);
             string PersonName = peopleDataGridView.CurrentRow.Cells["FirstName"].Value?.ToString() ?? "this person";
             string PersonImage = Person.Find(PersonID).ProfilePhotoPath;
 
