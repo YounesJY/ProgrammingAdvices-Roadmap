@@ -1,4 +1,5 @@
 ﻿using DVLD_Business;
+using DVLD_Project.Tests;
 using DVLD_Project.Users;
 using System;
 using System.Collections.Generic;
@@ -320,6 +321,51 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             * 
             * ====================================================================================
         */
+        private void DisableAllContextMenuItems()
+        {
+            tsmiCancelApplicationDetails.Enabled = false;
+            tsmiDeleteApplicationDetails.Enabled = false;
+            tsmiEditApplication.Enabled = false;
+            tsmiShowApplicationDetails.Enabled = false;
+
+            tsmiScheduleTests.Enabled = false;
+            tsmiIssueDrivingLicenseFirstTime.Enabled = false;
+            tsmiShowLicenseDetails.Enabled = false;
+            tsmiShowPersonLicenseHistory.Enabled = false;
+        }
+        private void cmsLocalDrivingLicenseApplications_Opening(object sender, CancelEventArgs e)
+        {
+            if (dgvLocalDrivingLicenseApplications.RowCount == 0 || dgvLocalDrivingLicenseApplications.CurrentRow == null)
+            {
+                DisableAllContextMenuItems();
+                return;
+            }
+
+            int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
+            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
+
+
+            if (localDrivingLicenseApplication == null)
+            {
+                DisableAllContextMenuItems();
+                tsmiShowApplicationDetails.Enabled = true; // Still show details if found
+                return;
+            }
+
+            ApplicationInfo.enApplicationStatus status = localDrivingLicenseApplication.ApplicationStatusID;
+            bool isNew = status == ApplicationInfo.enApplicationStatus.New;
+            bool isCancelled = status == ApplicationInfo.enApplicationStatus.Cancelled;
+            bool isCompleted = status == ApplicationInfo.enApplicationStatus.Completed;
+
+            tsmiShowApplicationDetails.Enabled = true;
+            tsmiEditApplication.Enabled = isNew;
+            tsmiCancelApplicationDetails.Enabled = isNew;
+            tsmiDeleteApplicationDetails.Enabled = isNew || isCancelled;
+            tsmiScheduleTests.Enabled = isNew;
+            tsmiIssueDrivingLicenseFirstTime.Enabled = isCompleted;
+            tsmiShowLicenseDetails.Enabled = isCompleted;
+            tsmiShowPersonLicenseHistory.Enabled = isCompleted;
+        }
 
         private void tsmiShowApplicationDetails_Click(object sender, EventArgs e)
         {
@@ -499,53 +545,23 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
         {
             tsmiShowApplicationDetails_Click(sender, e);
         }
-
-
-        private void DisableAllContextMenuItems()
+        private void scheduleVisionTestToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            tsmiCancelApplicationDetails.Enabled = false;
-            tsmiDeleteApplicationDetails.Enabled = false;
-            tsmiEditApplication.Enabled = false;
-            tsmiShowApplicationDetails.Enabled = false;
-
-            tsmiScheduleTests.Enabled = false;
-            tsmiIssueDrivingLicenseFirstTime.Enabled = false;
-            tsmiShowLicenseDetails.Enabled = false;
-            tsmiShowPersonLicenseHistory.Enabled = false;
-        }
-        private void cmsLocalDrivingLicenseApplications_Opening(object sender, CancelEventArgs e)
-        {
-            if (dgvLocalDrivingLicenseApplications.RowCount == 0 || dgvLocalDrivingLicenseApplications.CurrentRow == null)
+            if (dgvLocalDrivingLicenseApplications.RowCount == 0)
             {
-                DisableAllContextMenuItems();
+                MessageBox.Show("No application selected to show details.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
                 return;
             }
 
             int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
-            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
-
-
-            if (localDrivingLicenseApplication == null)
-            {
-                DisableAllContextMenuItems();
-                tsmiShowApplicationDetails.Enabled = true; // Still show details if found
-                return;
-            }
-
-            ApplicationInfo.enApplicationStatus status = localDrivingLicenseApplication.ApplicationStatusID;
-            bool isNew = status == ApplicationInfo.enApplicationStatus.New;
-            bool isCancelled = status == ApplicationInfo.enApplicationStatus.Cancelled;
-            bool isCompleted = status == ApplicationInfo.enApplicationStatus.Completed;
-
-            tsmiShowApplicationDetails.Enabled = true;
-            tsmiEditApplication.Enabled = isNew;
-            tsmiCancelApplicationDetails.Enabled = isNew;
-            tsmiDeleteApplicationDetails.Enabled = isNew || isCancelled;
-            tsmiScheduleTests.Enabled = isNew;
-            tsmiIssueDrivingLicenseFirstTime.Enabled = isCompleted;
-            tsmiShowLicenseDetails.Enabled = isCompleted;
-            tsmiShowPersonLicenseHistory.Enabled = isCompleted;
+            frmListTestAppointments frmListTestAppointments = new frmListTestAppointments(localDrivingApplicationID, TestType.enTestType.VisionTest);
+            frmListTestAppointments.ShowDialog();
         }
+
+
 
     }
 }

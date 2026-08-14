@@ -215,23 +215,27 @@
             // 
             // scheduleVisionTestToolStripMenuItem
             // 
+            this.scheduleVisionTestToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.Vision_Test_32;
             this.scheduleVisionTestToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.scheduleVisionTestToolStripMenuItem.Name = "scheduleVisionTestToolStripMenuItem";
-            this.scheduleVisionTestToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.scheduleVisionTestToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
             this.scheduleVisionTestToolStripMenuItem.Text = "Schedule Vision Test";
+            this.scheduleVisionTestToolStripMenuItem.Click += new System.EventHandler(this.scheduleVisionTestToolStripMenuItem_Click);
             // 
             // scheduleWrittenTestToolStripMenuItem
             // 
+            this.scheduleWrittenTestToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.Written_Test_32;
             this.scheduleWrittenTestToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.scheduleWrittenTestToolStripMenuItem.Name = "scheduleWrittenTestToolStripMenuItem";
-            this.scheduleWrittenTestToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.scheduleWrittenTestToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
             this.scheduleWrittenTestToolStripMenuItem.Text = "Schedule Written Test";
             // 
             // scheduleStreetTestToolStripMenuItem
             // 
+            this.scheduleStreetTestToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.Street_Test_32;
             this.scheduleStreetTestToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.scheduleStreetTestToolStripMenuItem.Name = "scheduleStreetTestToolStripMenuItem";
-            this.scheduleStreetTestToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.scheduleStreetTestToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
             this.scheduleStreetTestToolStripMenuItem.Text = "Schedule Street Test";
             // 
             // toolStripSeparator3
@@ -288,9 +292,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::DVLD_Project.Properties.Resources.Applications;
-            this.pictureBox1.Location = new System.Drawing.Point(389, 0);
+            this.pictureBox1.Location = new System.Drawing.Point(389, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(156, 150);
+            this.pictureBox1.Size = new System.Drawing.Size(150, 146);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 44;
             this.pictureBox1.TabStop = false;
