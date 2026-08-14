@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DVLD_Project.Applications.LocalDrivingLicense
 {
@@ -422,7 +423,6 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
         }
         private void tmsiCancelApplicationDetails_Click(object sender, EventArgs e)
         {
-
             if (dgvLocalDrivingLicenseApplications.RowCount == 0)
             {
                 MessageBox.Show("No application selected to delete.",
@@ -431,6 +431,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                                 MessageBoxIcon.Error);
                 return;
             }
+
 
             int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
             LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
@@ -498,5 +499,53 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
         {
             tsmiShowApplicationDetails_Click(sender, e);
         }
+
+
+        private void DisableAllContextMenuItems()
+        {
+            tsmiCancelApplicationDetails.Enabled = false;
+            tsmiDeleteApplicationDetails.Enabled = false;
+            tsmiEditApplication.Enabled = false;
+            tsmiShowApplicationDetails.Enabled = false;
+
+            tsmiScheduleTests.Enabled = false;
+            tsmiIssueDrivingLicenseFirstTime.Enabled = false;
+            tsmiShowLicenseDetails.Enabled = false;
+            tsmiShowPersonLicenseHistory.Enabled = false;
+        }
+        private void cmsLocalDrivingLicenseApplications_Opening(object sender, CancelEventArgs e)
+        {
+            if (dgvLocalDrivingLicenseApplications.RowCount == 0 || dgvLocalDrivingLicenseApplications.CurrentRow == null)
+            {
+                DisableAllContextMenuItems();
+                return;
+            }
+
+            int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
+            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
+
+
+            if (localDrivingLicenseApplication == null)
+            {
+                DisableAllContextMenuItems();
+                tsmiShowApplicationDetails.Enabled = true; // Still show details if found
+                return;
+            }
+
+            ApplicationInfo.enApplicationStatus status = localDrivingLicenseApplication.ApplicationStatusID;
+            bool isNew = status == ApplicationInfo.enApplicationStatus.New;
+            bool isCancelled = status == ApplicationInfo.enApplicationStatus.Cancelled;
+            bool isCompleted = status == ApplicationInfo.enApplicationStatus.Completed;
+
+            tsmiShowApplicationDetails.Enabled = true;
+            tsmiEditApplication.Enabled = isNew;
+            tsmiCancelApplicationDetails.Enabled = isNew;
+            tsmiDeleteApplicationDetails.Enabled = isNew || isCancelled;
+            tsmiScheduleTests.Enabled = isNew;
+            tsmiIssueDrivingLicenseFirstTime.Enabled = isCompleted;
+            tsmiShowLicenseDetails.Enabled = isCompleted;
+            tsmiShowPersonLicenseHistory.Enabled = isCompleted;
+        }
+
     }
 }
