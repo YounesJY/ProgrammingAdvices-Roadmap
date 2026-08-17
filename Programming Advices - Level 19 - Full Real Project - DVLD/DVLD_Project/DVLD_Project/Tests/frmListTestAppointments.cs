@@ -2,6 +2,7 @@
 using DVLD_Common;
 using DVLD_Project.Properties;
 using System;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using static DVLD_Project.Applications.LocalDrivingLicense.frmListLocalDrivingLicenseApplications;
 

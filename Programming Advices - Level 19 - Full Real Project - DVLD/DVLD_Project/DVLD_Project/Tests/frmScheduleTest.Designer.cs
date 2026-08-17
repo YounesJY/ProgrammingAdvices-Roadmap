@@ -39,7 +39,7 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Image = global::DVLD_Project.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(201, 686);
+            this.btnClose.Location = new System.Drawing.Point(201, 659);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(135, 36);
             this.btnClose.TabIndex = 139;
@@ -49,16 +49,18 @@
             // 
             // ctrlSheduleTest
             // 
-            this.ctrlSheduleTest.Location = new System.Drawing.Point(3, 3);
+            this.ctrlSheduleTest.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ctrlSheduleTest.Location = new System.Drawing.Point(0, 0);
             this.ctrlSheduleTest.Name = "ctrlSheduleTest";
-            this.ctrlSheduleTest.Size = new System.Drawing.Size(531, 677);
+            this.ctrlSheduleTest.Size = new System.Drawing.Size(530, 653);
             this.ctrlSheduleTest.TabIndex = 0;
             // 
             // frmScheduleTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(530, 726);
+            this.CancelButton = this.btnClose;
+            this.ClientSize = new System.Drawing.Size(530, 703);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.ctrlSheduleTest);
             this.Name = "frmScheduleTest";
@@ -69,8 +71,7 @@
         }
 
         #endregion
-
-        private Controls.ctrlSheduleTest ctrlSheduleTest;
         private System.Windows.Forms.Button btnClose;
+        private Controls.ctrlSheduleTest ctrlSheduleTest;
     }
 }

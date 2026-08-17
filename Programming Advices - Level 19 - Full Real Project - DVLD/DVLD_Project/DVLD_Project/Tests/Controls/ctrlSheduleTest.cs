@@ -111,6 +111,12 @@ namespace DVLD_Project.Tests.Controls
                 return;
             }
 
+            Test lastTest = this._LocalDrivingApplication.GetLastTestPerTestType(this._TestType);
+            bool isFailedInLastTest = (lastTest == null) ? false : lastTest.TestResult;
+            bool isRetakingTest = (isFailedInLastTest == true);
+            float testFees = TestType.Find(this._TestType).TestTypeFees;
+            float retakeApplicationFees = (isRetakingTest) ? ApplicationType.Find((int)ApplicationInfo.enApplicationType.RetakeTest).ApplicationFees : 0;
+
             lblLocalDrivingLicenseAppID.Text = this._LocalDrivingApplication.LocalDrivingLicenseApplicationID.ToString();
             lblDrivingClass.Text = this._LocalDrivingApplication.LicenseClassInfo.ClassName;
             lblFullName.Text = this._LocalDrivingApplication.ApplicantFullName.ToString();
@@ -119,9 +125,11 @@ namespace DVLD_Project.Tests.Controls
             dtpTestDate.MinDate = DateTime.Now;
             dtpTestDate.Value = DateTime.Now;
             lblFees.Text = TestType.Find(this._TestType).TestTypeFees.ToString();
-            lblTotalFees.Text = (ApplicationType.Find((int)ApplicationInfo.enApplicationType.RetakeTest).ApplicationFees + TestType.Find(this._TestType).TestTypeFees).ToString();
 
             gbRetakeTestInfo.Enabled = false;
+            lblRetakeAppFees.Text = retakeApplicationFees.ToString();
+            lblTotalFees.Text = (retakeApplicationFees + testFees).ToString();
+
             btnSave.Enabled = true;
         }
     }
