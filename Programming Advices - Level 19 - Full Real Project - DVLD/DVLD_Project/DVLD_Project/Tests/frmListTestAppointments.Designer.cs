@@ -29,22 +29,22 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.pbTestTypeImage = new System.Windows.Forms.PictureBox();
-            this.ctrlLocalDrivingApplicationDetails = new DVLD_Project.Applications.LocalDrivingLicense.Controls.ctrlLocalDrivingApplicationDetails();
-            this.btnAddNewAppointment = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnClose = new System.Windows.Forms.Button();
             this.lblNumberOfRecords = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvTestAppointments = new System.Windows.Forms.DataGridView();
             this.cmsApplications = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btnClose = new System.Windows.Forms.Button();
+            this.btnAddNewAppointment = new System.Windows.Forms.Button();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.takeTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTestTypeImage)).BeginInit();
+            this.pbTestTypeImage = new System.Windows.Forms.PictureBox();
+            this.ctrlLocalDrivingApplicationDetails = new DVLD_Project.Applications.LocalDrivingLicense.Controls.ctrlLocalDrivingApplicationDetails();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTestAppointments)).BeginInit();
             this.cmsApplications.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTestTypeImage)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -58,36 +58,6 @@
             this.lblTitle.Text = "Vision Test Appointments";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pbTestTypeImage
-            // 
-            this.pbTestTypeImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbTestTypeImage.Image = global::DVLD_Project.Properties.Resources.Vision_512;
-            this.pbTestTypeImage.InitialImage = null;
-            this.pbTestTypeImage.Location = new System.Drawing.Point(377, 5);
-            this.pbTestTypeImage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pbTestTypeImage.Name = "pbTestTypeImage";
-            this.pbTestTypeImage.Size = new System.Drawing.Size(88, 73);
-            this.pbTestTypeImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbTestTypeImage.TabIndex = 134;
-            this.pbTestTypeImage.TabStop = false;
-            // 
-            // ctrlLocalDrivingApplicationDetails
-            // 
-            this.ctrlLocalDrivingApplicationDetails.Location = new System.Drawing.Point(5, 125);
-            this.ctrlLocalDrivingApplicationDetails.Name = "ctrlLocalDrivingApplicationDetails";
-            this.ctrlLocalDrivingApplicationDetails.Size = new System.Drawing.Size(818, 342);
-            this.ctrlLocalDrivingApplicationDetails.TabIndex = 136;
-            // 
-            // btnAddNewAppointment
-            // 
-            this.btnAddNewAppointment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddNewAppointment.Image = global::DVLD_Project.Properties.Resources.AddAppointment_32;
-            this.btnAddNewAppointment.Location = new System.Drawing.Point(774, 472);
-            this.btnAddNewAppointment.Name = "btnAddNewAppointment";
-            this.btnAddNewAppointment.Size = new System.Drawing.Size(49, 36);
-            this.btnAddNewAppointment.TabIndex = 143;
-            this.btnAddNewAppointment.UseVisualStyleBackColor = true;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -97,20 +67,6 @@
             this.label1.Size = new System.Drawing.Size(125, 20);
             this.label1.TabIndex = 142;
             this.label1.Text = "Appointments:";
-            // 
-            // btnClose
-            // 
-            this.btnClose.AutoEllipsis = true;
-            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Image = global::DVLD_Project.Properties.Resources.Close_32;
-            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(688, 659);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(135, 36);
-            this.btnClose.TabIndex = 138;
-            this.btnClose.Text = "Close";
-            this.btnClose.UseVisualStyleBackColor = true;
             // 
             // lblNumberOfRecords
             // 
@@ -145,14 +101,14 @@
             this.dgvTestAppointments.MultiSelect = false;
             this.dgvTestAppointments.Name = "dgvTestAppointments";
             this.dgvTestAppointments.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTestAppointments.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvTestAppointments.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvTestAppointments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTestAppointments.Size = new System.Drawing.Size(818, 138);
             this.dgvTestAppointments.TabIndex = 139;
@@ -165,6 +121,31 @@
             this.takeTestToolStripMenuItem});
             this.cmsApplications.Name = "contextMenuStrip1";
             this.cmsApplications.Size = new System.Drawing.Size(137, 80);
+            // 
+            // btnClose
+            // 
+            this.btnClose.AutoEllipsis = true;
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Image = global::DVLD_Project.Properties.Resources.Close_32;
+            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClose.Location = new System.Drawing.Point(688, 659);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(135, 36);
+            this.btnClose.TabIndex = 138;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            // 
+            // btnAddNewAppointment
+            // 
+            this.btnAddNewAppointment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddNewAppointment.Image = global::DVLD_Project.Properties.Resources.AddAppointment_32;
+            this.btnAddNewAppointment.Location = new System.Drawing.Point(774, 472);
+            this.btnAddNewAppointment.Name = "btnAddNewAppointment";
+            this.btnAddNewAppointment.Size = new System.Drawing.Size(49, 36);
+            this.btnAddNewAppointment.TabIndex = 143;
+            this.btnAddNewAppointment.UseVisualStyleBackColor = true;
+            this.btnAddNewAppointment.Click += new System.EventHandler(this.btnAddNewAppointment_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -181,6 +162,26 @@
             this.takeTestToolStripMenuItem.Name = "takeTestToolStripMenuItem";
             this.takeTestToolStripMenuItem.Size = new System.Drawing.Size(136, 38);
             this.takeTestToolStripMenuItem.Text = "Take Test";
+            // 
+            // pbTestTypeImage
+            // 
+            this.pbTestTypeImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbTestTypeImage.Image = global::DVLD_Project.Properties.Resources.Vision_512;
+            this.pbTestTypeImage.InitialImage = null;
+            this.pbTestTypeImage.Location = new System.Drawing.Point(377, 5);
+            this.pbTestTypeImage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pbTestTypeImage.Name = "pbTestTypeImage";
+            this.pbTestTypeImage.Size = new System.Drawing.Size(88, 73);
+            this.pbTestTypeImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbTestTypeImage.TabIndex = 134;
+            this.pbTestTypeImage.TabStop = false;
+            // 
+            // ctrlLocalDrivingApplicationDetails
+            // 
+            this.ctrlLocalDrivingApplicationDetails.Location = new System.Drawing.Point(5, 125);
+            this.ctrlLocalDrivingApplicationDetails.Name = "ctrlLocalDrivingApplicationDetails";
+            this.ctrlLocalDrivingApplicationDetails.Size = new System.Drawing.Size(818, 342);
+            this.ctrlLocalDrivingApplicationDetails.TabIndex = 136;
             // 
             // frmListTestAppointments
             // 
@@ -201,9 +202,9 @@
             this.Text = "frmListTestAppointments";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmListTestAppointments_FormClosing);
             this.Load += new System.EventHandler(this.frmListTestAppointments_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pbTestTypeImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTestAppointments)).EndInit();
             this.cmsApplications.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbTestTypeImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

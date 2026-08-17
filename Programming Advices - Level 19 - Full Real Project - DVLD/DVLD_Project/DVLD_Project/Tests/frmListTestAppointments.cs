@@ -1,5 +1,6 @@
 ﻿using DVLD_Business;
 using DVLD_Common;
+using DVLD_Project.Properties;
 using System;
 using System.Windows.Forms;
 using static DVLD_Project.Applications.LocalDrivingLicense.frmListLocalDrivingLicenseApplications;
@@ -73,8 +74,39 @@ namespace DVLD_Project.Tests
         private void LoadData()
         {
             setFormLabels();
+            setTestIcon();
             this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByLocalDrivingApplicationID(this._LocalDrivingApplicationID);
             LoadTestAppointmentsData();
+        }
+
+        private void setTestIcon()
+        {
+            switch (_TestType)
+            {
+                case TestType.enTestType.VisionTest:
+                    this.pbTestTypeImage.Image = Resources.Vision_512;
+                    break;
+                case TestType.enTestType.WrittenTest:
+                    this.pbTestTypeImage.Image = Resources.Written_Test_512;
+                    break;
+                case TestType.enTestType.StreetTest:
+                    this.pbTestTypeImage.Image = Resources.driving_test_512;
+                    break;
+            }
+        }
+
+        private void btnAddNewAppointment_Click(object sender, EventArgs e)
+        {
+            if (LocalDrivingLicenseApplication.IsThereAnActiveScheduledTest(this._LocalDrivingApplicationID, this._TestType))
+            {
+                MessageBox.Show("There is already an active scheduled test for this application.",
+                                "Active Test Exists",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return;
+            }
+
+            new frmScheduleTest(_LocalDrivingApplicationID, _TestType).ShowDialog();
         }
     }
 }
