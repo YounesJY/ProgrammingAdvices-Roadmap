@@ -23,19 +23,26 @@ namespace DVLD_Project.Tests.Controls
             InitializeComponent();
             _ResetToDefaultValues();
         }
-
         private void _ResetToDefaultValues()
         {
-            lblLocalDrivingLicenseAppID.Text = "[??]";
+            lblUserMessage.Visible = false;
+
+            lblLocalDrivingLicenseAppID.Text = "N/A";
             lblDrivingClass.Text = "[??]";
             lblFullName.Text = "[??]";
             lblTrial.Text = "[??]";
+            dtpTestDate.Enabled = false;
             dtpTestDate.Value = DateTime.Now;
             dtpTestDate.MinDate = DateTime.Now;
             lblFees.Text = "[$$]";
-            gbRetakeTestInfo.Enabled = false;
-        }
 
+            gbRetakeTestInfo.Enabled = false;
+            lblRetakeAppFees.Text = "0";
+            lblTotalFees.Text = "0";
+            lblRetakeTestAppID.Text = "N/A";
+
+            btnSave.Enabled = false;
+        }
         public void LoadTestDetails(int localDrivingApplicationID, TestType.enTestType testType)
         {
             if (localDrivingApplicationID <= 0)
@@ -51,7 +58,15 @@ namespace DVLD_Project.Tests.Controls
                 return;
             }
 
-            this._TestType = testType;
+            if (this._LocalDrivingApplication.PassedAllTests())
+            {
+                MessageBox.Show("All tests have already been passed for this application.\n\n" +
+                                "The license can now be issued.",
+                                "All Tests Passed",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+                return;
+            }
             setTestIcon();
             setTestLabel();
             _FillTestDetails();
@@ -89,14 +104,25 @@ namespace DVLD_Project.Tests.Controls
         }
         private void _FillTestDetails()
         {
+            if (!this._LocalDrivingApplication.DoesPassPreviousTest(this._TestType))
+            {
+                lblUserMessage.Visible = true;
+                lblUserMessage.Text = $"Cannot Sechule, {(this._TestType - 1).ToString()} Test Should be Passed First.";
+                return;
+            }
+
             lblLocalDrivingLicenseAppID.Text = this._LocalDrivingApplication.LocalDrivingLicenseApplicationID.ToString();
             lblDrivingClass.Text = this._LocalDrivingApplication.LicenseClassInfo.ClassName;
             lblFullName.Text = this._LocalDrivingApplication.ApplicantFullName.ToString();
             lblTrial.Text = this._LocalDrivingApplication.TotalTrialsPerTest(this._TestType).ToString();
+            dtpTestDate.Enabled = true;
             dtpTestDate.MinDate = DateTime.Now;
             dtpTestDate.Value = DateTime.Now;
             lblFees.Text = TestType.Find(this._TestType).TestTypeFees.ToString();
+            lblTotalFees.Text = (ApplicationType.Find((int)ApplicationInfo.enApplicationType.RetakeTest).ApplicationFees + TestType.Find(this._TestType).TestTypeFees).ToString();
+
             gbRetakeTestInfo.Enabled = false;
+            btnSave.Enabled = true;
         }
     }
 }

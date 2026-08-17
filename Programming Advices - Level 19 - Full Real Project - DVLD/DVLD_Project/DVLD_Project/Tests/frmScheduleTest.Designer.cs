@@ -28,16 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ctrlSheduleTest = new DVLD_Project.Tests.Controls.ctrlSheduleTest();
             this.btnClose = new System.Windows.Forms.Button();
+            this.ctrlSheduleTest = new DVLD_Project.Tests.Controls.ctrlSheduleTest();
             this.SuspendLayout();
-            // 
-            // ctrlSheduleTest
-            // 
-            this.ctrlSheduleTest.Location = new System.Drawing.Point(3, 3);
-            this.ctrlSheduleTest.Name = "ctrlSheduleTest";
-            this.ctrlSheduleTest.Size = new System.Drawing.Size(531, 677);
-            this.ctrlSheduleTest.TabIndex = 0;
             // 
             // btnClose
             // 
@@ -54,6 +47,13 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // ctrlSheduleTest
+            // 
+            this.ctrlSheduleTest.Location = new System.Drawing.Point(3, 3);
+            this.ctrlSheduleTest.Name = "ctrlSheduleTest";
+            this.ctrlSheduleTest.Size = new System.Drawing.Size(531, 677);
+            this.ctrlSheduleTest.TabIndex = 0;
+            // 
             // frmScheduleTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -62,7 +62,7 @@
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.ctrlSheduleTest);
             this.Name = "frmScheduleTest";
-            this.Text = "frmScheduleTest";
+            this.Text = "Schedule Test";
             this.Load += new System.EventHandler(this.frmScheduleTest_Load);
             this.ResumeLayout(false);
 

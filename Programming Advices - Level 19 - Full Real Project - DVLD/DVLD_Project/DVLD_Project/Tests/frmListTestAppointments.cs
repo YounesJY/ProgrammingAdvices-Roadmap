@@ -64,21 +64,6 @@ namespace DVLD_Project.Tests
 
             this.lblTitle.Text = this.Text;
         }
-        private void LoadTestAppointmentsData()
-        {
-            dgvTestAppointments.DataSource = TestAppointment.GetApplicationTestAppointmentsPerTestType(this._LocalDrivingApplicationID, this._TestType);
-            dgvTestAppointments.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvTestAppointments.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            lblNumberOfRecords.Text = dgvTestAppointments.RowCount.ToString();
-        }
-        private void LoadData()
-        {
-            setFormLabels();
-            setTestIcon();
-            this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByLocalDrivingApplicationID(this._LocalDrivingApplicationID);
-            LoadTestAppointmentsData();
-        }
-
         private void setTestIcon()
         {
             switch (_TestType)
@@ -94,6 +79,21 @@ namespace DVLD_Project.Tests
                     break;
             }
         }
+        private void LoadTestAppointmentsData()
+        {
+            dgvTestAppointments.DataSource = TestAppointment.GetApplicationTestAppointmentsPerTestType(this._LocalDrivingApplicationID, this._TestType);
+            dgvTestAppointments.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvTestAppointments.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            lblNumberOfRecords.Text = dgvTestAppointments.RowCount.ToString();
+        }
+        private void LoadData()
+        {
+            setFormLabels();
+            setTestIcon();
+            this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByLocalDrivingApplicationID(this._LocalDrivingApplicationID);
+            LoadTestAppointmentsData();
+        }
+
 
         private void btnAddNewAppointment_Click(object sender, EventArgs e)
         {
@@ -103,6 +103,15 @@ namespace DVLD_Project.Tests
                                 "Active Test Exists",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (LocalDrivingLicenseApplication.DoesPassTestType(this._LocalDrivingApplicationID, this._TestType))
+            {
+                MessageBox.Show("This test has already been passed for this application.",
+                                "Test Already Passed",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
                 return;
             }
 
