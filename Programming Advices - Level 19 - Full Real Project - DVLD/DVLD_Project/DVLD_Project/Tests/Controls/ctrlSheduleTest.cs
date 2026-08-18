@@ -15,14 +15,19 @@ namespace DVLD_Project.Tests.Controls
 {
     public partial class ctrlSheduleTest : UserControl
     {
+        public event Action<object, int> OnTestAppointmentAddUpdate;
+
         private LocalDrivingLicenseApplication _LocalDrivingApplication = null;
         private TestType.enTestType _TestType = TestType.enTestType.VisionTest;
+
 
         public ctrlSheduleTest()
         {
             InitializeComponent();
             _ResetToDefaultValues();
         }
+
+
         private void _ResetToDefaultValues()
         {
             lblUserMessage.Visible = false;
@@ -111,8 +116,8 @@ namespace DVLD_Project.Tests.Controls
                 return;
             }
 
-            Test lastTest = this._LocalDrivingApplication.GetLastTestPerTestType(this._TestType);
-            bool isFailedInLastTest = (lastTest == null) ? false : lastTest.TestResult;
+            Test lastPassedTest = this._LocalDrivingApplication.GetLastTestPerTestType(this._TestType);
+            bool isFailedInLastTest = (lastPassedTest == null) ? false : lastPassedTest.TestResult;
             bool isRetakingTest = (isFailedInLastTest == true);
             float testFees = TestType.Find(this._TestType).TestTypeFees;
             float retakeApplicationFees = (isRetakingTest) ? ApplicationType.Find((int)ApplicationInfo.enApplicationType.RetakeTest).ApplicationFees : 0;
@@ -122,15 +127,43 @@ namespace DVLD_Project.Tests.Controls
             lblFullName.Text = this._LocalDrivingApplication.ApplicantFullName.ToString();
             lblTrial.Text = this._LocalDrivingApplication.TotalTrialsPerTest(this._TestType).ToString();
             dtpTestDate.Enabled = true;
-            dtpTestDate.MinDate = DateTime.Now;
             dtpTestDate.Value = DateTime.Now;
-            lblFees.Text = TestType.Find(this._TestType).TestTypeFees.ToString();
+            lblFees.Text = testFees.ToString();
 
             gbRetakeTestInfo.Enabled = false;
             lblRetakeAppFees.Text = retakeApplicationFees.ToString();
             lblTotalFees.Text = (retakeApplicationFees + testFees).ToString();
 
             btnSave.Enabled = true;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            TestAppointment testAppointment = new TestAppointment()
+            {
+                TestTypeID = (int)this._TestType,
+                LocalDrivingLicenseApplicationID = this._LocalDrivingApplication.LocalDrivingLicenseApplicationID,
+                AppointmentDate = this.dtpTestDate.Value,
+                PaidFees = float.Parse(this.lblTotalFees.Text),
+                CreatedByUserID = Global.currentLoggedInUser.UserID
+            };
+
+            if (testAppointment.Save())
+            {
+                MessageBox.Show("Test appointment has been scheduled successfully.",
+                                "Success",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+
+                OnTestAppointmentAddUpdate?.Invoke(this, testAppointment.TestAppointmentID);
+            }
+            else
+            {
+                MessageBox.Show("Failed to schedule the test appointment. Please try again.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
         }
     }
 }

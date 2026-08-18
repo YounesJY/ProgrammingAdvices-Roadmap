@@ -15,8 +15,15 @@ namespace DVLD_Project.Tests
 {
     public partial class frmScheduleTest : Form
     {
+        public event Action<object, int> OnTestAppointmentAddUpdate
+        {
+            add { this.ctrlSheduleTest.OnTestAppointmentAddUpdate += value; }
+            remove { this.ctrlSheduleTest.OnTestAppointmentAddUpdate -= value; }
+        }
+
         private int _LocalDrivingApplicationID = ValidationConstants.INVALID_ID;
         private TestType.enTestType _TestType = TestType.enTestType.VisionTest;
+
 
         public frmScheduleTest(int localDrivingApplicationID, TestType.enTestType testType)
         {
@@ -24,15 +31,15 @@ namespace DVLD_Project.Tests
             this._LocalDrivingApplicationID = localDrivingApplicationID;
             this._TestType = testType;
         }
+        private void frmScheduleTest_Load(object sender, EventArgs e)
+        {
+            ctrlSheduleTest.LoadTestDetails(this._LocalDrivingApplicationID, this._TestType);
+        }
+
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void frmScheduleTest_Load(object sender, EventArgs e)
-        {
-            ctrlSheduleTest.LoadTestDetails(this._LocalDrivingApplicationID, this._TestType);
         }
     }
 }

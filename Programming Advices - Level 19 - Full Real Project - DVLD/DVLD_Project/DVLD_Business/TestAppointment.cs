@@ -11,23 +11,12 @@ namespace DVLD_Business
 
 
         public int TestAppointmentID { get; private set; }
-
-        private int _TestTypeID;
-        public TestType.enTestType TestTypeID
-        {
-            get { return (TestType.enTestType)_TestTypeID; }
-            set
-            {
-                _TestTypeID = (int)value;
-                // Load TestType info when needed via static method
-            }
-        }
-
-        public int LocalDrivingLicenseApplicationID { get; private set; }
-        public DateTime AppointmentDate { get; private set; }
-        public float PaidFees { get; private set; }
-        public int CreatedByUserID { get; private set; }
-        public bool IsLocked { get; private set; }
+        public int TestTypeID { get; set; }
+        public int TestID { get { return _GetTestID(); } }
+        public int LocalDrivingLicenseApplicationID { get; set; }
+        public DateTime AppointmentDate { get; set; }
+        public float PaidFees { get; set; }
+        public bool IsLocked { get; set; }
 
         private int _RetakeTestApplicationID;
         public int RetakeTestApplicationID
@@ -37,34 +26,28 @@ namespace DVLD_Business
             {
                 _RetakeTestApplicationID = value;
                 if (value != ValidationConstants.INVALID_ID)
-                {
                     RetakeTestAppInfo = ApplicationInfo.Find(value);
-                }
                 else
-                {
                     RetakeTestAppInfo = null;
-                }
             }
         }
         public ApplicationInfo RetakeTestAppInfo { get; private set; }
-        public int TestID
-        {
-            get { return _GetTestID(); }
-        }
+
+        public int CreatedByUserID { get; set; }
+
         private enMode _Mode = enMode.AddNew;
 
 
         public TestAppointment()
         {
             this.TestAppointmentID = ValidationConstants.INVALID_ID;
-            this._TestTypeID = (int)TestType.enTestType.VisionTest;
+            this.TestTypeID = (int)TestType.enTestType.VisionTest;
             this.LocalDrivingLicenseApplicationID = ValidationConstants.INVALID_ID;
             this.AppointmentDate = DateTime.Now;
             this.PaidFees = 0;
-            this.CreatedByUserID = ValidationConstants.INVALID_ID;
-            this.IsLocked = false;
             this.RetakeTestApplicationID = ValidationConstants.INVALID_ID;
-            this.RetakeTestAppInfo = null;
+            this.IsLocked = false;
+            this.CreatedByUserID = ValidationConstants.INVALID_ID;
 
             this._Mode = enMode.AddNew;
         }
@@ -72,23 +55,22 @@ namespace DVLD_Business
             DateTime AppointmentDate, float PaidFees, int CreatedByUserID, bool IsLocked, int RetakeTestApplicationID)
         {
             this.TestAppointmentID = TestAppointmentID;
-            this._TestTypeID = TestTypeID;
+            this.TestTypeID = TestTypeID;
             this.LocalDrivingLicenseApplicationID = LocalDrivingLicenseApplicationID;
             this.AppointmentDate = AppointmentDate;
             this.PaidFees = PaidFees;
-            this.CreatedByUserID = CreatedByUserID;
-            this.IsLocked = IsLocked;
             this.RetakeTestApplicationID = RetakeTestApplicationID;
-            this.RetakeTestAppInfo = (RetakeTestApplicationID != ValidationConstants.INVALID_ID) ?
-                ApplicationInfo.Find(RetakeTestApplicationID) : null;
+            this.IsLocked = IsLocked;
+            this.CreatedByUserID = CreatedByUserID;
 
             this._Mode = enMode.Update;
         }
 
+
         private bool _AddNewTestAppointment()
         {
             this.TestAppointmentID = TestAppointmentData.AddNewTestAppointment(
-                this._TestTypeID,
+                this.TestTypeID,
                 this.LocalDrivingLicenseApplicationID,
                 this.AppointmentDate,
                 this.PaidFees,
@@ -102,7 +84,7 @@ namespace DVLD_Business
         {
             return TestAppointmentData.UpdateTestAppointment(
                 this.TestAppointmentID,
-                this._TestTypeID,
+                this.TestTypeID,
                 this.LocalDrivingLicenseApplicationID,
                 this.AppointmentDate,
                 this.PaidFees,
@@ -113,7 +95,7 @@ namespace DVLD_Business
         }
         private int _GetTestID()
         {
-            return TestAppointmentData.GetTestID(TestAppointmentID);
+            return TestAppointmentData.GetTestID(this.TestAppointmentID);
         }
 
         public static DataTable GetAllTestAppointments()
@@ -130,14 +112,8 @@ namespace DVLD_Business
             bool IsLocked = false;
             int RetakeTestApplicationID = ValidationConstants.INVALID_ID;
 
-            if (TestAppointmentData.GetTestAppointmentInfoByID(
-                TestAppointmentID, ref TestTypeID, ref LocalDrivingLicenseApplicationID,
-                ref AppointmentDate, ref PaidFees, ref CreatedByUserID,
-                ref IsLocked, ref RetakeTestApplicationID))
-            {
-                return new TestAppointment(TestAppointmentID, TestTypeID, LocalDrivingLicenseApplicationID,
-                    AppointmentDate, PaidFees, CreatedByUserID, IsLocked, RetakeTestApplicationID);
-            }
+            if (TestAppointmentData.GetTestAppointmentInfoByID(TestAppointmentID, ref TestTypeID, ref LocalDrivingLicenseApplicationID, ref AppointmentDate, ref PaidFees, ref CreatedByUserID, ref IsLocked, ref RetakeTestApplicationID))
+                return new TestAppointment(TestAppointmentID, TestTypeID, LocalDrivingLicenseApplicationID, AppointmentDate, PaidFees, CreatedByUserID, IsLocked, RetakeTestApplicationID);
 
             return null;
         }

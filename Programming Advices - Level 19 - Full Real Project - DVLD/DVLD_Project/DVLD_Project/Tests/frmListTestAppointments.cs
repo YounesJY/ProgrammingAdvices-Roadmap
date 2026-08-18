@@ -116,7 +116,31 @@ namespace DVLD_Project.Tests
                 return;
             }
 
-            new frmScheduleTest(_LocalDrivingApplicationID, _TestType).ShowDialog();
+
+            frmScheduleTest frmScheduleTest = new frmScheduleTest(_LocalDrivingApplicationID, _TestType);
+            try
+            {
+                if (frmScheduleTest != null)
+                    frmScheduleTest.OnTestAppointmentAddUpdate += RefreshTestAppoitments;
+                frmScheduleTest.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while sheduling the test: {ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (frmScheduleTest != null)
+                    frmScheduleTest.OnTestAppointmentAddUpdate -= RefreshTestAppoitments;
+            }
+        }
+        private void RefreshTestAppoitments(object sender, int testAppointment)
+        {
+            dgvTestAppointments.DataSource = TestAppointment.GetApplicationTestAppointmentsPerTestType(this._LocalDrivingApplicationID, this._TestType);
+            lblNumberOfRecords.Text = dgvTestAppointments.RowCount.ToString();
         }
     }
 }
