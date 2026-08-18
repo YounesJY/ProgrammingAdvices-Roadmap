@@ -19,16 +19,43 @@ namespace DVLD_Project.Tests.Controls
 
         private LocalDrivingLicenseApplication _LocalDrivingApplication = null;
         private TestType.enTestType _TestType = TestType.enTestType.VisionTest;
-
+        private TestAppointment _TestAppointment = null;
 
         public ctrlSheduleTest()
         {
             InitializeComponent();
-            _ResetToDefaultValues();
+            ResetToDefaultValues();
         }
 
 
-        private void _ResetToDefaultValues()
+        private bool IsValidApplication(int localDrivingApplicationID)
+        {
+            if (localDrivingApplicationID <= 0)
+            {
+                MessageBox.Show($"Invalid ApplicationID = {localDrivingApplicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            this._LocalDrivingApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
+            if (this._LocalDrivingApplication == null)
+            {
+                MessageBox.Show($"No application with ApplicationID = {localDrivingApplicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (this._LocalDrivingApplication.PassedAllTests())
+            {
+                MessageBox.Show("All tests have already been passed for this application.\n\n" +
+                                "The license can now be issued.",
+                                "All Tests Passed",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+                return false;
+            }
+
+            return true;
+        }
+        private void ResetToDefaultValues()
         {
             lblUserMessage.Visible = false;
 
@@ -38,7 +65,6 @@ namespace DVLD_Project.Tests.Controls
             lblTrial.Text = "[??]";
             dtpTestDate.Enabled = false;
             dtpTestDate.Value = DateTime.Now;
-            dtpTestDate.MinDate = DateTime.Now;
             lblFees.Text = "[$$]";
 
             gbRetakeTestInfo.Enabled = false;
@@ -50,34 +76,35 @@ namespace DVLD_Project.Tests.Controls
         }
         public void LoadTestDetails(int localDrivingApplicationID, TestType.enTestType testType)
         {
-            if (localDrivingApplicationID <= 0)
+            if (!IsValidApplication(localDrivingApplicationID))
+                return;
+
+            FillNewTestDetails();
+        }
+        public void LoadTestDetails(int testAppointmentID)
+        {
+            if (testAppointmentID <= 0)
             {
-                MessageBox.Show($"Invalid ApplicationID = {localDrivingApplicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Invalid TestAppointmentID = {testAppointmentID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            this._LocalDrivingApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
-            if (this._LocalDrivingApplication == null)
+            this._TestAppointment = TestAppointment.Find(testAppointmentID);
+            if (this._TestAppointment == null)
             {
-                MessageBox.Show($"No application with ApplicationID = {localDrivingApplicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"No test appointment with testAppointmentID = {_TestAppointment}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (this._LocalDrivingApplication.PassedAllTests())
-            {
-                MessageBox.Show("All tests have already been passed for this application.\n\n" +
-                                "The license can now be issued.",
-                                "All Tests Passed",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
+
+            if (!IsValidApplication(this._TestAppointment.LocalDrivingLicenseApplicationID))
                 return;
-            }
-            setTestIcon();
-            setTestLabel();
-            _FillTestDetails();
+
+            this._TestType = (TestType.enTestType)this._TestAppointment.TestTypeID;
+            FillUpdatedTestDetails();
         }
 
-        private void setTestLabel()
+        private void SetTestLabel()
         {
             switch (_TestType)
             {
@@ -92,7 +119,7 @@ namespace DVLD_Project.Tests.Controls
                     break;
             }
         }
-        private void setTestIcon()
+        private void SetTestIcon()
         {
             switch (_TestType)
             {
@@ -107,8 +134,32 @@ namespace DVLD_Project.Tests.Controls
                     break;
             }
         }
-        private void _FillTestDetails()
+        private void SetTestData()
         {
+            Test lastPassedTest = this._LocalDrivingApplication.GetLastTestPerTestType(this._TestType);
+            bool isFailedInLastTest = (lastPassedTest == null) ? false : lastPassedTest.TestResult;
+            bool isRetakingTest = (isFailedInLastTest == true);
+            float testFees = TestType.Find(this._TestType).TestTypeFees;
+            float retakeApplicationFees = (isRetakingTest) ? ApplicationType.Find((int)ApplicationInfo.enApplicationType.RetakeTest).ApplicationFees : 0;
+
+
+            lblLocalDrivingLicenseAppID.Text = this._LocalDrivingApplication.LocalDrivingLicenseApplicationID.ToString();
+            lblDrivingClass.Text = this._LocalDrivingApplication.LicenseClassInfo.ClassName;
+            lblFullName.Text = this._LocalDrivingApplication.ApplicantFullName.ToString();
+            lblTrial.Text = this._LocalDrivingApplication.TotalTrialsPerTest(this._TestType).ToString();
+            dtpTestDate.Value = DateTime.Now;
+            lblFees.Text = testFees.ToString();
+
+            gbRetakeTestInfo.Enabled = false;
+            lblRetakeAppFees.Text = retakeApplicationFees.ToString();
+            lblTotalFees.Text = (retakeApplicationFees + testFees).ToString();
+        }
+        private void FillNewTestDetails()
+        {
+            SetTestIcon();
+            SetTestLabel();
+            SetTestData();
+
             if (!this._LocalDrivingApplication.DoesPassPreviousTest(this._TestType))
             {
                 lblUserMessage.Visible = true;
@@ -116,53 +167,89 @@ namespace DVLD_Project.Tests.Controls
                 return;
             }
 
-            Test lastPassedTest = this._LocalDrivingApplication.GetLastTestPerTestType(this._TestType);
-            bool isFailedInLastTest = (lastPassedTest == null) ? false : lastPassedTest.TestResult;
-            bool isRetakingTest = (isFailedInLastTest == true);
-            float testFees = TestType.Find(this._TestType).TestTypeFees;
-            float retakeApplicationFees = (isRetakingTest) ? ApplicationType.Find((int)ApplicationInfo.enApplicationType.RetakeTest).ApplicationFees : 0;
-
-            lblLocalDrivingLicenseAppID.Text = this._LocalDrivingApplication.LocalDrivingLicenseApplicationID.ToString();
-            lblDrivingClass.Text = this._LocalDrivingApplication.LicenseClassInfo.ClassName;
-            lblFullName.Text = this._LocalDrivingApplication.ApplicantFullName.ToString();
-            lblTrial.Text = this._LocalDrivingApplication.TotalTrialsPerTest(this._TestType).ToString();
+            dtpTestDate.MinDate = DateTime.Now;
             dtpTestDate.Enabled = true;
-            dtpTestDate.Value = DateTime.Now;
-            lblFees.Text = testFees.ToString();
+            btnSave.Enabled = true;
+        }
+        private void FillUpdatedTestDetails()
+        {
+            SetTestIcon();
+            SetTestLabel();
+            SetTestData();
 
-            gbRetakeTestInfo.Enabled = false;
-            lblRetakeAppFees.Text = retakeApplicationFees.ToString();
-            lblTotalFees.Text = (retakeApplicationFees + testFees).ToString();
+            dtpTestDate.Value = this._TestAppointment.AppointmentDate;
 
+            if (this._TestAppointment.IsLocked)
+            {
+                lblUserMessage.Visible = true;
+                lblUserMessage.Text = "This test appointment is already locked and cannot be modified.";
+                return;
+            }
+
+            dtpTestDate.MinDate = DateTime.Now;
+            dtpTestDate.Enabled = true;
             btnSave.Enabled = true;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            TestAppointment testAppointment = new TestAppointment()
+            if (this._TestAppointment == null)
             {
-                TestTypeID = (int)this._TestType,
-                LocalDrivingLicenseApplicationID = this._LocalDrivingApplication.LocalDrivingLicenseApplicationID,
-                AppointmentDate = this.dtpTestDate.Value,
-                PaidFees = float.Parse(this.lblTotalFees.Text),
-                CreatedByUserID = Global.currentLoggedInUser.UserID
-            };
+                TestAppointment testAppointment = new TestAppointment()
+                {
+                    TestTypeID = (int)this._TestType,
+                    LocalDrivingLicenseApplicationID = this._LocalDrivingApplication.LocalDrivingLicenseApplicationID,
+                    AppointmentDate = this.dtpTestDate.Value,
+                    PaidFees = float.Parse(this.lblTotalFees.Text),
+                    CreatedByUserID = Global.currentLoggedInUser.UserID
+                };
 
-            if (testAppointment.Save())
-            {
-                MessageBox.Show("Test appointment has been scheduled successfully.",
-                                "Success",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
+                if (testAppointment.Save())
+                {
+                    MessageBox.Show("Test appointment has been scheduled successfully.",
+                                    "Success",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
 
-                OnTestAppointmentAddUpdate?.Invoke(this, testAppointment.TestAppointmentID);
+                    this._TestAppointment = testAppointment;
+                    OnTestAppointmentAddUpdate?.Invoke(this, this._TestAppointment.TestAppointmentID);
+                }
+                else
+                {
+                    MessageBox.Show("Failed to schedule the test appointment. Please try again.",
+                                    "Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
             }
             else
             {
-                MessageBox.Show("Failed to schedule the test appointment. Please try again.",
-                                "Error",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                if (this._TestAppointment.AppointmentDate == dtpTestDate.Value)
+                {
+                    MessageBox.Show("No changes detected. The appointment date is the same.",
+                                    "No Changes",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+                    return;
+                }
+
+                this._TestAppointment.AppointmentDate = dtpTestDate.Value;
+                if (this._TestAppointment.Save())
+                {
+                    MessageBox.Show("Test appointment has been updated successfully.",
+                                    "Success",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+
+                    OnTestAppointmentAddUpdate?.Invoke(this, this._TestAppointment.TestAppointmentID);
+                }
+                else
+                {
+                    MessageBox.Show("Failed to update the test appointment. Please try again.",
+                                    "Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
             }
         }
     }

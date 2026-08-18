@@ -137,10 +137,44 @@ namespace DVLD_Project.Tests
                     frmScheduleTest.OnTestAppointmentAddUpdate -= RefreshTestAppoitments;
             }
         }
-        private void RefreshTestAppoitments(object sender, int testAppointment)
+        private void RefreshTestAppoitments(object sender, int testAppointmentID)
         {
             dgvTestAppointments.DataSource = TestAppointment.GetApplicationTestAppointmentsPerTestType(this._LocalDrivingApplicationID, this._TestType);
             lblNumberOfRecords.Text = dgvTestAppointments.RowCount.ToString();
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dgvTestAppointments.RowCount == 0)
+            {
+                MessageBox.Show("No test appointment selected to edit.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
+            int testAppointmentID = Convert.ToInt32(dgvTestAppointments.CurrentRow.Cells[0].Value);
+            frmScheduleTest frmScheduleTest = new frmScheduleTest(testAppointmentID);
+
+            try
+            {
+                if (frmScheduleTest != null)
+                    frmScheduleTest.OnTestAppointmentAddUpdate += RefreshTestAppoitments;
+                frmScheduleTest.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while editing the test appointement: {ex.Message}",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (frmScheduleTest != null)
+                    frmScheduleTest.OnTestAppointmentAddUpdate -= RefreshTestAppoitments;
+            }
         }
     }
 }
