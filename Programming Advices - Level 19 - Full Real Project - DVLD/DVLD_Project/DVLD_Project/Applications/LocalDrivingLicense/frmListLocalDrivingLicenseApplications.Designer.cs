@@ -127,7 +127,6 @@
             this.dgvLocalDrivingLicenseApplications.Name = "dgvLocalDrivingLicenseApplications";
             this.dgvLocalDrivingLicenseApplications.Size = new System.Drawing.Size(893, 198);
             this.dgvLocalDrivingLicenseApplications.TabIndex = 45;
-            this.dgvLocalDrivingLicenseApplications.DoubleClick += new System.EventHandler(this.dgvLocalDrivingLicenseApplications_DoubleClick);
             // 
             // cmsLocalDrivingLicenseApplications
             // 
@@ -222,7 +221,7 @@
             this.tsmiScheduleVisionTestToolStripMenuItem.Name = "tsmiScheduleVisionTestToolStripMenuItem";
             this.tsmiScheduleVisionTestToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
             this.tsmiScheduleVisionTestToolStripMenuItem.Text = "Schedule Vision Test";
-            this.tsmiScheduleVisionTestToolStripMenuItem.Click += new System.EventHandler(this.scheduleVisionTestToolStripMenuItem_Click);
+            this.tsmiScheduleVisionTestToolStripMenuItem.Click += new System.EventHandler(this.tsmiScheduleVisionTestToolStripMenuItem_Click);
             // 
             // tsmiScheduleWrittenTestToolStripMenuItem
             // 
@@ -231,6 +230,7 @@
             this.tsmiScheduleWrittenTestToolStripMenuItem.Name = "tsmiScheduleWrittenTestToolStripMenuItem";
             this.tsmiScheduleWrittenTestToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
             this.tsmiScheduleWrittenTestToolStripMenuItem.Text = "Schedule Written Test";
+            this.tsmiScheduleWrittenTestToolStripMenuItem.Click += new System.EventHandler(this.tsmiScheduleWrittenTestToolStripMenuItem_Click);
             // 
             // tsmiScheduleStreetTestToolStripMenuItem
             // 
@@ -239,6 +239,7 @@
             this.tsmiScheduleStreetTestToolStripMenuItem.Name = "tsmiScheduleStreetTestToolStripMenuItem";
             this.tsmiScheduleStreetTestToolStripMenuItem.Size = new System.Drawing.Size(203, 38);
             this.tsmiScheduleStreetTestToolStripMenuItem.Text = "Schedule Street Test";
+            this.tsmiScheduleStreetTestToolStripMenuItem.Click += new System.EventHandler(this.tsmiScheduleStreetTestToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 

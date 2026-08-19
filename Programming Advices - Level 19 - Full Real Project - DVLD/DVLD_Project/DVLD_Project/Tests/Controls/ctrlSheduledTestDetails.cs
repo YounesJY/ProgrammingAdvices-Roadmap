@@ -46,16 +46,6 @@ namespace DVLD_Project.Tests
                 return false;
             }
 
-            if (this._LocalDrivingApplication.PassedAllTests())
-            {
-                MessageBox.Show("All tests have already been passed for this application.\n\n" +
-                                "The license can now be issued.",
-                                "All Tests Passed",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
-                return false;
-            }
-
             return true;
         }
         private void ResetToDefaultValues()
@@ -86,6 +76,15 @@ namespace DVLD_Project.Tests
 
             if (!IsValidApplication(this.TestAppointment.LocalDrivingLicenseApplicationID))
                 return;
+
+            if (this._LocalDrivingApplication.PassedAllTests())
+            {
+                MessageBox.Show("All tests have already been passed for this application.\n\n" +
+                                "The license can now be issued.",
+                                "All Tests Passed",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+            }
 
             this._TestType = (TestType.enTestType)this.TestAppointment.TestTypeID;
             FillTestDetails();

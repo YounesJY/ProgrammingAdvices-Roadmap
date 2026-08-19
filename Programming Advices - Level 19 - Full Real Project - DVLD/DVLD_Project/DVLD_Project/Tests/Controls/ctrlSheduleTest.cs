@@ -70,7 +70,6 @@ namespace DVLD_Project.Tests.Controls
                                 "All Tests Passed",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information);
-                return false;
             }
 
             return true;
@@ -86,6 +85,15 @@ namespace DVLD_Project.Tests.Controls
         {
             if (!IsValidApplication(localDrivingApplicationID))
                 return;
+
+            if (this._LocalDrivingApplication.PassedAllTests())
+            {
+                MessageBox.Show("All tests have already been passed for this application.\n\n" +
+                                "The license can now be issued.",
+                                "All Tests Passed",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+            }
 
             if (IsFailedInLastTest())
             {
@@ -110,6 +118,7 @@ namespace DVLD_Project.Tests.Controls
                 }
             }
 
+            this._TestType = testType;
             FillNewTestDetails();
         }
         public void LoadTestDetails(int testAppointmentID)
@@ -130,6 +139,15 @@ namespace DVLD_Project.Tests.Controls
 
             if (!IsValidApplication(this._TestAppointment.LocalDrivingLicenseApplicationID))
                 return;
+
+            if (this._LocalDrivingApplication.PassedAllTests())
+            {
+                MessageBox.Show("All tests have already been passed for this application.\n\n" +
+                                "The license can now be issued.",
+                                "All Tests Passed",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+            }
 
             this._RetakeTestApplication = ApplicationInfo.Find(this._TestAppointment.RetakeTestApplicationID);
             IsRetakingTest = (this._RetakeTestApplication != null);

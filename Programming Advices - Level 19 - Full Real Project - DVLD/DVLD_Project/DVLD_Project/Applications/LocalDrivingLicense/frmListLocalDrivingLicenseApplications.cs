@@ -541,11 +541,8 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             }
         }
 
-        private void dgvLocalDrivingLicenseApplications_DoubleClick(object sender, EventArgs e)
-        {
-            tsmiShowApplicationDetails_Click(sender, e);
-        }
-        private void scheduleVisionTestToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void ScheduleTest(TestType.enTestType testType)
         {
             if (dgvLocalDrivingLicenseApplications.RowCount == 0)
             {
@@ -557,7 +554,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             }
 
             int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
-            frmListTestAppointments frmListTestAppointments = new frmListTestAppointments(localDrivingApplicationID, TestType.enTestType.VisionTest);
+            frmListTestAppointments frmListTestAppointments = new frmListTestAppointments(localDrivingApplicationID, testType);
 
             try
             {
@@ -583,6 +580,19 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                     frmListTestAppointments.OnTestPassed -= RefreshHandler;
                 }
             }
+
+        }
+        private void tsmiScheduleVisionTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.ScheduleTest(TestType.enTestType.VisionTest);
+        }
+        private void tsmiScheduleWrittenTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.ScheduleTest(TestType.enTestType.WrittenTest);
+        }
+        private void tsmiScheduleStreetTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.ScheduleTest(TestType.enTestType.StreetTest);
         }
 
         void DisableAllTestMenuItems()
@@ -591,7 +601,6 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             tsmiScheduleWrittenTestToolStripMenuItem.Enabled = false;
             tsmiScheduleStreetTestToolStripMenuItem.Enabled = false;
         }
-
         private void tsmiScheduleTests_DropDownOpening(object sender, EventArgs e)
         {
             if (dgvLocalDrivingLicenseApplications.RowCount == 0 || dgvLocalDrivingLicenseApplications.CurrentRow == null)
@@ -617,5 +626,6 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             tsmiScheduleWrittenTestToolStripMenuItem.Enabled = visionPassed && !writtenPassed;
             tsmiScheduleStreetTestToolStripMenuItem.Enabled = writtenPassed && !streetPassed;
         }
+
     }
 }
