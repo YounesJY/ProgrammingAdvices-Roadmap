@@ -15,6 +15,8 @@ namespace DVLD_Project.Tests
             add { this.ctrlLocalDrivingApplicationDetails.OnApplicationCardDetailsUpdated += value; }
             remove { this.ctrlLocalDrivingApplicationDetails.OnApplicationCardDetailsUpdated -= value; }
         }
+        public event Action<object, int> OnTestAppointmentTaken;
+        public event Action<object, int> OnTestPassed;
 
         private int _LocalDrivingApplicationID = ValidationConstants.INVALID_ID;
         private TestType.enTestType _TestType = TestType.enTestType.VisionTest;
@@ -46,6 +48,10 @@ namespace DVLD_Project.Tests
             );
 
             this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByApplicationID(applicationID);
+        }
+        private void HandleTestPassed(object sender, int testID)
+        {
+            this.OnTestPassed?.Invoke(this, testID);
         }
 
         private void setFormLabels()
@@ -95,7 +101,11 @@ namespace DVLD_Project.Tests
             LoadTestAppointmentsData();
         }
 
-
+        private void RefreshTestAppoitments(object sender, int testAppointmentID)
+        {
+            dgvTestAppointments.DataSource = TestAppointment.GetApplicationTestAppointmentsPerTestType(this._LocalDrivingApplicationID, this._TestType);
+            lblNumberOfRecords.Text = dgvTestAppointments.RowCount.ToString();
+        }
         private void btnAddNewAppointment_Click(object sender, EventArgs e)
         {
             if (LocalDrivingLicenseApplication.IsThereAnActiveScheduledTest(this._LocalDrivingApplicationID, this._TestType))
@@ -115,7 +125,6 @@ namespace DVLD_Project.Tests
                                 MessageBoxIcon.Information);
                 return;
             }
-
 
             frmScheduleTest frmScheduleTest = new frmScheduleTest(_LocalDrivingApplicationID, _TestType);
             try
@@ -137,12 +146,6 @@ namespace DVLD_Project.Tests
                     frmScheduleTest.OnTestAppointmentAddUpdate -= RefreshTestAppoitments;
             }
         }
-        private void RefreshTestAppoitments(object sender, int testAppointmentID)
-        {
-            dgvTestAppointments.DataSource = TestAppointment.GetApplicationTestAppointmentsPerTestType(this._LocalDrivingApplicationID, this._TestType);
-            lblNumberOfRecords.Text = dgvTestAppointments.RowCount.ToString();
-        }
-
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (dgvTestAppointments.RowCount == 0)
@@ -174,6 +177,45 @@ namespace DVLD_Project.Tests
             {
                 if (frmScheduleTest != null)
                     frmScheduleTest.OnTestAppointmentAddUpdate -= RefreshTestAppoitments;
+            }
+        }
+        private void takeTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dgvTestAppointments.RowCount == 0)
+            {
+                MessageBox.Show("No test appointment selected to edit.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
+            int testAppointmentID = Convert.ToInt32(dgvTestAppointments.CurrentRow.Cells[0].Value);
+            frmTakeTest frmTakeTest = new frmTakeTest(testAppointmentID);
+
+            try
+            {
+                if (frmTakeTest != null)
+                {
+                    frmTakeTest.OnTestAppointmentTaken += RefreshTestAppoitments;
+                    frmTakeTest.OnTestPassed += HandleTestPassed;
+                }
+                frmTakeTest.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while taking the test appointement: {ex.Message}",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (frmTakeTest != null)
+                {
+                    frmTakeTest.OnTestAppointmentTaken -= RefreshTestAppoitments;
+                    frmTakeTest.OnTestPassed -= HandleTestPassed;
+                }
             }
         }
     }

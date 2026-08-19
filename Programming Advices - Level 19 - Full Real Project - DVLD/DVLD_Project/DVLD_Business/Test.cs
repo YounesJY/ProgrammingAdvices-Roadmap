@@ -11,7 +11,6 @@ namespace DVLD_Business
         public enum enMode : byte { AddNew = 0, Update = 1 }
      //   public enum enTestType { VisionTest = 1, WrittenTest = 2, StreetTest = 3 }
 
-
         public int TestID { get; private set; }
 
         private int _TestAppointmentID;

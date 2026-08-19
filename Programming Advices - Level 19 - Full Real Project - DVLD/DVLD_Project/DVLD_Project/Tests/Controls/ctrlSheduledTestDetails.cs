@@ -16,7 +16,13 @@ namespace DVLD_Project.Tests
     {
         private LocalDrivingLicenseApplication _LocalDrivingApplication = null;
         private TestType.enTestType _TestType = TestType.enTestType.VisionTest;
-        private TestAppointment _TestAppointment = null;
+        public TestAppointment TestAppointment { get; set; }
+        public String TestID
+        {
+            get { return this.lblTestID.Text; }
+            set { this.lblTestID.Text = value; }
+        }
+
 
 
         public ctrlSheduledTestDetails()
@@ -24,7 +30,7 @@ namespace DVLD_Project.Tests
             InitializeComponent();
             ResetToDefaultValues();
         }
-        
+
         private bool IsValidApplication(int localDrivingApplicationID)
         {
             if (localDrivingApplicationID <= 0)
@@ -70,18 +76,18 @@ namespace DVLD_Project.Tests
                 return;
             }
 
-            this._TestAppointment = TestAppointment.Find(testAppointmentID);
-            if (this._TestAppointment == null)
+            this.TestAppointment = TestAppointment.Find(testAppointmentID);
+            if (this.TestAppointment == null)
             {
-                MessageBox.Show($"No test appointment with testAppointmentID = {_TestAppointment}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"No test appointment with testAppointmentID = {TestAppointment}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
 
-            if (!IsValidApplication(this._TestAppointment.LocalDrivingLicenseApplicationID))
+            if (!IsValidApplication(this.TestAppointment.LocalDrivingLicenseApplicationID))
                 return;
 
-            this._TestType = (TestType.enTestType)this._TestAppointment.TestTypeID;
+            this._TestType = (TestType.enTestType)this.TestAppointment.TestTypeID;
             FillTestDetails();
         }
 
@@ -121,8 +127,8 @@ namespace DVLD_Project.Tests
             lblDrivingClass.Text = this._LocalDrivingApplication.LicenseClassInfo.ClassName;
             lblFullName.Text = this._LocalDrivingApplication.ApplicantFullName.ToString();
             lblTrial.Text = this._LocalDrivingApplication.TotalTrialsPerTest(this._TestType).ToString();
-            dtpTestDate.Value = this._TestAppointment.AppointmentDate;
-            lblFees.Text = this._TestAppointment.PaidFees.ToString();
+            dtpTestDate.Value = this.TestAppointment.AppointmentDate;
+            lblFees.Text = this.TestAppointment.PaidFees.ToString();
         }
         private void FillTestDetails()
         {

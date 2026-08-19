@@ -562,7 +562,10 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             try
             {
                 if (frmListTestAppointments != null)
+                {
                     frmListTestAppointments.OnApplicationCardDetailsUpdated += RefreshHandler;
+                    frmListTestAppointments.OnTestPassed += RefreshHandler;
+                }
                 frmListTestAppointments.ShowDialog();
             }
             catch (Exception ex)
@@ -575,7 +578,10 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             finally
             {
                 if (frmListTestAppointments != null)
+                {
                     frmListTestAppointments.OnApplicationCardDetailsUpdated -= RefreshHandler;
+                    frmListTestAppointments.OnTestPassed -= RefreshHandler;
+                }
             }
         }
 

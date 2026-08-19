@@ -25,10 +25,7 @@ namespace DVLD_Business
             set
             {
                 _RetakeTestApplicationID = value;
-                if (value != ValidationConstants.INVALID_ID)
-                    RetakeTestAppInfo = ApplicationInfo.Find(value);
-                else
-                    RetakeTestAppInfo = null;
+                RetakeTestAppInfo = ApplicationInfo.Find(value);
             }
         }
         public ApplicationInfo RetakeTestAppInfo { get; private set; }

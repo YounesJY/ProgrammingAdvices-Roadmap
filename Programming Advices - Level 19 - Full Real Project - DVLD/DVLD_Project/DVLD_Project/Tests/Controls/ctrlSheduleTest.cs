@@ -182,7 +182,7 @@ namespace DVLD_Project.Tests.Controls
             if (this._TestAppointment.IsLocked)
             {
                 lblUserMessage.Visible = true;
-                lblUserMessage.Text = "This test appointment is already locked and cannot be modified.";
+                lblUserMessage.Text = "Test appointment is already locked and cannot be modified.";
                 return;
             }
 
