@@ -43,6 +43,12 @@ namespace DVLD_Project.Tests
             ctrlSheduledTestDetails.Enabled = false;
             lblUserMessage.Visible = true;
 
+            Test lockedTest = Test.Find(this._TestAppointment.TestID);
+
+            bool isPassedTest = (lockedTest.TestResult == true);
+            rbPass.Checked = isPassedTest;
+            rbFail.Checked = !isPassedTest;
+            txtNotes.Text = lockedTest.Notes;
             rbPass.Enabled = false;
             rbFail.Enabled = false;
             txtNotes.Enabled = false;
