@@ -168,7 +168,6 @@
             this.ctrlSheduledTestDetails.Name = "ctrlSheduledTestDetails";
             this.ctrlSheduledTestDetails.Size = new System.Drawing.Size(482, 449);
             this.ctrlSheduledTestDetails.TabIndex = 0;
-            this.ctrlSheduledTestDetails.TestAppointment = null;
             this.ctrlSheduledTestDetails.TestID = "[??]";
             // 
             // frmTakeTest

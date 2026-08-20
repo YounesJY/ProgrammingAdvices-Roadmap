@@ -1,13 +1,6 @@
 ﻿using DVLD_Business;
 using DVLD_Project.Properties;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DVLD_Project.Tests
@@ -16,13 +9,12 @@ namespace DVLD_Project.Tests
     {
         private LocalDrivingLicenseApplication _LocalDrivingApplication = null;
         private TestType.enTestType _TestType = TestType.enTestType.VisionTest;
-        public TestAppointment TestAppointment { get; set; }
+        public TestAppointment _TestAppointment { get; set; }
         public String TestID
         {
             get { return this.lblTestID.Text; }
             set { this.lblTestID.Text = value; }
         }
-
 
 
         public ctrlSheduledTestDetails()
@@ -31,6 +23,17 @@ namespace DVLD_Project.Tests
             ResetToDefaultValues();
         }
 
+
+        private void ResetToDefaultValues()
+        {
+            lblLocalDrivingLicenseAppID.Text = "N/A";
+            lblDrivingClass.Text = "[??]";
+            lblFullName.Text = "[??]";
+            lblTrial.Text = "[??]";
+            dtpTestDate.Enabled = false;
+            dtpTestDate.Value = DateTime.Now;
+            lblFees.Text = "[$$]";
+        }
         private bool IsValidApplication(int localDrivingApplicationID)
         {
             if (localDrivingApplicationID <= 0)
@@ -48,16 +51,6 @@ namespace DVLD_Project.Tests
 
             return true;
         }
-        private void ResetToDefaultValues()
-        {
-            lblLocalDrivingLicenseAppID.Text = "N/A";
-            lblDrivingClass.Text = "[??]";
-            lblFullName.Text = "[??]";
-            lblTrial.Text = "[??]";
-            dtpTestDate.Enabled = false;
-            dtpTestDate.Value = DateTime.Now;
-            lblFees.Text = "[$$]";
-        }
         public void LoadTestDetails(int testAppointmentID)
         {
             if (testAppointmentID <= 0)
@@ -66,15 +59,15 @@ namespace DVLD_Project.Tests
                 return;
             }
 
-            this.TestAppointment = TestAppointment.Find(testAppointmentID);
-            if (this.TestAppointment == null)
+            this._TestAppointment = TestAppointment.Find(testAppointmentID);
+            if (this._TestAppointment == null)
             {
-                MessageBox.Show($"No test appointment with testAppointmentID = {TestAppointment}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"No test appointment with testAppointmentID = {_TestAppointment}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
 
-            if (!IsValidApplication(this.TestAppointment.LocalDrivingLicenseApplicationID))
+            if (!IsValidApplication(this._TestAppointment.LocalDrivingLicenseApplicationID))
                 return;
 
             if (this._LocalDrivingApplication.PassedAllTests())
@@ -86,7 +79,7 @@ namespace DVLD_Project.Tests
                                 MessageBoxIcon.Information);
             }
 
-            this._TestType = (TestType.enTestType)this.TestAppointment.TestTypeID;
+            this._TestType = (TestType.enTestType)this._TestAppointment.TestTypeID;
             FillTestDetails();
         }
 
@@ -126,8 +119,8 @@ namespace DVLD_Project.Tests
             lblDrivingClass.Text = this._LocalDrivingApplication.LicenseClassInfo.ClassName;
             lblFullName.Text = this._LocalDrivingApplication.ApplicantFullName.ToString();
             lblTrial.Text = this._LocalDrivingApplication.TotalTrialsPerTest(this._TestType).ToString();
-            dtpTestDate.Value = this.TestAppointment.AppointmentDate;
-            lblFees.Text = this.TestAppointment.PaidFees.ToString();
+            dtpTestDate.Value = this._TestAppointment.AppointmentDate;
+            lblFees.Text = this._TestAppointment.PaidFees.ToString();
         }
         private void FillTestDetails()
         {
