@@ -9,6 +9,7 @@ namespace DVLD_Project.Tests
     {
         public event Action<object, int> OnTestAppointmentTaken;
         public event Action<object, int> OnTestPassed;
+        public event Action<object, int> OnAllTestPassed;
 
         private int _TestAppointmentID = ValidationConstants.INVALID_ID;
         private TestAppointment _TestAppointment
@@ -34,6 +35,7 @@ namespace DVLD_Project.Tests
         }
 
 
+
         private void ShowLockedTest()
         {
             MessageBox.Show("This test appointment is already locked and cannot be modified.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -52,6 +54,34 @@ namespace DVLD_Project.Tests
             rbFail.Enabled = false;
             txtNotes.Enabled = false;
             btnSave.Enabled = false;
+        }
+        private void CompleteApplication()
+        {
+            LocalDrivingLicenseApplication application = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(this._TestAppointment.LocalDrivingLicenseApplicationID);
+            if (application == null)
+                return;
+
+            application.ApplicationStatusID = ApplicationInfo.enApplicationStatus.Completed;
+            if (application.Save())
+            {
+                MessageBox.Show("Congratulations! All tests have been passed successfully. The license can now be issued.",
+                                "All Tests Passed",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+
+                OnAllTestPassed?.Invoke(this, application.LocalDrivingLicenseApplicationID);
+            }
+        }
+        private bool IsStreetTest()
+        {
+            return this._TestAppointment.TestTypeID == (int)TestType.enTestType.StreetTest;
+        }
+        private void HandleTestPassed(Test test)
+        {
+            OnTestPassed?.Invoke(this, test.TestID);
+
+            if (IsStreetTest())
+                CompleteApplication();
         }
         private bool SaveRetakeApplicationIfNeeded()
         {
@@ -244,7 +274,13 @@ namespace DVLD_Project.Tests
                 {
                     this._RetakeTestApplication.ApplicationStatusID = ApplicationInfo.enApplicationStatus.New;
                     if (!this._RetakeTestApplication.Save())
-                        MessageBox.Show("Failed to save retake test application.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    {
+                        MessageBox.Show("Failed to record the test AND failed to rollback the retake application status. " +
+                                        "Please contact support. (Data may be inconsistent)",
+                                        "Critical Error",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
+                    }
                 }
                 return;
             }
@@ -254,9 +290,34 @@ namespace DVLD_Project.Tests
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
 
+
             OnTestAppointmentTaken?.Invoke(this, test.TestAppointmentID);
-            if (test.TestResult == true)
+            if (test.TestResult)
+                HandleTestPassed(test);
+
+            /*
+                if (!test.TestResult)
+                    return;
+
                 OnTestPassed?.Invoke(this, test.TestID);
+                if (this._TestAppointment.TestTypeID != (int)TestType.enTestType.StreetTest)
+                    return;
+
+                LocalDrivingLicenseApplication application = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(this._TestAppointment.LocalDrivingLicenseApplicationID);
+                if (application == null)
+                    return;
+
+                application.ApplicationStatusID = ApplicationInfo.enApplicationStatus.Completed;
+                if (!application.Save())
+                    return;
+
+                MessageBox.Show("Congratulations! All tests have been passed successfully. The license can now be issued.",
+                                "All Tests Passed",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+
+                OnAllTestPassed?.Invoke(this, application.LocalDrivingLicenseApplicationID); 
+            */
         }
     }
 }

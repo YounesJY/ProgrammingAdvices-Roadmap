@@ -5,6 +5,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using static DVLD_Project.Applications.LocalDrivingLicense.frmListLocalDrivingLicenseApplications;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DVLD_Project.Tests
 {
@@ -17,6 +18,7 @@ namespace DVLD_Project.Tests
         }
         public event Action<object, int> OnTestAppointmentTaken;
         public event Action<object, int> OnTestPassed;
+
 
         private int _LocalDrivingApplicationID = ValidationConstants.INVALID_ID;
         private TestType.enTestType _TestType = TestType.enTestType.VisionTest;
@@ -49,9 +51,13 @@ namespace DVLD_Project.Tests
 
             this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByApplicationID(applicationID);
         }
-        private void HandleTestPassed(object sender, int testID)
+        private void RefreshApplicationDetailsOnTestPassed(object sender, int testID)
         {
             this.OnTestPassed?.Invoke(this, testID);
+        }
+        private void RefreshApplicationDetailsOnAllTestPassed(object sender, int localDrivingApplicationID)
+        {
+            this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByLocalDrivingApplicationID(localDrivingApplicationID);
         }
 
         private void setFormLabels()
@@ -117,6 +123,16 @@ namespace DVLD_Project.Tests
                 return;
             }
 
+            if (LocalDrivingLicenseApplication.GetPassedTestCount(this._LocalDrivingApplicationID) == 3)
+            {
+                MessageBox.Show("All three tests (Vision, Written, and Street) have already been passed.\n\n" +
+                                "The license is ready to be issued for this application.",
+                                "All Tests Passed",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+                return;
+            }
+
             if (LocalDrivingLicenseApplication.DoesPassTestType(this._LocalDrivingApplicationID, this._TestType))
             {
                 MessageBox.Show("This test has already been passed for this application.",
@@ -125,6 +141,7 @@ namespace DVLD_Project.Tests
                                 MessageBoxIcon.Information);
                 return;
             }
+
 
             frmScheduleTest frmScheduleTest = new frmScheduleTest(_LocalDrivingApplicationID, _TestType);
             try
@@ -198,7 +215,8 @@ namespace DVLD_Project.Tests
                 if (frmTakeTest != null)
                 {
                     frmTakeTest.OnTestAppointmentTaken += RefreshTestAppoitments;
-                    frmTakeTest.OnTestPassed += HandleTestPassed;
+                    frmTakeTest.OnTestPassed += RefreshApplicationDetailsOnTestPassed;
+                    frmTakeTest.OnAllTestPassed += RefreshApplicationDetailsOnAllTestPassed;
                 }
                 frmTakeTest.ShowDialog();
             }
@@ -214,7 +232,8 @@ namespace DVLD_Project.Tests
                 if (frmTakeTest != null)
                 {
                     frmTakeTest.OnTestAppointmentTaken -= RefreshTestAppoitments;
-                    frmTakeTest.OnTestPassed -= HandleTestPassed;
+                    frmTakeTest.OnTestPassed -= RefreshApplicationDetailsOnTestPassed;
+                    frmTakeTest.OnAllTestPassed -= RefreshApplicationDetailsOnAllTestPassed;
                 }
             }
         }

@@ -17,7 +17,6 @@ namespace DVLD_Project.Applications.LocalDrivingLicense.Controls
         }
         private LocalDrivingLicenseApplication _LocalDrivingLicenseApplication = null;
 
-
         public ctrlLocalDrivingApplicationDetails()
         {
             InitializeComponent();

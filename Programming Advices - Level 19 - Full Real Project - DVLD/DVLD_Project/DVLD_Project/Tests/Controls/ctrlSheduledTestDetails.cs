@@ -7,7 +7,7 @@ namespace DVLD_Project.Tests
 {
     public partial class ctrlSheduledTestDetails : UserControl
     {
-        private LocalDrivingLicenseApplication _LocalDrivingApplication = null;
+        public LocalDrivingLicenseApplication LocalDrivingApplication { get; set; }
         private TestType.enTestType _TestType = TestType.enTestType.VisionTest;
         public TestAppointment _TestAppointment { get; set; }
         public String TestID
@@ -42,8 +42,8 @@ namespace DVLD_Project.Tests
                 return false;
             }
 
-            this._LocalDrivingApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
-            if (this._LocalDrivingApplication == null)
+            this.LocalDrivingApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
+            if (this.LocalDrivingApplication == null)
             {
                 MessageBox.Show($"No application with ApplicationID = {localDrivingApplicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -70,7 +70,7 @@ namespace DVLD_Project.Tests
             if (!IsValidApplication(this._TestAppointment.LocalDrivingLicenseApplicationID))
                 return;
 
-            if (this._LocalDrivingApplication.PassedAllTests())
+            if (this.LocalDrivingApplication.PassedAllTests())
             {
                 MessageBox.Show("All tests have already been passed for this application.\n\n" +
                                 "The license can now be issued.",
@@ -115,10 +115,10 @@ namespace DVLD_Project.Tests
         }
         private void SetTestData()
         {
-            lblLocalDrivingLicenseAppID.Text = this._LocalDrivingApplication.LocalDrivingLicenseApplicationID.ToString();
-            lblDrivingClass.Text = this._LocalDrivingApplication.LicenseClassInfo.ClassName;
-            lblFullName.Text = this._LocalDrivingApplication.ApplicantFullName.ToString();
-            lblTrial.Text = this._LocalDrivingApplication.TotalTrialsPerTest(this._TestType).ToString();
+            lblLocalDrivingLicenseAppID.Text = this.LocalDrivingApplication.LocalDrivingLicenseApplicationID.ToString();
+            lblDrivingClass.Text = this.LocalDrivingApplication.LicenseClassInfo.ClassName;
+            lblFullName.Text = this.LocalDrivingApplication.ApplicantFullName.ToString();
+            lblTrial.Text = this.LocalDrivingApplication.TotalTrialsPerTest(this._TestType).ToString();
             dtpTestDate.Value = this._TestAppointment.AppointmentDate;
             lblFees.Text = this._TestAppointment.PaidFees.ToString();
         }

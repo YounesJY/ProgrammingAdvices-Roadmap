@@ -21,7 +21,6 @@ namespace DVLD_Project.Applications.Controls
         public event Action<object, int> OnApplicationCardDetailsUpdated;
         private ApplicationInfo _applicationInfo = null;
 
-
         public ctrlApplicationDetails()
         {
             InitializeComponent();
