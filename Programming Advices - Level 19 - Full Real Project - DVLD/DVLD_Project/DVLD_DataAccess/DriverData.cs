@@ -122,8 +122,10 @@ namespace DVLD_DataAccess
             int DriverID = ValidationConstants.INVALID_ID;
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
             string query = @"
-                INSERT INTO Drivers (PersonID, CreatedByUserID, CreatedDate)
-                VALUES (@PersonID, @CreatedByUserID, @CreatedDate);
+                INSERT INTO 
+                    Drivers (PersonID, CreatedByUserID, CreatedDate)
+                VALUES 
+                    (@PersonID, @CreatedByUserID, @CreatedDate);
                 
                 SELECT SCOPE_IDENTITY();
             ";
@@ -158,7 +160,8 @@ namespace DVLD_DataAccess
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
             string query = @"
                 UPDATE Drivers 
-                SET PersonID = @PersonID, 
+                SET 
+                    PersonID = @PersonID, 
                     CreatedByUserID = @CreatedByUserID
                 WHERE DriverID = @DriverID
             ";

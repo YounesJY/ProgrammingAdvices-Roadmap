@@ -9,34 +9,38 @@ namespace DVLD_Business
     {
         public enum enMode : byte { AddNew = 0, Update = 1 }
 
-        private enMode _Mode = enMode.AddNew;
 
         public int DriverID { get; private set; }
-        public int PersonID { get; set; }
+        private int _personID = ValidationConstants.INVALID_ID;
+        public int PersonID
+        {
+            get { return this._personID; }
+            set
+            {
+                this._personID = value;
+                this.PersonInfo = Person.Find(value);
+            }
+        }
+        public Person PersonInfo { get; private set; }
         public int CreatedByUserID { get; set; }
         public DateTime CreatedDate { get; set; }
+        private enMode _Mode = enMode.AddNew;
 
-        public Person PersonInfo { get; set; }
 
-        public Driver()
-        {
-            this.DriverID = ValidationConstants.INVALID_ID;
-            this.PersonID = ValidationConstants.INVALID_ID;
-            this.CreatedByUserID = ValidationConstants.INVALID_ID;
-            this.CreatedDate = DateTime.Now;
-
-            this._Mode = enMode.AddNew;
-        }
         private Driver(int DriverID, int PersonID, int CreatedByUserID, DateTime CreatedDate)
         {
             this.DriverID = DriverID;
             this.PersonID = PersonID;
             this.CreatedByUserID = CreatedByUserID;
             this.CreatedDate = CreatedDate;
-            this.PersonInfo = Person.Find(PersonID);
 
             this._Mode = enMode.Update;
         }
+        public Driver() : this(ValidationConstants.INVALID_ID, ValidationConstants.INVALID_ID, ValidationConstants.INVALID_ID, DateTime.Now)
+        {
+            this._Mode = enMode.AddNew;
+        }
+
 
         private bool _AddNewDriver()
         {
@@ -75,6 +79,7 @@ namespace DVLD_Business
 
             return null;
         }
+
         public bool Save()
         {
             switch (this._Mode)
