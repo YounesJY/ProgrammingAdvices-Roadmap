@@ -45,13 +45,13 @@ namespace DVLD_DataAccess
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
             string query = @"
                 SELECT Licenses.LicenseID,
-                       Licenses.ApplicationID,
-                       LicenseClasses.ClassName, 
-                       Licenses.IssueDate, 
-                       Licenses.ExpirationDate, 
-                       Licenses.IsActive
-                FROM Licenses 
-                INNER JOIN LicenseClasses ON Licenses.LicenseClassID = LicenseClasses.LicenseClassID
+                    Licenses.ApplicationID,
+                    LicenseClasses.ClassName, 
+                    Licenses.IssueDate, 
+                    Licenses.ExpirationDate, 
+                    Licenses.IsActive
+                FROM Licenses INNER JOIN LicenseClasses 
+                    ON Licenses.LicenseClassID = LicenseClasses.LicenseClassID
                 WHERE Licenses.DriverID = @DriverID
                 ORDER BY Licenses.IsActive DESC, Licenses.ExpirationDate DESC
             ";
@@ -79,7 +79,6 @@ namespace DVLD_DataAccess
 
             return dataTable;
         }
-
         public static int GetActiveLicenseIDByPersonID(int PersonID, int LicenseClassID)
         {
             int LicenseID = ValidationConstants.INVALID_ID;
@@ -117,9 +116,7 @@ namespace DVLD_DataAccess
 
             return LicenseID;
         }
-        public static bool GetLicenseInfoByID(int LicenseID, ref int ApplicationID, ref int DriverID, ref int LicenseClassID,
-            ref DateTime IssueDate, ref DateTime ExpirationDate, ref string Notes,
-            ref float PaidFees, ref bool IsActive, ref byte IssueReason, ref int CreatedByUserID)
+        public static bool GetLicenseInfoByID(int LicenseID, ref int ApplicationID, ref int DriverID, ref int LicenseClassID, ref DateTime IssueDate, ref DateTime ExpirationDate, ref string Notes, ref float PaidFees, ref bool IsActive, ref byte IssueReasonID, ref int CreatedByUserID)
         {
             bool isFound = false;
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
@@ -146,7 +143,7 @@ namespace DVLD_DataAccess
                     Notes = (reader["Notes"] != DBNull.Value) ? (string)reader["Notes"] : string.Empty;
                     PaidFees = (float)reader["PaidFees"];
                     IsActive = (bool)reader["IsActive"];
-                    IssueReason = (byte)reader["IssueReason"];
+                    IssueReasonID = (byte)reader["IssueReasonID"];
                     CreatedByUserID = (int)reader["CreatedByUserID"];
 
                     isFound = true;
@@ -165,17 +162,16 @@ namespace DVLD_DataAccess
 
             return isFound;
         }
-        public static int AddNewLicense(int ApplicationID, int DriverID, int LicenseClassID,
-            DateTime IssueDate, DateTime ExpirationDate, string Notes,
-            float PaidFees, bool IsActive, byte IssueReason, int CreatedByUserID)
+        public static int AddNewLicense(int ApplicationID, int DriverID, int LicenseClassID, DateTime IssueDate, DateTime ExpirationDate, string Notes, float PaidFees, bool IsActive, byte IssueReasonID, int CreatedByUserID)
         {
             int LicenseID = ValidationConstants.INVALID_ID;
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
             string query = @"
                 INSERT INTO Licenses 
-                (ApplicationID, DriverID, LicenseClassID, IssueDate, ExpirationDate, Notes, PaidFees, IsActive, IssueReason, CreatedByUserID)
-                VALUES (@ApplicationID, @DriverID, @LicenseClassID, @IssueDate, @ExpirationDate, @Notes, @PaidFees, @IsActive, @IssueReason, @CreatedByUserID);
-                
+                    (ApplicationID, DriverID, LicenseClassID, IssueDate, ExpirationDate, Notes, PaidFees, IsActive, IssueReasonID, CreatedByUserID)
+                VALUES 
+                    (@ApplicationID, @DriverID, @LicenseClassID, @IssueDate, @ExpirationDate, @Notes, @PaidFees, @IsActive, @IssueReasonID, @CreatedByUserID);
+
                 SELECT SCOPE_IDENTITY();
             ";
             SqlCommand command = new SqlCommand(query, connection);
@@ -188,7 +184,7 @@ namespace DVLD_DataAccess
             command.Parameters.AddWithValue("@Notes", (Notes != string.Empty) ? Notes : (object)DBNull.Value);
             command.Parameters.AddWithValue("@PaidFees", PaidFees);
             command.Parameters.AddWithValue("@IsActive", IsActive);
-            command.Parameters.AddWithValue("@IssueReason", IssueReason);
+            command.Parameters.AddWithValue("@IssueReasonID", IssueReasonID);
             command.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
 
             try
@@ -210,9 +206,7 @@ namespace DVLD_DataAccess
 
             return LicenseID;
         }
-        public static bool UpdateLicense(int LicenseID, int ApplicationID, int DriverID, int LicenseClassID,
-            DateTime IssueDate, DateTime ExpirationDate, string Notes,
-            float PaidFees, bool IsActive, byte IssueReason, int CreatedByUserID)
+        public static bool UpdateLicense(int LicenseID, int ApplicationID, int DriverID, int LicenseClassID, DateTime IssueDate, DateTime ExpirationDate, string Notes, float PaidFees, bool IsActive, byte IssueReasonID, int CreatedByUserID)
         {
             int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
@@ -226,7 +220,7 @@ namespace DVLD_DataAccess
                     Notes = @Notes,
                     PaidFees = @PaidFees,
                     IsActive = @IsActive,
-                    IssueReason = @IssueReason,
+                    IssueReasonID = @IssueReasonID,
                     CreatedByUserID = @CreatedByUserID
                 WHERE LicenseID = @LicenseID
             ";
@@ -241,7 +235,7 @@ namespace DVLD_DataAccess
             command.Parameters.AddWithValue("@Notes", (Notes != string.Empty) ? Notes : (object)DBNull.Value);
             command.Parameters.AddWithValue("@PaidFees", PaidFees);
             command.Parameters.AddWithValue("@IsActive", IsActive);
-            command.Parameters.AddWithValue("@IssueReason", IssueReason);
+            command.Parameters.AddWithValue("@IssueReasonID", IssueReasonID);
             command.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
 
             try

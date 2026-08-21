@@ -16,58 +16,58 @@ namespace DVLD_Business
         public enum enMode : byte { AddNew = 0, Update = 1 }
         public enum enIssueReason : byte { FirstTime = 1, Renew = 2, DamagedReplacement = 3, LostReplacement = 4 }
 
-        private enMode _Mode = enMode.AddNew;
 
-        public int LicenseID { get; private set; }
-        public int ApplicationID { get; set; }
-        public int DriverID { get; set; }
-        public int LicenseClassID { get; set; }
+        private int _licenseID = ValidationConstants.INVALID_ID;
+        public int LicenseID
+        {
+            get { return this._licenseID; }
+            private set
+            {
+                this._licenseID = value;
+                this.DetainedInfo = (value != ValidationConstants.INVALID_ID) ? DetainedLicense.FindByLicenseID(value) : null;
+            }
+        }
+        public int ApplicationID { get; private set; }
+
+        private int _driverID = ValidationConstants.INVALID_ID;
+        public int DriverID
+        {
+            get { return this._driverID; }
+            set
+            {
+                this._driverID = value;
+                this.DriverInfo = (value != ValidationConstants.INVALID_ID) ? Driver.FindByDriverID(value) : null;
+            }
+        }
+        public Driver DriverInfo { get; private set; }
+
+        private int _licenseClassID = ValidationConstants.INVALID_ID;
+        public int LicenseClassID
+        {
+            get { return this._licenseClassID; }
+            set
+            {
+                this._licenseClassID = value;
+                this.LicenseClassInfo = (value != ValidationConstants.INVALID_ID) ? LicenseClass.Find(value) : null;
+            }
+        }
+        public LicenseClass LicenseClassInfo { get; private set; }
+
         public DateTime IssueDate { get; set; }
         public DateTime ExpirationDate { get; set; }
         public string Notes { get; set; }
         public float PaidFees { get; set; }
         public bool IsActive { get; set; }
         public enIssueReason IssueReason { get; set; }
-        public int CreatedByUserID { get; set; }
-
-        public Driver DriverInfo { get; private set; }
-        public LicenseClass LicenseClassInfo { get; private set; }
+        public string IssueReasonText { get { return _GetIssueReasonText(this.IssueReason); } }
+        public bool IsDetained { get { return DetainedLicense.IsLicenseDetained(this.LicenseID); } }
         public DetainedLicense DetainedInfo { get; private set; }
+        public int CreatedByUserID { get; set; }
+        private enMode _Mode = enMode.AddNew;
 
-        public string IssueReasonText
-        {
-            get
-            {
-                return _GetIssueReasonText(this.IssueReason);
-            }
-        }
-        public bool IsDetained
-        {
-            get
-            {
-                return DetainedLicense.IsLicenseDetained(this.LicenseID);
-            }
-        }
 
-        public LicenseInfo()
-        {
-            this.LicenseID = ValidationConstants.INVALID_ID;
-            this.ApplicationID = ValidationConstants.INVALID_ID;
-            this.DriverID = ValidationConstants.INVALID_ID;
-            this.LicenseClassID = ValidationConstants.INVALID_ID;
-            this.IssueDate = DateTime.Now;
-            this.ExpirationDate = DateTime.Now;
-            this.Notes = string.Empty;
-            this.PaidFees = 0;
-            this.IsActive = true;
-            this.IssueReason = enIssueReason.FirstTime;
-            this.CreatedByUserID = ValidationConstants.INVALID_ID;
-
-            this._Mode = enMode.AddNew;
-        }
-        private LicenseInfo(int LicenseID, int ApplicationID, int DriverID, int LicenseClassID,
-            DateTime IssueDate, DateTime ExpirationDate, string Notes,
-            float PaidFees, bool IsActive, enIssueReason IssueReason, int CreatedByUserID)
+        private LicenseInfo(int LicenseID, int ApplicationID, int DriverID, int LicenseClassID, DateTime IssueDate, DateTime ExpirationDate,
+            string Notes, float PaidFees, bool IsActive, enIssueReason IssueReason, int CreatedByUserID)
         {
             this.LicenseID = LicenseID;
             this.ApplicationID = ApplicationID;
@@ -81,11 +81,12 @@ namespace DVLD_Business
             this.IssueReason = IssueReason;
             this.CreatedByUserID = CreatedByUserID;
 
-            this.DriverInfo = Driver.FindByDriverID(this.DriverID);
-            this.LicenseClassInfo = LicenseClass.Find(this.LicenseClassID);
-            this.DetainedInfo = DetainedLicense.FindByLicenseID(this.LicenseID);
-
             this._Mode = enMode.Update;
+        }
+        public LicenseInfo() : this(ValidationConstants.INVALID_ID, ValidationConstants.INVALID_ID, ValidationConstants.INVALID_ID, ValidationConstants.INVALID_ID,
+            DateTime.Now, DateTime.Now, string.Empty, 0, true, enIssueReason.FirstTime, ValidationConstants.INVALID_ID)
+        {
+            this._Mode = enMode.AddNew;
         }
 
         private bool _AddNewLicense()
@@ -106,19 +107,23 @@ namespace DVLD_Business
                 this.IsActive, (byte)this.IssueReason, this.CreatedByUserID
             );
         }
+        private static string _GetIssueReasonText(enIssueReason IssueReason)
+        {
+            switch (IssueReason)
+            {
+                case enIssueReason.FirstTime:
+                    return "First Time";
+                case enIssueReason.Renew:
+                    return "Renew";
+                case enIssueReason.DamagedReplacement:
+                    return "Damaged Replacement";
+                case enIssueReason.LostReplacement:
+                    return "Lost Replacement";
+                default:
+                    return "Unknown";
+            }
+        }
 
-        public static DataTable GetAllLicenses()
-        {
-            return LicenseInfoData.GetAllLicenses();
-        }
-        public static DataTable GetDriverLicenses(int DriverID)
-        {
-            return LicenseInfoData.GetDriverLicenses(DriverID);
-        }
-        public static int GetActiveLicenseIDByPersonID(int PersonID, int LicenseClassID)
-        {
-            return LicenseInfoData.GetActiveLicenseIDByPersonID(PersonID, LicenseClassID);
-        }
         public static LicenseInfo Find(int LicenseID)
         {
             int ApplicationID = ValidationConstants.INVALID_ID;
@@ -141,6 +146,19 @@ namespace DVLD_Business
 
             return null;
         }
+        public static DataTable GetAllLicenses()
+        {
+            return LicenseInfoData.GetAllLicenses();
+        }
+        public static DataTable GetDriverLicenses(int DriverID)
+        {
+            return LicenseInfoData.GetDriverLicenses(DriverID);
+        }
+        public static int GetActiveLicenseIDByPersonID(int PersonID, int LicenseClassID)
+        {
+            return LicenseInfoData.GetActiveLicenseIDByPersonID(PersonID, LicenseClassID);
+        }
+
         public bool Save()
         {
             switch (this._Mode)
@@ -163,26 +181,9 @@ namespace DVLD_Business
         {
             return LicenseInfoData.DeleteLicense(this.LicenseID);
         }
-        
         public bool Deactivate()
         {
             return LicenseInfoData.DeactivateLicense(this.LicenseID);
-        }
-        private static string _GetIssueReasonText(enIssueReason IssueReason)
-        {
-            switch (IssueReason)
-            {
-                case enIssueReason.FirstTime:
-                    return "First Time";
-                case enIssueReason.Renew:
-                    return "Renew";
-                case enIssueReason.DamagedReplacement:
-                    return "Damaged Replacement";
-                case enIssueReason.LostReplacement:
-                    return "Lost Replacement";
-                default:
-                    return "Unknown";
-            }
         }
     }
 }
