@@ -9,7 +9,7 @@ namespace DVLD_Business
     public class Test
     {
         public enum enMode : byte { AddNew = 0, Update = 1 }
-     //   public enum enTestType { VisionTest = 1, WrittenTest = 2, StreetTest = 3 }
+        //   public enum enTestType { VisionTest = 1, WrittenTest = 2, StreetTest = 3 }
 
         public int TestID { get; private set; }
 
@@ -19,8 +19,8 @@ namespace DVLD_Business
             get { return _TestAppointmentID; }
             set
             {
-                _TestAppointmentID = value;
-                TestAppointmentInfo = TestAppointment.Find(value);
+                this._TestAppointmentID = value;
+                this.TestAppointmentInfo = (value != ValidationConstants.INVALID_ID) ? TestAppointment.Find(value) : null;
             }
         }
         public TestAppointment TestAppointmentInfo { get; private set; }

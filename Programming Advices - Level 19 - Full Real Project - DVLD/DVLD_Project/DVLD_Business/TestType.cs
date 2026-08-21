@@ -17,19 +17,21 @@ namespace DVLD_Business
 
         private enMode _Mode = enMode.AddNew;
 
+
         private TestType(enTestType ID, string Title, string Description, float Fees)
         {
             this.TestTypeID = ID;
             this.TestTypeTitle = Title;
             this.TestTypeDescription = Description;
             this.TestTypeFees = Fees;
+
             this._Mode = enMode.Update;
         }
-
         public TestType() : this(enTestType.VisionTest, string.Empty, string.Empty, 0)
         {
             this._Mode = enMode.AddNew;
         }
+
 
         private bool _AddNewTestType()
         {
@@ -40,7 +42,6 @@ namespace DVLD_Business
             );
             return this.TestTypeID != (enTestType)(ValidationConstants.INVALID_ID);
         }
-
         private bool _UpdateTestType()
         {
             return TestTypeData.UpdateTestType(
@@ -49,6 +50,22 @@ namespace DVLD_Business
                 this.TestTypeDescription,
                 this.TestTypeFees
             );
+        }
+
+        public static DataTable GetAllTestTypes()
+        {
+            return TestTypeData.GetAllTestTypes();
+        }
+        public static TestType Find(enTestType TestTypeID)
+        {
+            string Title = string.Empty;
+            string Description = string.Empty;
+            float Fees = 0;
+
+            if (TestTypeData.GetTestTypeInfoByID((int)TestTypeID, ref Title, ref Description, ref Fees))
+                return new TestType(TestTypeID, Title, Description, Fees);
+
+            return null;
         }
 
         public bool Save()
@@ -69,23 +86,6 @@ namespace DVLD_Business
                 default:
                     return false;
             }
-        }
-
-        public static TestType Find(enTestType TestTypeID)
-        {
-            string Title = string.Empty;
-            string Description = string.Empty;
-            float Fees = 0;
-
-            if (TestTypeData.GetTestTypeInfoByID((int)TestTypeID, ref Title, ref Description, ref Fees))
-                return new TestType(TestTypeID, Title, Description, Fees);
-
-            return null;
-        }
-
-        public static DataTable GetAllTestTypes()
-        {
-            return TestTypeData.GetAllTestTypes();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace DVLD_Business
             set
             {
                 this._personID = value;
-                this.PersonInfo = Person.Find(value);
+                this.PersonInfo = (value != ValidationConstants.INVALID_ID) ? Person.Find(value) : null;
             }
         }
         public Person PersonInfo { get; private set; }

@@ -23,7 +23,7 @@ namespace DVLD_Business
         private enMode _Mode = enMode.AddNew;
 
         /*
-            WHY we didn't use an enum for LicenseClassID just like we did for ApplicationTy
+            WHY we didn't use an enum for LicenseClassID just like we did for ApplicationType
         */
         public int LicenseClassID { get; private set; }
         public string ClassName { get; private set; }

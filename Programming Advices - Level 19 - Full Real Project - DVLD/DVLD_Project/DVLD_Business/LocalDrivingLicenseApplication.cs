@@ -30,8 +30,8 @@ namespace DVLD_Business
             get { return _LicenseClassID; }
             set
             {
-                _LicenseClassID = value;
-                LicenseClassInfo = LicenseClass.Find(value);
+                this._LicenseClassID = value;
+                this.LicenseClassInfo = (value != ValidationConstants.INVALID_ID) ? LicenseClass.Find(value) : null;
             }
         }
         public LicenseClass LicenseClassInfo { get; private set; }
@@ -309,6 +309,5 @@ namespace DVLD_Business
         {
             return LicenseInfo.GetActiveLicenseIDByPersonID(this.ApplicantPersonID, this.LicenseClassID);
         }
-
     }
 }

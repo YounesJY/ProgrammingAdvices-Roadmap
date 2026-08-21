@@ -99,9 +99,8 @@ namespace DVLD_Business
             get { return _ApplicantPersonID; }
             set
             {
-                _ApplicantPersonID = value;
-                // Load the full object when the ID is set
-                ApplicantPersonInfo = Person.Find(value);
+                this._ApplicantPersonID = value;
+                this.ApplicantPersonInfo = (value != ValidationConstants.INVALID_ID) ? Person.Find(value) : null;
             }
         }
         public Person ApplicantPersonInfo { get; private set; }
@@ -120,9 +119,8 @@ namespace DVLD_Business
             get { return _ApplicationTypeID; }
             set
             {
-                _ApplicationTypeID = value;
-                // Load the full object when the ID is set
-                ApplicationTypeInfo = ApplicationType.Find(value);
+                this._ApplicationTypeID = value;
+                this.ApplicationTypeInfo = (value != ValidationConstants.INVALID_ID) ? ApplicationType.Find(value) : null;
             }
         }
         public ApplicationType ApplicationTypeInfo { get; private set; }
@@ -152,9 +150,8 @@ namespace DVLD_Business
             get { return _CreatedByUserID; }
             set
             {
-                _CreatedByUserID = value;
-                // Load the full object when the ID is set
-                CreatedByUserInfo = User.FindByUserID(value);
+                this._CreatedByUserID = value;
+                this.CreatedByUserInfo = (value != ValidationConstants.INVALID_ID) ? User.FindByUserID(value) : null;
             }
         }
         public User CreatedByUserInfo { get; private set; }

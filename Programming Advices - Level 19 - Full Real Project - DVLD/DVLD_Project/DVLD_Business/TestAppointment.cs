@@ -24,14 +24,13 @@ namespace DVLD_Business
             get { return _RetakeTestApplicationID; }
             set
             {
-                _RetakeTestApplicationID = value;
-                RetakeTestAppInfo = ApplicationInfo.Find(value);
+                this._RetakeTestApplicationID = value;
+                this.RetakeTestAppInfo = (value != ValidationConstants.INVALID_ID) ? ApplicationInfo.Find(value) : null;
             }
         }
         public ApplicationInfo RetakeTestAppInfo { get; private set; }
 
         public int CreatedByUserID { get; set; }
-
         private enMode _Mode = enMode.AddNew;
 
 
