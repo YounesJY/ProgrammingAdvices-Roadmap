@@ -19,7 +19,6 @@ namespace DVLD_Project.Tests
         public event Action<object, int> OnTestAppointmentTaken;
         public event Action<object, int> OnTestPassed;
 
-
         private int _LocalDrivingApplicationID = ValidationConstants.INVALID_ID;
         private TestType.enTestType _TestType = TestType.enTestType.VisionTest;
 

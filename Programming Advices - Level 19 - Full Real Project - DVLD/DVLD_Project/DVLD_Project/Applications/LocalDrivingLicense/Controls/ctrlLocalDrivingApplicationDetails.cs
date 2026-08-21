@@ -61,12 +61,9 @@ namespace DVLD_Project.Applications.LocalDrivingLicense.Controls
         }
         private void FillLocalDrivingApplicationDetails()
         {
-            /*
-             *  This is still commented due to non implemented forms of Licenses, Drivers...
-             * 
-                //incase there is license enable the show link.
-                llShowLicenceInfo.Enabled = this._localDrivingLicenseApplication.GetActiveLicenseID() != ValidationConstants.INVALID_ID;
-            */
+            //incase there is license enable the show link.
+            //llShowLicenceInfo.Enabled = (this._LocalDrivingLicenseApplication.GetActiveLicenseID() != ValidationConstants.INVALID_ID);
+            llShowLicenceInfo.Enabled = this._LocalDrivingLicenseApplication.IsLicenseIssued();
 
             lblLocalDrivingLicenseApplicationID.Text = this._LocalDrivingLicenseApplication.LocalDrivingLicenseApplicationID.ToString();
             lblAppliedFor.Text = this._LocalDrivingLicenseApplication.LicenseClassInfo.ClassName;

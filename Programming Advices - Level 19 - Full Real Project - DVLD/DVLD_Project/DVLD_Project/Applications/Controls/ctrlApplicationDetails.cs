@@ -44,6 +44,7 @@ namespace DVLD_Project.Applications.Controls
             FillApplicationDetails();
         }
 
+
         public void ResetApplicationDetails()
         {
             lblApplicationID.Text = ValidationConstants.INVALID_ID.ToString();

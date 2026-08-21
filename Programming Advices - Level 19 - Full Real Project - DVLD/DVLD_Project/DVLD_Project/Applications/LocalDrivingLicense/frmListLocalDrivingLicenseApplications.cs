@@ -363,7 +363,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             tsmiDeleteApplicationDetails.Enabled = isNew || isCancelled;
             tsmiScheduleTests.Enabled = isNew;
             tsmiIssueDrivingLicenseFirstTime.Enabled = isCompleted && !localDrivingLicenseApplication.IsLicenseIssued();
-            tsmiShowLicenseDetails.Enabled = isCompleted;
+            tsmiShowLicenseDetails.Enabled = localDrivingLicenseApplication.IsLicenseIssued();
             tsmiShowPersonLicenseHistory.Enabled = isCompleted;
         }
 
