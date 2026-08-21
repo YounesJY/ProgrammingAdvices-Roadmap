@@ -43,7 +43,194 @@ namespace DVLD_DataAccess
 
             return dataTable;
         }
-
+        /*
+            * ====================================================================================
+            * ENUM VS LOOKUP TABLE - DESIGN DECISION
+            * ====================================================================================
+            * 
+            * This class uses a lookup table (ApplicationStatus) for application status values.
+            * This is an example of over-engineering for this specific use case.
+            * 
+            * 
+            * ====================================================================================
+            * THE TWO APPROACHES
+            * ====================================================================================
+            * 
+            * Approach 1: Lookup Table (Current Implementation)
+            * -------------------------------------------------
+            *   CREATE TABLE ApplicationStatus (
+            *       ApplicationStatusID TINYINT PRIMARY KEY,
+            *       ApplicationStatusName NVARCHAR(50) NOT NULL,
+            *       ApplicationStatusDescription NVARCHAR(200) NULL
+            *   )
+            *   
+            *   INSERT INTO ApplicationStatus VALUES
+            *       (1, 'New', 'Application has been created but not processed yet'),
+            *       (2, 'Cancelled', 'Application has been cancelled'),
+            *       (3, 'Completed', 'Application has been successfully completed')
+            *   
+            *   -- Applications table references lookup
+            *   CREATE TABLE Applications (
+            *       ApplicationStatusID TINYINT NOT NULL,
+            *       FOREIGN KEY (ApplicationStatusID) REFERENCES ApplicationStatus(ApplicationStatusID)
+            *   )
+            * 
+            * Approach 2: Enum + Check Constraint (Better Alternative)
+            * --------------------------------------------------------
+            *   -- Enum in C# code
+            *   public enum enApplicationStatus : byte {
+            *       New = 1,
+            *       Cancelled = 2,
+            *       Completed = 3
+            *   }
+            *   
+            *   -- Check constraint in database for integrity
+            *   ALTER TABLE Applications
+            *   ADD CONSTRAINT CHK_ApplicationStatusID 
+            *   CHECK (ApplicationStatusID IN (1, 2, 3))
+            * 
+            * 
+            * ====================================================================================
+            * COMPARISON
+            * ====================================================================================
+            * 
+            * | Aspect                    | Lookup Table (Current) | Enum + Check Constraint |
+            * |---------------------------|------------------------|-------------------------|
+            * | Database Integrity        | FK ensures valid       | Check constraint        |
+            * | Query Performance         | Slower (JOIN)          | Fast (direct int)       |
+            * | Code Complexity           | More complex           | Simpler                 |
+            * | Maintenance               | Need to maintain data  | Just enum               |
+            * | Flexibility to add values | Easy                   | Requires code change   |
+            * | Reporting                 | Has description        | Need mapping           |
+            * 
+            * 
+            * ====================================================================================
+            * WHEN TO USE EACH APPROACH
+            * ====================================================================================
+            * 
+            * Use a Lookup Table when:
+            *   - Values change frequently
+            *   - Values are user-configurable
+            *   - You need additional fields (descriptions, order, metadata)
+            *   - Reporting requires descriptive names without code mapping
+            *   - Multiple tables reference the same values
+            * 
+            * Use Enum + Check Constraint when:
+            *   - Values are fixed business rules
+            *   - Values are unlikely to change
+            *   - You want simplicity and maximum performance
+            *   - You already have the enum in code (DRY principle)
+            * 
+            * 
+            * ====================================================================================
+            * WHY A LOOKUP TABLE IS OVER-ENGINEERING HERE
+            * ====================================================================================
+            * 
+            * In this project, ApplicationStatus has only 3 fixed values:
+            *   1. New
+            *   2. Cancelled
+            *   3. Completed
+            * 
+            * These values are:
+            *   - Business rules (not user-configurable)
+            *   - Unlikely to change
+            *   - Already defined as an enum in code (ApplicationInfo.enApplicationStatus)
+            * 
+            * The lookup table adds unnecessary complexity:
+            *   - Extra table to maintain
+            *   - Extra JOIN on every query
+            *   - Duplicate definition of the same values (enum + table)
+            *   - More code to manage
+            * 
+            * 
+            * ====================================================================================
+            * THE BETTER APPROACH (FOR REFERENCE)
+            * ====================================================================================
+            * 
+            * Instead of a lookup table, use:
+            * 
+            *   1. Enum in C# code
+            *      public enum enApplicationStatus : byte {
+            *          New = 1,
+            *          Cancelled = 2,
+            *          Completed = 3
+            *      }
+            * 
+            *   2. Check constraint in database
+            *      ALTER TABLE Applications
+            *      ADD CONSTRAINT CHK_ApplicationStatusID 
+            *      CHECK (ApplicationStatusID IN (1, 2, 3))
+            * 
+            *   3. Use the enum directly without JOINs
+            *      SELECT ApplicationID, ApplicationStatusID FROM Applications
+            *      // Then map to enum in code
+            * 
+            * 
+            * ====================================================================================
+            * HYBRID APPROACH (Best of Both Worlds)
+            * ====================================================================================
+            * 
+            * If you need both simplicity AND reporting, use:
+            * 
+            *   1. Enum + Check Constraint for the main table
+            *   2. A VIEW for reporting that maps IDs to names
+            * 
+            *   CREATE VIEW vwApplicationDetails AS
+            *   SELECT 
+            *       ApplicationID,
+            *       ApplicationStatusID,
+            *       CASE ApplicationStatusID
+            *           WHEN 1 THEN 'New'
+            *           WHEN 2 THEN 'Cancelled'
+            *           WHEN 3 THEN 'Completed'
+            *       END AS ApplicationStatusName
+            *   FROM Applications
+            * 
+            * This gives you:
+            *   - Performance (no JOIN on insert/update)
+            *   - Integrity (check constraint)
+            *   - Reporting capability (view with mapping)
+            *   - Code simplicity (enum in C#)
+            * 
+            * 
+            * ====================================================================================
+            * LESSON LEARNED
+            * ====================================================================================
+            * 
+            * This current implementation uses a lookup table, which is over-engineering
+            * for this specific case. However, it serves as an educational example of:
+            * 
+            *   1. How to implement a lookup table with foreign key
+            *   2. When a lookup table is appropriate
+            *   3. When a simple enum would be better
+            *   4. The trade-offs between complexity and flexibility
+            * 
+            * For future projects:
+            *   - Small, fixed sets of values -> Use enum + check constraint
+            *   - Large, changing sets of values -> Use lookup table
+            *   - User-configurable values -> Use lookup table
+            * 
+            * 
+            * ====================================================================================
+            * REFERENCES
+            * ====================================================================================
+            * 
+            * - "When to use lookup tables" - Database Design Best Practices
+            * - "Enum vs Lookup Table" - Stack Overflow
+            * - "Database Normalization vs Denormalization" - Database Fundamentals
+            * - "C# Enums vs Database Lookup Tables" - Software Architecture Patterns
+            * 
+            * ====================================================================================
+            * NOTE
+            * ====================================================================================
+            * 
+            * This implementation is kept for EDUCATIONAL PURPOSES to demonstrate
+            * the lookup table approach. In a real production environment, the
+            * simpler enum + check constraint approach would be recommended for
+            * this specific use case.
+            * 
+            * ====================================================================================
+        */
         public static bool GetApplicationByID(int ApplicationID, ref int ApplicantPersonID, ref DateTime ApplicationDate, ref int ApplicationTypeID,
             ref byte ApplicationStatusID, ref DateTime LastStatusDate, ref float PaidFees, ref int CreatedByUserID)
         {
