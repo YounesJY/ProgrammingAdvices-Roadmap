@@ -27,7 +27,7 @@ namespace DVLD_Business
                 this.DetainedInfo = (value != ValidationConstants.INVALID_ID) ? DetainedLicense.FindByLicenseID(value) : null;
             }
         }
-        public int ApplicationID { get; private set; }
+        public int ApplicationID { get; set; }
 
         private int _driverID = ValidationConstants.INVALID_ID;
         public int DriverID
@@ -53,16 +53,16 @@ namespace DVLD_Business
         }
         public LicenseClass LicenseClassInfo { get; private set; }
 
-        public DateTime IssueDate { get; set; }
-        public DateTime ExpirationDate { get; set; }
-        public string Notes { get; set; }
-        public float PaidFees { get; set; }
-        public bool IsActive { get; set; }
-        public enIssueReason IssueReason { get; set; }
+        public DateTime IssueDate { get;  set; }
+        public DateTime ExpirationDate { get;  set; }
+        public string Notes { get;  set; }
+        public float PaidFees { get;  set; }
+        public bool IsActive { get;  set; }
+        public enIssueReason IssueReason { get;  set; }
         public string IssueReasonText { get { return _GetIssueReasonText(this.IssueReason); } }
         public bool IsDetained { get { return DetainedLicense.IsLicenseDetained(this.LicenseID); } }
         public DetainedLicense DetainedInfo { get; private set; }
-        public int CreatedByUserID { get; set; }
+        public int CreatedByUserID { get;  set; }
         private enMode _Mode = enMode.AddNew;
 
 

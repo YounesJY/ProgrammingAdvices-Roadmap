@@ -304,9 +304,9 @@ namespace DVLD_DataAccess
             *   4. The trade-offs between complexity and flexibility
             * 
             * For future projects:
-            *   - Small, fixed sets of values ? Use enum + check constraint
-            *   - Large, changing sets of values ? Use lookup table
-            *   - User-configurable values ? Use lookup table
+            *   - Small, fixed sets of values -> Use enum + check constraint
+            *   - Large, changing sets of values -> Use lookup table
+            *   - User-configurable values -> Use lookup table
             * 
             * 
             * ====================================================================================

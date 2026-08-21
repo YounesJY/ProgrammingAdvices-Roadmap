@@ -258,40 +258,37 @@ namespace DVLD_Business
         public int IssueLicenseForTheFirtTime(string Notes, int CreatedByUserID)
         {
             int DriverID = ValidationConstants.INVALID_ID;
-
             Driver driver = Driver.FindByPersonID(this.ApplicantPersonID);
 
             if (driver == null)
             {
-                driver = new Driver();
-                driver.PersonID = this.ApplicantPersonID;
-                driver.CreatedByUserID = CreatedByUserID;
+                driver = new Driver()
+                {
+                    PersonID = this.ApplicantPersonID,
+                    CreatedByUserID = CreatedByUserID,
+                };
 
                 if (driver.Save())
-                {
                     DriverID = driver.DriverID;
-                }
                 else
-                {
                     return ValidationConstants.INVALID_ID;
-                }
             }
             else
-            {
                 DriverID = driver.DriverID;
-            }
 
-            LicenseInfo license = new LicenseInfo();
-            license.ApplicationID = this.ApplicationID;
-            license.DriverID = DriverID;
-            license.LicenseClassID = this.LicenseClassID;
-            license.IssueDate = DateTime.Now;
-            license.ExpirationDate = DateTime.Now.AddYears(this.LicenseClassInfo.DefaultValidityLength);
-            license.Notes = Notes;
-            license.PaidFees = this.LicenseClassInfo.ClassFees;
-            license.IsActive = true;
-            license.IssueReason = LicenseInfo.enIssueReason.FirstTime;
-            license.CreatedByUserID = CreatedByUserID;
+            LicenseInfo license = new LicenseInfo()
+            {
+                ApplicationID = this.ApplicationID,
+                DriverID = DriverID,
+                LicenseClassID = this.LicenseClassID,
+                IssueDate = DateTime.Now,
+                ExpirationDate = DateTime.Now.AddYears(this.LicenseClassInfo.DefaultValidityLength),
+                Notes = Notes,
+                PaidFees = this.LicenseClassInfo.ClassFees,
+                IsActive = true,
+                IssueReason = LicenseInfo.enIssueReason.FirstTime,
+                CreatedByUserID = CreatedByUserID
+            };
 
             if (license.Save())
             {

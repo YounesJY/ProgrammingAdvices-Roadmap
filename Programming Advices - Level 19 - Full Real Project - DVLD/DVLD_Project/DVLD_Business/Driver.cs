@@ -11,6 +11,7 @@ namespace DVLD_Business
 
 
         public int DriverID { get; private set; }
+
         private int _personID = ValidationConstants.INVALID_ID;
         public int PersonID
         {
@@ -22,8 +23,9 @@ namespace DVLD_Business
             }
         }
         public Person PersonInfo { get; private set; }
+
         public int CreatedByUserID { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; private set; }
         private enMode _Mode = enMode.AddNew;
 
 

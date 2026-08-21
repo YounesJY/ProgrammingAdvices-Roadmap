@@ -1,4 +1,5 @@
 ﻿using DVLD_Business;
+using DVLD_Project.Licenses.LocalLicenses;
 using DVLD_Project.Tests;
 using DVLD_Project.Users;
 using System;
@@ -56,7 +57,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             dgvLocalDrivingLicenseApplications.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.ColumnHeader);
             lblNumberOfRecords.Text = dgvLocalDrivingLicenseApplications.RowCount.ToString();
         }
-        private void RefreshHandler(object sender, int userID)
+        private void RefreshHandler(object sender, int ID)
         {
             MessageBox.Show("Local driving license applications has been updated and data refreshed successfully.",
                 "Information",
@@ -537,6 +538,46 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                                     "Error",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void tsmiIssueDrivingLicenseFirstTime_Click(object sender, EventArgs e)
+        {
+            if (dgvLocalDrivingLicenseApplications.RowCount == 0)
+            {
+                MessageBox.Show("No application selected to show details.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
+
+            int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
+            frmIssueDriverLicenseFirstTime frmIssueDriverLicenseFirstTime = new frmIssueDriverLicenseFirstTime(localDrivingApplicationID);
+
+            try
+            {
+                if (frmIssueDriverLicenseFirstTime != null)
+                {
+                    frmIssueDriverLicenseFirstTime.OnApplicationCardDetailsUpdated += RefreshHandler;
+                    frmIssueDriverLicenseFirstTime.OnLicenseIssuanceForFirstTime += RefreshHandler;
+                }
+                frmIssueDriverLicenseFirstTime.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while showing application details: {ex.Message}",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (frmIssueDriverLicenseFirstTime != null)
+                {
+                    frmIssueDriverLicenseFirstTime.OnApplicationCardDetailsUpdated -= RefreshHandler;
+                    frmIssueDriverLicenseFirstTime.OnLicenseIssuanceForFirstTime -= RefreshHandler;
                 }
             }
         }

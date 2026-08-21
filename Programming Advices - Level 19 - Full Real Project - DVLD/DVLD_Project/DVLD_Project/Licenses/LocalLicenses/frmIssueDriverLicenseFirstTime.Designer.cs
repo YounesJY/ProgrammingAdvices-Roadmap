@@ -96,6 +96,7 @@
             this.btnIssueLicense.TabIndex = 182;
             this.btnIssueLicense.Text = "Issue";
             this.btnIssueLicense.UseVisualStyleBackColor = false;
+            this.btnIssueLicense.Click += new System.EventHandler(this.btnIssueLicense_Click);
             // 
             // ctrlLocalDrivingApplicationDetails
             // 
