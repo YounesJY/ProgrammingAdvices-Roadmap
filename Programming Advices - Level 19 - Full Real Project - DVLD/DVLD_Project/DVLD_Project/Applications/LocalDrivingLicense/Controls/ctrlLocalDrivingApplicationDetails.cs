@@ -34,7 +34,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense.Controls
                 return;
             }
 
-            this._LocalDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
+            this._LocalDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingApplicationID(localDrivingApplicationID);
             if (this._LocalDrivingLicenseApplication == null)
             {
                 ResetLocalDrivingApplicationDetails();

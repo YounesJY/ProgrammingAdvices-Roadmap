@@ -57,7 +57,7 @@ namespace DVLD_Project.Tests
         }
         private void CompleteApplication()
         {
-            LocalDrivingLicenseApplication application = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(this._TestAppointment.LocalDrivingLicenseApplicationID);
+            LocalDrivingLicenseApplication application = LocalDrivingLicenseApplication.FindByLocalDrivingApplicationID(this._TestAppointment.LocalDrivingLicenseApplicationID);
             if (application == null)
                 return;
 

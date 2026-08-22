@@ -60,7 +60,7 @@ namespace DVLD_Project.Licenses.LocalLicenses
                 return;
             }
 
-            this._LocalDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(this._LocalDrivingApplicationID);
+            this._LocalDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingApplicationID(this._LocalDrivingApplicationID);
             if (this._LocalDrivingLicenseApplication == null)
             {
                 MessageBox.Show($"No application with ApplicationID = {this._LocalDrivingApplicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

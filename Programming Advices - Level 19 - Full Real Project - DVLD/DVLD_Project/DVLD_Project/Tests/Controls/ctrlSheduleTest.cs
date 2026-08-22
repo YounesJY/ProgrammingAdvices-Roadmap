@@ -56,7 +56,7 @@ namespace DVLD_Project.Tests.Controls
                 return false;
             }
 
-            this._LocalDrivingApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
+            this._LocalDrivingApplication = LocalDrivingLicenseApplication.FindByLocalDrivingApplicationID(localDrivingApplicationID);
             if (this._LocalDrivingApplication == null)
             {
                 MessageBox.Show($"No application with ApplicationID = {localDrivingApplicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

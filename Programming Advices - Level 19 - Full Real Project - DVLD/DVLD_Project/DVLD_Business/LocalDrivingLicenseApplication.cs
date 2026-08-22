@@ -77,7 +77,7 @@ namespace DVLD_Business
         {
             return LocalDrivingLicenseApplicationData.GetAllLocalDrivingLicenseApplications();
         }
-        public static LocalDrivingLicenseApplication FindByLocalDrivingAppLicenseID(int LocalDrivingLicenseApplicationID)
+        public static LocalDrivingLicenseApplication FindByLocalDrivingApplicationID(int LocalDrivingLicenseApplicationID)
         {
             int ApplicationID = ValidationConstants.INVALID_ID;
             int LicenseClassID = ValidationConstants.INVALID_ID;

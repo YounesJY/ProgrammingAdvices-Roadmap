@@ -90,7 +90,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
 
         private void FillFormWithApplicationDetails()
         {
-            this._LocalDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(this._LocalDrivingApplicationID);
+            this._LocalDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingApplicationID(this._LocalDrivingApplicationID);
 
             if (this._LocalDrivingLicenseApplication == null)
             {

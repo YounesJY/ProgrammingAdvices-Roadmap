@@ -1,4 +1,5 @@
 ﻿using DVLD_Business;
+using DVLD_Project.Licenses;
 using DVLD_Project.Licenses.LocalLicenses;
 using DVLD_Project.Tests;
 using DVLD_Project.Users;
@@ -343,7 +344,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             }
 
             int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
-            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
+            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingApplicationID(localDrivingApplicationID);
 
 
             if (localDrivingLicenseApplication == null)
@@ -403,30 +404,6 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                     frmLocalDrivingLicenseApplicationDetails.OnApplicationCardDetailsUpdated -= RefreshHandler;
             }
         }
-        private void pbAddNewLocalDrivingLicenseApplication_Click(object sender, EventArgs e)
-        {
-            frmAddEditLocalDrivingLicenseApplication frmAddEditLocalDrivingLicenseApplication = new frmAddEditLocalDrivingLicenseApplication();
-
-            try
-            {
-                if (frmAddEditLocalDrivingLicenseApplication != null)
-                    frmAddEditLocalDrivingLicenseApplication.OnNewLocalDrivingLicenseApplicationCreated += RefreshHandler;
-                frmAddEditLocalDrivingLicenseApplication.ShowDialog();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("An error occurred while trying to add a new local driving license application.",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                throw;
-            }
-            finally
-            {
-                if (frmAddEditLocalDrivingLicenseApplication != null)
-                    frmAddEditLocalDrivingLicenseApplication.OnNewLocalDrivingLicenseApplicationCreated -= RefreshHandler;
-            }
-        }
         private void tsmiEditApplication_Click(object sender, EventArgs e)
         {
             if (dgvLocalDrivingLicenseApplications.RowCount == 0)
@@ -481,7 +458,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
 
 
             int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
-            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
+            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingApplicationID(localDrivingApplicationID);
 
             if (MessageBox.Show("Are you sure you want to cancel this application?\n\nThis action cannot be undone.",
                 "Confirm Delete",
@@ -517,7 +494,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             }
 
             int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
-            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
+            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingApplicationID(localDrivingApplicationID);
 
             if (MessageBox.Show("Are you sure you want to delete this application?\n\nThis action cannot be undone.",
                 "Confirm Delete",
@@ -596,7 +573,69 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
             new frmShowLicenseDetails(localDrivingApplicationID).ShowDialog();
         }
+        private void tsmiShowPersonLicenseHistory_Click(object sender, EventArgs e)
+        {
+            if (dgvLocalDrivingLicenseApplications.RowCount == 0)
+            {
+                MessageBox.Show("No application selected to show details.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
 
+
+            int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
+            frmShowPersonLicenseHistory frmShowPersonLicenseHistory = new frmShowPersonLicenseHistory(localDrivingApplicationID);
+
+            try
+            {
+                if (frmShowPersonLicenseHistory != null)
+                    frmShowPersonLicenseHistory.OnPersonCardDetailsUpdated += RefreshHandler;
+                frmShowPersonLicenseHistory.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while showing licenses history: {ex.Message}",
+                "Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (frmShowPersonLicenseHistory != null)
+                    frmShowPersonLicenseHistory.OnPersonCardDetailsUpdated -= RefreshHandler;
+            }
+        }
+
+        private void pbAddNewLocalDrivingLicenseApplication_Click(object sender, EventArgs e)
+        {
+            frmAddEditLocalDrivingLicenseApplication frmAddEditLocalDrivingLicenseApplication = new frmAddEditLocalDrivingLicenseApplication();
+
+            try
+            {
+                if (frmAddEditLocalDrivingLicenseApplication != null)
+                    frmAddEditLocalDrivingLicenseApplication.OnNewLocalDrivingLicenseApplicationCreated += RefreshHandler;
+                frmAddEditLocalDrivingLicenseApplication.ShowDialog();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An error occurred while trying to add a new local driving license application.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                throw;
+            }
+            finally
+            {
+                if (frmAddEditLocalDrivingLicenseApplication != null)
+                    frmAddEditLocalDrivingLicenseApplication.OnNewLocalDrivingLicenseApplicationCreated -= RefreshHandler;
+            }
+        }
+        private void dgvLocalDrivingLicenseApplications_DoubleClick(object sender, EventArgs e)
+        {
+            tsmiShowApplicationDetails_Click(sender, e);
+        }
 
         private void ScheduleTest(TestType.enTestType testType)
         {
@@ -666,7 +705,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             }
 
             int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
-            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingAppLicenseID(localDrivingApplicationID);
+            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingApplicationID(localDrivingApplicationID);
 
             if (localDrivingLicenseApplication == null)
             {
