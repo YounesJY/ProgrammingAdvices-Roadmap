@@ -290,11 +290,9 @@ namespace DVLD_Project.Tests
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
 
-
             OnTestAppointmentTaken?.Invoke(this, test.TestAppointmentID);
             if (test.TestResult)
                 HandleTestPassed(test);
-
             /*
                 if (!test.TestResult)
                     return;
