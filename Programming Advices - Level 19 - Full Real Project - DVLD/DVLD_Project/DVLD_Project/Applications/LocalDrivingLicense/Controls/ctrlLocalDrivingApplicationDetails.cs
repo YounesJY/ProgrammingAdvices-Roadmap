@@ -1,6 +1,7 @@
 ﻿using DVLD.Classes;
 using DVLD_Business;
 using DVLD_Common;
+using DVLD_Project.Licenses.LocalLicenses;
 using DVLD_Project.People;
 using System;
 using System.Windows.Forms;
@@ -16,6 +17,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense.Controls
             remove { this.ctrlApplicationDetails.OnApplicationCardDetailsUpdated -= value; }
         }
         private LocalDrivingLicenseApplication _LocalDrivingLicenseApplication = null;
+
 
         public ctrlLocalDrivingApplicationDetails()
         {
@@ -59,6 +61,13 @@ namespace DVLD_Project.Applications.LocalDrivingLicense.Controls
             }
             FillLocalDrivingApplicationDetails();
         }
+        private void ResetLocalDrivingApplicationDetails()
+        {
+            this._LocalDrivingLicenseApplication = null;
+            ctrlApplicationDetails.ResetApplicationDetails();
+            lblLocalDrivingLicenseApplicationID.Text = "[????]";
+            lblAppliedFor.Text = "[????]";
+        }
         private void FillLocalDrivingApplicationDetails()
         {
             //incase there is license enable the show link.
@@ -70,12 +79,10 @@ namespace DVLD_Project.Applications.LocalDrivingLicense.Controls
             lblPassedTests.Text = this._LocalDrivingLicenseApplication.GetPassedTestCount().ToString() + "/3";
             ctrlApplicationDetails.LoadApplicationDetailsToCard(this._LocalDrivingLicenseApplication.ApplicationID);
         }
-        private void ResetLocalDrivingApplicationDetails()
+
+        private void llShowLicenceInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this._LocalDrivingLicenseApplication = null;
-            ctrlApplicationDetails.ResetApplicationDetails();
-            lblLocalDrivingLicenseApplicationID.Text = "[????]";
-            lblAppliedFor.Text = "[????]";
+            new frmShowLicenseDetails(this._LocalDrivingLicenseApplication.LocalDrivingLicenseApplicationID).ShowDialog();
         }
     }
 }
