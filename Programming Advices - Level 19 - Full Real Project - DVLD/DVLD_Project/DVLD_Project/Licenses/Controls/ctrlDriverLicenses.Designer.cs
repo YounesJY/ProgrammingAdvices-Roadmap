@@ -137,19 +137,20 @@
             this.dgvLocalLicensesHistory.Size = new System.Drawing.Size(860, 168);
             this.dgvLocalLicensesHistory.TabIndex = 132;
             this.dgvLocalLicensesHistory.TabStop = false;
+            this.dgvLocalLicensesHistory.DoubleClick += new System.EventHandler(this.dgvLocalLicensesHistory_DoubleClick);
             // 
             // cmsLocalLicenseHistory
             // 
             this.cmsLocalLicenseHistory.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiShowLocalLicenseDetails});
             this.cmsLocalLicenseHistory.Name = "cmsLocalLicenseHistory";
-            this.cmsLocalLicenseHistory.Size = new System.Drawing.Size(181, 48);
+            this.cmsLocalLicenseHistory.Size = new System.Drawing.Size(170, 26);
             // 
             // tsmiShowLocalLicenseDetails
             // 
             this.tsmiShowLocalLicenseDetails.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tsmiShowLocalLicenseDetails.Name = "tsmiShowLocalLicenseDetails";
-            this.tsmiShowLocalLicenseDetails.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowLocalLicenseDetails.Size = new System.Drawing.Size(169, 22);
             this.tsmiShowLocalLicenseDetails.Text = "Show License Info";
             this.tsmiShowLocalLicenseDetails.Click += new System.EventHandler(this.tsmiShowLocalLicenseDetails_Click);
             // 

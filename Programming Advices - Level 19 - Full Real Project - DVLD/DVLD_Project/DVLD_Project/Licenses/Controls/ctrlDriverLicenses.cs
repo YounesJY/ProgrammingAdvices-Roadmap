@@ -23,7 +23,7 @@ namespace DVLD_Project.Licenses
         {
             InitializeComponent();
         }
-        private void LoadDriverLicensesByDriverID(int driverID)
+        public void LoadDriverLicensesByDriverID(int driverID)
         {
             if (driverID <= 0)
             {
@@ -39,7 +39,7 @@ namespace DVLD_Project.Licenses
             }
             LoadDriverLicenses();
         }
-        private void LoadDriverLicensesByPersonID(int personID)
+        public void LoadDriverLicensesByPersonID(int personID)
         {
             if (personID <= 0)
             {
@@ -94,8 +94,19 @@ namespace DVLD_Project.Licenses
                 return;
             }
 
-            int localLicenseID = Convert.ToInt32(dgvLocalLicensesHistory.CurrentRow.Cells[0].Value);
-            new frmShowLicenseDetails(localLicenseID).ShowDialog();
+            int applicationID = Convert.ToInt32(dgvLocalLicensesHistory.CurrentRow.Cells[1].Value);
+            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByApplicationID(applicationID);
+            if (localDrivingLicenseApplication == null)
+            {
+                MessageBox.Show("Application not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            new frmShowLicenseDetails(localDrivingLicenseApplication.LocalDrivingLicenseApplicationID).ShowDialog();
+        }
+        private void dgvLocalLicensesHistory_DoubleClick(object sender, EventArgs e)
+        {
+            tsmiShowLocalLicenseDetails_Click(sender, e);
         }
     }
 }

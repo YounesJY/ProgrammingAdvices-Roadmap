@@ -99,10 +99,10 @@
     <Compile Include="Global Classes\Global.cs" />
     <Compile Include="Global Classes\Utils.cs" />
     <Compile Include="Global Classes\Validation.cs" />
-    <Compile Include="Licenses\ctrlDriverLicenses.cs">
+    <Compile Include="Licenses\Controls\ctrlDriverLicenses.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Licenses\ctrlDriverLicenses.Designer.cs">
+    <Compile Include="Licenses\Controls\ctrlDriverLicenses.Designer.cs">
       <DependentUpon>ctrlDriverLicenses.cs</DependentUpon>
     </Compile>
     <Compile Include="Licenses\LocalLicenses\Controls\ctrlDriverLicenseDetails.cs">
@@ -281,7 +281,7 @@
     <EmbeddedResource Include="Drivers\frmListDrivers.resx">
       <DependentUpon>frmListDrivers.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Licenses\ctrlDriverLicenses.resx">
+    <EmbeddedResource Include="Licenses\Controls\ctrlDriverLicenses.resx">
       <DependentUpon>ctrlDriverLicenses.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Licenses\LocalLicenses\Controls\ctrlDriverLicenseDetails.resx">
