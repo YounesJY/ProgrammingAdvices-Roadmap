@@ -107,8 +107,10 @@
             // 
             // frmIssueDriverLicenseFirstTime
             // 
+            this.AcceptButton = this.btnIssueLicense;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(776, 540);
             this.Controls.Add(this.ctrlLocalDrivingApplicationDetails);
             this.Controls.Add(this.pictureBox1);
