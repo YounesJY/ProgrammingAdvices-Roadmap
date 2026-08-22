@@ -581,6 +581,21 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                 }
             }
         }
+        private void tsmiShowLicenseDetails_Click(object sender, EventArgs e)
+        {
+            if (dgvLocalDrivingLicenseApplications.RowCount == 0)
+            {
+                MessageBox.Show("No application selected to show details.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
+
+            int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
+            new frmShowLicenseDetails(localDrivingApplicationID).ShowDialog();
+        }
 
 
         private void ScheduleTest(TestType.enTestType testType)
