@@ -1,5 +1,6 @@
 ﻿using DVLD_Business;
 using DVLD_Project.Applications.LocalDrivingLicense;
+using DVLD_Project.Drivers;
 using DVLD_Project.People;
 using DVLD_Project.Users;
 using System;
@@ -54,6 +55,11 @@ namespace DVLD_Project
         private void manageTestTypesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new Tests.TestTypes.frmListTestTypes().ShowDialog();
+        }
+
+        private void driversToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmListDrivers().ShowDialog();
         }
     }
 }
