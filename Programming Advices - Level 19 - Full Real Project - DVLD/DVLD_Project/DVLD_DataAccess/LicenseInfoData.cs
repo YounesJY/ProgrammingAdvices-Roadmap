@@ -354,7 +354,7 @@ namespace DVLD_DataAccess
                     IssueDate = (DateTime)reader["IssueDate"];
                     ExpirationDate = (DateTime)reader["ExpirationDate"];
                     Notes = (reader["Notes"] != DBNull.Value) ? (string)reader["Notes"] : string.Empty;
-                    PaidFees = (float)reader["PaidFees"];
+                    PaidFees = Convert.ToSingle(reader["PaidFees"]);
                     IsActive = (bool)reader["IsActive"];
                     IssueReasonID = (byte)reader["IssueReasonID"];
                     CreatedByUserID = (int)reader["CreatedByUserID"];
