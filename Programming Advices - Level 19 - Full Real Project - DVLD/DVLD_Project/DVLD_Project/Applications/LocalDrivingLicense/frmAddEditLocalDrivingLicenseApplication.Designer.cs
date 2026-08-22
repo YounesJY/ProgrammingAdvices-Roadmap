@@ -350,6 +350,7 @@
             this.Controls.Add(this.tcAddEditLocalDrivingLicense);
             this.Controls.Add(this.lblTitle);
             this.Name = "frmAddEditLocalDrivingLicenseApplication";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAddEditLocalDrivingLicense";
             this.Activated += new System.EventHandler(this.frmAddEditLocalDrivingLicenseApplication_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAddEditLocalDrivingLicenseApplication_FormClosing);

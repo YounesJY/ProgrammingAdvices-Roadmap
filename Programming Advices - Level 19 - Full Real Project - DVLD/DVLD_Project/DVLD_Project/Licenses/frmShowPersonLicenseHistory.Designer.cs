@@ -30,9 +30,9 @@
         {
             this.lblTitle = new System.Windows.Forms.Label();
             this.pbPersonImage = new System.Windows.Forms.PictureBox();
-            this.ctrlPersonCardWithFilters1 = new DVLD_Project.People.ctrlPersonCardWithFilters();
-            this.ctrlDriverLicenses1 = new DVLD_Project.Licenses.ctrlDriverLicenses();
             this.btnClose = new System.Windows.Forms.Button();
+            this.ctrlDriverLicenses = new DVLD_Project.Licenses.ctrlDriverLicenses();
+            this.ctrlPersonCardWithFilters = new DVLD_Project.People.ctrlPersonCardWithFilters();
             ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,21 +61,6 @@
             this.pbPersonImage.TabIndex = 132;
             this.pbPersonImage.TabStop = false;
             // 
-            // ctrlPersonCardWithFilters1
-            // 
-            this.ctrlPersonCardWithFilters1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ctrlPersonCardWithFilters1.Location = new System.Drawing.Point(251, 51);
-            this.ctrlPersonCardWithFilters1.Name = "ctrlPersonCardWithFilters1";
-            this.ctrlPersonCardWithFilters1.Size = new System.Drawing.Size(769, 327);
-            this.ctrlPersonCardWithFilters1.TabIndex = 133;
-            // 
-            // ctrlDriverLicenses1
-            // 
-            this.ctrlDriverLicenses1.Location = new System.Drawing.Point(7, 384);
-            this.ctrlDriverLicenses1.Name = "ctrlDriverLicenses1";
-            this.ctrlDriverLicenses1.Size = new System.Drawing.Size(1013, 297);
-            this.ctrlDriverLicenses1.TabIndex = 134;
-            // 
             // btnClose
             // 
             this.btnClose.AutoEllipsis = true;
@@ -91,19 +76,37 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // ctrlDriverLicenses
+            // 
+            this.ctrlDriverLicenses.Location = new System.Drawing.Point(7, 384);
+            this.ctrlDriverLicenses.Name = "ctrlDriverLicenses";
+            this.ctrlDriverLicenses.Size = new System.Drawing.Size(1013, 297);
+            this.ctrlDriverLicenses.TabIndex = 134;
+            // 
+            // ctrlPersonCardWithFilters
+            // 
+            this.ctrlPersonCardWithFilters.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ctrlPersonCardWithFilters.Location = new System.Drawing.Point(251, 51);
+            this.ctrlPersonCardWithFilters.Name = "ctrlPersonCardWithFilters";
+            this.ctrlPersonCardWithFilters.Size = new System.Drawing.Size(769, 327);
+            this.ctrlPersonCardWithFilters.TabIndex = 133;
+            // 
             // frmShowPersonLicenseHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(1028, 733);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.ctrlDriverLicenses1);
-            this.Controls.Add(this.ctrlPersonCardWithFilters1);
+            this.Controls.Add(this.ctrlDriverLicenses);
+            this.Controls.Add(this.ctrlPersonCardWithFilters);
             this.Controls.Add(this.pbPersonImage);
             this.Controls.Add(this.lblTitle);
             this.Name = "frmShowPersonLicenseHistory";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmShowPersonLicenseHistory";
+            this.Load += new System.EventHandler(this.frmShowPersonLicenseHistory_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).EndInit();
             this.ResumeLayout(false);
 
@@ -113,8 +116,8 @@
 
         private System.Windows.Forms.PictureBox pbPersonImage;
         private System.Windows.Forms.Label lblTitle;
-        private People.ctrlPersonCardWithFilters ctrlPersonCardWithFilters1;
-        private ctrlDriverLicenses ctrlDriverLicenses1;
+        private People.ctrlPersonCardWithFilters ctrlPersonCardWithFilters;
+        private ctrlDriverLicenses ctrlDriverLicenses;
         private System.Windows.Forms.Button btnClose;
     }
 }

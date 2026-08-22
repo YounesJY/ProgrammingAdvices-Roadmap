@@ -92,6 +92,7 @@
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.pbTestTypeImage);
             this.Name = "frmShowLicenseDetails";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmShowLicenseDetails";
             this.Load += new System.EventHandler(this.frmShowLicenseDetails_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbTestTypeImage)).EndInit();
