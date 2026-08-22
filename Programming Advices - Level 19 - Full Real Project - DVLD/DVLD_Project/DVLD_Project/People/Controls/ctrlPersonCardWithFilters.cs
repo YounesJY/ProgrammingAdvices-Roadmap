@@ -35,6 +35,7 @@ namespace DVLD_Project.People
         public Person SelectedPerson { get => this.ctrlPersonCard.Person; private set { SelectedPerson = value; } }
         public GroupBox FilterGroupBox { get => this.gbFilter; private set { FilterGroupBox = value; } }
 
+
         public ctrlPersonCardWithFilters()
         {
             InitializeComponent();
@@ -48,6 +49,7 @@ namespace DVLD_Project.People
             this.PersonId = personId;
             ctrlPersonCard.LoadPersonDetailsToCard(personId);
         }
+
 
         private void resetToDefautValues()
         {
@@ -140,15 +142,9 @@ namespace DVLD_Project.People
         {
             mtbFilterSeach.Focus();
         }
-
-        /*
-            I forget the reason why this method even exist for, maybe it was important but currently i don't remember it
-        
-        public void personCardDetailsUpdatedEventHandler(Action<object, int> action)
+        public void SwitchFilterState()
         {
-            this.ctrlPersonCard.OnPersonCardDetailsUpdated += action;
+            gbFilter.Enabled = !gbFilter.Enabled;
         }
-
-        */
     }
 }
