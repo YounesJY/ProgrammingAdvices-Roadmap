@@ -93,11 +93,23 @@
     <Compile Include="Global Classes\Global.cs" />
     <Compile Include="Global Classes\Utils.cs" />
     <Compile Include="Global Classes\Validation.cs" />
+    <Compile Include="Licenses\Controls\ctrlDriverLicenseDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Licenses\Controls\ctrlDriverLicenseDetails.Designer.cs">
+      <DependentUpon>ctrlDriverLicenseDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Licenses\LocalLicenses\frmIssueDriverLicenseFirstTime.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Licenses\LocalLicenses\frmIssueDriverLicenseFirstTime.Designer.cs">
       <DependentUpon>frmIssueDriverLicenseFirstTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Licenses\LocalLicenses\frmShowLicenseDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Licenses\LocalLicenses\frmShowLicenseDetails.Designer.cs">
+      <DependentUpon>frmShowLicenseDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginFrom.cs">
       <SubType>Form</SubType>
@@ -248,8 +260,14 @@
     <EmbeddedResource Include="Applications\LocalDrivingLicense\frmLocalDrivingLicenseApplicationDetails.resx">
       <DependentUpon>frmLocalDrivingLicenseApplicationDetails.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Licenses\Controls\ctrlDriverLicenseDetails.resx">
+      <DependentUpon>ctrlDriverLicenseDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Licenses\LocalLicenses\frmIssueDriverLicenseFirstTime.resx">
       <DependentUpon>frmIssueDriverLicenseFirstTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Licenses\LocalLicenses\frmShowLicenseDetails.resx">
+      <DependentUpon>frmShowLicenseDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginFrom.resx">
       <DependentUpon>LoginFrom.cs</DependentUpon>
