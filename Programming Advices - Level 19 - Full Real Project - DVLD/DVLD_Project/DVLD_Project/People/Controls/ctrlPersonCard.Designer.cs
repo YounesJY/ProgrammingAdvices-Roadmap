@@ -235,6 +235,7 @@
             // pbProfileImage
             // 
             this.pbProfileImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbProfileImage.Image = global::DVLD_Project.Properties.Resources.Male_512;
             this.pbProfileImage.Location = new System.Drawing.Point(614, 64);
             this.pbProfileImage.Name = "pbProfileImage";
             this.pbProfileImage.Size = new System.Drawing.Size(146, 143);
