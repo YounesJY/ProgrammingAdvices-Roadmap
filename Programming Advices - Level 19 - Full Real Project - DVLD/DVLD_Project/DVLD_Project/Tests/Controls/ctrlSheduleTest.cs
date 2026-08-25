@@ -16,11 +16,27 @@ namespace DVLD_Project.Tests.Controls
     public partial class ctrlSheduleTest : UserControl
     {
         public event Action<object, int> OnTestAppointmentAddUpdate;
-        private ApplicationInfo _RetakeTestApplication = null;
+
+        public enum enMode { AddNew, Update };
+        public enum enCreationMode { FirstTimeSchedule, RetakeTestSchedule };
+
         private LocalDrivingLicenseApplication _LocalDrivingApplication = null;
+        private ApplicationInfo _RetakeTestApplication = null;
         private TestType.enTestType _TestType = TestType.enTestType.VisionTest;
         private TestAppointment _TestAppointment = null;
         private bool IsRetakingTest = false;
+        private enCreationMode _CreationMode = enCreationMode.FirstTimeSchedule;
+        private enMode _Mode = enMode.AddNew;
+        public TestType.enTestType TestTypeID
+        {
+            get { return this._TestType; }
+            set
+            {
+                this._TestType = value;
+                SetTestIcon();
+            }
+        }
+
 
         public ctrlSheduleTest()
         {
@@ -81,10 +97,10 @@ namespace DVLD_Project.Tests.Controls
             return ((LastTakenTest == null) ? false : (LastTakenTest.TestResult == false));
             // return Test.FindLastTestPerPersonAndLicenseClass(this._LocalDrivingApplication.ApplicantPersonID, this._LocalDrivingApplication.LicenseClassID, this._TestType).TestResult == false;
         }
-        public void LoadTestDetails(int localDrivingApplicationID, TestType.enTestType testType)
+        public bool LoadTestDetails(int localDrivingApplicationID, TestType.enTestType testType)
         {
             if (!IsValidApplication(localDrivingApplicationID))
-                return;
+                return false;
 
             if (this._LocalDrivingApplication.PassedAllTests())
             {
@@ -93,6 +109,25 @@ namespace DVLD_Project.Tests.Controls
                                 "All Tests Passed",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information);
+                return false;
+            }
+
+            if (this._LocalDrivingApplication.IsThereAnActiveScheduledTest(this._TestType))
+            {
+                MessageBox.Show("There is already an active scheduled test for this application.",
+                                "Active Test Exists",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (this._LocalDrivingApplication.DoesPassTestType(this._TestType))
+            {
+                MessageBox.Show("This test has already been passed for this application.",
+                                "Test Already Passed",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+                return false;
             }
 
             if (IsFailedInLastTest())
@@ -107,38 +142,40 @@ namespace DVLD_Project.Tests.Controls
                 };
 
                 if (_RetakeTestApplication.Save())
+                {
                     IsRetakingTest = true;
+                }
                 else
                 {
                     MessageBox.Show("Failed to create retake test application. Please try again.",
                                     "Error",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Error);
-                    return;
+                    return false;
                 }
             }
 
             this._TestType = testType;
             FillNewTestDetails();
+            return true;
         }
-        public void LoadTestDetails(int testAppointmentID)
+        public bool LoadTestDetails(int testAppointmentID)
         {
             if (testAppointmentID <= 0)
             {
                 MessageBox.Show($"Invalid TestAppointmentID = {testAppointmentID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
             this._TestAppointment = TestAppointment.Find(testAppointmentID);
             if (this._TestAppointment == null)
             {
-                MessageBox.Show($"No test appointment with testAppointmentID = {_TestAppointment}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                MessageBox.Show($"No test appointment found with ID = {testAppointmentID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
 
-
             if (!IsValidApplication(this._TestAppointment.LocalDrivingLicenseApplicationID))
-                return;
+                return false;
 
             if (this._LocalDrivingApplication.PassedAllTests())
             {
@@ -147,6 +184,7 @@ namespace DVLD_Project.Tests.Controls
                                 "All Tests Passed",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information);
+                return false;
             }
 
             this._RetakeTestApplication = ApplicationInfo.Find(this._TestAppointment.RetakeTestApplicationID);
@@ -154,6 +192,7 @@ namespace DVLD_Project.Tests.Controls
 
             this._TestType = (TestType.enTestType)this._TestAppointment.TestTypeID;
             FillUpdatedTestDetails();
+            return true;
         }
 
         private void SetTestLabel()
@@ -173,7 +212,7 @@ namespace DVLD_Project.Tests.Controls
         }
         private void SetTestIcon()
         {
-            switch (_TestType)
+            switch (this._TestType)
             {
                 case TestType.enTestType.VisionTest:
                     this.pbTestTypeImage.Image = Resources.Vision_512;

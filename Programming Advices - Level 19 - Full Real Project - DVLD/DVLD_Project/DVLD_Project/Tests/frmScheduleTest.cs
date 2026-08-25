@@ -43,10 +43,19 @@ namespace DVLD_Project.Tests
         }
         private void frmScheduleTest_Load(object sender, EventArgs e)
         {
+            bool loadSuccess = false;
+
             if (this._Mode == enMode.AddNew)
-                ctrlSheduleTest.LoadTestDetails(this._LocalDrivingApplicationID, this._TestType);
+                loadSuccess = ctrlSheduleTest.LoadTestDetails(this._LocalDrivingApplicationID, this._TestType);
             else
-                ctrlSheduleTest.LoadTestDetails(this._TestAppointmentID);
+                loadSuccess = ctrlSheduleTest.LoadTestDetails(this._TestAppointmentID);
+
+            // If loading failed, close the form
+            if (!loadSuccess)
+            {
+                this.DialogResult = DialogResult.Cancel;
+                this.Close();
+            }
         }
 
 

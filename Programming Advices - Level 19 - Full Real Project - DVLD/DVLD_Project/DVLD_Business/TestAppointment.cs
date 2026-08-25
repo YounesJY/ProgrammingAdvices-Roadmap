@@ -34,21 +34,7 @@ namespace DVLD_Business
         private enMode _Mode = enMode.AddNew;
 
 
-        public TestAppointment()
-        {
-            this.TestAppointmentID = ValidationConstants.INVALID_ID;
-            this.TestTypeID = (int)TestType.enTestType.VisionTest;
-            this.LocalDrivingLicenseApplicationID = ValidationConstants.INVALID_ID;
-            this.AppointmentDate = DateTime.Now;
-            this.PaidFees = 0;
-            this.RetakeTestApplicationID = ValidationConstants.INVALID_ID;
-            this.IsLocked = false;
-            this.CreatedByUserID = ValidationConstants.INVALID_ID;
-
-            this._Mode = enMode.AddNew;
-        }
-        private TestAppointment(int TestAppointmentID, int TestTypeID, int LocalDrivingLicenseApplicationID,
-            DateTime AppointmentDate, float PaidFees, int CreatedByUserID, bool IsLocked, int RetakeTestApplicationID)
+        private TestAppointment(int TestAppointmentID, int TestTypeID, int LocalDrivingLicenseApplicationID, DateTime AppointmentDate, float PaidFees, int CreatedByUserID, bool IsLocked, int RetakeTestApplicationID)
         {
             this.TestAppointmentID = TestAppointmentID;
             this.TestTypeID = TestTypeID;
@@ -60,6 +46,10 @@ namespace DVLD_Business
             this.CreatedByUserID = CreatedByUserID;
 
             this._Mode = enMode.Update;
+        }
+        public TestAppointment() : this(ValidationConstants.INVALID_ID, (int)TestType.enTestType.VisionTest, ValidationConstants.INVALID_ID, DateTime.Now, 0, ValidationConstants.INVALID_ID, false, ValidationConstants.INVALID_ID)
+        {
+            this._Mode = enMode.AddNew;
         }
 
 

@@ -113,35 +113,6 @@ namespace DVLD_Project.Tests
         }
         private void btnAddNewAppointment_Click(object sender, EventArgs e)
         {
-            if (LocalDrivingLicenseApplication.IsThereAnActiveScheduledTest(this._LocalDrivingApplicationID, this._TestType))
-            {
-                MessageBox.Show("There is already an active scheduled test for this application.",
-                                "Active Test Exists",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (LocalDrivingLicenseApplication.GetPassedTestCount(this._LocalDrivingApplicationID) == 3)
-            {
-                MessageBox.Show("All three tests (Vision, Written, and Street) have already been passed.\n\n" +
-                                "The license is ready to be issued for this application.",
-                                "All Tests Passed",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
-                return;
-            }
-
-            if (LocalDrivingLicenseApplication.DoesPassTestType(this._LocalDrivingApplicationID, this._TestType))
-            {
-                MessageBox.Show("This test has already been passed for this application.",
-                                "Test Already Passed",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
-                return;
-            }
-
-
             frmScheduleTest frmScheduleTest = new frmScheduleTest(_LocalDrivingApplicationID, _TestType);
             try
             {

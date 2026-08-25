@@ -54,6 +54,7 @@
             this.ctrlSheduleTest.Name = "ctrlSheduleTest";
             this.ctrlSheduleTest.Size = new System.Drawing.Size(530, 653);
             this.ctrlSheduleTest.TabIndex = 0;
+            this.ctrlSheduleTest.TestTypeID = DVLD_Business.TestType.enTestType.VisionTest;
             // 
             // frmScheduleTest
             // 
