@@ -20,50 +20,58 @@ namespace DVLD_Project.Licenses
             remove { this.ctrlPersonCardWithFilters.OnPersonCardDetailsUpdated -= value; }
         }
 
-        private int _LocalDrivingApplicationID = ValidationConstants.INVALID_ID;
-        private LocalDrivingLicenseApplication _LocalDrivingLicenseApplication;
+        private int _PersonID = ValidationConstants.INVALID_ID;
         private Driver _Driver = null;
 
 
-        public frmShowPersonLicenseHistory(int localDrivingApplicationID)
+        public frmShowPersonLicenseHistory()
         {
             InitializeComponent();
-            this._LocalDrivingApplicationID = localDrivingApplicationID;
+            this._PersonID = ValidationConstants.INVALID_ID;
+        }
+        public frmShowPersonLicenseHistory(int personID)
+        {
+            InitializeComponent();
+            this._PersonID = personID;
         }
         private void frmShowPersonLicenseHistory_Load(object sender, EventArgs e)
         {
-            if (this._LocalDrivingApplicationID <= 0)
+            if (this._PersonID != ValidationConstants.INVALID_ID)
+                LoadData();
+            else
             {
-                MessageBox.Show($"Invalid ApplicationID = {_LocalDrivingApplicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                ctrlPersonCardWithFilters.OnPersonSelected += LoadData;
+                ctrlPersonCardWithFilters.Focus();
             }
-
-            this._LocalDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingApplicationID(this._LocalDrivingApplicationID);
-            if (this._LocalDrivingLicenseApplication == null)
-            {
-                MessageBox.Show("Application not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            this._Driver = Driver.FindByPersonID(_LocalDrivingLicenseApplication.ApplicantPersonID);
-            if (this._Driver == null)
-            {
-                MessageBox.Show("Driver not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            LoadData();
         }
 
 
         private void LoadData()
         {
-            ctrlPersonCardWithFilters.loadPersonDetailsToCard(this._LocalDrivingLicenseApplication.ApplicantPersonID);
+            if (this._PersonID <= 0)
+            {
+                MessageBox.Show($"Invalid PersonID = {this._PersonID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            }
+
+            this._Driver = Driver.FindByPersonID(this._PersonID);
+            if (this._Driver == null)
+            {
+                MessageBox.Show("Driver not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            }
+
+            ctrlPersonCardWithFilters.loadPersonDetailsToCard(this._PersonID);
             ctrlDriverLicenses.LoadDriverLicensesByDriverID(this._Driver.DriverID);
-
-            ctrlPersonCardWithFilters.SwitchFilterState();
+            ctrlPersonCardWithFilters.DisactiviteFilter();
         }
-
+        private void LoadData(object sender, int personID)
+        {
+            this._PersonID = personID;
+            LoadData();
+        }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
