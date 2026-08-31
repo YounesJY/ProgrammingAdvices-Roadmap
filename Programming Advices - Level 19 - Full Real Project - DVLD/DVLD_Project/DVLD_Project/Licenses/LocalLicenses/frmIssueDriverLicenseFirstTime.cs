@@ -32,7 +32,37 @@ namespace DVLD_Project.Licenses.LocalLicenses
         private void frmIssueDriverLicenseFirstTime_Load(object sender, EventArgs e)
         {
             this.OnApplicationCardDetailsUpdated += RefreshApplicationDetailsOnUpdate;
+
+            if (this._LocalDrivingApplicationID <= 0)
+            {
+                MessageBox.Show($"Invalid ApplicationID = {this._LocalDrivingApplicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            }
+
             this.ctrlLocalDrivingApplicationDetails.LoadApplicationDetailsByLocalDrivingApplicationID(this._LocalDrivingApplicationID);
+
+            this._LocalDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingApplicationID(this._LocalDrivingApplicationID);
+            if (this._LocalDrivingLicenseApplication == null)
+            {
+                MessageBox.Show($"No application with ApplicationID = {this._LocalDrivingApplicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            }
+
+            if (!this._LocalDrivingLicenseApplication.PassedAllTests())
+            {
+                MessageBox.Show($"Applicant person should pass all test first !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            }
+
+            if (this._LocalDrivingLicenseApplication.GetActiveLicenseID() != ValidationConstants.INVALID_ID)
+            {
+                MessageBox.Show($"Applicant person already has an active licence !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            }
         }
         private void frmIssueDriverLicenseFirstTime_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -54,20 +84,7 @@ namespace DVLD_Project.Licenses.LocalLicenses
         {
             int licenseID = ValidationConstants.INVALID_ID;
 
-            if (this._LocalDrivingApplicationID <= 0)
-            {
-                MessageBox.Show($"Invalid ApplicationID = {this._LocalDrivingApplicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            this._LocalDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingApplicationID(this._LocalDrivingApplicationID);
-            if (this._LocalDrivingLicenseApplication == null)
-            {
-                MessageBox.Show($"No application with ApplicationID = {this._LocalDrivingApplicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            licenseID = this._LocalDrivingLicenseApplication.IssueLicenseForTheFirtTime(this.txtNotes.Text, Global.currentLoggedInUser.UserID);
+            licenseID = this._LocalDrivingLicenseApplication.IssueLicenseForTheFirtTime(this.txtNotes.Text.Trim(), Global.currentLoggedInUser.UserID);
             if (licenseID == ValidationConstants.INVALID_ID)
             {
                 MessageBox.Show("Failed to issue the license. Please try again.",
