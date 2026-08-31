@@ -144,6 +144,13 @@ namespace DVLD_DataAccess
         {
             int TestID = ValidationConstants.INVALID_ID;
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+
+            /*
+                The 2nd part of this query is an exemple of a transation like,
+            this query exist because if it's done via methods save(), it could fail at Test level  or TestAppointment level,
+            and you'll need conditional if-else to handle many situations, hince Transaction is the solution for this kinf of operations,
+            yet we didn't use it since we haven't learn it for now
+            */
             string query = @"
                     INSERT INTO
                         Tests (TestAppointmentID, TestResult, Notes, CreatedByUserID)

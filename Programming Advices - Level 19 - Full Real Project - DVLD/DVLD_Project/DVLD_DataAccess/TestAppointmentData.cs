@@ -167,10 +167,11 @@ namespace DVLD_DataAccess
             DataTable dataTable = new DataTable();
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
             string query = @"
-                    SELECT TestAppointmentID, 
-                           AppointmentDate,
-                           PaidFees, 
-                           IsLocked
+                    SELECT 
+                        TestAppointmentID, 
+                        AppointmentDate,
+                        PaidFees, 
+                        IsLocked
                     FROM TestAppointments
                     WHERE TestTypeID = @TestTypeID 
                         AND LocalDrivingLicenseApplicationID = @LocalDrivingLicenseApplicationID
