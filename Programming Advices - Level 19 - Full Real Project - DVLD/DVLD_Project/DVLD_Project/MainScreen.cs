@@ -1,5 +1,8 @@
 ﻿using DVLD_Business;
+using DVLD_Project.Applications.InternationalDrivingLicense;
 using DVLD_Project.Applications.LocalDrivingLicense;
+using DVLD_Project.Applications.RenewLocalDrivingLicense;
+using DVLD_Project.Applications.ReplaceLostOrDamagedLicense;
 using DVLD_Project.Drivers;
 using DVLD_Project.People;
 using DVLD_Project.Users;
@@ -24,7 +27,6 @@ namespace DVLD_Project
             new frmListUsers().ShowDialog();
         }
 
-
         private void currentUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new frmUserInfo(Global.currentLoggedInUser.UserID).ShowDialog();
@@ -47,19 +49,40 @@ namespace DVLD_Project
         {
             new frmAddEditLocalDrivingLicenseApplication().ShowDialog();
         }
- 
+
+        private void internationalLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmNewInternationalLicenseApplication().ShowDialog();
+        }
+        private void internationalLicenseApplicationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmListInternationalDrivingLicenseApplications().ShowDialog();
+        }
+
         private void manageApplicationTypesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new Applications.ApplicationTypes.frmListApplicationTypes().ShowDialog();
         }
-        private void manageTestTypesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new Tests.TestTypes.frmListTestTypes().ShowDialog();
-        }
-
         private void driversToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new frmListDrivers().ShowDialog();
+        }
+        private void retakeTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmListLocalDrivingLicenseApplications().ShowDialog();
+        }
+        private void renewDrivingLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmRenewLocalDrivingLicenseApplication().ShowDialog();
+        }
+        private void replacementForLostOrDamagedLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmReplaceLostOrDamagedLicenseApplication().ShowDialog();
+        }
+
+        private void manageTestTypesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Tests.TestTypes.frmListTestTypes().ShowDialog();
         }
     }
 }
