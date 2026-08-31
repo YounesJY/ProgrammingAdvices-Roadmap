@@ -13,17 +13,20 @@ namespace DVLD_Project.Licenses.LocalLicenses
 {
     public partial class frmShowLicenseDetails : Form
     {
-        private int _LocalDrivingApplicationID;
+        private int _LicenseID;
 
 
-        public frmShowLicenseDetails(int localDrivingApplicationID)
+        public frmShowLicenseDetails(int LicenseID)
         {
             InitializeComponent();
-            this._LocalDrivingApplicationID = localDrivingApplicationID;
+            this._LicenseID = LicenseID;
         }
         private void frmShowLicenseDetails_Load(object sender, EventArgs e)
         {
-            ctrlDriverLicenseDetails.LoadDriverLicenseDetails(this._LocalDrivingApplicationID);
+            bool loadedSuccessfully = ctrlDriverLicenseDetails.LoadDriverLicenseDetails(this._LicenseID);
+
+            if (!loadedSuccessfully)
+                this.Close();
         }
 
 

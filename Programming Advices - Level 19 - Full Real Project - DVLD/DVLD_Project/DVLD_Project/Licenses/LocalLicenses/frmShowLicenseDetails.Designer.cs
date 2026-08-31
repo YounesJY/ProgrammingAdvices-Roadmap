@@ -1,4 +1,6 @@
-﻿namespace DVLD_Project.Licenses.LocalLicenses
+﻿using DVLD_Project.Licenses.Controls;
+
+namespace DVLD_Project.Licenses.LocalLicenses
 {
     partial class frmShowLicenseDetails
     {
@@ -105,6 +107,6 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.PictureBox pbTestTypeImage;
-        private Controls.ctrlDriverLicenseDetails ctrlDriverLicenseDetails;
+        private ctrlDriverLicenseDetails ctrlDriverLicenseDetails;
     }
 }
