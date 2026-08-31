@@ -130,8 +130,7 @@ namespace DVLD_Business
         }
         public static DataTable GetApplicationTestAppointmentsPerTestType(int LocalDrivingLicenseApplicationID, TestType.enTestType TestTypeID)
         {
-            return TestAppointmentData.GetApplicationTestAppointmentsPerTestType(
-                LocalDrivingLicenseApplicationID, (int)TestTypeID);
+            return TestAppointmentData.GetApplicationTestAppointmentsPerTestType(LocalDrivingLicenseApplicationID, (int)TestTypeID);
         }
         public bool Save()
         {
