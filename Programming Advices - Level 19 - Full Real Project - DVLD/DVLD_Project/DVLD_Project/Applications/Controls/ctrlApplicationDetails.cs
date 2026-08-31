@@ -66,8 +66,8 @@ namespace DVLD_Project.Applications.Controls
             lblType.Text = _applicationInfo.ApplicationTypeInfo.ApplicationTypeTitle;
             lblFees.Text = _applicationInfo.PaidFees.ToString();
             lblApplicant.Text = _applicationInfo.ApplicantFullName;
-            lblDate.Text = clsFormat.DateToShort(_applicationInfo.ApplicationDate);
-            lblStatusDate.Text = clsFormat.DateToShort(_applicationInfo.LastStatusDate);
+            lblDate.Text = Format.DateToShort(_applicationInfo.ApplicationDate);
+            lblStatusDate.Text = Format.DateToShort(_applicationInfo.LastStatusDate);
             lblCreatedByUser.Text = _applicationInfo.CreatedByUserInfo.UserName;
         }
         private void llViewPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
