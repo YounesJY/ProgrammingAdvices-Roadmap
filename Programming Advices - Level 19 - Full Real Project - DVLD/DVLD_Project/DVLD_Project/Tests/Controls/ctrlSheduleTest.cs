@@ -16,17 +16,12 @@ namespace DVLD_Project.Tests.Controls
     public partial class ctrlSheduleTest : UserControl
     {
         public event Action<object, int> OnTestAppointmentAddUpdate;
-
         public enum enMode { AddNew, Update };
-        public enum enCreationMode { FirstTimeSchedule, RetakeTestSchedule };
+
 
         private LocalDrivingLicenseApplication _LocalDrivingApplication = null;
         private ApplicationInfo _RetakeTestApplication = null;
         private TestType.enTestType _TestType = TestType.enTestType.VisionTest;
-        private TestAppointment _TestAppointment = null;
-        private bool IsRetakingTest = false;
-        private enCreationMode _CreationMode = enCreationMode.FirstTimeSchedule;
-        private enMode _Mode = enMode.AddNew;
         public TestType.enTestType TestTypeID
         {
             get { return this._TestType; }
@@ -36,6 +31,9 @@ namespace DVLD_Project.Tests.Controls
                 SetTestIcon();
             }
         }
+        private TestAppointment _TestAppointment = null;
+        private bool IsRetakingTest = false;
+        private enMode _Mode = enMode.AddNew;
 
 
         public ctrlSheduleTest()
@@ -99,6 +97,10 @@ namespace DVLD_Project.Tests.Controls
         }
         public bool LoadTestDetails(int localDrivingApplicationID, TestType.enTestType testType)
         {
+            this._Mode = enMode.AddNew;
+            this._TestType = testType;
+
+
             if (!IsValidApplication(localDrivingApplicationID))
                 return false;
 
@@ -142,9 +144,7 @@ namespace DVLD_Project.Tests.Controls
                 };
 
                 if (_RetakeTestApplication.Save())
-                {
                     IsRetakingTest = true;
-                }
                 else
                 {
                     MessageBox.Show("Failed to create retake test application. Please try again.",
@@ -155,12 +155,13 @@ namespace DVLD_Project.Tests.Controls
                 }
             }
 
-            this._TestType = testType;
             FillNewTestDetails();
             return true;
         }
         public bool LoadTestDetails(int testAppointmentID)
         {
+            this._Mode = enMode.Update;
+
             if (testAppointmentID <= 0)
             {
                 MessageBox.Show($"Invalid TestAppointmentID = {testAppointmentID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -176,6 +177,7 @@ namespace DVLD_Project.Tests.Controls
 
             if (!IsValidApplication(this._TestAppointment.LocalDrivingLicenseApplicationID))
                 return false;
+            this._TestType = (TestType.enTestType)this._TestAppointment.TestTypeID;
 
             if (this._LocalDrivingApplication.PassedAllTests())
             {
@@ -190,7 +192,6 @@ namespace DVLD_Project.Tests.Controls
             this._RetakeTestApplication = ApplicationInfo.Find(this._TestAppointment.RetakeTestApplicationID);
             IsRetakingTest = (this._RetakeTestApplication != null);
 
-            this._TestType = (TestType.enTestType)this._TestAppointment.TestTypeID;
             FillUpdatedTestDetails();
             return true;
         }
@@ -284,7 +285,7 @@ namespace DVLD_Project.Tests.Controls
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (this._TestAppointment == null)
+            if (this._Mode == enMode.AddNew)
             {
                 TestAppointment testAppointment = new TestAppointment()
                 {

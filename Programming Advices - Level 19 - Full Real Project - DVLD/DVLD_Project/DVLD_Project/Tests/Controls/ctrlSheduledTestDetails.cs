@@ -15,6 +15,15 @@ namespace DVLD_Project.Tests
             get { return this.lblTestID.Text; }
             set { this.lblTestID.Text = value; }
         }
+        public TestType.enTestType TestTypeID
+        {
+            get { return this._TestType; }
+            set
+            {
+                this._TestType = value;
+                SetTestIcon();
+            }
+        }
 
 
         public ctrlSheduledTestDetails()
