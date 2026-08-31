@@ -11,13 +11,13 @@ namespace DVLD_Business
     {
         public enum enLicenseClass
         {
-            SmallMotorcycle = 0,
-            HeavyMotorcycleLicense = 1,
-            OrdinaryDrivingLicense = 2,
-            Commercial = 3,
-            Agricultural = 4,
-            SmallAndMediumBus = 5,
-            TruckAndHeavyVehicle = 6
+            SmallMotorcycle = 1,
+            HeavyMotorcycleLicense = 2,
+            OrdinaryDrivingLicense = 3,
+            Commercial = 4,
+            Agricultural = 5,
+            SmallAndMediumBus = 6,
+            TruckAndHeavyVehicle = 7
         }
         public enum enMode : byte { AddNew = 0, Update = 1 }
         private enMode _Mode = enMode.AddNew;
