@@ -82,7 +82,8 @@ namespace DVLD_Project.Applications.LocalDrivingLicense.Controls
 
         private void llShowLicenceInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            new frmShowLicenseDetails(this._LocalDrivingLicenseApplication.LocalDrivingLicenseApplicationID).ShowDialog();
+            int licenseID = LicenseInfo.GetActiveLicenseIDByPersonID(this._LocalDrivingLicenseApplication.ApplicantPersonID, this._LocalDrivingLicenseApplication.LicenseClassID);
+            new frmShowLicenseDetails(licenseID).ShowDialog();
         }
     }
 }
