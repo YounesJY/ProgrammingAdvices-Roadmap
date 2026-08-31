@@ -90,7 +90,7 @@ namespace DVLD_Project.Users
             If you want to allow changing the associated person,
             you can remove this line and handle it accordingly (all cases are handled in the btnSave())
             */
-            ctrlPersonCardWithFilters.FilterGroupBox.Enabled = false;
+            ctrlPersonCardWithFilters.DisactiviteFilter();
 
             btnNext.Enabled = false;
             btnSave.Enabled = true;
