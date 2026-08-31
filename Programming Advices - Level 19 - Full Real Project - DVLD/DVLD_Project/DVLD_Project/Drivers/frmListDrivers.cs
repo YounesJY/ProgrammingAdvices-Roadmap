@@ -1,4 +1,7 @@
 ﻿using DVLD_Business;
+using DVLD_Project.Licenses;
+using DVLD_Project.Licenses.LocalLicenses;
+using DVLD_Project.People;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,7 +50,16 @@ namespace DVLD_Project.Drivers
             dgvDrivers.DataSource = Driver.GetAllDrivers();
             lblNumberOfRecords.Text = dgvDrivers.RowCount.ToString();
         }
+        private void RefreshHandler(object sender, int ID)
+        {
+            MessageBox.Show("Drivers has been updated and data refreshed successfully.",
+                "Information",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
 
+            RefreshDriversData();
+        }
         private void FilterDrivers()
         {
             string filterColumn = cbFilterRows.SelectedItem.ToString().ToLower();
@@ -123,6 +135,79 @@ namespace DVLD_Project.Drivers
             FilterDrivers();
         }
 
+
+        private void tsmiShowPersonDetailsTool_Click(object sender, EventArgs e)
+        {
+            if (dgvDrivers.RowCount == 0)
+            {
+                MessageBox.Show("No driver selected to show details.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
+
+            int PersonID = Convert.ToInt32(dgvDrivers.CurrentRow.Cells[1].Value);
+            frmPersonDetails frmPersonDetails = new frmPersonDetails(PersonID);
+
+            try
+            {
+                if (frmPersonDetails != null)
+                    frmPersonDetails.OnPersonCardDetailsUpdated += RefreshHandler;
+                frmPersonDetails.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while showing person details: {ex.Message}",
+                "Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (frmPersonDetails != null)
+                    frmPersonDetails.OnPersonCardDetailsUpdated -= RefreshHandler;
+            }
+        }
+        private void tsmiShowPersonLicenseHistory_Click(object sender, EventArgs e)
+        {
+            if (dgvDrivers.RowCount == 0)
+            {
+                MessageBox.Show("No driver selected to show details.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
+
+            int PersonID = Convert.ToInt32(dgvDrivers.CurrentRow.Cells[1].Value);
+            frmShowPersonLicenseHistory frmShowPersonLicenseHistory = new frmShowPersonLicenseHistory(PersonID);
+
+            try
+            {
+                if (frmShowPersonLicenseHistory != null)
+                    frmShowPersonLicenseHistory.OnPersonCardDetailsUpdated += RefreshHandler;
+                frmShowPersonLicenseHistory.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while showing licenses history: {ex.Message}",
+                "Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (frmShowPersonLicenseHistory != null)
+                    frmShowPersonLicenseHistory.OnPersonCardDetailsUpdated -= RefreshHandler;
+            }
+        }
+        private void dgvDrivers_DoubleClick(object sender, EventArgs e)
+        {
+            tsmiShowPersonDetailsTool_Click(sender, e);
+        }
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();

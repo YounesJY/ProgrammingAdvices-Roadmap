@@ -28,18 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pbDriverImage = new System.Windows.Forms.PictureBox();
             this.cbFilterRows = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvDrivers = new System.Windows.Forms.DataGridView();
+            this.cmsDrivers = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiShowPersonDetailsTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiShowPersonLicenseHistory = new System.Windows.Forms.ToolStripMenuItem();
             this.lblNumberOfRecords = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.mtbFilterSearch = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbDriverImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDrivers)).BeginInit();
+            this.cmsDrivers.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -99,6 +105,7 @@
             this.dgvDrivers.AllowUserToResizeRows = false;
             this.dgvDrivers.BackgroundColor = System.Drawing.Color.White;
             this.dgvDrivers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDrivers.ContextMenuStrip = this.cmsDrivers;
             this.dgvDrivers.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvDrivers.Location = new System.Drawing.Point(8, 247);
             this.dgvDrivers.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -117,6 +124,39 @@
             this.dgvDrivers.Size = new System.Drawing.Size(827, 234);
             this.dgvDrivers.TabIndex = 127;
             this.dgvDrivers.TabStop = false;
+            this.dgvDrivers.DoubleClick += new System.EventHandler(this.dgvDrivers_DoubleClick);
+            // 
+            // cmsDrivers
+            // 
+            this.cmsDrivers.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiShowPersonDetailsTool,
+            this.toolStripSeparator2,
+            this.tsmiShowPersonLicenseHistory});
+            this.cmsDrivers.Name = "contextMenuStrip1";
+            this.cmsDrivers.Size = new System.Drawing.Size(242, 108);
+            // 
+            // tsmiShowPersonDetailsTool
+            // 
+            this.tsmiShowPersonDetailsTool.Image = global::DVLD_Project.Properties.Resources.PersonDetails_32;
+            this.tsmiShowPersonDetailsTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsmiShowPersonDetailsTool.Name = "tsmiShowPersonDetailsTool";
+            this.tsmiShowPersonDetailsTool.Size = new System.Drawing.Size(241, 38);
+            this.tsmiShowPersonDetailsTool.Text = "&Show Person Info";
+            this.tsmiShowPersonDetailsTool.Click += new System.EventHandler(this.tsmiShowPersonDetailsTool_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(238, 6);
+            // 
+            // tsmiShowPersonLicenseHistory
+            // 
+            this.tsmiShowPersonLicenseHistory.Image = global::DVLD_Project.Properties.Resources.PersonLicenseHistory_32;
+            this.tsmiShowPersonLicenseHistory.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsmiShowPersonLicenseHistory.Name = "tsmiShowPersonLicenseHistory";
+            this.tsmiShowPersonLicenseHistory.Size = new System.Drawing.Size(241, 38);
+            this.tsmiShowPersonLicenseHistory.Text = "Show Person License History";
+            this.tsmiShowPersonLicenseHistory.Click += new System.EventHandler(this.tsmiShowPersonLicenseHistory_Click);
             // 
             // lblNumberOfRecords
             // 
@@ -181,6 +221,7 @@
             this.Load += new System.EventHandler(this.frmListDrivers_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbDriverImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDrivers)).EndInit();
+            this.cmsDrivers.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -197,5 +238,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.MaskedTextBox mtbFilterSearch;
+        private System.Windows.Forms.ContextMenuStrip cmsDrivers;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowPersonDetailsTool;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowPersonLicenseHistory;
     }
 }
