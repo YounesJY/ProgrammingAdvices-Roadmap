@@ -144,13 +144,14 @@
             this.cmsLocalLicenseHistory.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiShowLocalLicenseDetails});
             this.cmsLocalLicenseHistory.Name = "cmsLocalLicenseHistory";
-            this.cmsLocalLicenseHistory.Size = new System.Drawing.Size(170, 26);
+            this.cmsLocalLicenseHistory.Size = new System.Drawing.Size(197, 64);
             // 
             // tsmiShowLocalLicenseDetails
             // 
+            this.tsmiShowLocalLicenseDetails.Image = global::DVLD_Project.Properties.Resources.License_Type_32;
             this.tsmiShowLocalLicenseDetails.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tsmiShowLocalLicenseDetails.Name = "tsmiShowLocalLicenseDetails";
-            this.tsmiShowLocalLicenseDetails.Size = new System.Drawing.Size(169, 22);
+            this.tsmiShowLocalLicenseDetails.Size = new System.Drawing.Size(196, 38);
             this.tsmiShowLocalLicenseDetails.Text = "Show License Info";
             this.tsmiShowLocalLicenseDetails.Click += new System.EventHandler(this.tsmiShowLocalLicenseDetails_Click);
             // 
@@ -223,19 +224,21 @@
             this.dgvInternationalLicensesHistory.Size = new System.Drawing.Size(855, 168);
             this.dgvInternationalLicensesHistory.TabIndex = 136;
             this.dgvInternationalLicensesHistory.TabStop = false;
+            this.dgvInternationalLicensesHistory.DoubleClick += new System.EventHandler(this.dgvInternationalLicensesHistory_DoubleClick);
             // 
             // cmsInterenationalLicenseHistory
             // 
             this.cmsInterenationalLicenseHistory.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiShowInternationalLicenseDetails});
             this.cmsInterenationalLicenseHistory.Name = "cmsLocalLicenseHistory";
-            this.cmsInterenationalLicenseHistory.Size = new System.Drawing.Size(170, 26);
+            this.cmsInterenationalLicenseHistory.Size = new System.Drawing.Size(186, 42);
             // 
             // tsmiShowInternationalLicenseDetails
             // 
+            this.tsmiShowInternationalLicenseDetails.Image = global::DVLD_Project.Properties.Resources.License_Type_32;
             this.tsmiShowInternationalLicenseDetails.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tsmiShowInternationalLicenseDetails.Name = "tsmiShowInternationalLicenseDetails";
-            this.tsmiShowInternationalLicenseDetails.Size = new System.Drawing.Size(169, 22);
+            this.tsmiShowInternationalLicenseDetails.Size = new System.Drawing.Size(185, 38);
             this.tsmiShowInternationalLicenseDetails.Text = "Show License Info";
             this.tsmiShowInternationalLicenseDetails.Click += new System.EventHandler(this.tsmiShowInternationalLicenseDetails_Click);
             // 

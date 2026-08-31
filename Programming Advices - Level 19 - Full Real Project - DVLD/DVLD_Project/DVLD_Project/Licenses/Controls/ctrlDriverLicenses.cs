@@ -1,5 +1,6 @@
 ﻿using DVLD_Business;
 using DVLD_Common;
+using DVLD_Project.Licenses.InternationalLicenses;
 using DVLD_Project.Licenses.LocalLicenses;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace DVLD_Project.Licenses
                 MessageBox.Show("Driver not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
             LoadDriverLicenses();
         }
         public void LoadDriverLicensesByPersonID(int personID)
@@ -53,9 +55,18 @@ namespace DVLD_Project.Licenses
                 MessageBox.Show("Driver not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
             LoadDriverLicenses();
         }
 
+        private void LoadInternationalDrivingLicenses()
+        {
+            dgvInternationalLicensesHistory.DataSource = Driver.GetInternationalLicenses(this._Driver.DriverID);
+            dgvInternationalLicensesHistory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvInternationalLicensesHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            lblInternationalLicensesRecords.Text = dgvInternationalLicensesHistory.RowCount.ToString();
+        }
         private void LoadLocalDrivingLicenses()
         {
             dgvLocalLicensesHistory.DataSource = Driver.GetLicenses(this._Driver.DriverID);
@@ -63,14 +74,6 @@ namespace DVLD_Project.Licenses
             dgvLocalLicensesHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             lblLocalLicensesRecords.Text = dgvLocalLicensesHistory.RowCount.ToString();
-        }
-        private void LoadInternationalDrivingLicenses()
-        {
-            //dgvInternationalLicensesHistory.DataSource = Driver.GetInternationalLicenses(this._Driver.DriverID);
-            //dgvInternationalLicensesHistory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            //dgvInternationalLicensesHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-            //lblInternationalLicensesRecords.Text = dgvInternationalLicensesHistory.RowCount.ToString();
         }
         private void LoadDriverLicenses()
         {
@@ -81,7 +84,23 @@ namespace DVLD_Project.Licenses
 
         private void tsmiShowInternationalLicenseDetails_Click(object sender, EventArgs e)
         {
-            // will be available soon
+            if (dgvInternationalLicensesHistory.RowCount == 0)
+            {
+                MessageBox.Show("No license selected to show details.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
+            int InternationalLicenseID = Convert.ToInt32(dgvInternationalLicensesHistory.CurrentRow.Cells[0].Value);
+            if (InternationalLicenseID <= 0)
+            {
+                MessageBox.Show($"Invalid LicenseID = {InternationalLicenseID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            new frmShowInternationalLicenseDetails(InternationalLicenseID).ShowDialog();
         }
         private void tsmiShowLocalLicenseDetails_Click(object sender, EventArgs e)
         {
@@ -94,15 +113,18 @@ namespace DVLD_Project.Licenses
                 return;
             }
 
-            int applicationID = Convert.ToInt32(dgvLocalLicensesHistory.CurrentRow.Cells[1].Value);
-            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByApplicationID(applicationID);
-            if (localDrivingLicenseApplication == null)
+            int LocalLicenseID = Convert.ToInt32(dgvLocalLicensesHistory.CurrentRow.Cells[0].Value);
+            if (LocalLicenseID <= 0)
             {
-                MessageBox.Show("Application not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Invalid LicenseID = {LocalLicenseID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            new frmShowLicenseDetails(localDrivingLicenseApplication.LocalDrivingLicenseApplicationID).ShowDialog();
+            new frmShowLicenseDetails(LocalLicenseID).ShowDialog();
+        }
+        private void dgvInternationalLicensesHistory_DoubleClick(object sender, EventArgs e)
+        {
+            tsmiShowInternationalLicenseDetails_Click(sender, e);
         }
         private void dgvLocalLicensesHistory_DoubleClick(object sender, EventArgs e)
         {
