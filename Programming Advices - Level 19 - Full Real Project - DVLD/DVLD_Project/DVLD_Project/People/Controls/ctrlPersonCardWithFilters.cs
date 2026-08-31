@@ -33,7 +33,6 @@ namespace DVLD_Project.People
 
         public int PersonId { get; private set; }
         public Person SelectedPerson { get => this.ctrlPersonCard.Person; private set { SelectedPerson = value; } }
-        public GroupBox FilterGroupBox { get => this.gbFilter; private set { FilterGroupBox = value; } }
 
 
         public ctrlPersonCardWithFilters()
@@ -47,6 +46,8 @@ namespace DVLD_Project.People
         public void loadPersonDetailsToCard(int personId)
         {
             this.PersonId = personId;
+            cbFilterRows.SelectedIndex = (int)enFilterBy.PersonID;
+            mtbFilterSeach.Text = this.PersonId.ToString();
             ctrlPersonCard.LoadPersonDetailsToCard(personId);
         }
 
@@ -142,9 +143,13 @@ namespace DVLD_Project.People
         {
             mtbFilterSeach.Focus();
         }
-        public void SwitchFilterState()
+        public void ActivateFilter()
         {
-            gbFilter.Enabled = !gbFilter.Enabled;
+            gbFilter.Enabled = true;
+        }
+        public void DisactiviteFilter()
+        {
+            gbFilter.Enabled = false;
         }
     }
 }
