@@ -158,19 +158,6 @@ namespace DVLD_Business
         protected enMode _Mode = enMode.AddNew;
 
 
-        public ApplicationInfo()
-        {
-            this.ApplicationID = ValidationConstants.INVALID_ID;
-            this.ApplicantPersonID = ValidationConstants.INVALID_ID;
-            this.ApplicationDate = DateTime.Now;
-            this.ApplicationTypeID = ValidationConstants.INVALID_ID;
-            this.ApplicationStatusID = enApplicationStatus.New;
-            this.LastStatusDate = DateTime.Now;
-            this.PaidFees = 0;
-            this.CreatedByUserID = ValidationConstants.INVALID_ID;
-
-            this._Mode = enMode.AddNew;
-        }
         protected ApplicationInfo(int ApplicationID, int ApplicantPersonID, DateTime ApplicationDate, int ApplicationTypeID,
             enApplicationStatus ApplicationStatusID, DateTime LastStatusDate, float PaidFees, int CreatedByUserID)
         {
@@ -184,6 +171,19 @@ namespace DVLD_Business
             this.CreatedByUserID = CreatedByUserID;
 
             this._Mode = enMode.Update;
+        }
+        public ApplicationInfo()
+        {
+            this.ApplicationID = ValidationConstants.INVALID_ID;
+            this.ApplicantPersonID = ValidationConstants.INVALID_ID;
+            this.ApplicationDate = DateTime.Now;
+            this.ApplicationTypeID = ValidationConstants.INVALID_ID;
+            this.ApplicationStatusID = enApplicationStatus.New;
+            this.LastStatusDate = DateTime.Now;
+            this.PaidFees = 0;
+            this.CreatedByUserID = ValidationConstants.INVALID_ID;
+
+            this._Mode = enMode.AddNew;
         }
 
         private bool _AddNewApplication()
