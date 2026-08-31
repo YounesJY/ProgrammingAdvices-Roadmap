@@ -55,7 +55,6 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
         private void RefreshFormData()
         {
             dgvLocalDrivingLicenseApplications.DataSource = LocalDrivingLicenseApplication.GetAllLocalDrivingLicenseApplications();
-            dgvLocalDrivingLicenseApplications.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.ColumnHeader);
             lblNumberOfRecords.Text = dgvLocalDrivingLicenseApplications.RowCount.ToString();
         }
         private void RefreshHandler(object sender, int ID)
@@ -123,7 +122,6 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
 
         private void cbFilterRows_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             if (cbFilterRows.SelectedItem.ToString().ToLower() == enLocalDrivingLicenseApplicationsFilter.None.ToString().ToLower())
             {
                 dgvLocalDrivingLicenseApplications.DataSource = LocalDrivingLicenseApplication.GetAllLocalDrivingLicenseApplications();
@@ -154,7 +152,6 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
 
                 mtbFilterSearch.Focus();
             }
-
         }
         private void cbApplicationStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -569,9 +566,16 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                 return;
             }
 
+            int LocalDrivingLicenseApplicationID = (int)dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value;
+            if (LocalDrivingLicenseApplicationID <= 0)
+            {
+                MessageBox.Show($"Invalid ApplicationID = {LocalDrivingLicenseApplicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
-            new frmShowLicenseDetails(localDrivingApplicationID).ShowDialog();
+            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingApplicationID(LocalDrivingLicenseApplicationID);
+            int LicenseID = localDrivingLicenseApplication.GetActiveLicenseID();
+            new frmShowLicenseDetails(LicenseID).ShowDialog();
         }
         private void tsmiShowPersonLicenseHistory_Click(object sender, EventArgs e)
         {
@@ -586,7 +590,19 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
 
 
             int localDrivingApplicationID = Convert.ToInt32(dgvLocalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
-            frmShowPersonLicenseHistory frmShowPersonLicenseHistory = new frmShowPersonLicenseHistory(localDrivingApplicationID);
+            if (localDrivingApplicationID <= 0)
+            {
+                MessageBox.Show($"Invalid ApplicationID = {localDrivingApplicationID}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            LocalDrivingLicenseApplication localDrivingLicenseApplication = LocalDrivingLicenseApplication.FindByLocalDrivingApplicationID(localDrivingApplicationID);
+            if (localDrivingLicenseApplication == null)
+            {
+                MessageBox.Show($"Failed to load the application !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            frmShowPersonLicenseHistory frmShowPersonLicenseHistory = new frmShowPersonLicenseHistory(localDrivingLicenseApplication.ApplicantPersonID);
 
             try
             {
@@ -721,6 +737,5 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             tsmiScheduleWrittenTestToolStripMenuItem.Enabled = visionPassed && !writtenPassed;
             tsmiScheduleStreetTestToolStripMenuItem.Enabled = writtenPassed && !streetPassed;
         }
-
     }
 }
