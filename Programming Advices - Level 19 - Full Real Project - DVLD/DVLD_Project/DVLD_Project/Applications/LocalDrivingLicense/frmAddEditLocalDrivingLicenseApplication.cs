@@ -82,7 +82,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
             lblApplicationID.Text = "[???]";
             lblApplicationDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
             FillLicenseClassesInComboBox();
-            cbLicenseClass.SelectedIndex = (int)LicenseClass.enLicenseClass.OrdinaryDrivingLicense;
+            cbLicenseClass.SelectedIndex = (int)(LicenseClass.enLicenseClass.OrdinaryDrivingLicense - 1);
             lblFees.Text = ApplicationType.Find((int)ApplicationInfo.enApplicationType.NewDrivingLicense).ApplicationFees.ToString("C");
             lblCreatedByUser.Text = Global.currentLoggedInUser.UserName;
         }
@@ -162,25 +162,22 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                     ApplicantPersonID = this.ctrlPersonCardWithFilters.SelectedPerson.PersonID,
                     ApplicationDate = DateTime.Now,
                     ApplicationTypeID = (int)ApplicationInfo.enApplicationType.NewDrivingLicense,
-                        LastStatusDate = DateTime.Now,
+                    LastStatusDate = DateTime.Now,
                     PaidFees = float.Parse(lblFees.Text, System.Globalization.NumberStyles.Currency),
                     CreatedByUserID = Global.currentLoggedInUser.UserID,
 
                     // setting LocalDrivingLicenseApplication properties
                     LicenseClassID = LicenseClass.Find(cbLicenseClass.Text).LicenseClassID
                 };
-                /* 
-                    [Class initializer] used instead of constructor to set properties directly
-                WHY ? Because the constructor of LocalDrivingLicenseApplication is private, so we can't use it directly. Instead, we can use the class initializer to set the properties directly.
-                    It's more readable and maintainable than using a normal setter method or constructor with parameters, especially when there are many properties to set.
-                It also allows us to set only the properties we want to set, without having to provide values for all properties in a constructor.
-                */
 
                 if (localDrivingLicenseApplication.Save())
                 {
                     MessageBox.Show("Local Driving License Application saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     lblApplicationID.Text = localDrivingLicenseApplication.ApplicationID.ToString();
+
                     this._Mode = enMode.Update;
+                    this._LocalDrivingApplicationID = localDrivingLicenseApplication.LocalDrivingLicenseApplicationID;
+                    this._LocalDrivingLicenseApplication = localDrivingLicenseApplication;
 
                     OnNewApplicationCreated?.Invoke(this, localDrivingLicenseApplication.ApplicationID);
                     OnNewLocalDrivingLicenseApplicationCreated?.Invoke(this, localDrivingLicenseApplication.LocalDrivingLicenseApplicationID);
@@ -198,7 +195,7 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                 I'll try to find a better solution if i can
                 */
 
-                if (this._LocalDrivingLicenseApplication.LicenseClassInfo.ClassName.Equals(cbLicenseClass.SelectedText))
+                if (this._LocalDrivingLicenseApplication.LicenseClassInfo.ClassName.Equals(cbLicenseClass.Text))
                 {
                     MessageBox.Show(
                         "No changes detected.",
@@ -215,7 +212,6 @@ namespace DVLD_Project.Applications.LocalDrivingLicense
                     OnApplicationUpdate?.Invoke(this, this._LocalDrivingLicenseApplication.LocalDrivingLicenseApplicationID);
                 }
             }
-
         }
         private void btnClose_Click(object sender, EventArgs e)
         {
