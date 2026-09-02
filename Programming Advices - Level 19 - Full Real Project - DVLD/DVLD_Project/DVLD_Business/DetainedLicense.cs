@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
-using DVLD_Common;
 using DVLD_DataAccess;
+using DVLD_Common;
 
 namespace DVLD_Business
 {
@@ -9,21 +9,88 @@ namespace DVLD_Business
     {
         public enum enMode : byte { AddNew = 0, Update = 1 }
 
-        private enMode _Mode = enMode.AddNew;
-
         public int DetainID { get; private set; }
-        public int LicenseID { get; private set; }
-        public DateTime DetainDate { get; private set; }
-        public float FineFees { get; private set; }
-        public int CreatedByUserID { get; private set; }
-        public bool IsReleased { get; private set; }
-        public DateTime ReleaseDate { get; private set; }
-        public int ReleasedByUserID { get; private set; }
-        public int ReleaseApplicationID { get; private set; }
 
+        private int _licenseID = ValidationConstants.INVALID_ID;
+        public int LicenseID
+        {
+            get { return this._licenseID; }
+            set
+            {
+                this._licenseID = value;
+                /*
+                This will cause a stackoverflow error due to a circular dependancy :) 
+                this.LicenseInfo = (value != ValidationConstants.INVALID_ID) ? LicenseInfo.Find(value) : null;
+                */
+            }
+        }
+        public LicenseInfo LicenseInfo
+        {
+            get
+            {
+                return (this.LicenseID != ValidationConstants.INVALID_ID) ? LicenseInfo.Find(this.LicenseID) : null;
+            }
+        }
+
+        public DateTime DetainDate { get; set; }
+        public float FineFees { get; set; }
+
+        private int _createdByUserID = ValidationConstants.INVALID_ID;
+        public int CreatedByUserID
+        {
+            get { return this._createdByUserID; }
+            set
+            {
+                this._createdByUserID = value;
+                this.CreatedByUserInfo = (value != ValidationConstants.INVALID_ID) ? User.FindByUserID(value) : null;
+            }
+        }
         public User CreatedByUserInfo { get; private set; }
+
+        public bool IsReleased { get; set; }
+        public DateTime ReleaseDate { get; set; }
+
+        private int _releasedByUserID = ValidationConstants.INVALID_ID;
+        public int ReleasedByUserID
+        {
+            get { return this._releasedByUserID; }
+            set
+            {
+                this._releasedByUserID = value;
+                this.ReleasedByUserInfo = (value != ValidationConstants.INVALID_ID) ? User.FindByUserID(value) : null;
+            }
+        }
         public User ReleasedByUserInfo { get; private set; }
 
+        private int _releaseApplicationID = ValidationConstants.INVALID_ID;
+        public int ReleaseApplicationID
+        {
+            get { return this._releaseApplicationID; }
+            set
+            {
+                this._releaseApplicationID = value;
+                this.ReleaseApplicationInfo = (value != ValidationConstants.INVALID_ID) ? ApplicationInfo.Find(value) : null;
+            }
+        }
+        public ApplicationInfo ReleaseApplicationInfo { get; private set; }
+
+        private enMode _Mode = enMode.AddNew;
+
+
+        private DetainedLicense(int DetainID, int LicenseID, DateTime DetainDate, float FineFees, int CreatedByUserID, bool IsReleased, DateTime ReleaseDate, int ReleasedByUserID, int ReleaseApplicationID)
+        {
+            this.DetainID = DetainID;
+            this.LicenseID = LicenseID;
+            this.DetainDate = DetainDate;
+            this.FineFees = FineFees;
+            this.CreatedByUserID = CreatedByUserID;
+            this.IsReleased = IsReleased;
+            this.ReleaseDate = ReleaseDate;
+            this.ReleasedByUserID = ReleasedByUserID;
+            this.ReleaseApplicationID = ReleaseApplicationID;
+
+            this._Mode = enMode.Update;
+        }
         public DetainedLicense()
         {
             this.DetainID = ValidationConstants.INVALID_ID;
@@ -39,38 +106,25 @@ namespace DVLD_Business
             this._Mode = enMode.AddNew;
         }
 
-        private DetainedLicense(int DetainID, int LicenseID, DateTime DetainDate,
-            float FineFees, int CreatedByUserID, bool IsReleased, DateTime ReleaseDate,
-            int ReleasedByUserID, int ReleaseApplicationID)
-        {
-            this.DetainID = DetainID;
-            this.LicenseID = LicenseID;
-            this.DetainDate = DetainDate;
-            this.FineFees = FineFees;
-            this.CreatedByUserID = CreatedByUserID;
-            this.CreatedByUserInfo = User.FindByUserID(this.CreatedByUserID);
-            this.IsReleased = IsReleased;
-            this.ReleaseDate = ReleaseDate;
-            this.ReleasedByUserID = ReleasedByUserID;
-            this.ReleaseApplicationID = ReleaseApplicationID;
-            this.ReleasedByUserInfo = User.FindByUserID(this.ReleasedByUserID);
-
-            this._Mode = enMode.Update;
-        }
-
         private bool _AddNewDetainedLicense()
         {
             this.DetainID = DetainedLicenseData.AddNewDetainedLicense(
-                this.LicenseID, this.DetainDate, this.FineFees, this.CreatedByUserID
+                this.LicenseID,
+                this.DetainDate,
+                this.FineFees,
+                this.CreatedByUserID
             );
 
             return (this.DetainID != ValidationConstants.INVALID_ID);
         }
-
         private bool _UpdateDetainedLicense()
         {
             return DetainedLicenseData.UpdateDetainedLicense(
-                this.DetainID, this.LicenseID, this.DetainDate, this.FineFees, this.CreatedByUserID
+                this.DetainID,
+                this.LicenseID,
+                this.DetainDate,
+                this.FineFees,
+                this.CreatedByUserID
             );
         }
 
@@ -78,7 +132,6 @@ namespace DVLD_Business
         {
             return DetainedLicenseData.GetAllDetainedLicenses();
         }
-
         public static DetainedLicense Find(int DetainID)
         {
             int LicenseID = ValidationConstants.INVALID_ID;
@@ -90,8 +143,10 @@ namespace DVLD_Business
             int ReleasedByUserID = ValidationConstants.INVALID_ID;
             int ReleaseApplicationID = ValidationConstants.INVALID_ID;
 
-            if (DetainedLicenseData.GetDetainedLicenseInfoByID(DetainID, ref LicenseID, ref DetainDate,
-                ref FineFees, ref CreatedByUserID, ref IsReleased, ref ReleaseDate,
+            if (DetainedLicenseData.GetDetainedLicenseInfoByID(
+                DetainID, ref LicenseID, ref DetainDate,
+                ref FineFees, ref CreatedByUserID,
+                ref IsReleased, ref ReleaseDate,
                 ref ReleasedByUserID, ref ReleaseApplicationID))
             {
                 return new DetainedLicense(DetainID, LicenseID, DetainDate,
@@ -101,7 +156,6 @@ namespace DVLD_Business
 
             return null;
         }
-
         public static DetainedLicense FindByLicenseID(int LicenseID)
         {
             int DetainID = ValidationConstants.INVALID_ID;
@@ -113,8 +167,10 @@ namespace DVLD_Business
             int ReleasedByUserID = ValidationConstants.INVALID_ID;
             int ReleaseApplicationID = ValidationConstants.INVALID_ID;
 
-            if (DetainedLicenseData.GetDetainedLicenseInfoByLicenseID(LicenseID, ref DetainID, ref DetainDate,
-                ref FineFees, ref CreatedByUserID, ref IsReleased, ref ReleaseDate,
+            if (DetainedLicenseData.GetDetainedLicenseInfoByLicenseID(
+                LicenseID, ref DetainID, ref DetainDate,
+                ref FineFees, ref CreatedByUserID,
+                ref IsReleased, ref ReleaseDate,
                 ref ReleasedByUserID, ref ReleaseApplicationID))
             {
                 return new DetainedLicense(DetainID, LicenseID, DetainDate,
@@ -128,6 +184,14 @@ namespace DVLD_Business
         public static bool IsLicenseDetained(int LicenseID)
         {
             return DetainedLicenseData.IsLicenseDetained(LicenseID);
+        }
+        public bool ReleaseDetainedLicense(int ReleasedByUserID, int ReleaseApplicationID)
+        {
+            return DetainedLicenseData.ReleaseDetainedLicense(
+                this.DetainID,
+                ReleasedByUserID,
+                ReleaseApplicationID
+            );
         }
 
         public bool Save()
@@ -144,19 +208,10 @@ namespace DVLD_Business
 
                 case enMode.Update:
                     return _UpdateDetainedLicense();
+
+                default:
+                    return false;
             }
-
-            return false;
-        }
-
-        public bool ReleaseDetainedLicense(int ReleasedByUserID, int ReleaseApplicationID)
-        {
-            return DetainedLicenseData.ReleaseDetainedLicense(this.DetainID, ReleasedByUserID, ReleaseApplicationID);
-        }
-
-        public bool Delete()
-        {
-            return DetainedLicenseData.DeleteDetainedLicense(this.DetainID);
         }
     }
 }
