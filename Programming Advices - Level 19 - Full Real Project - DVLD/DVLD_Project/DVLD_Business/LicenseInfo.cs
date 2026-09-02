@@ -25,7 +25,7 @@ namespace DVLD_Business
             private set
             {
                 this._licenseID = value;
-                this.DetainedInfo = (value != ValidationConstants.INVALID_ID) ? DetainedLicense.FindByLicenseID(value) : null;
+                this.DetainedInfo = (this.IsDetained) ? DetainedLicense.FindByLicenseID(value) : null;
             }
         }
         public int ApplicationID { get; set; }
@@ -263,6 +263,44 @@ namespace DVLD_Business
 
             this.Deactivate();
             return NewLicense;
+        }
+        public int Detain(float FineFees, int CreatedByUserID)
+        {
+            DetainedLicense detainedLicense = new DetainedLicense()
+            {
+                LicenseID = this.LicenseID,
+                DetainDate = DateTime.Now,
+                FineFees = Convert.ToSingle(FineFees),
+                CreatedByUserID = CreatedByUserID
+            };
+
+            if (!detainedLicense.Save())
+                return ValidationConstants.INVALID_ID;
+
+            return detainedLicense.DetainID;
+        }
+        public bool ReleaseDetainedLicense(int ReleasedByUserID, ref int ApplicationID)
+        {
+            ApplicationInfo releaseLicenseApplication = new ApplicationInfo()
+            {
+                ApplicantPersonID = this.DriverInfo.PersonID,
+                ApplicationDate = DateTime.Now,
+                ApplicationTypeID = (int)ApplicationInfo.enApplicationType.ReleaseDetainedDrivingLicense,
+                ApplicationStatusID = ApplicationInfo.enApplicationStatus.Completed,
+                LastStatusDate = DateTime.Now,
+                PaidFees = ApplicationType.Find((int)ApplicationInfo.enApplicationType.ReleaseDetainedDrivingLicense).ApplicationFees,
+                CreatedByUserID = ReleasedByUserID
+            };
+
+
+            if (!releaseLicenseApplication.Save())
+            {
+                ApplicationID = ValidationConstants.INVALID_ID;
+                return false;
+            }
+
+            ApplicationID = releaseLicenseApplication.ApplicationID;
+            return this.DetainedInfo.ReleaseDetainedLicense(ReleasedByUserID, releaseLicenseApplication.ApplicationID);
         }
     }
 }
