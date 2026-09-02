@@ -32,7 +32,9 @@ namespace DVLD_Project.Licenses.LocalLicenses.Controls
                 return false;
 
             this.ctrlDriverLicenseDetails.LoadDriverLicenseDetails(this._LicenseID);
-            this.DisactiviteFilter();
+            this.txtLicenseID.Text = this._LicenseID.ToString();
+
+            OnLicenseSelected?.Invoke(this, this._LicenseID);
             return true;
         }
 
