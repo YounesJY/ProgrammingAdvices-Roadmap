@@ -1,9 +1,11 @@
 ﻿using DVLD_Business;
 using DVLD_Project.Applications.InternationalDrivingLicense;
 using DVLD_Project.Applications.LocalDrivingLicense;
+using DVLD_Project.Applications.Release_Detained_License;
 using DVLD_Project.Applications.RenewLocalDrivingLicense;
 using DVLD_Project.Applications.ReplaceLostOrDamagedLicense;
 using DVLD_Project.Drivers;
+using DVLD_Project.Licenses.DetainedLicenses;
 using DVLD_Project.People;
 using DVLD_Project.Users;
 using System;
@@ -83,6 +85,21 @@ namespace DVLD_Project
         private void manageTestTypesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new Tests.TestTypes.frmListTestTypes().ShowDialog();
+        }
+
+
+        private void manageDetainedLicensesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmListDetainedLicenses().ShowDialog();
+        }
+        private void detainLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmDetainLicenseApplication().ShowDialog();
+
+        }
+        private void releaseDetainedLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmReleaseDetainedLicenseApplication().ShowDialog();
         }
     }
 }
