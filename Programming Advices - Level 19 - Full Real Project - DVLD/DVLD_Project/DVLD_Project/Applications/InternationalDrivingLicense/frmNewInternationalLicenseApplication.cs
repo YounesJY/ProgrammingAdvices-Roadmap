@@ -71,7 +71,7 @@ namespace DVLD_Project.Applications.InternationalDrivingLicense
         }
         private void InternationalLicenseIssuanceHandler(object sender, int licenseID)
         {
-            MessageBox.Show($"Old license has been disactivated and refreshed !", "License Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"International license {this._InternationalLicenseID} has been linked with local license {this._LocalLicenseID}!", "License Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void ctrlDriverLicenseInfoWithFilter_OnLicenseSelected(object sender, int licenseID)
@@ -84,6 +84,7 @@ namespace DVLD_Project.Applications.InternationalDrivingLicense
                 return;
             }
             this._LocalLicenseID = licenseID;
+            llShowLicenseHistory.Enabled = true;
 
             lblApplicationDate.Text = Format.DateToShort(DateTime.Now);
             lblIssueDate.Text = lblApplicationDate.Text;
@@ -92,9 +93,7 @@ namespace DVLD_Project.Applications.InternationalDrivingLicense
             lblExpirationDate.Text = Format.DateToShort(DateTime.Now.AddYears(1));
             lblCreatedByUser.Text = Global.currentLoggedInUser.UserName;
 
-            llShowLicenseHistory.Enabled = true;
-
-            if (ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails.LicenseClassID != (int) LicenseClass.enLicenseClass.OrdinaryDrivingLicense)
+            if (ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails.LicenseClassID != (int)LicenseClass.enLicenseClass.OrdinaryDrivingLicense)
             {
                 MessageBox.Show($"you can only issue international license for Ordinary Driving Licenses !",
                 "Not allowed",
@@ -104,9 +103,18 @@ namespace DVLD_Project.Applications.InternationalDrivingLicense
                 return;
             }
 
+            if (!ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails.IsActive)
+            {
+                MessageBox.Show("Selected License is not active, choose an active license.", "Not allowed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                btnIssueInternationalLicense.Enabled = false;
+                return;
+            }
+
             if (ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails.IsLicenseExpired())
             {
-                MessageBox.Show($"Selected License is expiared and can't issue an international license: {Format.DateToShort(ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails.ExpirationDate)}",
+                MessageBox.Show($"Selected License is expired and can't issue an international license: {Format.DateToShort(ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails.ExpirationDate)}",
                     "Not allowed",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
@@ -116,19 +124,10 @@ namespace DVLD_Project.Applications.InternationalDrivingLicense
                 return;
             }
 
-            if (!ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails.IsActive)
-            {
-                MessageBox.Show("Selected License is not Not Active, choose an active license.", "Not allowed",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                btnIssueInternationalLicense.Enabled = false;
-                return;
-            }
-
             int internationalLicenseID = InternationalDrivingLicenseApplication.GetActiveInternationalLicenseIDByDriverID(ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails.DriverID);
             if (internationalLicenseID != ValidationConstants.INVALID_ID)
             {
-                MessageBox.Show($"Driver already has an active international license with ID = {internationalLicenseID}.", "Not allowed",
+                MessageBox.Show($"Driver already has an active international license with ID = {internationalLicenseID} and can't issue a new one until expired !", "Not allowed",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
                 btnIssueInternationalLicense.Enabled = false;
@@ -161,7 +160,7 @@ namespace DVLD_Project.Applications.InternationalDrivingLicense
                 DriverID = ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails.DriverID,
                 IssuedUsingLocalLicenseID = ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails.LicenseID,
                 IssueDate = DateTime.Now,
-                ExpirationDate = DateTime.Now.AddYears(1),
+                ExpirationDate = DateTime.Now.AddYears(1), // this value can be dyncamic using a database settings table
                 IsActive = true,
                 CreatedByUserID = Global.currentLoggedInUser.UserID
             };

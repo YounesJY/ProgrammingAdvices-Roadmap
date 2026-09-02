@@ -30,9 +30,9 @@ namespace DVLD_Project.Applications.InternationalDrivingLicense
         }
         public enum enInternationalDrivingLicenseApplicationsStatusFilter
         {
-            All,
+            No,
             Yes,
-            No
+            All
         }
 
         public frmListInternationalDrivingLicenseApplications()
@@ -147,22 +147,13 @@ namespace DVLD_Project.Applications.InternationalDrivingLicense
             {
                 cbApplicationStatus.Visible = false;
                 mtbFilterSearch.Visible = true;
-                mtbFilterSearch.Clear();
 
-                if (cbFilterRows.SelectedItem.ToString().ToLower() == enInternationalDrivingLicenseApplicationsFilter.ApplicationID.ToString().ToLower() ||
-                    cbFilterRows.SelectedItem.ToString().ToLower() == enInternationalDrivingLicenseApplicationsFilter.InternationalLicenseID.ToString().ToLower() ||
-                    cbFilterRows.SelectedItem.ToString().ToLower() == enInternationalDrivingLicenseApplicationsFilter.LocalLicenseID.ToString().ToLower() ||
-                    cbFilterRows.SelectedItem.ToString().ToLower() == enInternationalDrivingLicenseApplicationsFilter.DriverID.ToString().ToLower())
-                {
-                    mtbFilterSearch.Mask = "00000000";
-                    mtbFilterSearch.Select(0, 0);
-                }
-                else
-                    mtbFilterSearch.Mask = string.Empty;
+                mtbFilterSearch.Mask = "00000000";
+                mtbFilterSearch.Select(0, 0);
+                mtbFilterSearch.Clear();
 
                 mtbFilterSearch.Focus();
             }
-
         }
         private void cbApplicationStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -184,7 +175,6 @@ namespace DVLD_Project.Applications.InternationalDrivingLicense
                 return;
             }
 
-
             int driverID = Convert.ToInt32(dgvInternationalDrivingLicenseApplications.CurrentRow.Cells[2].Value);
             new frmPersonDetails((Driver.FindByDriverID(driverID).PersonID)).ShowDialog();
         }
@@ -198,7 +188,6 @@ namespace DVLD_Project.Applications.InternationalDrivingLicense
                                 MessageBoxIcon.Error);
                 return;
             }
-
 
             int licenseID = Convert.ToInt32(dgvInternationalDrivingLicenseApplications.CurrentRow.Cells[3].Value);
             new frmShowLicenseDetails(licenseID).ShowDialog();
@@ -214,7 +203,6 @@ namespace DVLD_Project.Applications.InternationalDrivingLicense
                 return;
             }
 
-
             int internationalLicenseID = Convert.ToInt32(dgvInternationalDrivingLicenseApplications.CurrentRow.Cells[0].Value);
             new frmShowInternationalLicenseDetails(internationalLicenseID).ShowDialog();
         }
@@ -228,7 +216,6 @@ namespace DVLD_Project.Applications.InternationalDrivingLicense
                                 MessageBoxIcon.Error);
                 return;
             }
-
 
             int driverID = Convert.ToInt32(dgvInternationalDrivingLicenseApplications.CurrentRow.Cells[2].Value);
             new frmShowPersonLicenseHistory(Driver.FindByDriverID(driverID).PersonID).ShowDialog();

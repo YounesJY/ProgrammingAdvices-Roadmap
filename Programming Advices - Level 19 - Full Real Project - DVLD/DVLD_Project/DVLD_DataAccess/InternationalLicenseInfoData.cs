@@ -166,6 +166,11 @@ namespace DVLD_DataAccess
         {
             int InternationalLicenseID = ValidationConstants.INVALID_ID;
             SqlConnection connection = new SqlConnection(DataAccessSettings.ConnectionString);
+            /*
+                The business says that you shouldn't have 2 active IL at the same time for the same class (mainly class 3)
+            and since we don't have replcament for damage/lost or renewal for international licenses, we simple create a new one and disable all the old ones
+            this make the process much simpler for the current requirements
+            */
             string query = @"
                     UPDATE InternationalLicenses
                     SET IsActive = 0

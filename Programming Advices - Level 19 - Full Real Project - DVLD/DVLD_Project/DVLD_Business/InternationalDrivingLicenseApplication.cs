@@ -33,9 +33,9 @@ namespace DVLD_Business
         }
         public LicenseInfo LocalLicenseInfo { get; private set; }
 
-        public DateTime IssueDate { get;  set; }
-        public DateTime ExpirationDate { get;  set; }
-        public bool IsActive { get;  set; }
+        public DateTime IssueDate { get; set; }
+        public DateTime ExpirationDate { get; set; }
+        public bool IsActive { get; set; }
 
         private new enMode _Mode = enMode.AddNew;
 
