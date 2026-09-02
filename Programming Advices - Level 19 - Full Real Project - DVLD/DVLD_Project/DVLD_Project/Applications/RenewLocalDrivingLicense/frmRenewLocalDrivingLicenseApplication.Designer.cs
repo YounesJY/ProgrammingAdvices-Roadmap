@@ -56,8 +56,8 @@
             this.lblApplicationID = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.ctrlDriverLicenseInfoWithFilter = new DVLD_Project.Licenses.LocalLicenses.Controls.ctrlDriverLicenseDetailsWithFilter();
-            this.btnClose = new System.Windows.Forms.Button();
             this.btnRenewLicense = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.pictureBox11 = new System.Windows.Forms.PictureBox();
             this.pictureBox10 = new System.Windows.Forms.PictureBox();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
@@ -409,6 +409,20 @@
             this.ctrlDriverLicenseInfoWithFilter.TabIndex = 178;
             this.ctrlDriverLicenseInfoWithFilter.OnLicenseSelected += new System.Action<object, int>(this.ctrlDriverLicenseInfoWithFilter_OnLicenseSelected);
             // 
+            // btnRenewLicense
+            // 
+            this.btnRenewLicense.Enabled = false;
+            this.btnRenewLicense.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRenewLicense.Image = global::DVLD_Project.Properties.Resources.Renew_Driving_License_32;
+            this.btnRenewLicense.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRenewLicense.Location = new System.Drawing.Point(700, 699);
+            this.btnRenewLicense.Name = "btnRenewLicense";
+            this.btnRenewLicense.Size = new System.Drawing.Size(126, 37);
+            this.btnRenewLicense.TabIndex = 185;
+            this.btnRenewLicense.Text = " Renew";
+            this.btnRenewLicense.UseVisualStyleBackColor = true;
+            this.btnRenewLicense.Click += new System.EventHandler(this.btnRenewLicense_Click);
+            // 
             // btnClose
             // 
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -423,20 +437,6 @@
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // btnRenewLicense
-            // 
-            this.btnRenewLicense.Enabled = false;
-            this.btnRenewLicense.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRenewLicense.Image = global::DVLD_Project.Properties.Resources.Renew_Driving_License_32;
-            this.btnRenewLicense.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRenewLicense.Location = new System.Drawing.Point(700, 699);
-            this.btnRenewLicense.Name = "btnRenewLicense";
-            this.btnRenewLicense.Size = new System.Drawing.Size(126, 37);
-            this.btnRenewLicense.TabIndex = 185;
-            this.btnRenewLicense.Text = " Renew";
-            this.btnRenewLicense.UseVisualStyleBackColor = true;
-            this.btnRenewLicense.Click += new System.EventHandler(this.btnRenewLicense_Click);
             // 
             // pictureBox11
             // 
@@ -550,7 +550,6 @@
             // 
             // frmRenewLocalDrivingLicenseApplication
             // 
-            this.AcceptButton = this.btnRenewLicense;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;

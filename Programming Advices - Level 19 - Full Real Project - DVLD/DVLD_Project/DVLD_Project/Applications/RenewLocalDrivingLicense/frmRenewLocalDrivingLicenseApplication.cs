@@ -100,7 +100,7 @@ namespace DVLD_Project.Applications.RenewLocalDrivingLicense
             llShowLicenseHistory.Enabled = true;
             if (!ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails.IsLicenseExpired())
             {
-                MessageBox.Show($"Selected License is not yet expiared, it will expire on: {Format.DateToShort(ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails.ExpirationDate)}",
+                MessageBox.Show($"Selected License is not yet expired, it will expire on: {Format.DateToShort(ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails.ExpirationDate)}",
                     "Not allowed",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
@@ -110,7 +110,7 @@ namespace DVLD_Project.Applications.RenewLocalDrivingLicense
 
             if (!ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails.IsActive)
             {
-                MessageBox.Show("Selected License is not Not Active, choose an active license.", "Not allowed",
+                MessageBox.Show("Selected License is not active, choose an active license.", "Not allowed",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 btnRenewLicense.Enabled = false;
@@ -121,6 +121,16 @@ namespace DVLD_Project.Applications.RenewLocalDrivingLicense
         }
         private void llShowLicenseHistory_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            if (ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails == null)
+            {
+                MessageBox.Show($"Selected a license First !",
+                    "Not allowed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                btnRenewLicense.Enabled = false;
+                return;
+            }
+
             new frmShowPersonLicenseHistory(ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails.DriverInfo.PersonInfo.PersonID).ShowDialog();
         }
         private void llShowLicenseInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

@@ -102,7 +102,7 @@ namespace DVLD_Project.Applications.ReplaceLostOrDamagedLicense
             llShowLicenseHistory.Enabled = true;
             if (!ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails.IsActive)
             {
-                MessageBox.Show("Selected License is not Not Active, choose an active license.", "Not allowed",
+                MessageBox.Show("Selected License is not active, choose an active license.", "Not allowed",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 btnIssueReplacement.Enabled = false;
@@ -113,6 +113,16 @@ namespace DVLD_Project.Applications.ReplaceLostOrDamagedLicense
         }
         private void llShowLicenseHistory_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            if (ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails == null)
+            {
+                MessageBox.Show($"Selected a license First !",
+                    "Not allowed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                btnIssueReplacement.Enabled = false;
+                return;
+            }
+
             new frmShowPersonLicenseHistory(ctrlDriverLicenseInfoWithFilter.SelectedLicenseDetails.DriverInfo.PersonInfo.PersonID).ShowDialog();
         }
         private void llShowLicenseInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
