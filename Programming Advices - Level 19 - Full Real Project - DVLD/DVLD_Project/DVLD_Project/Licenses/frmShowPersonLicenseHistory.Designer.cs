@@ -78,6 +78,7 @@
             // 
             // ctrlDriverLicenses
             // 
+            this.ctrlDriverLicenses.DriverID = 1;
             this.ctrlDriverLicenses.Location = new System.Drawing.Point(7, 384);
             this.ctrlDriverLicenses.Name = "ctrlDriverLicenses";
             this.ctrlDriverLicenses.Size = new System.Drawing.Size(1013, 297);
@@ -88,8 +89,11 @@
             this.ctrlPersonCardWithFilters.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ctrlPersonCardWithFilters.Location = new System.Drawing.Point(251, 51);
             this.ctrlPersonCardWithFilters.Name = "ctrlPersonCardWithFilters";
+            this.ctrlPersonCardWithFilters.RowFilter = 0;
+            this.ctrlPersonCardWithFilters.SearchFilter = "";
             this.ctrlPersonCardWithFilters.Size = new System.Drawing.Size(769, 327);
             this.ctrlPersonCardWithFilters.TabIndex = 133;
+            this.ctrlPersonCardWithFilters.OnPersonSelected += new System.Action<object, int>(this.ctrlPersonCardWithFilters_OnPersonSelected);
             // 
             // frmShowPersonLicenseHistory
             // 

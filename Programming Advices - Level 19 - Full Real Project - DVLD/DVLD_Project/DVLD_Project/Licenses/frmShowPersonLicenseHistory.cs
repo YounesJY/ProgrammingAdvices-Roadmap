@@ -1,5 +1,6 @@
 ﻿using DVLD_Business;
 using DVLD_Common;
+using DVLD_Project.Licenses.InternationalLicenses.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -76,6 +77,14 @@ namespace DVLD_Project.Licenses
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void ctrlPersonCardWithFilters_OnPersonSelected(object sender, int personID)
+        {
+            MessageBox.Show("WHy.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            this._PersonID = personID;
+            ctrlPersonCardWithFilters.DisactiviteFilter();
+            ctrlDriverLicenses.LoadDriverLicensesByPersonID(this._PersonID);
         }
     }
 }
