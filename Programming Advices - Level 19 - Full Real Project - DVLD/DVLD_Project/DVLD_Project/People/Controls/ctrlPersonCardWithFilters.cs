@@ -32,8 +32,32 @@ namespace DVLD_Project.People
         }
 
         public int PersonId { get; private set; }
-        public Person SelectedPerson { get => this.ctrlPersonCard.Person; private set { SelectedPerson = value; } }
+        public Person SelectedPerson { get { return this.ctrlPersonCard.Person; } }
 
+        /*
+            =========================================
+            ========= HIGH PRIORITY NOTE ============
+            =========================================
+
+                Exposing these properties makes it even easiter to test control behaviors on compile time/edit phase
+            without the need to create separate forms or link things and wait until reach that section on system to test it
+
+                You can edit ditectly and see things on the fly changes here :) 
+        */
+        public int RowFilter
+        {
+            get { return this.cbFilterRows.SelectedIndex; }
+            set { this.cbFilterRows.SelectedIndex = value; }
+        }
+        public string SearchFilter
+        {
+            get { return this.mtbFilterSeach.Text; }
+            set
+            {
+                this.mtbFilterSeach.Text = value.ToString();
+                this.btnFind_Click(this, null);
+            }
+        }
 
         public ctrlPersonCardWithFilters()
         {
