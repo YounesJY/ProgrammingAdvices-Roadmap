@@ -63,7 +63,9 @@
             this.ctrlPersonCardWithFilters.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ctrlPersonCardWithFilters.Location = new System.Drawing.Point(2, 62);
             this.ctrlPersonCardWithFilters.Name = "ctrlPersonCardWithFilters";
-            this.ctrlPersonCardWithFilters.Size = new System.Drawing.Size(728, 327);
+            this.ctrlPersonCardWithFilters.RowFilter = 0;
+            this.ctrlPersonCardWithFilters.SearchFilter = "15";
+            this.ctrlPersonCardWithFilters.Size = new System.Drawing.Size(766, 327);
             this.ctrlPersonCardWithFilters.TabIndex = 0;
             // 
             // frmFindPerson
@@ -71,7 +73,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(735, 438);
+            this.ClientSize = new System.Drawing.Size(767, 438);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.ctrlPersonCardWithFilters);
