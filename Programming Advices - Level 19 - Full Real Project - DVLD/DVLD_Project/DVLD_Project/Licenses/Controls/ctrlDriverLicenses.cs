@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,6 +20,24 @@ namespace DVLD_Project.Licenses
     {
         private Driver _Driver = null;
 
+        /*
+            =========================================
+            ========= HIGH PRIORITY NOTE ============
+            =========================================
+
+                Exposing these properties makes it even easiter to test control behaviors on compile time/edit phase
+            without the need to create separate forms or link things and wait until reach that section on system to test it
+
+                You can edit ditectly and see things on the fly changes here :) 
+        */
+        public int DriverID
+        {
+            get { return ((this._Driver != null) ? this._Driver.DriverID : ValidationConstants.INVALID_ID); }
+            set
+            {
+                LoadDriverLicensesByDriverID(value);
+            }
+        }
 
         public ctrlDriverLicenses()
         {
