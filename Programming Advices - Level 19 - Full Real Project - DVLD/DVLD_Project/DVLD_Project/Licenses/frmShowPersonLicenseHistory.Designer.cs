@@ -90,7 +90,6 @@
             this.ctrlPersonCardWithFilters.Location = new System.Drawing.Point(251, 51);
             this.ctrlPersonCardWithFilters.Name = "ctrlPersonCardWithFilters";
             this.ctrlPersonCardWithFilters.RowFilter = 0;
-            this.ctrlPersonCardWithFilters.SearchFilter = "";
             this.ctrlPersonCardWithFilters.Size = new System.Drawing.Size(769, 327);
             this.ctrlPersonCardWithFilters.TabIndex = 133;
             this.ctrlPersonCardWithFilters.OnPersonSelected += new System.Action<object, int>(this.ctrlPersonCardWithFilters_OnPersonSelected);
