@@ -26,8 +26,6 @@ Console.WriteLine("Square of number: " + result);
 
 - If <mark>the function's purpose is clear from its name</mark>, using a named function is often a good choice. It <mark>makes your code self-documenting</mark>.
 
-
-
 #### Lambda Expressions:
 
 - Conciseness:
@@ -53,13 +51,13 @@ button.Click += (sender, e) => Console.WriteLine("Button clicked!");
 ### Performance Considerations:
 
     <u>In terms of performance</u>, <mark>the difference</mark> between named functions and lambda expressions <mark>is usually negligible</mark>. Both can be optimized by the compiler. The choice between them should primarily be based on readability, maintainability, and code organization.  
-
+    
     In terms of performance, the difference between using a lambda expression and a declared function (method) is usually negligible. Both approaches can be optimized by the compiler, and <mark>**the generated IL (Intermediate Language) code may end up being quite similar**</mark>.
-
+    
     The choice between a lambda expression and a declared function often <mark>depends on factors</mark> like readability, code organization, and <mark>whether the function is used in a single location or needs to be reused in multiple places</mark>.
-
+    
     In simple cases, using a lambda expression with the `Func<int, int>` type is concise and suitable for a simple operation like squaring a number. If your logic becomes more complex or you need to reuse the operation in multiple places, <mark><u>declaring a separate method might make your code more modular and maintainable</u></mark>.
-
+    
     Ultimately, for performance considerations, the difference between these two approaches is likely to be minimal. Choose the one that fits best with your coding style and the overall structure of your program.  
 
 ### Conclusion:
@@ -69,10 +67,6 @@ button.Click += (sender, e) => Console.WriteLine("Button clicked!");
 
 Remember, <mark>the performance difference is often minimal</mark>, and your choice should be driven by the specific needs of your code and the principles of clean and maintainable coding.
 
-
-
 What's the relation between Using and unmanaged code and IDisposable Iface an GC??? ?
-
-
 
 what's related to utlising Unmanaged code inside/with Managed code ??
