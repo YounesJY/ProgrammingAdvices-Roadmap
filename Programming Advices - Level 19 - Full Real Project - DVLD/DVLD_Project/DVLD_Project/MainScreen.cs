@@ -29,20 +29,6 @@ namespace DVLD_Project
             new frmListUsers().ShowDialog();
         }
 
-        private void currentUserToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new frmUserInfo(Global.currentLoggedInUser.UserID).ShowDialog();
-        }
-        private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new frmChangeUserPassword(Global.currentLoggedInUser.UserID).ShowDialog();
-        }
-        private void singOutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Global.currentLoggedInUser = null;
-            this.Close();
-        }
-
         private void localDrivingLicenseApplicationsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new frmListLocalDrivingLicenseApplications().ShowDialog();
@@ -100,6 +86,20 @@ namespace DVLD_Project
         private void releaseDetainedLicenseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new frmReleaseDetainedLicenseApplication().ShowDialog();
+        }
+
+        private void currentUserToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmUserInfo(Global.currentLoggedInUser.UserID).ShowDialog();
+        }
+        private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmChangeUserPassword(Global.currentLoggedInUser.UserID).ShowDialog();
+        }
+        private void singOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Global.currentLoggedInUser = null;
+            this.Close();
         }
     }
 }
