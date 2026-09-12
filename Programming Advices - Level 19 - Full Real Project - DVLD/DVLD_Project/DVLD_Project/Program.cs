@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Forms;
 
+
 namespace DVLD_Project
 {
     internal static class Program
@@ -14,6 +15,7 @@ namespace DVLD_Project
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            // EventLogger.Configure("DVLD_Application", "DVLD_Events");
             Application.Run(new LoginFrom());
         }
     }

@@ -130,6 +130,7 @@
     <Compile Include="Drivers\frmListDrivers.Designer.cs">
       <DependentUpon>frmListDrivers.cs</DependentUpon>
     </Compile>
+    <Compile Include="DVLD_Common\EventLogger.cs" />
     <Compile Include="Global Classes\Format.cs" />
     <Compile Include="Global Classes\Global.cs" />
     <Compile Include="Global Classes\Utils.cs" />
