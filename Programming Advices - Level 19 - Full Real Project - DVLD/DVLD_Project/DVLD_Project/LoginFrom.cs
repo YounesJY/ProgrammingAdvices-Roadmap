@@ -21,7 +21,7 @@ namespace DVLD_Project
         {
             string username = null;
             string password = null;
-            if (Global.GetStoredCredentials(ref username, ref password, true))
+            if (Global.GetStoredCredentials(ref username, ref password))
             {
                 txtUserName.Text = username;
                 txtPassword.Text = password;
@@ -51,9 +51,9 @@ namespace DVLD_Project
 
             Global.currentLoggedInUser = user;
             if (chkRememberMe.Checked)
-                Global.RememberLoggedInUser(txtUserName.Text, txtPassword.Text, true);
+                Global.RememberLoggedInUser(txtUserName.Text, txtPassword.Text);
             else
-                Global.ClearStoredCredentials(true);
+                Global.ClearStoredCredentials();
 
             /*
                 ===========================================================
