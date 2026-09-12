@@ -207,7 +207,7 @@ namespace DVLD_Project.Users
                 this case is where we are updating an existing user and trying to change the associated person 
                 the line  ctrlPersonCardWithFilters.FilterGroupBox.Enabled = false; in the fillFromWithUserData() method prevents this,
                 but if you want to allow changing the associated person, you can remove that line and handle it here
-             */
+            */
 
             if (this._mode == enMode.Update && this._user.PersonID != ctrlPersonCardWithFilters.SelectedPerson.PersonID && User.IsUserExistForPersonID(ctrlPersonCardWithFilters.SelectedPerson.PersonID))
             {
