@@ -77,7 +77,7 @@ namespace DVLD_Project.Users
                 txtCurrentPassword.Focus();
                 e.Cancel = true;
             }
-            else if (txtCurrentPassword.Text != _user.Password)
+            else if (User.HashPassword(txtCurrentPassword.Text) != _user.Password)
             {
                 errorProvider.SetError(txtCurrentPassword, "Current password is incorrect.");
                 txtCurrentPassword.Focus();

@@ -1,7 +1,9 @@
-﻿using System;
-using System.Data;
+﻿using DVLD_Common;
 using DVLD_DataAccess;
-using DVLD_Common;
+using System;
+using System.Data;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace DVLD_Business
 {
@@ -67,7 +69,7 @@ namespace DVLD_Business
             int PersonID = ValidationConstants.INVALID_ID;
             bool IsActive = false;
 
-            if (UserData.GetUserInfoByUsernameAndPassword(UserName, Password, ref UserID, ref PersonID, ref IsActive))
+            if (UserData.GetUserInfoByUsernameAndPassword(UserName, HashPassword(Password), ref UserID, ref PersonID, ref IsActive))
                 return new User(UserID, PersonID, UserName, Password, IsActive);
 
             return null;
@@ -85,12 +87,21 @@ namespace DVLD_Business
             return user;
         }
 
+        public static string HashPassword(string password)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return BitConverter.ToString(bytes).Replace("-", "").ToLower();
+            }
+        }
+
         private bool _AddNewUser()
         {
             this.UserID = UserData.AddNewUser(
                 this.PersonID,
                 this.UserName,
-                this.Password,
+                HashPassword(this.Password),
                 this.IsActive
             );
 
@@ -98,6 +109,12 @@ namespace DVLD_Business
         }
         private bool _UpdateUser()
         {
+            /*
+                The reason why not use a hashed password here is that the password might not have changed during an update.
+            If the password is already hashed, hashing it again would result in a different value, which would be incorrect.
+            Therefore, we should only hash the password when creating a new user or when explicitly changing the password.
+            */
+
             return UserData.UpdateUser(
                 this.UserID,
                 this.PersonID,
@@ -145,9 +162,11 @@ namespace DVLD_Business
 
         public bool ChangePassword(string NewPassword)
         {
-            if (UserData.ChangePassword(this.UserID, NewPassword))
+            string hashedNewPassword = HashPassword(NewPassword);
+
+            if (UserData.ChangePassword(this.UserID, hashedNewPassword))
             {
-                this.Password = NewPassword;
+                this.Password = hashedNewPassword;
                 return true;
             }
 
