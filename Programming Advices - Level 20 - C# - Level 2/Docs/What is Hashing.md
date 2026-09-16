@@ -1,7 +1,5 @@
 ## What is Hashing?
 
-
-
 ### Hashing:
 
 Hash functions are commonly used to create a fixed-size string of characters, which is typically a hash value, from variable-size input data.

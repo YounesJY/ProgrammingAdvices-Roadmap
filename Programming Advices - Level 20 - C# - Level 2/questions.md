@@ -83,7 +83,7 @@ public class Person
 
 **Questions:**
 
-- Atomic vs Mutable in a multi-threaded environment?
+- <mark>Atomic</mark> vs Mutable in a multi-threaded environment?
 - When to favor immutability vs mutability?
 
 **Answer:**
@@ -293,5 +293,3 @@ string result = sb.ToString();
 | 8   | StringBuilder        | WHAT, WHY, HOW, WHEN                        |
 
 ---
-
-This format keeps your original questions while adding structured answers. Want me to adjust any section? 🎯
