@@ -46,8 +46,6 @@
 - Processes are more robust in the face of failures since one process's failure does not affect others.
 - Threads within a process are less isolated, and the failure of one thread can potentially affect the entire process.
 
-
-
 --- 
 
 ---
@@ -230,9 +228,11 @@ Process A              Process B
 **A:** Yes. Threads within the same process share:
 
 - **Global variables** / **Static fields**
+
 - > **<mark>Heap objects</mark>** (any object on the heap is visible to all threads)
 
 - **File handles, sockets** (inherited from process)
+
 - > **<mark>Synchronization primitives</mark>** (mutexes, semaphores, locks)
 
 **Example:**
@@ -372,15 +372,9 @@ This is why thread safety and exception handling are so important in multithread
 - **Threads** share memory → fast, but risky
 - **Processes** are isolated → safe, but IPC needed
 
-
-
 ---
 
 ---
-
-
-
-
 
 > Process is self-contained and indepnedent unit of execution ?
 > 
@@ -418,8 +412,6 @@ This is why thread safety and exception handling are so important in multithread
 > [Isolation] -> Failre of Process deon't affect other PRs, but what' about Thread failure
 > 
 > [Allocation/Resoucres/Handling/Creation-Termination Overhead] Prss vs Thrd ?
-
-
 
 ---
 
@@ -703,5 +695,3 @@ Your learning journey:
 3. **Advanced:** "Static is a memory-lifetime concept, tied to the process's data segment. It's shared by all threads, which is why it's a source of race conditions and why it must be synchronized or avoided."
 
 > You're now moving from **level 1 → level 3**. 🎯
-
-
