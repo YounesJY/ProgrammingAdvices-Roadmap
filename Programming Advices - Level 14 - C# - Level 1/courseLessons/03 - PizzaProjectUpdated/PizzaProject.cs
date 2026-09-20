@@ -1,0 +1,303 @@
+﻿using System;
+using System.Windows.Forms;
+
+namespace PizzaProject
+{
+    public partial class PizzaProject : Form
+    {
+        private enum enPizzaSize : byte
+        {
+            small = 20, medium = 30, large = 40
+        };
+        private enum enToppings : byte
+        {
+            extraChees = 5, onion = 5, mushrooms = 5,
+            olives = 5, tomatoes = 5, greenPappers = 5
+        };
+        private enum enPizzaCrustType : byte
+        {
+            thin = 0, thick = 10
+        };
+        private enum enWhereToEat : byte
+        {
+            eatIn = 1, takeOut = 2
+        };
+
+
+
+        private struct Toppings
+        {
+            public enToppings toppings;
+            public bool isChecked;
+
+            public Toppings(enToppings topping, bool isChecked)
+            {
+                this.toppings = topping;
+                this.isChecked = isChecked;
+            }
+        }
+
+        private Toppings[] _toppings = new Toppings[6];
+        private byte _pizzaPrice = 0;
+        private enPizzaSize _pizzaSize = PizzaProject.enPizzaSize.small;
+        private enPizzaCrustType _pizzaCrustType = PizzaProject.enPizzaCrustType.thin;
+        private enWhereToEat _whereToEat = PizzaProject.enWhereToEat.takeOut;
+
+        public PizzaProject()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            rbSizeMedium.Checked = true;
+            rbCrustTypeThinCrust.Checked = true;
+            rbWhereToEatTakeOut.Checked = true;
+
+            chbToppingsExtraChees.Checked = false;
+            chbToppingsOnion.Checked = false;
+            chbToppingsMushRooms.Checked = false;
+            chbToppingsOlives.Checked = false;
+            chbToppingsTomatoes.Checked = false;
+            chbToppingsGreenPapers.Checked = false;
+
+            UpdateSummarySize();
+            UpdateSummaryToppings();
+            UpdateSummaryCrustType();
+            UpdateSummaryWhereToEat();
+            UpdateSummaryPrice();
+        }
+
+
+        private byte GetToppingsPrice()
+        {
+            byte price = 0;
+
+            foreach (var item in _toppings)
+            {
+                if (item.isChecked)
+                    price += Convert.ToByte(item.toppings);
+            }
+
+            return price;
+        }
+
+        private byte GetTotalPrice()
+        {
+            return (byte)
+                (Convert.ToByte(_pizzaSize)
+                + Convert.ToByte(_pizzaCrustType)
+                + GetToppingsPrice()
+                );
+        }
+
+        private void ResetForm()
+        {
+            pizzaOrderOptions.Enabled = true;
+
+            rbSizeMedium.Checked = true;
+            rbCrustTypeThinCrust.Checked = true;
+            rbWhereToEatTakeOut.Checked = true;
+
+            chbToppingsExtraChees.Checked = false;
+            chbToppingsOnion.Checked = false;
+            chbToppingsMushRooms.Checked = false;
+            chbToppingsOlives.Checked = false;
+            chbToppingsTomatoes.Checked = false;
+            chbToppingsGreenPapers.Checked = false;
+
+            btnOperationsOrderPizza.Enabled = true;
+        }
+        // Summary Group
+
+        private void UpdateSummarySize()
+        {
+            switch (_pizzaSize)
+            {
+                case enPizzaSize.small:
+                    orderSummarySize.Text = "small";
+                    break;
+                case enPizzaSize.medium:
+                    orderSummarySize.Text = "medium";
+                    break;
+                case enPizzaSize.large:
+                    orderSummarySize.Text = "large";
+                    break;
+                default:
+                    orderSummarySize.Text = "small";
+                    break;
+            }
+        }
+
+        private void UpdateSummaryToppings()
+        {
+
+            string toppings = "";
+            string[] toppingsArray = { "Extra Chees", ", Onion", ", Mushrooms", ", Olives", ", Tomatoes", ", Green Pappers" };
+
+            for (int i = 0; i < _toppings.Length; i++)
+            {
+                if (_toppings[i].isChecked)
+                    toppings += toppingsArray[i];
+            }
+
+            orderSummaryToppings.Text = (toppings.Equals("") ? "No Toppings" : toppings);
+            orderSummaryToppings.Text = (toppings.StartsWith(", ") ? toppings.Substring(2, toppings.Length - 2) : toppings);
+
+        }
+
+        private void UpdateSummaryCrustType()
+        {
+            switch (_pizzaCrustType)
+            {
+                case enPizzaCrustType.thin:
+                    orderSummaryCrustType.Text = "thin";
+                    break;
+                case enPizzaCrustType.thick:
+                    orderSummaryCrustType.Text = "thick";
+                    break;
+                default:
+                    orderSummaryCrustType.Text = "thin";
+                    break;
+            }
+        }
+
+        private void UpdateSummaryWhereToEat()
+        {
+            switch (_whereToEat)
+            {
+                case enWhereToEat.eatIn:
+                    orderSummaryWhereToEat.Text = "Eat In";
+                    break;
+                case enWhereToEat.takeOut:
+                    orderSummaryWhereToEat.Text = "Take Out";
+                    break;
+                default:
+                    orderSummaryWhereToEat.Text = "Take Out";
+                    break;
+            }
+        }
+
+        private void UpdateSummaryPrice()
+        {
+            _pizzaPrice = GetTotalPrice();
+            txtPrice.Text = _pizzaPrice + "$";
+        }
+
+
+        // Size Group
+        private void rbSizeSmall_CheckedChanged(object sender, EventArgs e)
+        {
+            _pizzaSize = PizzaProject.enPizzaSize.small;
+            UpdateSummarySize();
+            UpdateSummaryPrice();
+        }
+
+        private void rbSizeMedium_CheckedChanged(object sender, EventArgs e)
+        {
+            _pizzaSize = PizzaProject.enPizzaSize.medium;
+            UpdateSummarySize();
+            UpdateSummaryPrice();
+        }
+
+        private void rbSizeLarge_CheckedChanged(object sender, EventArgs e)
+        {
+            _pizzaSize = PizzaProject.enPizzaSize.large;
+            UpdateSummarySize();
+            UpdateSummaryPrice();
+        }
+
+
+        // Toppings Group
+        private void chbToppingsExtraChees_CheckedChanged(object sender, EventArgs e)
+        {
+            _toppings[0] = new Toppings(enToppings.extraChees, chbToppingsExtraChees.Checked);
+            UpdateSummaryToppings();
+            UpdateSummaryPrice();
+        }
+
+        private void chbToppingsOnion_CheckedChanged(object sender, EventArgs e)
+        {
+            _toppings[1] = new Toppings(enToppings.onion, chbToppingsOnion.Checked);
+            UpdateSummaryToppings();
+            UpdateSummaryPrice();
+        }
+
+        private void chbToppingsMushRooms_CheckedChanged(object sender, EventArgs e)
+        {
+            _toppings[2] = new Toppings(enToppings.mushrooms, chbToppingsMushRooms.Checked);
+            UpdateSummaryToppings();
+            UpdateSummaryPrice();
+        }
+
+        private void chbToppingsOlives_CheckedChanged(object sender, EventArgs e)
+        {
+            _toppings[3] = new Toppings(enToppings.olives, chbToppingsOlives.Checked);
+            UpdateSummaryToppings();
+            UpdateSummaryPrice();
+        }
+
+        private void chbToppingsTomatoes_CheckedChanged(object sender, EventArgs e)
+        {
+            _toppings[4] = new Toppings(enToppings.tomatoes, chbToppingsTomatoes.Checked);
+            UpdateSummaryToppings();
+            UpdateSummaryPrice();
+        }
+
+        private void chbToppingsGreenPapers_CheckedChanged(object sender, EventArgs e)
+        {
+            _toppings[5] = new Toppings(enToppings.greenPappers, chbToppingsGreenPapers.Checked);
+            UpdateSummaryToppings();
+            UpdateSummaryPrice();
+        }
+
+
+        // Crust Type Group
+        private void rbCrustTypeThinCrust_CheckedChanged(object sender, EventArgs e)
+        {
+            _pizzaCrustType = PizzaProject.enPizzaCrustType.thin;
+            UpdateSummaryCrustType();
+            UpdateSummaryPrice();
+        }
+
+        private void rbCrustTypeThinkCrust_CheckedChanged(object sender, EventArgs e)
+        {
+            _pizzaCrustType = PizzaProject.enPizzaCrustType.thick;
+            UpdateSummaryCrustType();
+            UpdateSummaryPrice();
+        }
+
+
+        // Where To Eat Group
+        private void rbWhereToEatIn_CheckedChanged(object sender, EventArgs e)
+        {
+            _whereToEat = enWhereToEat.eatIn;
+            UpdateSummaryWhereToEat();
+        }
+
+        private void rbWhereToEatTakeOut_CheckedChanged(object sender, EventArgs e)
+        {
+            _whereToEat = enWhereToEat.takeOut;
+            UpdateSummaryWhereToEat();
+        }
+
+
+        // Operations Group
+        private void btnOperationsOrderPizza_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Confirm order ", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+            {
+                MessageBox.Show("Order Placed Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                pizzaOrderOptions.Enabled = false;
+                btnOperationsOrderPizza.Enabled = false;
+            }
+        }
+
+        private void btnOperationsReset_Click(object sender, EventArgs e)
+        {
+            ResetForm();
+        }
+
+
+    }
+}
