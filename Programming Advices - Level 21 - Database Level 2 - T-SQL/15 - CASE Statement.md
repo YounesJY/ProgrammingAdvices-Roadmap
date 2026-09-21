@@ -10,8 +10,6 @@
 
 <mark><u>T-SQL does not have a dedicated </u> `SWITCH` <u> statement</u></mark> as found in many programming languages. Instead, the `CASE` statement serves a similar purpose, allowing for conditional logic based on specific values or conditions. It's the closest equivalent to a `SWITCH` statement in T-SQL.
 
-
-
 > In T-SQL, the `CASE` statement is <mark><u>primarily used within the context of queries</u></mark>, such as `SELECT`, `UPDATE`, `INSERT`, and `DELETE` statements. <mark><u>**It is not used as a standalone control-of-flow**</u></mark> structure like `IF` or `WHILE`.
 
 In T-SQL, the `CASE` statement is specifically <mark><u>designed for conditional logic within the set-based operations of SQL queries</u></mark>. <mark>**It's not a general-purpose control-of-flow statement**</mark> like those found in procedural programming languages. Therefore, it cannot be used in the same way as an `if-else` or `switch` statement in languages like C# or Java, which control the flow of the program.
