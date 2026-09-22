@@ -8,7 +8,7 @@ VALUES (1, 'Business'); -- Assume 'DepartmentID' is a primary key and '1' alread
 
 DECLARE @ErrorNumber INT = @@ERROR;
 -- Check if the previous statement caused an error
-IF @ErrorNumber <> 0
+IF @ErrorNumber != 0
 BEGIN
     -- Handle the error
     PRINT 'An error occurred during the insert operation.';
