@@ -1,5 +1,7 @@
 # T-SQL — Variables & Parameters
 
+---
+
 ## 1. SET vs. SELECT for Assigning Variables
 
 Both assign values, but they differ in **standard compliance**, **error handling**, and **behavior when no rows match**.
@@ -9,11 +11,11 @@ Both assign values, but they differ in **standard compliance**, **error handling
 | **Standard**             | ANSI standard                  | T-SQL extension                                     |
 | **Multiple vars**        | One per statement              | Multiple in one statement (`SELECT @a=1, @b=2`)     |
 | **No matching rows**     | Variable stays **unchanged**   | Variable stays **unchanged** (if row not found)     |
-| **Query returns >1 row** | **Error**                      | Silently assigns from **last row**                  |
+| **Query returns >1 row** | **Error**                      | <mark>Silently assigns from **last row**</mark>     |
 | **@@ROWCOUNT / @@ERROR** | Resets these before assignment | Preserves them for capture                          |
 | **Performance**          | Equal for 1 var                | Faster for 3+ vars (single query vs. multiple SETs) |
 
-**Recommendation**: Use **SET** for scalar assignments. It's standard, safer (fails loudly on multi-row queries), and clearer.
+> <mark>**Recommendation**: Use **SET** for scalar assignments. It's standard, safer (fails loudly on multi-row queries), and clearer.</mark>
 
 Use **SELECT** when:
 
@@ -32,12 +34,12 @@ SELECT @var3 = lastname FROM HR.Employees WHERE empid = 1;  -- SELECT: single ro
 
 ## 2. Variable Scope
 
-T-SQL variables are **local to the batch** — both in visibility and lifetime.
+<mark>T-SQL variables are **local to the batch** — both in visibility and lifetime.</mark>
 
 - A variable is visible **only within the same batch** where it was declared.
 - It is **automatically destroyed** when the batch ends (`GO`).
 - You **cannot** declare a variable in one batch and reference it in another.
-- Stored procedure parameters are local to that procedure.
+- <mark>Stored procedure parameters are local to that procedure.</mark>
 
 ```sql
 DECLARE @x INT = 10;
@@ -48,24 +50,24 @@ GO
 
 **Key distinction**:
 
-- `DECLARE @PersonID` → T-SQL local variable, batch-scoped
-- `CREATE PROCEDURE ... @PersonID` → Stored procedure parameter, procedure-scoped
+- `DECLARE @PersonID` → T-SQL local variable, <mark>batch-scoped</mark>
+- `CREATE PROCEDURE ... @PersonID` → Stored procedure parameter, <mark>procedure-scoped</mark>
 - `command.Parameters.Add("@PersonID", ...)` → ADO.NET parameter, client-side object
 
 ---
 
 ## 3. Special Variables (@@) — System Functions
 
-These are **global system variables** (actually system functions). Users can read them but **cannot modify** them.
+    <mark>These are **global system variables** (actually system functions)</mark>. Users can read them but **cannot modify** them.
 
-| Variable      | Returns                                             | Typical Use                                                        |
-| ------------- | --------------------------------------------------- | ------------------------------------------------------------------ |
-| `@@IDENTITY`  | Last identity value **inserted** in current session | Get auto-generated PK after INSERT (⚠️ scope issues with triggers) |
-| `@@ROWCOUNT`  | Rows **affected** by the **last statement**         | Check if UPDATE/DELETE hit anything                                |
-| `@@ERROR`     | **Error code** of the last statement (0 = success)  | Legacy error checking                                              |
-| `@@TRANCOUNT` | Active transaction count on current connection      | Check if a transaction is open                                     |
+| Variable      | Returns                                                          | Typical Use                                                        |
+| ------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------ |
+| `@@IDENTITY`  | Last identity value **inserted** <mark>in current session</mark> | Get auto-generated PK after INSERT (⚠️ scope issues with triggers) |
+| `@@ROWCOUNT`  | Rows **affected** by the **last statement**                      | Check if UPDATE/DELETE hit anything                                |
+| `@@ERROR`     | **Error code** of the last statement (0 = success)               | <mark>**<u>Legacy</u>** error checking</mark>                      |
+| `@@TRANCOUNT` | Active transaction count on current connection                   | Check if a transaction is open                                     |
 
-**Critical rule**: `@@ERROR` and `@@ROWCOUNT` must be captured **immediately** after the statement you're checking — any subsequent statement resets them.
+> <mark>**Critical rule**: `@@ERROR` and `@@ROWCOUNT` must be captured **immediately** after the statement you're checking — any subsequent statement resets them.</mark>
 
 ```sql
 UPDATE Employees SET Salary = Salary * 1.1 WHERE Department = 'Sales';
@@ -73,7 +75,7 @@ IF @@ROWCOUNT = 0 PRINT 'No rows updated.';
 IF @@ERROR <> 0 PRINT 'Error occurred.';
 ```
 
-> **Modern note**: `@@ERROR` is legacy. Prefer `TRY...CATCH` blocks for error handling in modern T-SQL. `@@IDENTITY` has scope bugs with triggers — prefer `SCOPE_IDENTITY()`.
+> <mark>**<u>Modern note</u>**: `@@ERROR` <u>is legacy</u>. Prefer `TRY...CATCH` blocks for error handling in modern T-SQL. `@@IDENTITY` <u>has scope bugs with triggers</u> — prefer `SCOPE_IDENTITY()`.</mark>
 
 ---
 

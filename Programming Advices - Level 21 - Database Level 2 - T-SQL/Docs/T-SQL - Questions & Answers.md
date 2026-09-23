@@ -1,5 +1,7 @@
 # T-SQL — Questions & Answers
 
+---
+
 ## 1. T-SQL vs SQL — Programming Language vs Query Language?
 
 **Terminology correction first.**
@@ -12,7 +14,7 @@
 | **PL/pgSQL**     | PostgreSQL's procedural dialect.                                                                                                                                           |
 | **PL/SQL (DB2)** | IBM calls it SQL PL.                                                                                                                                                       |
 
-**So the framing "T-SQL is a programming language while SQL is a query language" is misleading.** The accurate framing:
+<mark>**So the framing "T-SQL is a programming language while SQL is a query language" is misleading.**</mark> The accurate framing:
 
 - **SQL** (the standard) is *declarative*. You describe *what* you want; the engine decides *how*. Pure SQL is deliberately not Turing-complete.
 - **Procedural dialects** (T-SQL, PL/SQL, PL/pgSQL, SQL PL) add imperative constructs on top. With these you can write loops, branches, variables, procedures — the stuff that makes something "a programming language."
@@ -83,15 +85,15 @@ T-SQL is the dialect of **Microsoft SQL Server** (and its predecessors, Sybase S
 
 A **stored procedure** vs. the *same SQL* sent from an app:
 
-1. **Execution plan reuse.** SPs get their plan cached after first execution. Ad-hoc SQL from the app *also* gets cached, but only if parameterized correctly. If you send literal SQL strings, each distinct string gets its own plan — cache pollution. **Parameterized ad-hoc queries in C#/JDBC are cached just like SPs.** → *No inherent SP advantage here, if you parameterize.*
+1. **Execution plan reuse.** <mark>SPs get their plan cached after first execution</mark>. Ad-hoc SQL from the app *also* gets cached, but only if parameterized correctly. If you send literal SQL strings, each distinct string gets its own plan — <mark>cache pollution</mark>. <mark>**Parameterized ad-hoc queries in C#/JDBC are cached just like SPs.**</mark> → *No inherent SP advantage here, if you parameterize.*
 
 2. **Network round trips.** Sending one `EXEC GetEmployees @Dept = 'Sales'` vs. sending a 200-line SQL string — nearly identical. **The *content* of the round trip is what matters, not where the SQL text lives.** → *No inherent advantage.*
 
-3. **Parsing / compilation.** SPs are parsed once at creation. Ad-hoc SQL is parsed on every execution (though the *plan* is cached). Parsing a small SQL string is microseconds. → *Negligible.*
+3. **Parsing / compilation.** <mark>SPs are parsed once at creation</mark>. <mark>Ad-hoc SQL is parsed on every execution (though the *plan* is cached)</mark>. Parsing a small SQL string is microseconds. → *Negligible.*
 
-4. **Data movement.** If the SP does the filtering and returns 10 rows, vs. the app fetching 1M rows and filtering in memory — SP wins massively. But the *app could have written the same WHERE clause in its query*. → *Not about SP vs. app; about set-based vs. row-based.*
+4. **Data movement.** If the SP does the filtering and returns 10 rows, vs. the app fetching 1M rows and filtering in memory — <mark>SP wins massively</mark>. But the *app could have written the same WHERE clause in its query*. → *Not about SP vs. app; about set-based vs. row-based.*
 
-5. **Security surface.** SPs can be granted EXECUTE without granting table access. Apps can't. → *Security advantage for SPs, not speed.*
+5. **Security surface.** <mark>SPs can be granted EXECUTE without granting table access</mark>. Apps can't. → *Security advantage for SPs, not speed.*
 
 6. **Transaction boundaries.** An SP runs a batch in one transaction with one commit. Multiple ad-hoc round trips each commit separately. → *SP advantage, but you can achieve the same with a client-side transaction.*
 
@@ -104,7 +106,7 @@ Historically (SQL Server 2000 era), the comparison was:
 - **Bad:** app sends ad-hoc SQL built by string concatenation → no parameterization → no plan reuse → parse/compile every time.
 - **Good:** SP gets a cached plan.
 
-So SPs won. But the *fix* wasn't SPs — it was **parameterized queries**. Modern ADO.NET/JDBC with parameters achieves the same plan caching.
+> <mark>So SPs won. But the *fix* wasn't SPs — it was **parameterized queries**. Modern ADO.NET/JDBC with parameters achieves the same plan caching.</mark>
 
 ### Real numbers, typical
 
@@ -146,18 +148,60 @@ The **workload shape** dominates:
 
 **The dominant factors are: number of round trips, parameterization, and set-based vs. row-based logic. Not "where the SQL text lives."**
 
+
+
+## What's Missing From the SPs-vs-App-SQL Comparison
+
+### 1. Parameter Sniffing — the #1 SP gotcha
+
+    Stored procedures are compiled once, and the optimizer uses the **first execution's parameter values** to build the plan. If that first call happens to use an unrepresentative value, the plan is bad for all subsequent calls.
+
+    Concrete scenario: a procedure that fetches orders by customer ID. The first call happens to be for a customer with 3 orders. The optimizer builds a plan optimized for tiny result sets — index seek plus a lookup per row. Later, a customer with 500,000 orders calls the same procedure. The cached plan now does 500,000 individual lookups instead of one scan. The query goes from milliseconds to tens of seconds, using the exact same procedure.
+
+    Ad-hoc parameterized queries from the app suffer from this too — it's not SP-specific — but SPs make it worse because the plan persists across sessions (ad-hoc plans can be evicted under memory pressure), and you can't easily force a different plan from the caller side.
+
+    Workarounds exist: forcing a recompile every time (sacrifices plan reuse), telling the optimizer to assume an "average" parameter value instead of the sniffed one, or splitting the procedure into two versions tuned for different parameter shapes. Every experienced SQL Server developer eventually hits this. It's *the* thing that bites people who "know SPs are faster" and then watch a query regress by 100×.
+
+### 2. Ad-hoc plan cache pollution
+
+Section 4 says parameterized ad-hoc queries are cached just like SPs. That's *usually* true, <mark>but several things break it in practice</mark>:
+
+- Literal SQL strings (no parameters) get one plan each — the cache fills with single-use plans.
+
+- Passing a value with the wrong inferred type can produce one plan per type combination.
+
+- Case and whitespace differences in the SQL text produce distinct cache entries.
+
+Result: the plan cache thrashes, memory churns, and <mark>the "parameterized equals cached" claim becomes practically false for badly-written app code</mark>.
+
+SPs sidestep this by having a single cache entry per procedure. But the fix isn't SPs — it's parameterizing properly with explicit types on the app side.
+
+### 3. The recompile-on-schema-change asymmetry
+
+SPs get marked "needs recompile" when the underlying schema changes (a column added, an index dropped). The next execution recompiles with knowledge of the new schema. That's usually what you want.
+
+Ad-hoc cached plans don't always get invalidated the same way. A plan cached under one schema can be reused under an updated schema, sometimes producing suboptimal behavior. SQL Server has heuristics to detect schema changes at the object level, but they don't always catch indirect dependencies — views of views, computed columns, and similar.
+
+Practically: SPs and parameterized ad-hoc SQL behave similarly under schema changes, but SPs are slightly more predictable because their dependencies are tracked more directly.
+
+---
+
+### One-line version for the summary table
+
+> **<mark>Parameter sniffing is the biggest real-world gotcha for SPs</mark>.** A bad plan from an unlucky first execution can degrade all subsequent calls; ad-hoc parameterized SQL suffers too, but SPs persist the bad plan longer.
+
 ---
 
 ## 5. "T-SQL is the 2nd most important language every developer should learn" — how true?
 
-**Directionally true for backend/data-adjacent developers. Overstated as a universal claim.**
+**<mark>Directionally true for backend/data-adjacent developers.</mark> Overstated as a universal claim.**
 
 ### Why the claim has merit
 
 - **Ubiquity in enterprise.** SQL Server dominates Windows-based enterprise stacks. T-SQL is the dialect in that world. ASP.NET + SQL Server is a massive job market.
 - **Data is everywhere.** Almost any nontrivial app touches a database. Understanding SQL is a career multiplier.
-- **Set-based thinking transfers.** Learning T-SQL teaches you to think in sets, which makes you better at *any* data work, even in code (LINQ, pandas, Spark SQL).
-- **SQL is remarkably stable.** The `SELECT ... WHERE ... GROUP BY` you learn today will still be valid in 20 years. Frameworks come and go; SQL doesn't.
+- **Set-based thinking transfers.** <mark>Learning T-SQL teaches you to think in sets, which makes you better at *any* data work</mark>, even in code (LINQ, pandas, Spark SQL).
+- **SQL is remarkably stable.** The `SELECT ... WHERE ... GROUP BY` you learn today will still be valid in 20 years. <mark>Frameworks come and go; SQL doesn't</mark>.
 
 ### Why the specific ranking ("2nd most important") is shaky
 
@@ -214,10 +258,8 @@ Tlsq is MSSQLSERVEr only ? what's others similars on others DBs ?
 
 is it opne source, or PL sql ?
 
-queries and SPs at DB level is much much faster than Queies sentt by langs like C#(ADO.net)/ Java(JDBC) ... ?
+queries and SPs at DB level is much much faster than Queies sentt by langs like C#(ADO.net)/ Java(JDBC) .. ?
 
 how true this is "T-SQL i sthe most 2nd important lang every devlopper shoud learn"
 
 ---
-
-
