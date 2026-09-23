@@ -294,8 +294,6 @@ Custom Control       → Draw in code, inherit from Control
 Commercial Library   → Professional custom controls + support + licensing
 ```
 
-
-
 ---
 
 ---
