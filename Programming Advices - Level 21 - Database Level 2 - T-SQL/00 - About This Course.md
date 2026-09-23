@@ -2,7 +2,7 @@
 
 ## 📘 Database – Level 2 (Concepts & T-SQL)
 
-Advanced SQL logic, control flow, and performance thinking for real systems
+Advanced SQL logic, control flow, and performance thinking for real systems.
 
 ### 🗝️ About This Course
 
@@ -38,7 +38,7 @@ This is the **twenty-first course in your programming journey**, after:
 🔹 Build real systems and handle real data flows
 🔹 Understand architecture, performance awareness, and clean code
 
-Now it's time to **move SQL from querying to programming**.
+<mark>Now it's time to **move SQL from querying to programming**.</mark>
 
 👉 This course takes you inside **T-SQL** — where logic, control flow, transactions, and performance live.
 
@@ -89,7 +89,7 @@ By the end of this course, you will be able to:
 
 🔹 Use **advanced querying features**:
   ▫️ Window functions (ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD)
-  ▫️ Paging with OFFSET / FETCH
+<mark>  ▫️ Paging with OFFSET / FETCH</mark>
   ▫️ CTEs (including recursive CTEs)
 
 🔹 Implement **database automation**:
@@ -100,7 +100,7 @@ By the end of this course, you will be able to:
   ▫️ Dynamic SQL and SQL Injection
   ▫️ Safer patterns and best practices
 
-🔹 Begin **performance-aware thinking**:
+🔹 <mark>Begin **performance-aware thinking**</mark>:
   ▫️ Indexing basics
   ▫️ Execution plans
   ▫️ Query optimization concepts
@@ -162,4 +162,6 @@ After completing this course, you will:
 🔹 Understand how databases execute and optimize work
 🔹 Be ready for **enterprise databases, analytics, and backend systems**
 
-**🧠 Level 1 taught you how to query data. Level 2 teaches you how databases actually think.**
+<mark>**🧠 Level 1 taught you how to query data. Level 2 teaches you how databases actually think.**</mark>
+
+

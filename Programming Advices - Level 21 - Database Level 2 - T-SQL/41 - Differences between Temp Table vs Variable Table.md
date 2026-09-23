@@ -5,8 +5,8 @@
     In T-SQL, which is the SQL server's extension for SQL, two common ways to store data temporarily are through temporary tables and table variables. Here's a lesson that outlines the differences between them:
 
 - Definition and Scope:
-  - Temporary Tables: Created using the `CREATE TABLE` statement, with the table name prefixed by `#` for local temporary tables (visible only in the current session) or `##` for global temporary tables (visible to all sessions). They are stored in the tempdb database.
-  - Table Variables: Declared using the `DECLARE` statement and have a similar structure to permanent tables. The syntax is `DECLARE @TableName TABLE (column definitions)`. They have a limited scope and are typically used within the function, stored procedure, or batch in which they are declared.
+  - Temporary Tables: Created using the `CREATE TABLE` statement, with the table name prefixed by `#` for local temporary tables (visible only in the current session) or `##` for global temporary tables (visible to all sessions). <mark>They are stored in the tempdb database</mark>.
+  - Table Variables: Declared using the `DECLARE` statement and have a similar structure to permanent tables. The syntax is `DECLARE @TableName TABLE (column definitions)`. <mark>They have a limited scope and are typically used within the function, stored procedure, or batch in which they are declared</mark>.
 - Lifetime:
   - Temporary Tables: <mark>Exist until they are explicitly dropped using</mark> the `DROP TABLE` command <mark>or until the session/connection that created them is closed</mark>.
   - Table Variables: <mark>Automatically cleaned up at the end of the batch, function, or stored procedure in which they are defined</mark>.
