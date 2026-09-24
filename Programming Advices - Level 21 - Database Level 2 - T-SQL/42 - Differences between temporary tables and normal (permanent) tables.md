@@ -6,7 +6,7 @@
 
 ### 1. Lifespan and Scope
 
-- Temporary Tables: <mark>They are created in the tempdb database and exist only for the eduration of the session or connection that created them</mark>. **<u>Local temporary tables</u>** (prefixed with `#`) are visible only to the connection that created them, while **<u>global temporary tables</u>** (prefixed with `##`) are visible to all connections but still exist only until the last connection using them is closed.
+- Temporary Tables: <mark>They are created in the tempdb database and exist only for the duration of the session or connection that created them</mark>. **<u>Local temporary tables</u>** (prefixed with `#`) are visible only to the connection that created them, while **<u>global temporary tables</u>** (prefixed with `##`) are visible to all connections but still exist only until the last connection using them is closed.
 - Normal Tables: <mark>Permanent tables are created in a user-defined database and persist until they are explicitly dropped by a user</mark>. **<u>They are visible and accessible to any user with the appropriate permissions</u>**, regardless of the user session or connection.
 
 ---
