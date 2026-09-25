@@ -5,11 +5,14 @@ USE C21_DB1;
 --Test
 --select * from StudentView
 
+SELECT * 
+FROM StudentView;
+
 UPDATE StudentView
 SET 
-	Name = 'Mohammed',
-	Course = 'Math',
-	Grade = 66
+	Name = 'John',
+	Course = 'IT',
+	Grade = 96
 WHERE StudentID = 1;
 
 SELECT * 
