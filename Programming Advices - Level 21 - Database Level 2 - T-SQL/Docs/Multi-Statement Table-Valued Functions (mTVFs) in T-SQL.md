@@ -6,12 +6,12 @@
 
 A **Multi-Statement Table-Valued Function** is a user-defined function that:
 
-- Declares a return **table variable** with an explicit column list
-- Uses a `BEGIN...END` body containing **multiple statements**
-- Populates the return variable with `INSERT` statements
+- <mark>Declares a return **table variable** with an explicit column list</mark>
+- Uses a `BEGIN...END` body <mark>containing **multiple statements**</mark>
+- <mark>Populates the return variable with `INSERT` statements</mark>
 - Ends with `RETURN` (bare, no argument)
 
-Unlike an inline TVF, <mark>an mTVF is **not inlined** into the calling query</mark>. <mark>The optimizer treats it as an opaque black box with a **fixed 1-row cardinality estimate**</mark> — which is the root of its performance problems.
+Unlike an inline TVF, <mark>an mTVF is **not inlined** into the calling query</mark>. <mark>The optimizer treats it as an opaque black box with a **fixed 1-row cardinality estimate**</mark> — <u>**which is the root of its performance problems**</u>.
 
 ---
 
@@ -143,7 +143,7 @@ Honest answer: <mark><u>rarely</u></mark>. In 95% of cases where you reach for a
 
 <mark><u>**Genuine mTVF use cases:**</u></mark>
 
-- The result set genuinely requires multiple statements to build (e.g., a loop or a series of `INSERT`s into the result variable).
+- <mark>The result set genuinely requires multiple statements to build</mark> (e.g., a loop or a series of `INSERT`s into the result variable).
 - <mark><u>**You accept the performance cost in exchange for encapsulation**</u></mark>.
 - You're on an older SQL Server version with no alternatives.
 

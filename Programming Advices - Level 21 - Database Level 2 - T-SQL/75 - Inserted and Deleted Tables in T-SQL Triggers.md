@@ -18,8 +18,11 @@
 ## 2. Key Characteristics
 
 - <mark>**Virtual.**</mark> Not stored — materialized only while the trigger is running.<mark></mark>
+
 - <mark>**Schema mirrors the trigger's base table.**</mark> Same columns, same types.
+
 - <mark>**Read-only.**</mark> You can `SELECT` from them, `JOIN` them, and insert their rows into other tables. You can't `INSERT`, `UPDATE`, or `DELETE` them directly.
+
 - <mark>**Statement-scoped.**</mark> They hold **all rows** affected by the triggering statement,not one row at a time. A single `UPDATE` touching 10,000 rows puts 10,000 rows in each pseudo-table, and the trigger fires **once**
 
 - <mark><u>**Available in both `AFTER` and `INSTEAD OF` triggers**</u></mark> — not in functions, procedures, or ad-hoc queries.
@@ -147,7 +150,7 @@ In an `UPDATE`, every affected row has an entry in both `inserted` and `deleted`
 
 ### 5.4 `inserted` and `deleted` in `INSTEAD OF` triggers
 
-In an `AFTER` trigger, the modification has already happened. In an `INSTEAD OF` trigger, it hasn't — the trigger itself performs the modification, using `inserted`/`deleted` as instructions from the caller. Same pseudo-tables, different timing.
+In an `AFTER` trigger, <mark>the modification has already happened</mark>. In an `INSTEAD OF` trigger, it hasn't — the trigger itself performs the modification, using `inserted`/`deleted` as instructions from the caller. Same pseudo-tables, different timing.
 
 ### 5.5 `deleted` in `INSERT`, `inserted` in `DELETE`
 

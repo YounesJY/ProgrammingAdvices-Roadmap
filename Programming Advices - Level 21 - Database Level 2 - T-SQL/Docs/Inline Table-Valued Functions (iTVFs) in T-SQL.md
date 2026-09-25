@@ -8,7 +8,7 @@ An **Inline Table-Valued Function** is a user-defined function that:
 
 - Declares `RETURNS TABLE`
 - <mark>Contains exactly one `RETURN (SELECT ...)` statement</mark>
-- Is **inlined** by the optimizer into the calling query — no function boundary at runtime
+- <mark>Is **inlined** by the optimizer into the calling query</mark> — no function boundary at runtime
 
 <mark>It behaves like a parameterized view</mark>. You call it in `FROM` / `JOIN` / `APPLY` and treat its output as a regular table.
 
@@ -119,10 +119,10 @@ Because the function is inlined, this is equivalent to writing the same `SELECT`
 
 <mark>**iTVF is the sweet spot** <u>when you need</u></mark>:
 
-- A set-returning function
+- <mark><u>**A set-returning function**</u></mark>
 - One `SELECT`'s worth of logic
 - <mark><u>**Optimizer visibility and parallelizability**</u></mark>
-- Reuse across multiple queries
+- <mark><u>**Reuse across multiple queries**</u></mark>
 
 <mark>The optimizer treats the iTVF as a **macro**, <u>not a black box</u></mark>. Predicate pushdown, join reordering, and parallelism <u>**all work as if you wrote the query directly**</u>.
 
@@ -133,8 +133,8 @@ Because the function is inlined, this is equivalent to writing the same `SELECT`
 **Good fits:**
 
 - <mark>A parameterized view</mark>: "give me rows matching X."
-- Encapsulating a common join or filter used in many queries.
-- Centralizing a complex `WHERE` clause or subquery that's reused.
+- <mark>Encapsulating a common join or filter used in many queries</mark>.
+- <mark>Centralizing a complex `WHERE` clause or subquery that's reused.</mark>
 - Providing a clean interface to a set of rows without exposing base tables.
 
 **Bad fits:**

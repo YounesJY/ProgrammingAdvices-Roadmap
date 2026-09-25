@@ -4,13 +4,14 @@
 
 #### **Introduction to Table Variables**
 
-    Table variables in T-SQL are mark>used to store a set of records temporarily</mark>, <mark>similar to temporary tables</mark>. However, <mark>**<u>they have some distinct characteristics and are suitable for different scenarios</u>**</mark>. Table variables are declared using the `DECLARE` statement and are scoped to the batch, stored procedure, or function in which they are defined.
+    Table variables in T-SQL are <mark>used to store a set of records temporarily</mark>, <mark>similar to temporary tables</mark>. However, <mark>**<u>they have some distinct characteristics and are suitable for different scenarios</u>**</mark>. Table variables are declared using the `DECLARE` statement and are scoped to the batch, stored procedure, or function in which they are defined.
 
 ---
 
 #### **Advantages of Table Variables**
 
 1. Performance: <mark>**<u>For small datasets</u>**</mark>, table variables <mark>can be faster **<u>since they are stored in memory</u>** and not written to disk</mark>.
+   1. > For small datasets, table variables can be faster than temp tables because their writes are not logged to the transaction log and they don't maintain statistics — so there's less per-operation overhead. <mark><u>**They are still stored in `tempdb` on disk, the same as temp tables**</u></mark>. The speed advantage disappears as data grows, because the lack of statistics leads the optimizer to assume 1 row, which produces bad execution plans for larger sets.
 2. Transaction Log: <mark>Operations on table variables **<u>generate fewer log records</u>**</mark>. This can be beneficial in terms of performance.
 3. Scope: The scope of a table variable is <mark>limited to the batch, stored procedure, or function in which it is defined</mark>. This can simplify transaction management and error handling.
 

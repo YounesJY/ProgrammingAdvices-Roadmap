@@ -11,7 +11,7 @@
 - Ends with `RETURN @value`
 - Callable **anywhere an expression is allowed**: `SELECT`, `WHERE`, `JOIN ON`, `HAVING`, `ORDER BY`, computed columns, `CHECK` constraints
 
-Unlike iTVFs, <mark>scalar UDFs are **not** set-returning</mark> — they produce one value for the current row's inputs.
+Unlike iTVFs, <mark>scalar UDFs are **not** set-returning</mark> — <mark>they produce one value for the current row's inputs</mark>.
 
 ---
 
@@ -191,9 +191,9 @@ Now `AvgGradeForSubject` is a persisted-in-metadata computed column. Note: it's 
 
 **Good fits:**
 
-- A reused pure computation: `dbo.CalculateTax(amount, region)`, `dbo.FormatFullName(first, last)`.
-- A business rule you want to centralize rather than duplicate across queries.
-- A simple predicate reused in many `WHERE` clauses.
+- <mark>A reused pure computation:</mark> `dbo.CalculateTax(amount, region)`, `dbo.FormatFullName(first, last)`.
+- <mark>A business rule you want to centralize rather than duplicate across queries.</mark>
+- <mark>A simple predicate reused in many `WHERE` clauses.</mark>
 
 **Bad fits:**
 
