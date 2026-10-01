@@ -1,6 +1,6 @@
 ## Understanding Recursive CTEs for Building Employee Hierarchies
 
-    This lesson explains how to use a recursive Common Table Expression (CTE) in T-SQL to build and display a hierarchical employee structure.
+This lesson explains how to use a recursive Common Table Expression (CTE) in T-SQL to build and display a hierarchical employee structure.
 
 
 
