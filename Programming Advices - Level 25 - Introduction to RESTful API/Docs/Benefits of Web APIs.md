@@ -60,7 +60,7 @@ Web APIs bring a lot to modern software development and system integration. Here
 
 <mark><u>**Reduced development costs.**</u></mark> Reusing existing APIs and services reduces the cost of developing and maintaining custom solutions.
 
-<mark><u>**Operational efficiency.**</u></mark> APIs streamline processes and reduce manual intervention, leading to cost savings and operational gains.
+<mark><u>**Operational efficiency.**</u></mark> APIs **<u>streamline processes and reduce manual intervention</u>**, leading to cost savings and operational gains.
 
 ---
 
