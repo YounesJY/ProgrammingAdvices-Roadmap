@@ -39,7 +39,7 @@ Without `[DllImport]`, an `extern` method has nowhere to go — the runtime can'
 
 ## 3. What happens at runtime
 
-Nothing at compile time except metadata. At the **first call**, the CLR (Common Language Runtime) performs a series of steps:
+<mark><u>**Nothing at compile time except metadata**</u></mark>. At the **first call**, the CLR (Common Language Runtime) performs a series of steps:
 
 1. Reads the `[DllImport]` metadata → finds the DLL name.
 2. Loads the DLL into the process (if not already loaded).
@@ -136,5 +136,3 @@ They're related but not the same. The confusion is understandable because both i
 **Concrete example tying back to P/Invoke:** when you call `GetSystemMetrics(0)`, an `int` crosses from managed code to native code. That's **marshalling** — <mark>it's a boundary crossing</mark>. There's no JSON, no XML, no persistent format. <mark>Just a value translated from one runtime's representation to another's</mark>.
 
 ---
-
-

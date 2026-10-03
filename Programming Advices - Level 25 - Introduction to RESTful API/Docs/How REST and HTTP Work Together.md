@@ -10,7 +10,7 @@
 
 In REST, <mark>the client sends requests and the server responds</mark>.
 
-- **Client** — responsible for the user interface and user experience
+- **Client** — <u>responsible for the user interface and user experience</u>
 - **Server** — handles data storage and processing
 
 <mark><u>**Each side has its role**</u></mark>. <mark>They communicate over HTTP <u>**but evolve independently**</u></mark>.
@@ -40,7 +40,7 @@ REST APIs use standard HTTP methods to act on resources:
 
 ### HTTP Status Codes
 
-The response carries a status code indicating the result:
+The response carries <mark>a status code indicating the result</mark>:
 
 | Code                        | Meaning                                 |
 | --------------------------- | --------------------------------------- |
@@ -96,7 +96,5 @@ The client then interprets the response and acts accordingly.
 REST gives the API its **shape** (resources, statelessness, uniform methods). HTTP gives it the **transport** (how messages actually travel between client and server). They work together: REST defines the rules, HTTP executes them.
 
 ---
-
-Kept the structure, applied your conventions: numbered sections, bold sub-headers, status code table, and a closing summary. Same voice as the other Level 25 MDs.
 
 

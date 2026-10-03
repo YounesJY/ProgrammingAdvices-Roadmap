@@ -1,6 +1,6 @@
 # HERE's why
 
-**"Architectural style"** means: a **set of rules and constraints** for how to structure a system — not a specific technology, framework, or library. It's a pattern for organizing communication, not a tool you install.
+**"Architectural style"** means: a <mark>**set of rules and constraints** for how to structure a system</mark> — **<u>*not a specific technology, framework, or library*</u>**. <mark><u>**It's a pattern**</u></mark> for organizing communication, not a tool you install.
 
 <mark>REST <u>isn't a protocol</u> (like HTTP) and it<u> isn't a standard</u> (like SQL)</mark>. <mark><u>It's a **design approach**</u></mark>. You can build a RESTful API in any language, on any framework. <mark>The "style" is the set of constraints <u>**you agree to follow**</u>.</mark>
 
@@ -14,27 +14,27 @@
 | --- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1   | **Client–Server**               | <mark>Separate the UI (client) from the data/logic (server)</mark>. <u>**They evolve independently**</u>.                                                     |
 | 2   | **Stateless**                   | <mark><u>**Each request contains everything needed**</u></mark>. The server <mark><u>**doesn't remember**</u></mark> previous requests.                       |
-| 3   | **Cacheable**                   | Responses must declare whether they can be cached. Clients can reuse responses.                                                                               |
+| 3   | **Cacheable**                   | Responses must declare whether they can be cached. <mark><u>**Clients can reuse responses**</u></mark>.                                                       |
 | 4   | **Uniform Interface**           | A consistent way to interact — <mark>**URLs identify resources**</mark>, <mark>**HTTP methods define actions**</mark>, <mark>**responses carry data**</mark>. |
 | 5   | **Layered System**              | A client <mark><u>**can't tell if it's talking to the real server or an intermediary**</u></mark> (proxy, load balancer, gateway).                            |
-| 6   | **Code on Demand** *(optional)* | Servers can send executable code to clients. <mark>**Rarely used**</mark>.                                                                                    |
+| 6   | **Code on Demand** *(optional)* | Servers <mark>can send executable code</mark> to clients. <mark>**<u>Rarely used</u>**</mark>.                                                                |
 
-Those are the rules. Following them produces a system that behaves in a predictable way. That's what "architectural style" means — a named, agreed-upon set of rules.
+Those are the rules. Following them produces a system that behaves in a predictable way. That's what "architectural style" means — <mark><u>**a named, agreed-upon set of rules**</u></mark>.
 
 ---
 
 ## <mark><u>**Why it's called a "style" and not a "standard"**</u></mark>
 
-| Term                    | Meaning                                                                                                                     | Example                                           |
-| ----------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| **Protocol**            | A concrete, wire-level spec. Implementations must match byte-for-byte.                                                      | HTTP, TCP                                         |
-| **Standard**            | **<u>A published, formal specification</u>**. <mark><u>**Usually versioned**</u></mark>.                                    | SQL (**<u>ANSI</u>**), JSON (<u>**RFC 8259**</u>) |
-| **Architectural style** | <mark><u>**A set of design constraints**</u></mark>. Not enforced by tools. <mark><u>**Followed by convention**</u></mark>. | REST, MVC, microservices                          |
-| **Framework**           | Code you build on top of.                                                                                                   | ASP.NET Core, Express, Django                     |
+| Term                    | Meaning                                                                                                                                | Example                                           |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| **Protocol**            | <mark>**A concrete, wire-level spec**</mark>. Implementations must match byte-for-byte.                                                | HTTP, TCP                                         |
+| **Standard**            | **<u>A published, formal specification</u>**. <mark><u>**Usually versioned**</u></mark>.                                               | SQL (**<u>ANSI</u>**), JSON (<u>**RFC 8259**</u>) |
+| **Architectural style** | <mark><u>**A set of design constraints**</u></mark>. **<u>Not enforced by tools</u>**. <mark><u>**Followed by convention**</u></mark>. | REST, MVC, microservices                          |
+| **Framework**           | **<u>Code you build on top of</u>**.                                                                                                   | ASP.NET Core, Express, Django                     |
 
-REST is **not enforced by the compiler, the runtime, or the network**. If you write an API that violates one of REST's constraints, nothing breaks automatically. It just stops being "RESTful" in the strict sense.
+<mark>REST is **not enforced by the compiler, the runtime, or the network**</mark>. If you write an API that violates one of REST's constraints, nothing breaks automatically. **<u>It just stops being "RESTful" in the strict sense</u>**.
 
-> <mark>**That's the point of calling it a style: it's a **design philosophy**, not a technical requirem**ent.</mark>
+> <mark>**That's the point of calling it a style: <u>it's a design philosophy</u>**, not a technical requirement.</mark>
 
 ---
 
@@ -90,5 +90,3 @@ Both work. The second one is a **RPC-style API**. It's not RESTful because it vi
 > **"RESTful API is an architectural style"** means: <mark>it's a design approach — a set of six constraints for how a networked system should be structured</mark> — not a technology, protocol, or standard. <mark>You follow the constraints by choice</mark>, and if you follow all of them, your API is RESTful.
 
 The word "style" is doing a lot of work in that sentence. It signals: *this is not a spec you compile against; it's a set of principles you design within.*
-
-

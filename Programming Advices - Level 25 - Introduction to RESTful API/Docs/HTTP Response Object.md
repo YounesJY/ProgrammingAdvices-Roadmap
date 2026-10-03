@@ -8,11 +8,11 @@ The **response object** in HTTP <mark>is what the server sends back to the clien
 
 <mark><u>**The first line of every HTTP response**</u></mark>. Three parts:
 
-| Part              | Meaning                                             |
-| ----------------- | --------------------------------------------------- |
-| **HTTP Version**  | Protocol version (`HTTP/1.1`, `HTTP/2`)             |
-| **Status Code**   | Three-digit result code (`200`, `404`, `500`)       |
-| **Reason Phrase** | <mark>Human-readable</mark> description of the code |
+| Part              | Meaning                                                                 |
+| ----------------- | ----------------------------------------------------------------------- |
+| **HTTP Version**  | <mark>Protocol</mark> version (`HTTP/1.1`, `HTTP/2`)                    |
+| **Status Code**   | Three-digit <mark>result code</mark> (`200`, `404`, `500`)              |
+| **Reason Phrase** | <mark>Human-readable</mark> <mark><u>description</u></mark> of the code |
 
 **Example:**
 
@@ -151,7 +151,7 @@ Date: Tue, 15 Nov 2024 08:12:31 GMT
 </html>
 ```
 
-> <mark>Note: even error responses have a body. **<u>It's the server's chance to explain what went wrong</u>**.</mark>
+> <mark>Note: **even error responses** have a body. **<u>It's the server's chance to explain what went wrong</u>**.</mark>
 
 ---
 
@@ -191,5 +191,3 @@ Based on the response, the client might:
 <mark><u>**The HTTP response object is the server's standardized way of telling the client what happened and delivering the result**</u></mark>. <mark><u>**Every HTTP interaction ends with one**</u></mark> — **<u>*it's the other half of the request/response cycle*</u>**.
 
 ---
-
-

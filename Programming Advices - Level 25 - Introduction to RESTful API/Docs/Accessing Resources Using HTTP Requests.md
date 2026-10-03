@@ -6,7 +6,7 @@ To access a resource, the client sends an HTTP request to the server. A request 
 
 ## 1. HTTP Method
 
-<mark>The method describes **what should happen** to the specified resource</mark>. The four fundamental HTTP methods are known as **verbs**:
+<mark>The method **<u>describes</u>** **what should happen** to the specified resource</mark>. The four fundamental HTTP methods are known as **verbs**:
 
 | Method   | Purpose                               | CRUD         |
 | -------- | ------------------------------------- | ------------ |
@@ -21,7 +21,7 @@ To access a resource, the client sends an HTTP request to the server. A request 
 
 ## 2. Endpoint
 
-The endpoint shows **where the resource is located**. It typically includes a <mark>**Uniform Resource Identifier (URI)**</mark>. <mark>If the resource is accessed over the internet</mark>, <mark><u>**the URI is a URL**</u></mark> that gives the resource a web address.
+The endpoint shows **<mark>where the resource is located</mark>**. It typically includes a <mark>**Uniform Resource Identifier (URI)**</mark>. <mark>If the resource is accessed over the internet</mark>, <mark><u>**the URI is a URL**</u></mark> that gives the resource a web address.
 
 Example: `https://api.example.com/students/42`
 
@@ -63,10 +63,10 @@ The body <mark>carries the **data** between client and server</mark>. Its presen
 The server hosting the API processes the call and forms a response:
 
 - Sends a **machine-readable representation** of the requested data (JSON, XML, or plain text).
-- Includes **metadata** needed to interpret the response — content type, timestamps, error codes.
-- Adds **instructions** for the client when needed.
+- <u>Includes **metadata** needed to interpret the response</u> — content type, timestamps, error codes.
+- <u>Adds **instructions** for the client when needed</u>.
 
-In short, <mark>**calls and responses are self-descriptive**</mark>. Each one includes the information needed to process and interpret it — **<u>you don't need external context to understand what came back</u>**.
+In short, <mark>**calls and responses are self-descriptive**</mark>. Each one includes the information needed to process and interpret it — <mark>**<u>you don't need external context to understand what came back</u>**</mark>.
 
 ---
 

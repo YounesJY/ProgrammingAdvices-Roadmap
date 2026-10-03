@@ -10,15 +10,15 @@ At this stage of the roadmap, you are no longer a beginner.
 
 You have already learned:
 
-- Programming foundations
-- Backend development
-- Databases
-- Desktop full-stack development
-- Real system-level thinking
+- **Programming foundations**
+- **Backend development**
+- **Databases**
+- **Desktop full-stack development**
+- **Real system-level thinking**
 
 Now comes the missing piece that connects everything together.
 
-<mark>Modern software is no longer isolated.</mark>
+<mark>Modern software **is no longer isolated**.</mark>
 
 Applications today must:
 
@@ -28,11 +28,11 @@ Applications today must:
 - <mark>Work across operating systems</mark>
 - <mark>Work across programming languages</mark>
 
-This is where RESTful APIs come in.
+**<u>This is where RESTful APIs come in.</u>**
 
 👉 **Programming has become LEGO blocks.**
 
-RESTful APIs are the connectors that snap everything together.
+RESTful APIs <mark>**<u>are the connectors</u>**</mark> that snap everything together.
 
 <mark><u>**This course introduces you to how software systems communicate, regardless of language, platform, or OS.**</u></mark>
 
@@ -40,14 +40,14 @@ RESTful APIs are the connectors that snap everything together.
 
 ## 🔐 Why RESTful APIs Are Critical?
 
-RESTful APIs are not a trend.
+RESTful APIs <mark><u>**are not a trend**</u></mark>.
 
-They are how the world's software communicates.
+<mark><u>***They are how the world's software communicates***</u></mark>.
 
 🔹 Web apps talk to backends using REST
 🔹 Mobile apps <mark>depend entirely on APIs</mark>
 🔹 <mark>Microservices communicate via APIs</mark>
-🔹 <mark>Cloud systems are API-driven</mark>
+🔹 <mark>**Cloud systems are API-driven**</mark>
 🔹 Frontend and backend are fully separated by APIs
 
 📌 <mark><u>**Without RESTful APIs, everything you learned so far stays isolated.**</u></mark>
@@ -59,12 +59,12 @@ They are how the world's software communicates.
 ## 🔐 What Makes This Course Different?
 
 🔹 Starts from what an API really is, not buzzwords
-🔹 Explains REST from first principles
+🔹 <mark>**<u>Explains REST from first principles</u>**</mark>
 🔹 Connects desktop APIs (Win32) to web APIs conceptually
 🔹 Shows real client–server interaction
-🔹 Focuses on understanding HTTP deeply
+🔹 <mark><u>**Focuses on understanding HTTP deeply**</u></mark>
 🔹 Uses practical Student API projects
-🔹 Language-agnostic thinking, not framework obsession
+🔹 <mark>**Language-agnostic thinking, not framework obsession**</mark>
 
 <mark><u>**This course teaches how systems talk, not just how to code endpoints.**</u></mark>
 
@@ -78,7 +78,7 @@ By the end of this course, you will be able to:
 🔹 Understand XML vs JSON and <mark>**why JSON dominates APIs**</mark>
 🔹 Understand <mark><u>**RESTful API principles and constraints**</u></mark>
 🔹 Use HTTP methods correctly (GET, POST, PUT, DELETE)
-🔹 Understand request & response objects deeply
+🔹 <mark><u>**Understand request & response objects deeply**</u></mark>
 🔹 <mark><u>**Interpret HTTP status codes professionally**</u></mark>
 🔹 Design simple RESTful APIs
 🔹 Build client and server API communication
@@ -173,5 +173,3 @@ You will be able to:
 This course teaches you how everything fits together.
 
 ---
-
-

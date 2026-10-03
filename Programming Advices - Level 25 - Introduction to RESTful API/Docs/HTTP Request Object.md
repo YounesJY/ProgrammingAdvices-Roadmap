@@ -4,15 +4,15 @@ The **request object** in HTTP <mark>represents the data sent by the client to t
 
 ---
 
-## 1. Request Line
+## 1. Request Line (<mark>MEP</mark>)
 
 <mark><u>**The first line of every HTTP request**</u></mark>. It contains three parts:
 
-| Part             | Meaning                                     |
-| ---------------- | ------------------------------------------- |
-| **Method**       | The action (`GET`, `POST`, `PUT`, `DELETE`) |
-| **URL**          | The resource being fetched or manipulated   |
-| **HTTP Version** | The protocol version (`HTTP/1.1`, `HTTP/2`) |
+| Part             | Meaning                                                      |
+| ---------------- | ------------------------------------------------------------ |
+| **Method**       | <mark>**The action**</mark> (`GET`, `POST`, `PUT`, `DELETE`) |
+| **URL**          | <mark>**The resource**</mark> being fetched or manipulated   |
+| **HTTP Version** | <mark>**The protocol**</mark> version (`HTTP/1.1`, `HTTP/2`) |
 
 **Example:**
 
@@ -24,7 +24,7 @@ GET /index.html HTTP/1.1
 
 ## 2. Request Headers
 
-Headers are **key-value pairs** carrying metadata about the request — how to authenticate, what format to respond in, what the client can handle.
+<mark>Headers are **key-value pairs** <u>carrying metadata</u> about the request</mark> — how to authenticate, what format to respond in, what the client can handle.
 
 ### Common Headers
 
@@ -40,7 +40,7 @@ Headers are **key-value pairs** carrying metadata about the request — how to a
 | `Accept-Encoding` | Encodings the client can handle (`gzip`, `deflate`)    |
 | `Cache-Control`   | <mark>Caching directives</mark>                        |
 
-> `Content-Length` <mark>declares how many bytes to expect</mark>. It's a size/truncation check — <mark>not an integrity check</mark>. Integrity comes from TLS, hashes, or signatures, not from the length header.
+> `Content-Length` <mark>declares how many bytes to expect</mark>. <mark>**<u>It's a size/truncation check</u>**</mark> — <mark>**not an integrity check**</mark>. Integrity comes from TLS, hashes, or signatures, not from the length header.
 
 ### Examples
 
@@ -119,15 +119,15 @@ Content-Length: 48
 
 ### Step 1 — Client Constructs the Request
 
-    When a user interacts with a web app (clicks a link, submits a form), <mark>the client builds an HTTP request</mark> **<u>based on that action and sends it to the server</u>**.
+When a user interacts with a web app (clicks a link, submits a form), <mark>the client builds an HTTP request</mark> **<u>based on that action and sends it to the server</u>**.
 
 ### Step 2 — Server Receives and Processes
 
-    The server <mark>reads the request line, headers, and body (if present)</mark>, **<u>then determines how to respond</u>**. It may query a database, run business logic, or retrieve a file.
+The server <mark>reads the request line, headers, and body (if present)</mark>, **<u>then determines how to respond</u>**. It may query a database, run business logic, or retrieve a file.  
 
 ### Step 3 — Server Sends a Response
 
-    <mark><u>The server constructs an HTTP response and sends it back</u></mark> — status code, headers, and optionally a body with the requested data or an error message.
+<mark><u>The server constructs an HTTP response and sends it back</u></mark> — status code, headers, and optionally a body with the requested data or an error message.
 
 ---
 
@@ -139,6 +139,6 @@ Content-Length: 48
 | **Headers**      | Metadata — auth, format, client info, caching            |
 | **Body**         | The data itself (only for `POST`, `PUT`, `PATCH`)        |
 
-<mark>The HTTP request object is the foundation of client–server communication</mark>. **<u>It gives the client a standardized way to ask for resources and actions</u>**, and gives the server everything it needs to fulfill the request.
+<mark>The HTTP request object is **the foundation of client–server communication**</mark>. **<u>It <mark>gives the client a standardized way</mark> to ask for resources and actions</u>**, and gives the server everything it needs to fulfill the request.
 
 ---

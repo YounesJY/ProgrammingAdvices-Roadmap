@@ -6,15 +6,15 @@ A **RESTful API** (Representational State Transfer Application Programming Inter
 
 ## 1. What is an API?
 
-An API is **code that lets two software programs communicate with one another**. <mark>The API's design defines how a developer writes a client that requests services from a server.</mark>
+An API is **<u>code that lets two software programs communicate with one another</u>**. <mark>The API's design defines how a developer writes a client that requests services from a server.</mark>
 
-<mark><u>**APIs have become the primary mechanism for software interoperability**</u></mark> — they're how modern systems talk to each other.
+<mark><u>**APIs have become the primary mechanism for software interoperability**</u></mark> — they're <mark><u>**how**</u></mark> modern systems talk to each other.
 
 ---
 
 ## 2. What makes it "RESTful"?
 
-A RESTful API is an <mark>**architectural style** for an API</mark> that uses HTTP requests to access and manipulate data.
+A RESTful API is <mark>**an architectural style** for an API</mark> that uses HTTP requests to access and manipulate data.
 
 RESTful APIs are also called:
 
@@ -30,9 +30,9 @@ They're based on **Representational State Transfer**, an architectural style use
 REST is generally preferred over similar technologies because:
 
 - <mark>It uses **less bandwidth**, making it more efficient</mark>
-- It can be implemented in **any common language** — C#, PHP, JavaScript, Python, etc.
+- <mark>It can be implemented in **any common language**</mark> — C#, PHP, JavaScript, Python, etc.
 
-REST is a logical choice for building APIs that let users flexibly connect to, manage, and interact with cloud services in distributed environments.
+REST is a logical choice for building APIs that <mark>**<u>let users flexibly</u>**</mark> connect to, manage, and interact with cloud services in distributed environments.
 
 **Real-world users of RESTful APIs:** Amazon, Google, LinkedIn, Twitter — and virtually every major web service.
 

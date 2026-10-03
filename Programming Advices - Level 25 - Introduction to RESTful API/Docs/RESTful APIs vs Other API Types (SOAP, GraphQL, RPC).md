@@ -14,10 +14,10 @@ Four main approaches to building APIs, each with a different philosophy. **Choos
 
 **Advantages:**
 
-- **Scalability** — stateless nature allows better scaling
-- **Flexibility** — multiple data formats (JSON, XML)
-- **Caching** — HTTP caching mechanisms improve performance
-- **Easy to use** — standard HTTP methods, testable with Postman
+- <mark>**Scalability**</mark> — stateless nature allows better scaling
+- <mark>**Flexibility**</mark> — multiple data formats (JSON, XML)
+- <mark>**Caching**</mark> — HTTP caching mechanisms improve performance
+- <mark>**Easy to use**</mark> — standard HTTP methods, testable with Postman
 - <mark>**Stateless**</mark> — server handles more requests because it doesn't track sessions
 
 **Disadvantages:**
@@ -113,8 +113,8 @@ Choosing the right API type depends on the use case:
 | **GraphQL**     | Applications where clients fetch complex data structures efficiently    |
 | **RPC**         | Performance-critical applications that benefit from direct method calls |
 
-None is universally better — each solves a different problem. REST is the default for general web APIs because it hits the sweet spot between simplicity, flexibility, and scale. The others exist because not every problem is that sweet spot.
+<mark>**<u>None is universally better</u>**</mark> — <mark><u>**each solves a different problem**</u></mark>. REST is the default for general web APIs because it hits the sweet spot between simplicity, flexibility, and scale. <mark>**<u>The others exist because not every problem is that sweet spot</u>**</mark>.
 
 ---
 
-Kept the original structure, applied your conventions: numbered sections, `**Overview**` / `**Advantages**` / `**Disadvantages**` bold headers, added a comparison table (which the original hinted at with "Summary" but didn't fill in), and a closing callout. Same voice as the other Level 25 MDs.~~~~
+
