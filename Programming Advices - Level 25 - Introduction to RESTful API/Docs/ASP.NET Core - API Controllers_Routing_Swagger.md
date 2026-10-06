@@ -221,7 +221,7 @@ public string GetMyName()
 public HttpGetAttribute(string template)
 ```
 
-The `template` is <mark>the **route segment** <u>appended</u> to the controller's route</mark>. So the full route is:
+The `template` is <mark>the **route segment** <u>**appended**</u> to **the controller's route**</mark>. So the full route is:
 
 ```js
 [Route("api/MyFirstAPI")]  →  controller base
@@ -243,7 +243,7 @@ The `Name = "MyName"` part **<u>is optional</u>**. It <mark>**lets you generate 
 string url = Url.Link("MyName", null);   // returns "https://localhost:7007/api/MyFirstAPI/MyName"
 ```
 
-Useful <mark>**<u>when you don't want to hard-code URLs</u>**</mark>.
+> Useful <mark>**<u>when you don't want to hard-code URLs</u>**</mark>.
 
 **Other HTTP method attributes:** `[HttpPost]`, `[HttpPut]`, `[HttpDelete]`, `[HttpPatch]`. Same shape, different verb.
 
@@ -308,7 +308,7 @@ Method runs: `5 + 3 = 8`. Response: `8`.
 /api/MyFirstAPI/sum?num1=5&num2=3
 ```
 
-<mark>Route parameters **are part of the URL path**. Query parameters **come after** `?`.</mark>
+> <mark>Route parameters **are part of the URL path**. Query parameters **come after** `?`.</mark>
 
 **Rules for route parameters:**
 
@@ -316,7 +316,7 @@ Method runs: `5 + 3 = 8`. Response: `8`.
 - The <mark>type is inferred</mark> from the method parameter's C# type (`int`, `string`, `Guid`, etc.). ASP.NET Core parses it automatically.
 - If parsing fails (e.g., `/sum/abc/3`), the route doesn't match and returns `404` — unless you specify a route constraint like `{Num1:int}`.
 
-<mark>**Route constraints** — optional but useful</mark>:
+<mark>**Route constraints** — <u>optional but useful</u></mark>:
 
 ```csharp
 [HttpGet("sum/{Num1:int}/{Num2:int}")]
