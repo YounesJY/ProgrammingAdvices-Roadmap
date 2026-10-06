@@ -1,0 +1,6 @@
+@_14___StudentAPI_Project_HostAddress = http://localhost:5151
+
+GET {{_14___StudentAPI_Project_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
