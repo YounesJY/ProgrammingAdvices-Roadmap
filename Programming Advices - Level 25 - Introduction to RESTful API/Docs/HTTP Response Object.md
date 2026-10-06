@@ -52,12 +52,12 @@ Retry-After: 120
 Allow: GET, POST, PUT, DELETE
 ```
 
-| Header        | Purpose                                                                             |
-| ------------- | ----------------------------------------------------------------------------------- |
-| `ETag`        | Unique identifier for a resource version — <mark><u>**used for caching**</u></mark> |
-| `Location`    | <mark><u>**Redirection target**</u></mark>, or the URL of a newly created resource  |
-| `Retry-After` | **<u>How long the client should wait before retrying</u>**                          |
-| `Allow`       | **<u>HTTP methods supported by the resource</u>**                                   |
+| Header        | Purpose                                                                                                  |
+| ------------- | -------------------------------------------------------------------------------------------------------- |
+| `ETag`        | <u>Unique identifier for a resource version</u> — <mark><u>**used for caching**</u></mark>               |
+| `Location`    | <mark><u>**Redirection target**</u></mark>, or the URL of a newly created resource                       |
+| `Retry-After` | **<u>How long the client should wait before retrying</u>** (<mark>**<u>follow-up request ?</u>**</mark>) |
+| `Allow`       | **<u>HTTP methods supported by the resource</u>**                                                        |
 
 ### A Realistic Header Block
 

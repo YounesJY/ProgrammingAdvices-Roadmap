@@ -49,7 +49,7 @@ REST APIs use common HTTP methods — `GET`, `PUT`, `POST`, `DELETE` — <mark>m
 
 ## Compatible
 
-<mark>Proper **versioning** lets developers **treat APIs like any other evolving software**</mark> — adding features over time <mark><u>**while maintaining backward compatibility and supporting legacy features for existing clients**</u></mark>.
+<mark>Proper **<u>versioning</u>** lets developers **treat APIs like any other evolving software**</mark> — adding features over time <mark><u>**while maintaining backward compatibility and supporting legacy features for existing clients**</u></mark>.
 
 ---
 

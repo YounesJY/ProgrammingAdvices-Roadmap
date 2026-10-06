@@ -65,6 +65,7 @@ Four main approaches to building APIs, each with a different philosophy. **Choos
 
 - <mark>**Complexity**</mark> — requires understanding its syntax and structure
 - <mark>**Caching challenges**</mark> — **<u>harder to cache at the HTTP layer because queries vary</u>**
+  - > **The result:** <mark>you lose most of the free caching HTTP gives you with REST</mark>. To cache GraphQL, you typically need **application-level caching** — a resolver-level cache, a persisted-query cache, or a CDN that understands the GraphQL schema. None of that is HTTP-native. That's the "challenge."
 - <mark>**Over- or under-fetching**</mark> — still possible **<u>if queries aren't carefully constructed</u>**
 
 ---
@@ -116,5 +117,3 @@ Choosing the right API type depends on the use case:
 <mark>**<u>None is universally better</u>**</mark> — <mark><u>**each solves a different problem**</u></mark>. REST is the default for general web APIs because it hits the sweet spot between simplicity, flexibility, and scale. <mark>**<u>The others exist because not every problem is that sweet spot</u>**</mark>.
 
 ---
-
-
