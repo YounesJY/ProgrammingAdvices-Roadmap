@@ -48,11 +48,11 @@ In your project, when you run the app and navigate to `/swagger`, you see a gene
 
 **OpenAPI** is <mark>**<u>the *name of the standard* that describes what an API looks like</u>**</mark> — which endpoints exist, what parameters they take, what they return.
 
-**Swagger** is <mark>**the *tool*** that **reads that description** and shows you the nice interactive page</mark>.
+**Swagger** is <mark>**the *tool*** that **reads that description** and **shows you** the nice interactive page</mark>.
 
 That's the only relationship you need:
 
-> OpenAPI = the format (the spec). Swagger = the tool that reads it and shows the UI.
+> <mark>OpenAPI</mark> = the format (the spec). <mark>Swagger</mark> = the tool that reads it and shows the UI.
 
 You write neither by hand. ASP.NET Core generates the OpenAPI description automatically from your controllers, and Swagger UI displays it. You just open `/swagger` and use it.
 
