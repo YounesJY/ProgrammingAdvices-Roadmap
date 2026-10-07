@@ -11,7 +11,7 @@ namespace StudentApi.Controllers
     */
     [Route("api/Students")]
 
-    public class StudentsController : ControllerBase 
+    public class StudentsController : ControllerBase
     {
         /// <summary>
         /// GET /api/Students — returns the full list of students.
@@ -22,20 +22,43 @@ namespace StudentApi.Controllers
         /// - <c>ActionResult</c> wraps the response so we can return different HTTP
         ///   status codes (200 Ok, 404, 500) depending on the outcome.
         /// </summary>
-        [HttpGet] // Marks this method to respond to HTTP GET requests.
-        public ActionResult<IEnumerable<Student>> GetAllStudents() // Define a method to get all students.
+        [HttpGet("All", Name = "GetAllStudents")]
+        public ActionResult<IEnumerable<Student>> GetAllStudents()
         {
-            return Ok(StudentDataSimulation.StudentsList); // Returns the list of students.
+            return Ok(StudentDataSimulation.StudentsList);
         }
 
-        [HttpGet("GetStudentByID/{ID}")]
-        public ActionResult<Student> GetStudentByID(int ID)
+        [HttpGet("Passed", Name = "GetPassedStudents")]
+        public ActionResult<IEnumerable<Student>> GetPassedStudents()
         {
-            var _Student = StudentDataSimulation.StudentsList.FirstOrDefault(x => x.Id == ID);
-            if (_Student == null)
-                return NotFound();
+            var passedStudents = StudentDataSimulation.StudentsList
+                .Where(student => student.Grade >= 50)
+                .ToList();
 
-            return Ok(_Student);
+            return Ok(passedStudents);
         }
+
+        [HttpGet("AverageGrade", Name = "GetAverageGrade")]
+        public ActionResult<double> GetAverageGrade()
+        {
+            //   StudentDataSimulation.StudentsList.Clear();
+            StudentDataSimulation.StudentsList.Clear();
+            if (StudentDataSimulation.StudentsList.Count == 0)
+                // return NotFound("No students found.");
+                return NoContent();
+
+            var averageGrade = StudentDataSimulation.StudentsList.Average(student => student.Grade);
+            return Ok(averageGrade);
+        }
+
+        //[HttpGet("GetStudentByID/{ID}")]
+        //public ActionResult<Student> GetStudentByID(int ID)
+        //{
+        //    var _Student = StudentDataSimulation.StudentsList.FirstOrDefault(x => x.Id == ID);
+        //    if (_Student == null)
+        //        return NotFound();
+
+        //    return Ok(_Student);
+        //}
     }
 }
