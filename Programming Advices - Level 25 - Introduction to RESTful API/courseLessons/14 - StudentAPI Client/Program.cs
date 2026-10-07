@@ -26,9 +26,7 @@ namespace StudentApiClient
                 if (students != null)
                 {
                     foreach (var student in students)
-                    {
-                        Console.WriteLine($"ID: {student.Id}, Name: {student.Name}, Age: {student.Age}, Age: {student.Grade}");
-                    }
+                        Console.WriteLine($"ID: {student.Id}, Name: {student.Name}, Age: {student.Age}, Grade: {student.Grade}");
                 }
             }
             catch (Exception ex)
@@ -47,7 +45,7 @@ namespace StudentApiClient
                 if (students != null)
                 {
                     foreach (var student in students)
-                        Console.WriteLine($"ID: {student.Id}, Name: {student.Name}, Age: {student.Age}, Age: {student.Grade}");
+                        Console.WriteLine($"ID: {student.Id}, Name: {student.Name}, Age: {student.Age}, Grade: {student.Grade}");
                 }
             }
             catch (Exception ex)
@@ -55,20 +53,99 @@ namespace StudentApiClient
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
-        static async Task<double> GetAverageGrade()
+        static async Task GetAverageGrade()
         {
             try
             {
                 Console.WriteLine("-----------------------------");
                 Console.WriteLine("Fetching average grade .....");
-                return await httpClient.GetFromJsonAsync<Double>("api/Students/AverageGrade");
+                var averageGrade = await httpClient.GetFromJsonAsync<float>("api/Students/AverageGrade");
+                Console.WriteLine($"Average Grade: {averageGrade}");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
+        }
+        static async Task GetStudentById(int id)
+        {
+            try
+            {
+                Console.WriteLine("--------------------------------");
+                Console.WriteLine($"Fetching student with ID {id}..");
 
-            return 0.0;
+                var response = await httpClient.GetAsync($"api/Students/{id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var student = await response.Content.ReadFromJsonAsync<Student>();
+                    if (student != null)
+                        Console.WriteLine($"ID: {student.Id}, Name: {student.Name}, Age: {student.Age}, Grade: {student.Grade}");
+                    else
+                        Console.WriteLine("Empty response body.");
+                }
+                else
+                {
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error {(int)response.StatusCode}: {errorMessage}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+        }
+        static async Task AddStudent(Student newStudent)
+        {
+            try
+            {
+                Console.WriteLine("-----------------------");
+                Console.WriteLine("Adding a new student...");
+
+                var response = await httpClient.PostAsJsonAsync("api/Students", newStudent);
+                if (response.StatusCode == System.Net.HttpStatusCode.Created)
+                {
+                    var location = response.Headers.Location;
+                    var addedStudent = await response.Content.ReadFromJsonAsync<Student>();
+
+                    if (addedStudent != null)
+                    {
+                        Console.WriteLine($"Created at: {location}");
+                        Console.WriteLine($"ID: {addedStudent.Id}, Name: {addedStudent.Name}, Age: {addedStudent.Age}, Grade: {addedStudent.Grade}");
+                    }
+                    else
+                        Console.WriteLine("Created, but response body was empty.");
+                }
+                else
+                {
+                    var error = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error {(int)response.StatusCode}: {error}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+        }
+        static async Task DeleteStudent(int id)
+        {
+            try
+            {
+                Console.WriteLine("\n_____________________________");
+                Console.WriteLine($"\nDeleting student with ID {id}...\n");
+
+                var response = await httpClient.DeleteAsync($"api/Students/{id}");
+                if (response.IsSuccessStatusCode)
+                    Console.WriteLine($"Student with ID {id} has been deleted.");
+                else
+                {
+                    var error = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error {(int)response.StatusCode}: {error}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
         }
 
 
@@ -84,8 +161,25 @@ namespace StudentApiClient
 
             await GetAllStudents();
             await GetPassedStudents();
-            double averageGrade = await GetAverageGrade();
-            Console.WriteLine($"Average Grade: {averageGrade}");
+            await GetAverageGrade();
+            await GetStudentById(0);
+            await GetStudentById(1);
+            await GetStudentById(20);
+
+            var newStudent = new Student
+            {
+                Name = "UnisJY",
+                Age = 72,
+                Grade = 75
+            };
+            await AddStudent(newStudent);
+            await GetAllStudents();
+
+            await DeleteStudent(2);
+            await DeleteStudent(3);
+            await DeleteStudent(4);
+            await DeleteStudent(8);
+            await GetAllStudents();
         }
     }
 }
