@@ -1,209 +1,243 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
+using Contracts;
 using Microsoft.Data.SqlClient;
+
 
 namespace StudentDataAccessLayer
 {
-    public class StudentDTO
-    {
-        public StudentDTO(int id, string name, int age, int grade)
-        {
-            this.Id = id;
-            this.Name = name;
-            this.Age = age;
-            this.Grade = grade;
-        }
-
-
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public int Grade { get; set; }
-    }
-
     public class StudentData
     {
-        static string _connectionString = "Server=localhost;Database=StudentsDB;User Id=sa;Password=sa;Encrypt=False;TrustServerCertificate=True;Connection Timeout=30;";
+        private static readonly string _connectionString = DataAccesLayerSettings.GetConnectionString();
+
+        private static StudentDTO MapToDTO(SqlDataReader reader)
+        {
+            return new StudentDTO(
+                reader.GetInt32(reader.GetOrdinal("Id")),
+                reader.GetString(reader.GetOrdinal("Name")),
+                reader.GetInt32(reader.GetOrdinal("Age")),
+                reader.GetInt32(reader.GetOrdinal("Grade"))
+            );
+        }
 
         public static List<StudentDTO> GetAllStudents()
         {
-            var StudentsList = new List<StudentDTO>();
-           
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            var students = new List<StudentDTO>();
+
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("SP_GetAllStudents", conn))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                using (SqlCommand command = new SqlCommand("SP_GetAllStudents", connection))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    command.CommandType = CommandType.StoredProcedure;
+                    connection.Open();
 
-                    conn.Open();
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            StudentsList.Add(new StudentDTO
-                            (
-                                reader.GetInt32(reader.GetOrdinal("Id")),
-                                reader.GetString(reader.GetOrdinal("Name")),
-                                reader.GetInt32(reader.GetOrdinal("Age")),
-                                reader.GetInt32(reader.GetOrdinal("Grade"))
-                            ));
+                            students.Add(MapToDTO(reader));
                         }
                     }
                 }
-
-      
-                return StudentsList;
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("An error occurred while retrieving students from the database.", ex);
             }
 
+            return students;
         }
 
         public static List<StudentDTO> GetPassedStudents()
         {
-            var StudentsList = new List<StudentDTO>();
+            var students = new List<StudentDTO>();
 
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("SP_GetPassedStudents", conn))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                using (SqlCommand command = new SqlCommand("SP_GetPassedStudents", connection))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    command.CommandType = CommandType.StoredProcedure;
+                    connection.Open();
 
-                    conn.Open();
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            StudentsList.Add(new StudentDTO
-                            (
-                                reader.GetInt32(reader.GetOrdinal("Id")),
-                                reader.GetString(reader.GetOrdinal("Name")),
-                                reader.GetInt32(reader.GetOrdinal("Age")),
-                                reader.GetInt32(reader.GetOrdinal("Grade"))
-                            ));
+                            students.Add(MapToDTO(reader));
                         }
                     }
                 }
-
-
-                return StudentsList;
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("An error occurred while retrieving passed students from the database.", ex);
             }
 
+            return students;
         }
 
         public static double GetAverageGrade()
         {
-            double averageGrade = 0;
-
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("SP_GetAverageGrade", conn))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                using (SqlCommand command = new SqlCommand("SP_GetAverageGrade", connection))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    command.CommandType = CommandType.StoredProcedure;
+                    connection.Open();
 
-                    conn.Open();
+                    object result = command.ExecuteScalar();
 
-                    object result = cmd.ExecuteScalar();
-                    if (result != DBNull.Value)
-                    {
-                        averageGrade = Convert.ToDouble(result);
-                    }
-                    else
-                        averageGrade = 0;
+                    if (result == null || result == DBNull.Value)
+                        return 0;
 
+                    return Convert.ToDouble(result);
                 }
             }
-
-            return averageGrade;
+            catch (SqlException ex)
+            {
+                throw new Exception("An error occurred while calculating the average grade.", ex);
+            }
         }
 
-        public static StudentDTO GetStudentById(int studentId)
+        public static StudentDTO? GetStudentById(int studentId)
         {
-            using (var connection = new SqlConnection(_connectionString))
-            using (var command = new SqlCommand("SP_GetStudentById", connection))
-            {
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@StudentId", studentId);
+            if (studentId < 1)
+                throw new ArgumentException("Student ID must be greater than zero.", nameof(studentId));
 
-                connection.Open();
-                using (var reader = command.ExecuteReader())
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                using (SqlCommand command = new SqlCommand("SP_GetStudentById", connection))
                 {
-                    if (reader.Read())
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@StudentId", studentId);
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        return new StudentDTO
-                        (
-                            reader.GetInt32(reader.GetOrdinal("Id")),
-                            reader.GetString(reader.GetOrdinal("Name")),
-                            reader.GetInt32(reader.GetOrdinal("Age")),
-                            reader.GetInt32(reader.GetOrdinal("Grade"))
-                        );
-                    }
-                    else
-                    {
+                        if (reader.Read())
+                            return MapToDTO(reader);
+
                         return null;
                     }
                 }
             }
-        }
-
-
-        public static int AddStudent(StudentDTO StudentDTO)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            using (var command = new SqlCommand("SP_AddStudent", connection))
+            catch (SqlException ex)
             {
-                command.CommandType = CommandType.StoredProcedure;
-
-                command.Parameters.AddWithValue("@Name", StudentDTO.Name);
-                command.Parameters.AddWithValue("@Age", StudentDTO.Age);
-                command.Parameters.AddWithValue("@Grade", StudentDTO.Grade);
-                var outputIdParam = new SqlParameter("@NewStudentId", SqlDbType.Int)
-                {
-                    Direction = ParameterDirection.Output
-                };
-                command.Parameters.Add(outputIdParam);
-
-                connection.Open();
-                command.ExecuteNonQuery();
-
-                return (int)outputIdParam.Value;
+                throw new Exception($"An error occurred while retrieving student with ID {studentId}.", ex);
             }
         }
 
-        public static bool UpdateStudent(StudentDTO StudentDTO)
+        public static int AddStudent(StudentDTO student)
         {
-            using (var connection = new SqlConnection(_connectionString))
-            using (var command = new SqlCommand("SP_UpdateStudent", connection))
+            if (student == null)
+                throw new ArgumentNullException(nameof(student));
+
+            if (string.IsNullOrWhiteSpace(student.Name))
+                throw new ArgumentException("Student name cannot be empty.", nameof(student));
+
+            if (student.Age < 0)
+                throw new ArgumentException("Student age cannot be negative.", nameof(student));
+
+            if (student.Grade < 0)
+                throw new ArgumentException("Student grade cannot be negative.", nameof(student));
+
+            try
             {
-                command.CommandType = CommandType.StoredProcedure;
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                using (SqlCommand command = new SqlCommand("SP_AddStudent", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
 
-                command.Parameters.AddWithValue("@StudentId", StudentDTO.Id);
-                command.Parameters.AddWithValue("@Name", StudentDTO.Name);
-                command.Parameters.AddWithValue("@Age", StudentDTO.Age);
-                command.Parameters.AddWithValue("@Grade", StudentDTO.Grade);
+                    command.Parameters.AddWithValue("@Name", student.Name);
+                    command.Parameters.AddWithValue("@Age", student.Age);
+                    command.Parameters.AddWithValue("@Grade", student.Grade);
 
-                connection.Open();
-                command.ExecuteNonQuery();
-                return true;    
+                    var outputIdParam = new SqlParameter("@NewStudentId", SqlDbType.Int)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    command.Parameters.Add(outputIdParam);
 
+                    connection.Open();
+                    command.ExecuteNonQuery();
+
+                    if (outputIdParam.Value == null || outputIdParam.Value == DBNull.Value)
+                        throw new Exception("Failed to retrieve the new student ID from the database.");
+
+                    return (int)outputIdParam.Value;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("An error occurred while adding the student to the database.", ex);
+            }
+        }
+
+        public static bool UpdateStudent(StudentDTO student)
+        {
+            if (student == null)
+                throw new ArgumentNullException(nameof(student));
+
+            if (student.Id < 1)
+                throw new ArgumentException("Student ID must be greater than zero.", nameof(student));
+
+            if (string.IsNullOrWhiteSpace(student.Name))
+                throw new ArgumentException("Student name cannot be empty.", nameof(student));
+
+            if (student.Age < 0)
+                throw new ArgumentException("Student age cannot be negative.", nameof(student));
+
+            if (student.Grade < 0)
+                throw new ArgumentException("Student grade cannot be negative.", nameof(student));
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                using (SqlCommand command = new SqlCommand("SP_UpdateStudent", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@StudentId", student.Id);
+                    command.Parameters.AddWithValue("@Name", student.Name);
+                    command.Parameters.AddWithValue("@Age", student.Age);
+                    command.Parameters.AddWithValue("@Grade", student.Grade);
+
+                    connection.Open();
+
+                    int rowsAffected = command.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception($"An error occurred while updating student with ID {student.Id}.", ex);
             }
         }
 
         public static bool DeleteStudent(int studentId)
         {
+            if (studentId < 1)
+                throw new ArgumentException("Student ID must be greater than zero.", nameof(studentId));
 
-            using (var connection = new SqlConnection(_connectionString))
-            using (var command = new SqlCommand("SP_DeleteStudent", connection))
+            try
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@StudentId", studentId);
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                using (SqlCommand command = new SqlCommand("SP_DeleteStudent", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@StudentId", studentId);
+                    connection.Open();
 
-                connection.Open();
-
-                int rowsAffected = (int)command.ExecuteScalar();
-                return (rowsAffected==1);
-
-
+                    int rowsAffected = Convert.ToInt32(command.ExecuteScalar());
+                    return rowsAffected > 0;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception($"An error occurred while deleting student with ID {studentId}.", ex);
             }
         }
     }

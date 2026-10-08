@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentAPIBusinessLayer", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentDataAccessLayer", "StudentDataAccessLayer\StudentDataAccessLayer.csproj", "{3C32041E-63E2-4353-9A8E-C690B6436229}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{A5F57149-20DD-49EF-8654-6946F3A1F034}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3C32041E-63E2-4353-9A8E-C690B6436229}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C32041E-63E2-4353-9A8E-C690B6436229}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C32041E-63E2-4353-9A8E-C690B6436229}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5F57149-20DD-49EF-8654-6946F3A1F034}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5F57149-20DD-49EF-8654-6946F3A1F034}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5F57149-20DD-49EF-8654-6946F3A1F034}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5F57149-20DD-49EF-8654-6946F3A1F034}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
