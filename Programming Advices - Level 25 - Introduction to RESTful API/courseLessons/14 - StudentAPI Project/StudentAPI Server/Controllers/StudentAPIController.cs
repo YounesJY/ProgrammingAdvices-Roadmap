@@ -114,5 +114,35 @@ namespace StudentApi.Controllers
             StudentDataSimulation.StudentsList.Remove(student);
             return NoContent();
         }
+
+
+        [HttpPut("{id}", Name = "UpdateStudent")]
+        [ProducesResponseType(typeof(Student), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public ActionResult<Student> UpdateStudent(int id, Student updatedStudent)
+        {
+            if (id < 1)
+                return BadRequest($"Not accepted ID {id}");
+
+            if (updatedStudent == null)
+                return BadRequest("Request body is empty.");
+
+            if (updatedStudent.Id != id)
+                return BadRequest("Body ID doesn't match route ID.");
+
+            if (string.IsNullOrEmpty(updatedStudent.Name) || updatedStudent.Age < 0 || updatedStudent.Grade < 0)
+                return BadRequest("Invalid student data.");
+
+            var student = StudentDataSimulation.StudentsList.FirstOrDefault(s => s.Id == id);
+            if (student == null)
+                return NotFound($"Student with ID {id} not found.");
+
+            student.Name = updatedStudent.Name;
+            student.Age = updatedStudent.Age;
+            student.Grade = updatedStudent.Grade;
+
+            return Ok(student);
+        }
     }
 }
