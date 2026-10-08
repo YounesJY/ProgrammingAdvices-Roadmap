@@ -4,7 +4,7 @@ The **response object** in HTTP <mark>is what the server sends back to the clien
 
 ---
 
-## 1. Status Line (SRP)
+## 1. Status Line (SRP: Status code, Reason phrase, Protocol)
 
 <mark><u>**The first line of every HTTP response**</u></mark>. Three parts:
 
