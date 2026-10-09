@@ -74,21 +74,19 @@ namespace StudentApi.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public ActionResult<StudentDTO> AddStudent(StudentDTO newStudent)
         {
-            if (newStudent == null
-                || string.IsNullOrEmpty(newStudent.Name)
-                || newStudent.Age < 0
-                || newStudent.Grade < 0)
-            {
-                return BadRequest("Invalid student data.");
-            }
-
+            /*
+                // Factory method would be the cleaner option here:
+                //     Student student = Student.CreateNew(newStudent);
+                //
+                // But for this project we're sticking with the public constructor
+                // approach (private ctor + public ctor delegating to it). The mode is
+                // still decided by the BL — the API can't pick AddNew or Update — so
+                // the design is sound. Swapping to a factory later is a two-line change.
+            */
             Student student = new Student(newStudent);
             student.Save();
 
-            // Reflect the server-assigned ID back on the DTO.
             newStudent.Id = student.ID;
-
-            // 201 Created + Location header pointing at the new resource.
             return CreatedAtRoute("GetStudentById", new { id = newStudent.Id }, newStudent);
         }
 

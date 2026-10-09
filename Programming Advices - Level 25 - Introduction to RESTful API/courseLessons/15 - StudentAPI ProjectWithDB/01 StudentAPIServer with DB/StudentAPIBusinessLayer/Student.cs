@@ -9,17 +9,18 @@ namespace StudentAPIBusinessLayer
     {
         public enum enMode { AddNew = 0, Update = 1 }
 
-        public int ID { get; set; }        public string Name { get; set; }
+        public int ID { get; private set; }
+        public string Name { get; set; }
         public int Age { get; set; }
         public int Grade { get; set; }
-
-        public enMode Mode { get; private set; } = enMode.AddNew;
+        public enMode Mode { get; private set; }
         public StudentDTO ToDTO()
         {
             return new StudentDTO(ID, Name, Age, Grade);
         }
 
-        public Student(StudentDTO dto, enMode mode = enMode.AddNew)
+
+        private Student(StudentDTO dto, enMode mode)
         {
             ID = dto.Id;
             Name = dto.Name;
@@ -28,6 +29,8 @@ namespace StudentAPIBusinessLayer
 
             Mode = mode;
         }
+        public Student(StudentDTO dto) : this(dto, enMode.AddNew) { }
+
 
         public static Student? Find(int id)
         {
