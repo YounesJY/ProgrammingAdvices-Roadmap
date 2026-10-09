@@ -1,6 +1,6 @@
 ﻿using System.Data;
-using Contracts;
 using Microsoft.Data.SqlClient;
+using Contracts;
 
 
 namespace StudentDataAccessLayer
