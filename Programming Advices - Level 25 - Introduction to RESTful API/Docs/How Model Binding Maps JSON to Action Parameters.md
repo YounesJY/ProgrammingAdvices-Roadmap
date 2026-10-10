@@ -94,7 +94,7 @@ When the body arrives, the framework runs the equivalent of:
 var student = JsonSerializer.Deserialize<StudentDTO>(requestBody);
 ```
 
-That produces a `StudentDTO` object with properties populated from the JSON.
+That produces a `StudentDTO` object with properties <mark>populated from the JSON</mark>.
 
 ---
 
@@ -182,19 +182,19 @@ if (newStudent == null
     || newStudent.Grade < 0)
 ```
 
-...<mark>become redundant for the fields the framework validates</mark>. You can remove them, and <mark>**the framework enforces the rules for you**</mark>.
+...<mark>**become redundant** for the fields the framework validates</mark>. You can remove them, and <mark>**the framework enforces the rules for you**</mark>.
 
-**The overlap:** <mark>manual checks and DataAnnotations **do the same thing**</mark>. DataAnnotations is declarative — you write the rules once, and the framework applies them at every endpoint where the DTO is bound. Manual checks are per-method.
+**The overlap:** <mark>manual checks and DataAnnotations **do the same thing**</mark>. DataAnnotations **<u>is declarative</u>** — you write the rules once, and **<u>the framework applies them at every endpoint where the DTO is bound</u>**. Manual checks **<u>are per-method</u>**.
 
-<mark>For production APIs, **<u>DataAnnotations (or FluentValidation) wins</u>** because it doesn't duplicate across endpoints</mark>.
+<mark>For production APIs, **<u>DataAnnotations (or FluentValidation) wins</u>** because it **doesn't duplicate across endpoints**</mark>.
 
 ---
 
 ## The mental model
 
-> <mark>**Model binding is all-or-nothing.**</mark> Either the body deserializes into a valid object (and your method runs), or it fails (and the framework returns `400` before your method). There's no "partially bound, some fields null" middle state for a body-bound complex type — except for the value-type defaults, which DataAnnotations catch.
+> <mark>**Model binding is all-or-nothing.**</mark> Either the body deserializes into a valid object (and your method runs), or it fails (and the framework returns `400` before your method). There's no "partially bound, some fields null" middle state for a body-bound complex type — **<u>except for the value-type defaults</u>**, which DataAnnotations catch.
 
-> That's why `newStudent == null` <mark>is dead code in your case</mark>.
+> That's why `newStudent == null` <mark>**is dead code** in your case</mark>.
 > 
 > <mark>The DTO's DataAnnotations **are the contract**. The framework **<u>enforces it</u>**.</mark>
 
@@ -202,7 +202,7 @@ if (newStudent == null
 
 ## The complete pipeline
 
-```
+```js
 POST /api/Students
 Body: { "id": 0, "name": "JY", "age": 67, "grade": 78 }
                 ↓
@@ -220,7 +220,7 @@ Body: { "id": 0, "name": "JY", "age": 67, "grade": 78 }
     AddStudent(newStudent) runs with populated data
 ```
 
-By the time `AddStudent` executes, `newStudent` is fully populated. Your code just uses it.
+By the time `AddStudent` executes, <mark>`newStudent` is fully populated. **Your code just uses it**</mark>.
 
 ---
 
@@ -234,9 +234,9 @@ curl -X POST http://localhost:5151/api/Students \
      -d '{ "name": "JY", "age": "not-a-number", "grade": 80 }'
 ```
 
-You'll get a `400` with a validation error message. The action method never runs.
+You'll get a `400` with a validation error message. <mark>**The action method never runs**</mark>.
 
-**2. Log the model binding process.**
+**2. <mark>Log the model binding process.</mark>**
 
 In `appsettings.Development.json`:
 
@@ -269,24 +269,24 @@ var student = JsonSerializer.Deserialize<StudentDTO>(body);
 if (student == null) return BadRequest();
 ```
 
-Every endpoint. Every time.
+> <mark>**<u>Every endpoint. Every time.</u>**</mark>
 
 Model binding moves that to the framework:
 
-- **Source selection** — body, route, query, headers, automatically chosen by parameter type.
-- **Deserialization** — JSON to object, handled.
-- **Error handling** — bad JSON → `400`, no code needed.
-- **Validation** — DataAnnotations enforced on every bound object.
+- **Source selection** — body, route, query, headers, <mark>**automatically chosen <u>by parameter type</u>**</mark>.
+- **Deserialization** — JSON to object, <mark>**handled**</mark>.
+- **Error handling** — bad JSON → `400`, <mark>**no code needed**</mark>.
+- **Validation** — <mark>DataAnnotations enforced **on every bound object**</mark>.
 
-Controller methods stay focused on business logic. The framework handles the HTTP plumbing.
+> <mark>**Controller methods <u>stay focused on business logic</u>. The framework <u>handles the HTTP plumbing</u>.**</mark>
 
 ---
 
 ## The mental model
 
-> The action method's **signature is a contract**. You declare what the method needs. Model binding figures out how to get it from the request.
+> <mark>The action method's **signature is a contract**</mark>. You declare what the method needs. <mark>Model binding **figures out** how to get it from the request</mark>.
 
-Same idea as dependency injection, but for HTTP inputs. You describe the shape; the framework provides the value.
+<mark>Same idea as dependency injection</mark>, but for HTTP inputs. You describe the shape; the framework provides the value.
 
 ---
 
