@@ -9,7 +9,7 @@ namespace StudentDataAccessLayer
     {
         private static readonly string _connectionString = DataAccesLayerSettings.GetConnectionString();
 
-        private static StudentResponseDTO MapToDTO(SqlDataReader reader)
+        private static StudentResponseDTO MapToResponseDTO(SqlDataReader reader)
         {
             return new StudentResponseDTO(
                 reader.GetInt32(reader.GetOrdinal("Id")),
@@ -35,7 +35,7 @@ namespace StudentDataAccessLayer
                     {
                         while (reader.Read())
                         {
-                            students.Add(MapToDTO(reader));
+                            students.Add(MapToResponseDTO(reader));
                         }
                     }
                 }
@@ -64,7 +64,7 @@ namespace StudentDataAccessLayer
                     {
                         while (reader.Read())
                         {
-                            students.Add(MapToDTO(reader));
+                            students.Add(MapToResponseDTO(reader));
                         }
                     }
                 }
@@ -118,7 +118,7 @@ namespace StudentDataAccessLayer
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
-                            return MapToDTO(reader);
+                            return MapToResponseDTO(reader);
 
                         return null;
                     }

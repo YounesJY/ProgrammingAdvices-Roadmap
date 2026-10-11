@@ -119,15 +119,16 @@ namespace StudentApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public ActionResult DeleteStudent(int id)
         {
             if (id < 1)
                 return BadRequest($"Not accepted ID {id}");
 
-            if (Student.DeleteStudent(id))
-                return NoContent();
+            if (!Student.Delete(id))
+                return NotFound($"Student with ID {id} not found.");
 
-            return NotFound($"Student with ID {id} not found.");
+            return NoContent();
         }
     }
 }
