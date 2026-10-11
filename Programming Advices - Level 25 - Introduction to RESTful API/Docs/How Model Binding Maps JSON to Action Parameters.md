@@ -286,7 +286,7 @@ Model binding moves that to the framework:
 
 > <mark>The action method's **signature is a contract**</mark>. You declare what the method needs. <mark>Model binding **figures out** how to get it from the request</mark>.
 
-<mark>Same idea as dependency injection</mark>, but for HTTP inputs. You describe the shape; the framework provides the value.
+<mark>Same idea **as dependency injection**</mark>, but for HTTP inputs. You describe the shape; the framework provides the value.
 
 ---
 
@@ -334,6 +334,6 @@ With `[ApiController]` on the class, model binding errors trigger automatic `400
 
 ## One-line summary
 
-> Model binding is the ASP.NET Core mechanism that reads the HTTP request and populates your action method's parameters. For a complex type like `StudentDTO`, the default source is the JSON body, deserialized by `System.Text.Json` with case-insensitive property matching. It runs before your code, returns `400` on deserialization errors, and (with `[ApiController]` + DataAnnotations) enforces validation rules automatically.
+> <mark>Model binding is the ASP.NET Core mechanism that reads the HTTP request and populates your action method's parameters</mark>. For a complex type like `StudentDTO`, the default source is the JSON body, deserialized by `System.Text.Json` with case-insensitive property matching. It runs before your code, returns `400` on deserialization errors, and (with `[ApiController]` + DataAnnotations) enforces validation rules automatically.
 
 ---
