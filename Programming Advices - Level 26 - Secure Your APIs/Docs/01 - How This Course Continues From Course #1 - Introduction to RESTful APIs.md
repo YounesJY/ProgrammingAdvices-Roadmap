@@ -4,15 +4,15 @@
 
 ## 1. Introduction
 
-In the previous course, *Introduction to RESTful API*, you built a fully functional Student RESTful API with real endpoints, database integration, and CRUD operations.
+In the previous course, *Introduction to RESTful API*, <mark>you built a fully functional Student RESTful API with real endpoints, database integration, and CRUD operations</mark>.
 
-In this course, we are **not** building a new API.
+In this course, <mark>we are **not** building a new API</mark>.
 
-Instead, we are upgrading the **same** project to become:
+Instead, <mark>we are upgrading the **same** project to become</mark>:
 
-- 🔐 Secure
-- 🧠 Professional
-- 🏭 Production-ready
+- 🔐 <mark>**Secure**</mark>
+- 🧠 <mark>**Professional**</mark>
+- 🏭 <mark>**Production-ready**</mark>
 
 This lesson establishes where we start, what already exists, and what will be added — without repeating anything from Course #1.
 
@@ -38,7 +38,7 @@ These endpoints are:
 - ✅ They return correct data
 - ✅ They modify the database
 
-**But…**
+<mark><u>**But…**</u></mark>
 
 ---
 
@@ -46,20 +46,20 @@ These endpoints are:
 
 Although the API works, it is currently:
 
-- ❌ Open to anyone
-- ❌ No authentication
-- ❌ No authorization
-- ❌ No ownership rules
-- ❌ No protection against abuse
+- ❌ <mark>Open to anyone</mark>
+- ❌ <mark>No authentication</mark>
+- ❌ <mark>No authorization</mark>
+- ❌ <mark>No ownership rules</mark>
+- ❌ <mark>No protection against abuse</mark>
 
 📌 **Example:** Anyone can call:
 
-```
+```js
 DELETE /api/Students/{id}
 PUT    /api/Students/{id}
 ```
 
-Without logging in.
+<mark>**<u>Without logging in.</u>**</mark>
 
 ---
 
@@ -74,35 +74,35 @@ Without logging in.
 
 **We will:**
 
-- ✅ Secure the same endpoints
-- ✅ Add security step by step
-- ✅ Keep the project always running
+- ✅ <mark>**Secure the same endpoints**</mark>
+- ✅ <mark>**Add security <u>step by step</u>**</mark>
+- ✅ <mark>**Keep the project always running**</mark>
 
 ---
 
 ## 5. Characteristics (How This Course Is Different)
 
-- 🧬 Gradual security — no big jumps
+- 🧬 <mark>**Gradual security — <u>no big jumps</u>**</mark>
 - 🧬 Same project from start to end
-- 🧬 Real attack → real fix
-- 🧬 Beginner-friendly explanations
+- 🧬 <mark>**Real attack → real fix**</mark>
+- 🧬 <mark>**<u>Beginner-friendly explanations</u>**</mark>
 
 ---
 
 ## 6. Interconnection (Course 1 → Course 2)
 
-| Course #1         | Course #2             |
-| ----------------- | --------------------- |
-| REST fundamentals | Security fundamentals |
-| CRUD logic        | Access control        |
-| DTOs              | Claims & policies     |
-| Working API       | Secure API            |
+| Course #1         | Course #2                                     |
+| ----------------- | --------------------------------------------- |
+| REST fundamentals | <mark>**<u>Security fundamentals</u>**</mark> |
+| CRUD logic        | <mark><u>**Access control**</u></mark>        |
+| DTOs              | <mark>**<u>Claims & policies</u>**</mark>     |
+| Working API       | <mark>**<u>Secure API</u>**</mark>            |
 
 ### 🛠️ Summary of Interconnections
 
-- 🔹 Existing endpoints → upgraded, not replaced
-- 🔹 Functionality → secured functionality
-- 🔹 Learning REST → learning real-world backend security
+- 🔹 Existing endpoints → <mark>**upgraded, <u>not replaced</u>**</mark>
+- 🔹 Functionality → <mark>**secured functionality**</mark>
+- 🔹 Learning REST → <mark>**learning <u>real-world backend security</u>**</mark>
 
 ---
 
