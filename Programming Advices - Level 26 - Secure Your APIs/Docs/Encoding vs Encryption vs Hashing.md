@@ -98,5 +98,3 @@ In the next lessons, we will detail each one.
 > **<mark><u>One-line rule</u></mark>:** if you <mark>**can reverse it <u>without a key</u>**</mark>, it's encoding. If you <mark>**can reverse it <u>with a key</u>**</mark>, it's encryption. If you <mark>**<u>can't reverse it at all</u>**</mark>, it's hashing.
 
 ---
-
-

@@ -232,5 +232,3 @@ Now the maturity levels are correct and complete:
 | 4️⃣   | Production    | <mark>**Is it yours? Under abuse? Traceable?**</mark> | Ownership, refresh, rate limiting, logging | Real-world ready                                            |
 
 > **Core idea:** each level <mark>**answers a question the previous level could not**</mark>. Skipping a level <mark>**leaves a hole the level above cannot fill**</mark> — JWT without HTTPS <mark>**leaks tokens**</mark>, roles without ownership <mark>**leak data**</mark>, everything without logging <mark>**leaks invisibly**</mark>.
-
-
