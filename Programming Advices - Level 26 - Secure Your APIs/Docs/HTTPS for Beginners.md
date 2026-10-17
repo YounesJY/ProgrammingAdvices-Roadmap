@@ -1,6 +1,6 @@
 # HTTPS for Beginners
 
-**What It Is, Why It Matters, and How It Works (Development → Production)**
+**<mark>What</mark> It Is, <mark>Why</mark> It Matters, and <mark>How</mark> It Works (Development → Production)**
 
 <img title="" src="https://uploads.teachablecdn.com/attachments/83d1656040354748b4f9fee6ab714dd2.png" alt="" width="561">
 
@@ -8,13 +8,13 @@
 
 ## 1. Introduction
 
-Before authentication, JWT, roles, or permissions, there is one rule that never changes:
+Before authentication, JWT, roles, or permissions, <mark>there is **one rule** that **<u>never changes</u>**</mark>:
 
-🔐 **If data is not protected while traveling, nothing else matters.**
+🔐 **<mark>If data is not protected while traveling, <u>nothing else matters</u>.</mark>**
 
-HTTPS is the foundation of all web security. Without it, even the strongest authentication is useless.
+HTTPS <mark>**is the foundation <u>of all web security</u>**</mark>. Without it, even the strongest authentication <mark>**<u>is useless</u>**</mark>.
 
-<img src="https://uploads.teachablecdn.com/attachments/cf0a243c54564af2a3de50940ed4113e.png" title="" alt="" width="452">
+<img title="" src="https://uploads.teachablecdn.com/attachments/cf0a243c54564af2a3de50940ed4113e.png" alt="" width="483">
 
 🎯 **Outcome**
 
@@ -34,7 +34,7 @@ By the end of this lesson, you will understand:
 
 More precisely:
 
-> HTTPS is HTTP running over **TLS** (Transport Layer Security).
+> HTTPS is HTTP <mark>running over **TLS**</mark> (Transport Layer Security).
 
 This means:
 
@@ -43,7 +43,7 @@ This means:
 - 🔹 Data cannot be modified silently
 - 🔹 The client knows it is talking to the real server
 
-📌 **HTTPS protects data in transit, not data at rest.**
+> 📌 **<mark>HTTPS protects data <u>in transit</u></mark>, not data at rest.**
 
 ---
 
@@ -51,12 +51,12 @@ This means:
 
 Imagine sending data over HTTP:
 
-```
+```python
 Username=Ali
 Password=123456
 ```
 
-❌ Anyone on the network can:
+❌ <mark>**<u>Anyone</u>**</mark> on the network can:
 
 - Read it
 - Modify it
@@ -69,34 +69,34 @@ This includes:
 - Proxies
 - Compromised routers
 
-📌 HTTP sends data as **plain text**.
+> 📌 <mark>**HTTP** sends data as **<u>plain text</u>**</mark>.
 
 ---
 
 ## 4. What HTTPS Actually Protects
 
-HTTPS guarantees three critical things:
+<mark>HTTPS **guarantees <u>three critical things</u>**</mark>:
 
 ### 🔐 1️⃣ Confidentiality
 
 - Data is encrypted
-- Only sender and receiver can read it
+- <mark>**Only**</mark> sender and receiver can read it
 
 ### 🛡️ 2️⃣ Integrity
 
 - Data cannot be changed in transit
-- Any tampering is detected
+- <mark>**Any tampering**</mark> is detected
 
 ### 🪪 3️⃣ Authentication
 
 - Client verifies the server identity
-- Prevents fake servers (MITM attacks)
+- <mark>Prevents **fake servers**</mark> (**<u>MITM attacks</u>**)
 
 ---
 
 ## 5. What Is a TLS/SSL Certificate?
 
-A certificate is a **digital identity** for a server.
+A certificate <mark>is a **digital identity**</mark> for a server.
 
 <img title="" src="https://uploads.teachablecdn.com/attachments/18f0a8f97e0948bba305efb725a99c2e.png" alt="" width="585">
 
@@ -105,7 +105,7 @@ It proves:
 - 🔹 This server owns this domain
 - 🔹 This public key belongs to this server
 
-📌 Certificates enable **trust**.
+> 📌 <mark>Certificates enable **trust**</mark>.
 
 ---
 
@@ -119,13 +119,13 @@ A certificate contains:
 - 🔹 Validity period
 - 🔹 Digital signature
 
-📌 The **private key** never leaves the server.
+> 📌 <mark>The **private key** **<u>never leaves</u>** the server</mark>.
 
 ---
 
 ## 7. Who Issues Certificates? (Certificate Authorities)
 
-Certificates are issued by trusted organizations called **CAs**.
+Certificates are issued <mark>by **<u>trusted organizations</u>** called **CAs**</mark>.
 
 **Examples:**
 
@@ -136,7 +136,7 @@ Certificates are issued by trusted organizations called **CAs**.
 
 Browsers trust these CAs by default.
 
-📌 Trust is pre-installed in browsers and operating systems.
+> 📌 Trust <mark>**is pre-installed**</mark> in browsers and operating systems.
 
 ---
 
@@ -155,7 +155,7 @@ You get certificates from:
 - ✅ Free: Let's Encrypt
 - 💰 Paid: Extended validation, enterprise support
 
-📌 For most APIs, free certificates are enough.
+> 📌 For most APIs, <mark>**free certificates are enough**</mark>.
 
 ---
 
@@ -170,7 +170,7 @@ So:
 
 ❌ Public CAs cannot issue certificates for `localhost`
 
-👉 **Solution:** Development certificates.
+> 👉 <mark>**Solution:** Development certificates</mark>.
 
 ---
 
@@ -178,11 +178,11 @@ So:
 
 Development certificates are:
 
-- 🔹 Self-signed
-- 🔹 Trusted only on your machine
-- 🔹 Used for local testing
+- 🔹 **<u>Self-signed</u>**
+- 🔹 Trusted **<u>only on your machine</u>**
+- 🔹 Used **<u>for local testing</u>**
 
-.NET creates them automatically.
+.NET creates them **<u>automatically</u>**.
 
 **Command:**
 
@@ -192,7 +192,7 @@ dotnet dev-certs https --trust
 
 📌 This tells your OS:
 
-> "Trust my local development server."
+> "<mark>Trust **my local development server**</mark>."
 
 ---
 
@@ -208,8 +208,8 @@ It means:
 - Certificate is expired
 - Certificate is not trusted
 
-📌 In production, this is a **critical error**.
-📌 In development, it's expected until trusted.
+📌 In production, this <mark>is a **critical error**</mark>.
+📌 In development, <mark>**it's expected**</mark> until trusted.
 
 ---
 
@@ -225,18 +225,18 @@ The client (browser or app) checks that the server is really who it claims to be
 
 It verifies:
 
-- 🔹 The certificate is issued by a trusted Certificate Authority (CA)
-- 🔹 The certificate is valid (not expired)
-- 🔹 The domain name matches the server
-- 🔹 The certificate was not altered
+- 🔹 The certificate is issued **<u>by a trusted Certificate Authority</u>** (CA)
+- 🔹 The certificate **<u>is valid</u>** (not expired)
+- 🔹 **<u>The domain name matches the server</u>**
+- 🔹 The certificate **<u>was not altered</u>**
 
 📌 If verification fails: ❌ the connection is blocked or a warning is shown.
 
 4️⃣ Secure encryption keys are negotiated (creates the lock)
 
-The client and server agree on a shared secret key using secure cryptographic methods.
+The client and server <mark>**agree on <u>a shared secret</u>**</mark> key using secure cryptographic methods.
 
-📌 This happens **without sending the secret key over the network**, so attackers can't steal it.
+📌 This happens <mark>**without sending the secret key over the network**</mark>, so attackers can't steal it.
 
 5️⃣ Encrypted communication begins (locks all communication)
 
@@ -246,10 +246,10 @@ From this moment on:
 - All responses
 - All headers and data
 
-are encrypted using the agreed key.
+are encrypted <mark>**using the agreed key**</mark>.
 
-📌 Anyone intercepting the traffic sees only encrypted data, not real content.
-📌 After this, all HTTP traffic is encrypted.
+> 📌 Anyone intercepting the traffic <mark>**sees only encrypted data**</mark>, not real content.
+> 📌 After this, <mark>all HTTP traffic **is encrypted**</mark>.
 
 ---
 
@@ -277,36 +277,36 @@ Very important truth:
 - ❌ Prevent abuse
 - ❌ Stop logic attacks
 
-📌 **HTTPS is the foundation, not the solution.**
+> 📌 **<mark>HTTPS is the foundation, <u>not the solution</u>.</mark>**
 
 ---
 
 ## 15. Interconnection
 
-- 🔗 HTTPS → protects transport
-- 🔗 Authentication → proves identity
-- 🔗 Authorization → controls access
+- 🔗 HTTPS → **<u>protects transport</u>**
+- 🔗 Authentication → **<u>proves identity</u>**
+- 🔗 Authorization → **<u>controls access</u>**
 
 📌 Without HTTPS:
 
-- Tokens can be stolen
-- Sessions can be hijacked
-- Security collapses
+- Tokens <mark>can be stolen</mark>
+- Sessions <mark>can be hijacked</mark>
+- Security **<u>collapses</u>**
 
 ### 🛠️ Summary of Interconnections
 
-- 🔹 HTTPS secures data in transit
-- 🔹 Authentication depends on HTTPS
-- 🔹 Authorization assumes HTTPS
-- 🔹 All security layers build on HTTPS
+- 🔹 HTTPS secures data **<u>in transit</u>**
+- 🔹 Authentication <mark>**depends on HTTPS**</mark>
+- 🔹 Authorization <mark>**assumes HTTPS**</mark>
+- 🔹 <mark>**All** security layers **<u>build on HTTPS</u>**</mark>
 
 ---
 
 ## 16. Conclusion
 
-HTTPS is not optional. It is not advanced. It is not "later".
+> HTTPS <mark>**is not optional**</mark>. It <mark>**is not advanced**</mark>. It <mark><u>**is not "later"**</u></mark>.
 
-🔐 **HTTPS is the starting point of security.**
+> 🔐 **HTTPS <mark><u>is the starting point</u></mark> of security.**
 
 - ✅ Encrypts traffic
 - ✅ Builds trust
@@ -314,7 +314,7 @@ HTTPS is not optional. It is not advanced. It is not "later".
 
 📌 From now on:
 
-> **If an API is not HTTPS — it is not secure.**
+> **If an API is not HTTPS — <mark><u>it is not secure</u></mark>.**
 
 ---
 
@@ -332,4 +332,6 @@ HTTPS is not optional. It is not advanced. It is not "later".
 | Production       | CA-issued cert (Let's Encrypt is usually enough)      |
 | Rule             | No HTTPS → no secure API, regardless of anything else |
 
-**Core principle:** HTTPS is the floor, not the ceiling. Every other security layer — JWT, roles, policies, refresh tokens, rate limiting — assumes the channel is already encrypted and authenticated. Skip HTTPS and none of the layers above it hold.
+**Core principle:** HTTPS <mark>**is the floor**</mark>, not the ceiling. Every other security layer — JWT, roles, policies, refresh tokens, rate limiting — <mark>**assumes** the channel is **<u>already encrypted and authenticated</u>**</mark>. Skip HTTPS and none of the layers above it hold.
+
+---
