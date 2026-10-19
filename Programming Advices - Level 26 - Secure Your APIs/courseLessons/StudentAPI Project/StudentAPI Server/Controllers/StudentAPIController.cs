@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using StudentApi.Models;
 using StudentApi.DataSimulation;
+using StudentApi.Models;
 
 
 namespace StudentApi.Controllers
