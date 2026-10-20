@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentApi.DataSimulation;
 using StudentApi.Models;
@@ -5,9 +6,9 @@ using StudentApi.Models;
 
 namespace StudentApi.Controllers
 {
+    [Authorize]
     [ApiController]
-    /* 
-        [Route("[controller]")] // Sets the route for this controller to "students", based on the controller name.
+    /* [Route("[controller]")] // Sets the route for this controller to "students", based on the controller name.
     */
     [Route("api/Students")]
 

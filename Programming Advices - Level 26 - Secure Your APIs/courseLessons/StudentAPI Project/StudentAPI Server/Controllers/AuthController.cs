@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using StudentApi.Models.StudentApi.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace StudentApi.Controllers
@@ -12,7 +13,7 @@ namespace StudentApi.Controllers
     // This controller is responsible for authentication-related actions,
     // such as logging in and issuing JWT tokens.
     [ApiController]
-    [Route("api/AuthController")]
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
         // This endpoint handles user login.
