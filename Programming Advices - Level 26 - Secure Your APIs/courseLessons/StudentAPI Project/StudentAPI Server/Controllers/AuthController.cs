@@ -73,7 +73,7 @@ namespace StudentApi.Controllers
                 issuer: "StudentApi",
                 audience: "StudentApiUsers",
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(30),
+                expires: DateTime.UtcNow.AddMinutes(1),
                 signingCredentials: creds
             );
 
@@ -85,5 +85,4 @@ namespace StudentApi.Controllers
             });
         }
     }
-
 }
