@@ -73,7 +73,7 @@ namespace StudentApi.Controllers
                 issuer: "StudentApi",
                 audience: "StudentApiUsers",
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(1),
+                expires: DateTime.UtcNow.AddMinutes(30),
                 signingCredentials: creds
             );
 
