@@ -11,7 +11,7 @@ So far, your API has reached an important milestone:
 
 But there is still a critical real-world security problem that roles alone cannot solve.
 
-Right now, a logged-in student can do this:
+Right now, a logged-in student can do this:     
 
 ```js
 GET /api/Students/1
@@ -261,5 +261,3 @@ This is where professional-grade API security starts.
 **Core principle:** roles are about **<mark>what kind of user you are</mark>**. Ownership is about **<mark>which record belongs to you</mark>**. Without ownership, any authenticated Student can read any other Student's data by changing one number in the URL — and the API will happily return `200 OK`. Ownership <mark>is the layer that **<u>closes that hole</u>**</mark>.
 
 ---
-
-

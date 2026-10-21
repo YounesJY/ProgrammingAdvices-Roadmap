@@ -153,8 +153,8 @@ When a request reaches it, it executes your C# code and generates a response. Th
 - **Checkpoint 3 (Auth):** The guard checks your passport (JWT). 
 - **Checkpoint 4 (Controller):** You reach the plane (your C# code). 
 
-**The Pipeline** is the physical hallway connecting all these checkpoints in order. 
+**The Pipeline** is the physical hallway connecting all these checkpoints <mark>**in order**</mark>. 
 
-**Why does order matter?** Because you don't want to check a passport (Authentication) before you even check if the person is allowed in the building (HTTPS/CORS). <mark>**The order defines the logic**</mark>.
+**<mark><u>Why does order matter?</u></mark>** Because you don't want to check a passport (Authentication) before you even check if the person is allowed in the building (HTTPS/CORS). <mark>**The order defines the logic**</mark>.
 
 ---
