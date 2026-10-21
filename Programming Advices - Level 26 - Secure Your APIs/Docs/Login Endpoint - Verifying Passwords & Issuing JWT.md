@@ -209,7 +209,7 @@ namespace StudentApi.Controllers
 - `System.IdentityModel.Tokens.Jwt`
 - `Microsoft.IdentityModel.Tokens`
 
-📌 Make sure both are installed successfully.
+> 📌 Make sure <mark>both are installed</mark> successfully.
 
 ---
 
@@ -221,8 +221,8 @@ namespace StudentApi.Controllers
 4️⃣ API builds identity claims
 5️⃣ API issues a signed JWT
 
-📌 No session is stored.
-📌 Identity travels inside the token.
+> 📌 No session is stored.
+> 📌 Identity <mark>**travels inside the token**</mark>.
 
 ---
 
@@ -255,7 +255,7 @@ namespace StudentApi.Controllers
 - ❌ Does not protect endpoints yet
 - ❌ Does not check ownership
 
-📌 Those responsibilities come in later lessons.
+> 📌 Those responsibilities <mark>**come in later**</mark> lessons.
 
 ---
 
@@ -312,8 +312,10 @@ This is where your API starts rejecting anonymous requests 🚀.
 | 6    | Create `JwtSecurityToken`   | Package claims + metadata + signature |
 | 7    | Return token to client      | Client carries it on every request    |
 
-**Note for your code:** the secret key `"THIS_IS_A_VERY_SECRET_KEY_123456"` is hardcoded for learning. In production, it must come from environment variables or a secrets manager (which the course covers in Module 7.5). Do not commit it to a public repo.
+**Note for your code:** the secret key `"THIS_IS_A_VERY_SECRET_KEY_123456"` <mark>**is hardcoded for learning**</mark>. In production, it must come from <mark>**environment variables or a secrets manager**</mark> (which the course covers in Module 7.5). Do not commit it to a public repo.
 
-**Architecture rule:** `AuthController` handles identity. `StudentsController` handles data. Never mix them. This is what makes the API maintainable when you add refresh tokens, logout, and role management later.
+**Architecture rule:** `AuthController` handles identity. `StudentsController` handles data. <mark>**Never mix them**</mark>. This is what makes the API maintainable <mark>**when**</mark> you add <mark>**refresh tokens, logout, and role management**</mark> later.
 
 ---
+
+

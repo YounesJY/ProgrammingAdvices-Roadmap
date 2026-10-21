@@ -312,6 +312,8 @@ You will learn how to test your secured APIs using a real client in C# :-)
 | `401 Unauthorized` after entering token | Missing `Bearer ` prefix, or expired token |
 | Button missing after config             | API not restarted                          |
 
-**Core principle:** Swagger <mark>**is not**</mark> part of your API's security — it is a **testing convenience**. The API is secured by the middleware and `[Authorize]` attributes. Swagger just learns how to *send* the token so you can verify the security you already built.
+**Core principle:** Swagger <mark>**is not**</mark> part of your API's security — <mark>it is a **testing convenience**</mark>. The API is secured by the middleware and `[Authorize]` attributes. Swagger just learns how to *send* the token so you can verify the security you already built.
 
 ---
+
+
