@@ -188,5 +188,3 @@ When a user must be revoked:
 **Core principle:** statelessness means *"<mark>the server remembers **nothing**</mark>."* Revocation means *"the server **<mark>must remember something</mark>**."* You <mark>**<u>cannot have both</u>**</mark>. Every revocation mechanism is a decision to reintroduce the state that JWT <mark>**<u>was designed to remove</u>**</mark>.
 
 ---
-
-
