@@ -1,4 +1,6 @@
+using _14___StudentAPI_Project.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -69,8 +71,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // ===============================
 // Register authorization services.
 // This enables attributes like [Authorize] and role-based authorization.
-builder.Services.AddAuthorization();
-
+builder.Services.AddSingleton<IAuthorizationHandler, StudentOwnerOrAdminHandler>();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("StudentOwnerOrAdmin", policy =>
+policy.Requirements.Add(new StudentOwnerOrAdminRequirement()));
+});
 
 // ===============================
 // Swagger Configuration

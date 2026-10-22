@@ -4,7 +4,6 @@ using StudentApi.DataSimulation;
 using StudentApi.Models;
 using System.Security.Claims;
 
-
 namespace StudentApi.Controllers
 {
     [Authorize]
@@ -78,21 +77,13 @@ namespace StudentApi.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult<Student> GetStudentById(int id)
+        public async Task<ActionResult<Student>> GetStudentByIdAsync(int id, [FromServices] IAuthorizationService authorizationService)
         {
             if (id < 1)
                 return BadRequest($"Not accepted ID {id}");
 
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userRole = User.FindFirstValue(ClaimTypes.Role);
-
-            if (userId == null || userRole == null)
-                return Unauthorized();
-
-            int authenticatedStudentId = int.Parse(userId);
-            bool isAdmin = userRole.Equals("Admin");
-
-            if (!isAdmin && authenticatedStudentId != id)
+            var authResult = await authorizationService.AuthorizeAsync(User, id, "StudentOwnerOrAdmin");
+            if (!authResult.Succeeded)
                 return Forbid();
 
             var student = StudentDataSimulation.StudentsList.FirstOrDefault(student => student.Id == id);
