@@ -12,7 +12,7 @@ This means any request that enters the API:
 
 - Passes through <mark>**<u>a set</u>**</mark> of Middleware <mark>**<u>in order</u>**</mark>
 - Then reaches the Controller
-- Then <mark>**<u>returns through</u>**</mark> the exact same path in reverse
+- Then <mark>**<u>returns through</u>**</mark> the exact <mark>**same path <u>in reverse</u>**</mark>
 
 ---
 
@@ -33,7 +33,7 @@ The Controller <mark>is **part of the path**</mark>, but Middleware <mark>is **t
 
 ## 3. What does Middleware do?
 
-Middleware <mark>is responsible for common, **<u>shared concerns</u>**</mark> such as:
+Middleware <mark>is responsible for **<u>common</u>**, **<u>shared concerns</u>**</mark> such as:
 
 - 🔹 Verifying JWT
 - 🔹 Ensuring the user is authenticated (Authentication)
@@ -86,8 +86,6 @@ It means:
 | **When checks happen** | Before the Controller is reached                                                |
 | **If a check fails**   | Request is rejected; Controller is never executed                               |
 
-**Core principle:** the Controller <mark>**<u>only</u>**</mark> runs business logic. <mark>**Everything**</mark> that needs to happen <mark>***before* or *after***</mark> every request — authentication, authorization, logging, CORS — <mark>**<u>lives in Middleware</u>**</mark>, which wraps the Controller <mark>on **both sides** of **<u>the pipeline</u>**</mark>.
+**Core principle:** the Controller <mark>**<u>only</u>**</mark> runs business logic. <mark>**Everything**</mark> that needs to happen <mark>***<u>before</u>* or *<u>after</u>***</mark> every request — authentication, authorization, logging, CORS — <mark>**<u>lives in Middleware</u>**</mark>, which wraps the Controller <mark>on **both sides** of **<u>the pipeline</u>**</mark>.
 
 ---
-
-

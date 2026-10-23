@@ -148,7 +148,7 @@ IAuthorizationService  ─────►  Finds policy → finds requirement �
 
 ### 5.1 The Short Answer
 
-The "resource" is **the specific data the user is trying to access or modify**.
+The "resource" is **<mark><u>the specific data</u> the user is trying to access or modify</mark>**.
 
 ### 5.2 In the Course
 
@@ -162,7 +162,7 @@ The resource is the **`id`** from the route (`/api/students/5`). It is the **ide
 
 ### 5.3 Why It Is Not the Data Itself
 
-The authorization system does not need the full `Student` object. It only needs **enough information to make a decision**.
+The authorization system does not need the full `Student` object. It only needs **<mark>enough information to make a decision</mark>**.
 
 - The handler needs to know **which student** is being requested → it needs the `id`.
 - The handler does **not** need the student's name, grade, or age.
@@ -191,7 +191,7 @@ The authorization system does not need the full `Student` object. It only needs 
 
 You asked: *"Do we have more systems built in?"*
 
-**Yes. Five layers of authorization are built into ASP.NET Core.**
+**Yes. <mark><u>Five layers</u></mark> of authorization are built into ASP.NET Core.**
 
 ### 6.1 Role-Based (Coarse-Grained)
 
@@ -199,9 +199,9 @@ You asked: *"Do we have more systems built in?"*
 [Authorize(Roles = "Admin")]
 ```
 
-- Checks the `role` claim in the JWT.
-- Runs in the middleware (before the controller).
-- **Use for:** broad access decisions ("only admins").
+- Checks <mark>**the `role` claim**</mark> in the JWT.
+- <mark>Runs **in the middleware**</mark> (before the controller).
+- **Use for:** <mark>**broad access** decisions</mark> ("only admins").
 
 ### 6.2 Policy-Based (Fine-Grained)
 
@@ -209,9 +209,9 @@ You asked: *"Do we have more systems built in?"*
 [Authorize(Policy = "MinimumAge18")]
 ```
 
-- Checks a named policy.
-- Runs in the middleware (before the controller).
-- **Use for:** rules that require logic ("must be 18+").
+- Checks <mark>**a named policy**</mark>.
+- <mark>**Runs in the middleware**</mark> (before the controller).
+- **Use for:** rules that <mark>**require logic**</mark> ("must be 18+").
 
 ### 6.3 Resource-Based (Contextual)
 
@@ -219,9 +219,9 @@ You asked: *"Do we have more systems built in?"*
 await authorizationService.AuthorizeAsync(User, id, "OwnerOrAdmin");
 ```
 
-- Checks the policy against a **specific resource**.
-- Runs **inside** the controller.
-- **Use for:** ownership checks ("is this your record?").
+- Checks <mark>the policy against a **<u>specific resource</u>**</mark>.
+- Runs <mark>**<u>inside</u>** the controller</mark>.
+- **Use for:** <mark>**ownership checks**</mark> ("is this your record?").
 
 ### 6.4 Claims-Based
 
@@ -230,8 +230,8 @@ context.User.HasClaim("Department", "IT")
 ```
 
 - Checks any claim in the JWT.
-- Used **inside** a policy handler.
-- **Use for:** attribute-level decisions ("only IT department").
+- Used <mark>**inside** a policy handler</mark>.
+- **Use for:** <mark>**attribute-level** decisions</mark> ("only IT department").
 
 ### 6.5 Custom Middleware
 
@@ -241,8 +241,8 @@ app.Use(async (context, next) => {
 });
 ```
 
-- Full control over the pipeline.
-- Runs **before** authentication and authorization.
+- <mark>**<u>Full control</u>**</mark> over the pipeline.
+- Runs <mark>**<u>before</u>** authentication and authorization</mark>.
 - **Use for:** non-standard rules (IP allowlists, custom headers).
 
 ### 6.6 Summary Table
@@ -263,19 +263,19 @@ app.Use(async (context, next) => {
 
 ```text
 ┌─────────────────────────────────────────────────────────────┐
-│                     ASP.NET Core Request                     │
+│                     ASP.NET Core Request                    │
 └─────────────────────────────────────────────────────────────┘
                             │
                             ▼
-┌─────────────────────────────────────────────────────────────┐
+┌──────────────────────────────────────────────────────────────┐
 │  Middleware Pipeline (HTTPS, CORS, Auth, Authorization)      │
 │                                                              │
 │  [Authorize(Roles = "Admin")]         ← Role-based           │
 │  [Authorize(Policy = "MinimumAge18")] ← Policy-based (static)│
-└─────────────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────────────┘
                             │
                             ▼
-┌─────────────────────────────────────────────────────────────┐
+┌──────────────────────────────────────────────────────────────┐
 │                    Controller Action                         │
 │                                                              │
 │  [FromServices] IAuthorizationService _auth;                 │
@@ -286,7 +286,7 @@ app.Use(async (context, next) => {
 │       │                                                      │
 │       ▼                                                      │
 │  ┌──────────────────────────────────────────────┐            │
-│  │  IAuthorizationService (built-in manager)     │            │
+│  │  IAuthorizationService (built-in manager)    │            │
 │  │                                              │            │
 │  │  Finds policy → finds requirement →          │            │
 │  │  finds your registered handler → runs it     │            │
@@ -300,7 +300,7 @@ app.Use(async (context, next) => {
 │       │                                                      │
 │       ▼                                                      │
 │  Result: Succeeded / Failed → controller decides             │
-└─────────────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -318,69 +318,9 @@ app.Use(async (context, next) => {
 | How many authorization layers does ASP.NET Core have?                 | **Five:** Role-based, Policy-based, Resource-based, Claims-based, Custom Middleware     |
 | Do they replace each other?                                           | ❌ No — they are layers used together                                                    |
 
-**Core principle:** the authorization system is a **chain**: `[FromServices]` injects the manager → the manager finds the policy → the policy finds the requirement → the requirement finds your handler → your handler runs. The "resource" is the identifier that flows through this chain, giving the handler the context it needs to make a decision.If this class is a `Singleton`, it is created **once** when the app starts. It sits in memory forever. If you stored the current user inside it, the very first user who logs in would be stuck there forever. Every subsequent request would be checked against *that* first user. 
+**Core principle:** the authorization system is a **chain**: `[FromServices]` <mark>**injects**</mark> the manager → the manager <mark>**finds**</mark> the policy → the policy <mark>**finds**</mark> the requirement → the requirement <mark>**finds**</mark> your handler → your handler <mark>**runs**</mark>. The "resource" is the identifier that <mark>**flows through this chain**</mark>, giving the handler <mark>**the context**</mark> it needs to <mark>**make a decision**</mark>.If this class is a `Singleton`, it is created **once** when the app starts. It sits in memory forever. If you stored the current user inside it, the very first user who logs in would be stuck there forever. Every subsequent request would be checked against *that* first user. 
 
 **Why is `Singleton` safe for the course's handler?**
 Because the handler has **no fields**. It is "stateless." The user is passed into the `HandleRequirementAsync(context, ...)` method as a parameter *every single time*. So, it doesn't matter if it's a Singleton; it just reads the parameter and forgets it. 
 
 ---
-
-### 2. What is `[FromServices] IAuthorizationService`?
-
-Yes! This is **Dependency Injection (DI)** in action, but on a **method parameter** instead of the constructor.
-
-Normally, you inject services into the Controller's constructor:
-
-```csharp
-public class StudentsController : ControllerBase
-{
-    private readonly IAuthorizationService _auth;
-    public StudentsController(IAuthorizationService auth) { _auth = auth; }
-}
-```
-
-But `[FromServices]` tells ASP.NET Core: *"Don't look for this in the URL or the JSON body. Look in the DI Container (`builder.Services`) and give me the instance."*
-
-**Is it related to `AddSingleton<IAuthorizationHandler>`?**
-They are related, but they do **different** things:
-
-- `AddSingleton<IAuthorizationHandler>` registers **your custom logic** (the handler). <mark>**You never call this directly**</mark>.
-- `IAuthorizationService` is the **built-in manager** provided by ASP.NET Core. You call it (`AuthorizeAsync`), and *it* looks up your registered handler behind the scenes.
-
-**Mind Map:**
-
-1. You register your Handler in `Program.cs`.
-2. You ask the DI container for `IAuthorizationService` using `[FromServices]`.
-3. You call `AuthorizeAsync(..., "PolicyName")`.
-4. `IAuthorizationService` <mark>**looks up the policy**</mark>, finds <mark>the handler **you registered**</mark>, runs it, and gives you the result.
-
----
-
-### 3. Dump Q: What is the "Resource" in Resource-based authorization?
-
-The "resource" is **the specific data or object the user is trying to access or modify**. 
-
-In your lesson, the resource is the **`id` passed as a parameter** (e.g., `int id = 5`). 
-
-But conceptually, it can be anything:
-
-- A specific DB row (Student with ID 5).
-- A specific file (Document_123.pdf).
-- A specific comment in a blog post.
-
-**Why the path parameter?**
-Because the path parameter (`/api/students/5`) is the **identifier** that points to the actual resource. The authorization system needs that ID to ask: *"Does this user own the data behind this ID?"*
-
-If the course were checking a blog comment, you would pass the `commentId` to the authorization service. It is not the *data itself*, it is the *identity of the data*.
-
----
-
-### 4. Do we have more built-in authorization systems in ASP.NET?
-
-Yes, ASP.NET Core has several layers of authorization built-in. You've already learned the first two, and you're touching the third:
-
-1. **Role-Based (Coarse-grained):** `[Authorize(Roles = "Admin")]`. Checked in the middleware. Great for broad access.
-2. **Policy-Based (Fine-grained):** `[Authorize(Policy = "MinimumAge18")]`. Checked in the middleware or manually. Great for rules that require logic.
-3. **Resource-Based (Contextual):** `AuthorizeAsync(User, resource, "Policy")`. Checked manually inside the controller (what you are doing now). Great for ownership and specific data access.
-4. **Claims-Based:** Checking the contents of the JWT manually inside a policy handler (e.g., `context.User.HasClaim("Department", "IT")`).
-5. **Custom Middleware:** Writing your own `app.Use(...)` to check headers or IP addresses for extremely custom rules.
