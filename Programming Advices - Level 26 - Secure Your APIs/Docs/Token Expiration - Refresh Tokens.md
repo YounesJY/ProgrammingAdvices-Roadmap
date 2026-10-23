@@ -10,55 +10,57 @@ So far in this course, your Student API does something very important:
 - It enforces identity and permissions
 - It protects endpoints correctly
 
-At this stage, many developers think:
+At this stage, many developers <mark>**think**</mark>:
 
 > "Authentication is done."
 
-But in real systems, **authentication is not a one-time event. It is a lifecycle.**
+But in real systems, **<mark>authentication <u>is not</u> a one-time event. It is <u>a lifecycle</u>.</mark>**
 
-This lesson explains why tokens must expire, what problem refresh tokens solve, and how logout works in stateless APIs — **before writing any code**.
+<img src="https://uploads.teachablecdn.com/attachments/5119f10c60bc4409bd971a2ab10b52aa.png" title="" alt="" width="310">
+
+This lesson explains <mark>**why** tokens **<u>must expire</u>**</mark>, <mark>**what** problem refresh tokens **<u>solve</u>**</mark>, and <mark>**how** logout **works in <u>stateless APIs</u>**</mark> — **before writing any code**.
 
 ---
 
 ## 2. 🔍 Why This Lesson Exists
 
-JWT authentication works — but without expiration and refresh strategy, it becomes dangerous.
+JWT authentication works — but without expiration and refresh strategy, <mark>it **<u>becomes dangerous</u>**</mark>.
 
 **The core problems:**
 
-- JWTs are **self-contained**
-- Once issued, they are valid **until they expire**
-- The server does **not track sessions**
+- JWTs are **<mark>self-contained</mark>**
+- Once issued, they are valid **<mark>until they expire</mark>**
+- The server does **<mark>not track sessions</mark>**
 
-This leads to two risks:
+This leads to <mark>**<u>two risks</u>**</mark>:
 
-- 🔹 Long-lived tokens are dangerous
-- 🔹 Short-lived tokens hurt usability
+- 🔹 Long-lived tokens **are <u>dangerous</u>**
+- 🔹 Short-lived tokens **hurt <u>usability</u>**
 
-This lesson exists to solve that tension.
+> This lesson <mark>**exists to solve that tension**</mark>.
 
 ---
 
 ## 3. ❓ Why JWTs Must Expire
 
-Every JWT has an expiration time (`exp` claim).
+<mark>**Every**</mark> JWT has an expiration time (`exp` claim).
 
-**This is not optional.**
+**This <mark><u>is not</u> optional</mark>.**
 
 **Why expiration is mandatory:**
 
-- Tokens can be stolen (browser, logs, memory, proxy)
-- Tokens can be leaked accidentally
-- Tokens cannot be "revoked" easily in stateless systems
+- Tokens **<mark>can be stolen</mark>** (browser, logs, memory, proxy)
+- Tokens **<mark>can be leaked</mark>** accidentally
+- Tokens <mark>**<u>cannot</u> be "revoked"**</mark> easily in stateless systems
 
-**If a token never expires:**
+If a token <mark>**<u>never expires</u>**</mark>:
 
-- Anyone holding it has permanent access
-- Logout becomes meaningless
-- Stolen tokens can be reused forever
+- Anyone holding it <mark>has **<u>permanent access</u>**</mark>
+- Logout <mark>becomes **<u>meaningless</u>**</mark>
+- Stolen tokens <mark>can be **<u>reused forever</u>**</mark>
 
-📌 **Expiration limits damage.**
-It does not prevent theft — it limits how long theft is useful.
+> 📌 **Expiration <mark>limits damage</mark>.**
+> It <mark>**does not**</mark> prevent theft — it <mark>limits **how long**</mark> theft is useful.
 
 ---
 
@@ -76,15 +78,15 @@ Imagine issuing a JWT that lasts:
 - A token is copied from browser storage?
 - A token appears in logs or error messages?
 
-The attacker does **not** need:
+The attacker <mark>does **not** need</mark>:
 
 - Password
 - Login access
 - Brute-force
 
-They already have access.
+They <mark>**<u>already have access</u>**</mark>.
 
-📌 **Long-lived tokens turn one mistake into long-term compromise.**
+> 📌 **Long-lived tokens <mark>turn one mistake into <u>long-term</u> compromise</mark>.**
 
 ---
 
@@ -94,15 +96,15 @@ Now imagine the opposite:
 
 - Token expires every 5 minutes
 
-**Security is improved — but:**
+Security is improved — <mark>**<u>but</u>**</mark>:
 
-- Users are logged out frequently
+- Users are logged out **<u>frequently</u>**
 - Applications break when tokens expire
-- Clients must re-login constantly
+- Clients **<u>must re-login</u>** constantly
 
 This creates a **usability problem**.
 
-📌 **This is the core tradeoff: Security vs usability.**
+> 📌 **<mark>This is <u>the core tradeoff</u></mark>: Security vs usability.**
 
 ---
 
@@ -110,11 +112,13 @@ This creates a **usability problem**.
 
 Refresh tokens exist to solve this exact problem.
 
-**The idea is simple:**
+<img title="" src="https://uploads.teachablecdn.com/attachments/1563a2a7f44f4b56859a9814a085eb30.png" alt="" width="368">
+
+**<mark>The idea <u>is simple</u></mark>:**
 
 - Use **short-lived access tokens**
 - Use **longer-lived refresh tokens**
-- **Never** use refresh tokens to access APIs directly
+- **<mark><u>Never</u></mark>** use refresh tokens to access APIs directly
 
 ### 6.1 Roles of Each Token
 
@@ -122,17 +126,17 @@ Refresh tokens exist to solve this exact problem.
 
 - Short lifespan
 - Sent with every API request
-- If stolen → limited damage
+- <mark>**If stolen**</mark> → limited damage
 
 **Refresh token:**
 
 - Long lifespan
 - Used only to request a new access token
 - Stored more securely
-- Rotated and controlled
+- <mark>**Rotated and controlled**</mark>
 
-📌 **Access token = permission to act.**
-📌 **Refresh token = ability to renew permission.**
+> 📌 **Access token = <mark><u>permission</u> to act</mark>.**
+> 📌 **Refresh token = <mark><u>ability</u> to renew permission</mark>.**
 
 **Think of it like this:**
 
@@ -150,7 +154,7 @@ Accessing an API directly means calling business endpoints like:
 - 🔹 `PUT /profile`
 - 🔹 `DELETE /courses/5`
 
-These endpoints do real work and return real data.
+These endpoints <mark>**do real work**</mark> and return real data.
 
 **Normally, you access them like this:**
 
@@ -160,7 +164,7 @@ Authorization: Bearer <ACCESS_TOKEN>
 
 ### 7.1 ❌ What You Must NEVER Do
 
-You must never send a refresh token like this:
+You <mark>**<u>must never</u>**</mark> send a refresh token like this:
 
 ```http
 Authorization: Bearer <REFRESH_TOKEN>   ❌
@@ -173,17 +177,17 @@ To:
 - 🔹 `/payments`
 - 🔹 `/anything-business-related`
 
-That's what "use refresh token to access APIs directly" means — and it is **wrong by design**.
+That's what "use refresh token to access APIs directly" means — and <mark>it is **wrong by design**</mark>.
 
 ### 7.2 ✅ What Refresh Tokens Are Allowed to Do
 
-A refresh token has **ONE job only**:
+A refresh token <mark>has **<u>ONE</u> job <u>only</u>**</mark>:
 
-> 🔁 Request a new access token
+> 🔁 <mark>**Request**</mark> a new access token
 
 **Example:**
 
-```http
+```js
 POST /auth/refresh
 
 Body:
@@ -200,16 +204,16 @@ That's it.
 
 ### 7.3 Why This Rule Exists (The Core Reason)
 
-🔥 **Refresh tokens are powerful.**
-They live much longer than access tokens.
+🔥 **Refresh tokens <mark>are powerful</mark>.**
+They live <mark>**<u>much longer</u>**</mark> than access tokens.
 
 **If you allow them to access APIs:**
 
-- ❌ An attacker gets long-term access
-- ❌ Token expiration becomes meaningless
-- ❌ Your system becomes impossible to contain
+- ❌ An attacker **gets** long-term access
+- ❌ Token expiration becomes **meaningless**
+- ❌ Your system becomes **impossible to contain**
 
-That would destroy the whole security model.
+> That **<mark>would destroy</mark>** the whole security model.
 
 ---
 
@@ -226,54 +230,58 @@ That would destroy the whole security model.
 
 - 🔹 Short lifespan
 - 🔹 Limited damage if stolen
-- 🔹 Designed for frequent exposure
+- 🔹 <mark>**Designed**</mark> for frequent exposure
 - 🔹 Safe to send on every request
 
-That's why middleware accepts **only** access tokens.
+<mark>That's **why**</mark> middleware accepts **<mark>only</mark>** access tokens.
 
 ### 8.2 Why Refresh Tokens Must Be Protected
 
 - 🔹 Long lifespan
 - 🔹 Rarely used
 - 🔹 Stored more securely
-- 🔹 Rotated and revoked
+- 🔹 <mark>**Rotated and revoked**</mark>
 
-They are not meant to travel around your API.
+They are <mark>not meant **to travel**</mark> around your API.
 
 ---
 
 ## 9. 🧠 One-Sentence Mental Model (Remember This)
 
-📌 **Access token = permission to act**
-📌 **Refresh token = permission to renew permission**
+> 📌 **Access token = <mark>permission <u>to act</u></mark>**
+> 📌 **Refresh token = <mark>permission <u>to renew permission</u></mark>**
 
 Or even simpler:
 
-> **Access tokens do work. Refresh tokens only ask for new tools.**
+> **Access tokens <mark>do work</mark>. Refresh tokens only <mark>ask for new tools</mark>.**
 
 ---
 
 ## 10. 🔁 What Is Refresh Token Rotation?
 
+<img src="https://uploads.teachablecdn.com/attachments/ff89603a6810441395e810cbc6be7a34.png" title="" alt="" width="434">
+
 Refresh token rotation means:
 
 - Every time a refresh token is used
-- It is replaced with a new one
-- The old one becomes invalid
+- <mark>It **is replaced**</mark> with a new one
+- The old one <mark>**becomes invalid**</mark>
 
 **Why this matters:**
 
 - If a refresh token is stolen and reused
-- The system can detect reuse
-- The session can be invalidated
+- The system <mark>**can detect reuse**</mark>
+- The session <mark>**can be invalidated**</mark>
 
-📌 **Rotation turns silent theft into a detectable event.**
+> 📌 **Rotation <mark>turns silent theft into <u>a detectable event</u></mark>.**
 
 ---
 
 ## 11. 🚪 How Logout Works in Stateless Systems
 
 **In traditional session-based systems:**
+
+<img src="https://uploads.teachablecdn.com/attachments/d31d4ab0f8084d2da44b04e764f5eb78.png" title="" alt="" width="470">
 
 - Logout = delete session from server
 
@@ -282,39 +290,41 @@ Refresh token rotation means:
 - Server does not store sessions
 - Tokens are already issued
 
-**So logout means:**
+**So <mark>logout means</mark>:**
 
-- Invalidate refresh token
-- Let access token expire naturally
+- <mark>**<u>Invalidate</u>**</mark> refresh token
+- Let access token <mark>**<u>expire naturally</u>**</mark>
 
-📌 **Logout is not about deleting tokens.**
-📌 **It is about cutting the renewal path.**
+> 📌 **Logout <mark>is not about <u>deleting</u></mark> tokens.**
+> 📌 **It <mark>is about <u>cutting</u></mark> the renewal path.**
 
 ---
 
 ## 12. 🔁 How a Refresh Token Renews an Access Token (Clear, Practical Flow)
 
-Here's the exact mechanics of how refresh tokens work in real systems — no magic, just a controlled exchange.
+Here's <mark>**the exact mechanics**</mark> of how refresh tokens work in real systems — no magic, <mark>just **a controlled exchange**</mark>.
+
+<img title="" src="https://uploads.teachablecdn.com/attachments/b6064d8a7cc3489ba13299b55637153f.png" alt="" width="403">
 
 ### 🧠 The One-Sentence Idea
 
-When the access token expires, the client presents a refresh token to a special endpoint, and the server issues a brand-new access token (and usually a new refresh token).
+When the access token expires, the client presents a refresh token to a special endpoint, and the server issues a brand-new access token (<mark>and **usually**</mark> a new refresh token).
 
 ### 12.1 1️⃣ Access Token Expires
 
-The client makes an API call with an expired access token.
+The client makes an API call <mark>with **an <u>expired</u> access token**</mark>.
 
 - 🔹 Server checks `exp`
 - 🔹 Token is expired
 - 🔹 Server responds: `401 Unauthorized`
 
-This is expected and healthy.
+> This <mark>is **expected and healthy**</mark>.
 
 ### 12.2 2️⃣ Client Calls the Refresh Endpoint
 
-Instead of asking the user to log in again, the client sends the refresh token to a **single, dedicated endpoint**:
+Instead of asking the user to log in again, the client <mark>sends **<u>the refresh token</u>**</mark> to a **single, dedicated endpoint**:
 
-```http
+```js
 POST /auth/refresh
 
 Payload (or cookie, depending on your design):
@@ -322,7 +332,7 @@ Payload (or cookie, depending on your design):
 refreshToken = "abc123..."
 ```
 
-🚫 This endpoint does **not** access business data.
+> 🚫 This endpoint <mark>does **not**</mark> access business data.
 
 ### 12.3 3️⃣ Server Validates the Refresh Token
 
@@ -331,17 +341,17 @@ The server performs strict checks:
 - 🔹 Is the refresh token known (exists in storage)?
 - 🔹 Is it not expired?
 - 🔹 Is it not revoked?
-- 🔹 Has it not been used before (rotation check)?
+- 🔹 Has it not been used before (<mark>**rotation check**</mark>)?
 
-If any check fails → ❌ deny and force re-login.
+> If any check fails → ❌ <mark>**<u>deny and force re-login</u>**</mark>.
 
 ### 12.4 4️⃣ Server Issues New Tokens
 
 **If validation succeeds:**
 
-- 🔹 ✅ Create a new **access token** (short-lived)
-- 🔁 Create a new **refresh token** (rotation)
-- ❌ Invalidate the **old** refresh token
+- 🔹 ✅ Create <mark>**a new**</mark> **access token** (<mark>**short-lived**</mark>)
+- 🔁 Create <mark>**a new**</mark> **refresh token** (<mark>**rotation**</mark>)
+- ❌ <mark>**Invalidate** the **old**</mark> refresh token
 
 **Response:**
 
@@ -352,27 +362,27 @@ If any check fails → ❌ deny and force re-login.
 }
 ```
 
-📌 **This is silent re-authentication.**
+> 📌 **This <mark>is <u>silent re-authentication</u></mark>.**
 
 ### 12.5 5️⃣ Client Stores New Tokens
 
-The client replaces the old tokens:
+The client <mark>**replaces** the old tokens</mark>:
 
 - 🔹 **Access token** → used for API calls
 - 🔹 **Refresh token** → stored securely for the next renewal
 
-The user notices **nothing** — no login screen.
+> <mark>The user notices **<u>nothing</u>**</mark> — no login screen.
 
 ### 12.6 🔐 Why This Is Secure
 
-- 🔹 Access tokens expire quickly → limited damage
-- 🔹 Refresh tokens are rarely sent → reduced exposure
-- 🔹 Rotation detects token theft
-- 🔹 Logout = revoke refresh token → renewal stops
+- 🔹 Access tokens expire quickly → <mark>**limited** damage</mark>
+- 🔹 Refresh tokens are rarely sent → <mark>reduced **exposure**</mark>
+- 🔹 Rotation <mark>**detects**</mark> token theft
+- 🔹 Logout = <mark>**revoke**</mark> refresh token → <mark>**renewal**</mark> stops
 
 ---
 
-## 13. 📌 Two Rules to Remember (Golden Rules)
+## 13. 📌 Two Rules to Remember (<mark>**Golden Rules**</mark>)
 
 📌 **Access tokens do work (API calls)**
 📌 **Refresh tokens renew work permission**
@@ -415,4 +425,6 @@ This is the first step into **real production security thinking**.
 | **Logout**        | Kills the refresh token, not the access token          |
 | **Renewal flow**  | Expired access → refresh → new tokens → silent re-auth |
 
-**Core principle:** the access token is short-lived on purpose — it limits the damage if it leaks. The refresh token is long-lived on purpose — it enables silent renewal. The two must **never** be confused. Access tokens do work; refresh tokens only ask for new tools.
+**Core principle:** the access token <mark>is **short-lived <u>on purpose</u>**</mark> — it <mark>**limits**</mark> the damage if it leaks. The refresh token <mark>is **long-lived** on **<u>purpose</u>**</mark> — it <mark>enables **silent renewal**</mark>. The two <mark>must **never**</mark> be confused. Access tokens do work; refresh tokens only ask for new tools.
+
+---
