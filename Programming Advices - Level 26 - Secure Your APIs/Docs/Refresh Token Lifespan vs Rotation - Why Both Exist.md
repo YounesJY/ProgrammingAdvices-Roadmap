@@ -227,5 +227,3 @@ Day 51 (user stopped):
 **Core principle:** the refresh token's long lifespan <mark>is a **sliding inactivity window**</mark>, <mark>**<u>not</u>** a **<u>fixed</u>** countdown</mark>. Every rotation <mark>**pushes** the expiration date **<u>forward</u>**</mark>, so active users <mark>**<u>never</u>**</mark> get logged out unexpectedly — while idle users eventually <mark>**lose**</mark> their session. **Rotation <mark>does not</mark> contradict the long lifespan. Rotation <mark>is what <u>preserves it</u></mark>.**
 
 ---
-
-
