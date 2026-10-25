@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +23,23 @@ builder.Services.AddCors(options =>
             )
             .AllowAnyHeader()
             .AllowAnyMethod();
+    });
+});
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    options.AddPolicy("AuthLimiter", httpContext =>
+    {
+        var ip = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+        return RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: ip,
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 5,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            });
     });
 });
 // ===============================
@@ -66,7 +85,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 ASP.NET Core JWT validation often allows a grace period (ClockSkew).
                 So your API might still accept the token and return 200, not 401.
             */
-            ClockSkew = TimeSpan.Zero 
+            ClockSkew = TimeSpan.Zero
         };
     });
 
@@ -161,6 +180,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors("StudentApiCorsPolicy");
+app.UseRateLimiter();
+app.Use(async (context, next) =>
+{
+    await next();
+
+    if (context.Response.StatusCode == StatusCodes.Status429TooManyRequests)
+    {
+        await context.Response.WriteAsync("Too many login attempts. Please try again later.");
+    }
+});
 /*  IMPORTANT:
     Authentication middleware must run BEFORE authorization middleware.
     Authentication identifies the user.

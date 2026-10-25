@@ -6,6 +6,7 @@ using StudentApi.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.RateLimiting;
 using System.Text;
 
 
@@ -49,6 +50,7 @@ namespace StudentApi.Controllers
         }
 
         [HttpPost("login")]
+        [EnableRateLimiting("AuthLimiter")]
         [ProducesResponseType(typeof(TokenResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -79,6 +81,7 @@ namespace StudentApi.Controllers
         }
 
         [HttpPost("refresh")]
+        [EnableRateLimiting("AuthLimiter")]
         [ProducesResponseType(typeof(TokenResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
