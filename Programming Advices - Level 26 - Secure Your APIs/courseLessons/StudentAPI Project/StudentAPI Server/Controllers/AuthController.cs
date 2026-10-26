@@ -54,6 +54,7 @@ namespace StudentApi.Controllers
         [ProducesResponseType(typeof(TokenResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
         public IActionResult Login([FromBody] LoginRequest request)
         {
             var student = StudentDataSimulation.StudentsList
@@ -85,6 +86,7 @@ namespace StudentApi.Controllers
         [ProducesResponseType(typeof(TokenResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
         public IActionResult Refresh([FromBody] RefreshRequest request)
         {
             var student = StudentDataSimulation.StudentsList

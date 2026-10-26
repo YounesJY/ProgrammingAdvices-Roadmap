@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
 using System.Text;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 builder.Services.AddCors(options =>
 {
@@ -28,6 +28,13 @@ builder.Services.AddCors(options =>
 builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    options.OnRejected = async (context, token) =>
+    {
+        context.HttpContext.Response.ContentType = "application/json";
+        await context.HttpContext.Response.WriteAsync("{\"error\":\"Too many login attempts. Please try again later.\"}", token);
+    };
+
     options.AddPolicy("AuthLimiter", httpContext =>
     {
         var ip = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
@@ -42,6 +49,8 @@ builder.Services.AddRateLimiter(options =>
             });
     });
 });
+
+
 // ===============================
 // JWT Authentication Configuration
 // ===============================
@@ -181,24 +190,18 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors("StudentApiCorsPolicy");
 app.UseRateLimiter();
-app.Use(async (context, next) =>
-{
-    await next();
-
-    if (context.Response.StatusCode == StatusCodes.Status429TooManyRequests)
+/*  app.Use(async (context, next) =>
     {
-        await context.Response.WriteAsync("Too many login attempts. Please try again later.");
-    }
-});
-/*  IMPORTANT:
-    Authentication middleware must run BEFORE authorization middleware.
-    Authentication identifies the user.
-    Authorization decides what the user is allowed to do.
+        await next();
+
+        if (context.Response.StatusCode == StatusCodes.Status429TooManyRequests)
+        {
+            await context.Response.WriteAsync("Too many login attempts. Please try again later.");
+        }
+    }); 
 */
 app.UseAuthentication();
 app.UseAuthorization();
-/*  Map controller routes (e.g., /api/Students, /api/Auth). 
-*/
 app.MapControllers();
 
 app.Run();
