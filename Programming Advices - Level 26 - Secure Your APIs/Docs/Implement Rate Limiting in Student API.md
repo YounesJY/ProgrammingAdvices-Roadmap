@@ -236,5 +236,3 @@ You have now implemented:
 **Core principle:** rate limiting <mark>**<u>is not</u>** about **catching attackers**</mark> — it's about <mark>making their attempt **mathematically <u>unprofitable</u>**</mark>. 5 requests per minute means a 1-million-password wordlist takes **139 days** to try, per IP. <mark>That **<u>alone</u>** **stops** 99% of automated abuse</mark>. The middleware <mark>runs **before**</mark> your controller, so the attack <mark>**<u>never even</u>**</mark> reaches your BCrypt hashing, your database, or your logging. **<mark>The cheapest way</mark> to handle an attack <mark>is to reject it <u>at the door</u></mark>.**
 
 ---
-
-

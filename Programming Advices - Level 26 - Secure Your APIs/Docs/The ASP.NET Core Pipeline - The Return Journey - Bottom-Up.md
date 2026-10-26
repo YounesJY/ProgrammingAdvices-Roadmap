@@ -12,8 +12,8 @@ When a request travels down, the response travels back up <mark>through the **ex
 
 This MD answers two questions:
 
-- 🔹 **What does the return journey look like?**
-- 🔹 **Why is the return journey necessary?**
+- **What does the return journey look like?**
+- **Why is the return journey necessary?**
 
 ---
 
@@ -36,7 +36,7 @@ async Task Middleware(HttpContext context, Func<Task> next)
 
 Because it uses `await next()`, the middleware **pauses** and waits for everything below it to finish. When the controller returns a result, the code after `await next()` resumes execution, working its way back up the stack.
 
-> 📌 **The request <mark>goes down</mark>. The response <mark>comes back up</mark>.**
+> ??? **The request <mark>goes down</mark>. The response <mark>comes back up</mark>.**
 
 ---
 
@@ -44,7 +44,7 @@ Because it uses `await next()`, the middleware **pauses** and waits for everythi
 
 Here is exactly what happens when a request successfully reaches a controller and returns data:
 
-### 🔽 Top-Down (The Request Journey)
+### Top-Down (The Request Journey)
 
 1. Request enters `app.UseHttpsRedirection()`
 2. Enters `app.UseCors()`
@@ -52,7 +52,7 @@ Here is exactly what happens when a request successfully reaches a controller an
 4. Enters `app.UseAuthorization()`
 5. Reaches `app.MapControllers()`
 
-### 🔼 Bottom-Up (The Response Journey)
+### Bottom-Up (The Response Journey)
 
 5. `MapControllers` finishes generating the response (e.g., `200 OK` + JSON)
 6. `UseAuthorization` passes the response up
@@ -100,13 +100,13 @@ Example:
 
 1. `UseHttpsRedirection` (Passes)
 2. `UseCors` (Passes)
-3. `UseAuthentication` (Passes — user is anonymous)
+3. `UseAuthentication` (Passes ?? user is anonymous)
 4. `UseAuthorization` **BLOCKS** and creates a `401` response.
 5. Response travels back up: `UseAuthentication` -> `UseCors` (adds headers) -> `UseHttpsRedirection` -> Browser.
 
 ---
 
-## 📌 Summary
+## Summary
 
 | Phase          | Direction | What Happens                                                                 |
 | -------------- | --------- | ---------------------------------------------------------------------------- |
@@ -117,5 +117,3 @@ Example:
 **Core principle:** Middleware <mark>acts like a `try/finally`</mark> block or an onion. The request goes in through the layers, and the response comes out through the layers. The outer layers use the return journey to add headers, catch errors, and measure performance.
 
 ---
-
-
