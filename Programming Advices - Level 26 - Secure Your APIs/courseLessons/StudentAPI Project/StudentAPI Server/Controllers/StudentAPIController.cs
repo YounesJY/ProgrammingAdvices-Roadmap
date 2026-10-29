@@ -12,8 +12,15 @@ namespace StudentApi.Controllers
     */
     [Route("api/Students")]
 
-    public class StudentsController : ControllerBase
+    public class StudentController : ControllerBase
     {
+        private readonly ILogger<StudentController> _logger;
+
+        public StudentController(ILogger<StudentController> logger)
+        {
+            _logger = logger;
+        }
+
         /// <summary>
         /// GET /api/Students — returns the full list of students.
         ///
@@ -107,6 +114,12 @@ namespace StudentApi.Controllers
             newStudent.Id = StudentDataSimulation.StudentsList.Count > 0 ? StudentDataSimulation.StudentsList.Max(s => s.Id) + 1 : 1;
             StudentDataSimulation.StudentsList.Add(newStudent);
 
+            _logger.LogInformation(
+                "Admin action executed. AdminId={AdminId}, Action=AddStudent, TargetId={TargetId}",
+                User.FindFirstValue(ClaimTypes.NameIdentifier),
+                newStudent.Id
+            );
+
             return CreatedAtRoute(
                 "GetStudentById",
                 new { id = newStudent.Id },
@@ -124,14 +137,40 @@ namespace StudentApi.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult DeleteStudent(int id)
         {
+            var adminId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
             if (id < 1)
+            {
+                _logger.LogWarning(
+                    "Admin action blocked (invalid id). AdminId={AdminId}, Action=DeleteStudent, TargetId={TargetId}, IP={IP}",
+                    adminId,
+                    id,
+                    ip
+                );
                 return BadRequest($"Not accepted ID {id}");
+            }
 
             var student = StudentDataSimulation.StudentsList.FirstOrDefault(s => s.Id == id);
             if (student == null)
+            {
+                _logger.LogWarning(
+                    "Admin action failed (target not found). AdminId={AdminId}, Action=DeleteStudent, TargetId={TargetId}, IP={IP}",
+                    adminId,
+                    id,
+                    ip
+                );
                 return NotFound($"Student with ID {id} not found.");
+            }
 
             StudentDataSimulation.StudentsList.Remove(student);
+
+            _logger.LogInformation(
+                "Admin action executed. AdminId={AdminId}, Action=DeleteStudent, TargetId={TargetId}",
+                User.FindFirstValue(ClaimTypes.NameIdentifier),
+                id
+            );
+
             return NoContent();
         }
 
@@ -161,6 +200,12 @@ namespace StudentApi.Controllers
             student.Name = updatedStudent.Name;
             student.Age = updatedStudent.Age;
             student.Grade = updatedStudent.Grade;
+
+            _logger.LogInformation(
+                "Admin action executed. AdminId={AdminId}, Action=UpdateStudent, TargetId={TargetId}",
+                User.FindFirstValue(ClaimTypes.NameIdentifier),
+                id
+            );
 
             return Ok(student);
         }

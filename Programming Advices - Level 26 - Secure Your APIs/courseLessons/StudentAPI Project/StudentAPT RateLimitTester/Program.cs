@@ -22,7 +22,7 @@ namespace StudentAPT_RateLimitTester
 
             Console.WriteLine("Starting login flood test...\n");
 
-            for (int i = 1; i <= 100000000; i++)
+            for (int i = 1; i <= 10; i++)
             {
                 try
                 {

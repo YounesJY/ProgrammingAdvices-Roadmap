@@ -18,6 +18,15 @@ namespace StudentApi.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
+        private readonly ILogger<AuthController> _logger;
+
+
+        public AuthController(ILogger<AuthController> logger)
+        {
+            _logger = logger;
+        }
+
+
         private static string GenerateAccessToken(Student student)
         {
             var claims = new[]
@@ -52,20 +61,37 @@ namespace StudentApi.Controllers
         [HttpPost("login")]
         [EnableRateLimiting("AuthLimiter")]
         [ProducesResponseType(typeof(TokenResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
         public IActionResult Login([FromBody] LoginRequest request)
         {
+            var ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
             var student = StudentDataSimulation.StudentsList
                 .FirstOrDefault(s => s.Email == request.Email);
 
-            if (student == null || student.PasswordHash == null)
-                return Unauthorized();
+            if (student == null)
+            {
+                _logger.LogWarning(
+                    "Failed login attempt (email not found). Email={Email}, IP={IP}",
+                    request.Email,
+                    ip
+                );
+
+                return Unauthorized("Invalid credentials");
+            }
 
             bool isValidPassword = BCrypt.Net.BCrypt.Verify(request.Password, student.PasswordHash);
             if (!isValidPassword)
-                return Unauthorized();
+            {
+                _logger.LogWarning(
+                    "Failed login attempt (bad password). Email={Email}, IP={IP}",
+                    request.Email,
+                    ip
+                );
+
+                return Unauthorized("Invalid credentials");
+            }
 
             var accessToken = GenerateAccessToken(student);
             var refreshToken = GenerateRefreshToken();
@@ -73,6 +99,13 @@ namespace StudentApi.Controllers
             student.RefreshTokenHash = BCrypt.Net.BCrypt.HashPassword(refreshToken);
             student.RefreshTokenExpiresAt = DateTime.UtcNow.AddDays(7);
             student.RefreshTokenRevokedAt = null;
+
+            _logger.LogInformation(
+                "Successful login. UserId={UserId}, Email={Email}, IP={IP}",
+                student.Id,
+                student.Email,
+                ip
+            );
 
             return Ok(new TokenResponse
             {
@@ -89,6 +122,7 @@ namespace StudentApi.Controllers
         [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
         public IActionResult Refresh([FromBody] RefreshRequest request)
         {
+            var ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
             var student = StudentDataSimulation.StudentsList
                 .FirstOrDefault(s => s.Email == request.Email);
 
@@ -99,15 +133,34 @@ namespace StudentApi.Controllers
                 student.RefreshTokenExpiresAt == null ||
                 student.RefreshTokenExpiresAt <= DateTime.UtcNow)
             {
+                _logger.LogWarning(
+                    "Invalid refresh token attempt. Email={Email}, IP={IP}",
+                    request.Email,
+                    ip
+                );
                 return Unauthorized();
             }
 
             bool refreshValid = BCrypt.Net.BCrypt.Verify(request.RefreshToken, student.RefreshTokenHash);
             if (!refreshValid)
+            {
+                _logger.LogWarning(
+                    "Invalid refresh token attempt. Email={Email}, IP={IP}",
+                    request.Email,
+                    ip
+                );
                 return Unauthorized();
+            }
 
             if (string.IsNullOrEmpty(student.Email) || string.IsNullOrEmpty(student.Role))
+            {
+                _logger.LogWarning(
+                    "Invalid refresh token attempt due to missing email or role. Email={Email}, IP={IP}",
+                    request.Email,
+                    ip
+                );
                 return Unauthorized();
+            }
 
             var newAccessToken = GenerateAccessToken(student);
             var newRefreshToken = GenerateRefreshToken();

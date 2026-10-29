@@ -1,11 +1,12 @@
 using _14___StudentAPI_Project.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.RateLimiting;
-using System.Threading.RateLimiting;
+using System.Security.Claims;
 using System.Text;
+using System.Threading.RateLimiting;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -201,6 +202,24 @@ app.UseRateLimiter();
     }); 
 */
 app.UseAuthentication();
+app.Use(async (context, next) =>
+{
+    await next();
+
+    if (context.Response.StatusCode == StatusCodes.Status403Forbidden)
+    {
+        var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "anonymous";
+        var ip = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+        var path = context.Request.Path.ToString();
+
+        app.Logger.LogWarning(
+            "Forbidden access. UserId={UserId}, Path={Path}, IP={IP}",
+            userId,
+            path,
+            ip
+        );
+    }
+});
 app.UseAuthorization();
 app.MapControllers();
 
