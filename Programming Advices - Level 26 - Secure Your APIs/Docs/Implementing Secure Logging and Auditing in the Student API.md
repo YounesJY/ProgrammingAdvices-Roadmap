@@ -1,6 +1,6 @@
-# 📖 Implementing Secure Logging & Auditing in the Student API
+# Implementing Secure Logging & Auditing in the Student API
 
-**(Practical Security Visibility)**
+**(<mark>Practical Security Visibility</mark>)**
 
 ---
 
@@ -8,14 +8,14 @@
 
 You now understand:
 
-- ✅ Why logs are a security feature
-- ✅ Why failed logins must be logged
-- ✅ Why admin actions must be audited
-- ✅ Why sensitive data must never leak into logs
+- ✅ Why logs are **a security feature**
+- ✅ Why failed logins **must be logged**
+- ✅ Why admin actions **must be audited**
+- ✅ Why sensitive data **must never** leak into logs
 
 Now it's time to implement this visibility inside your Student API.
 
-📌 **This lesson adds security visibility without changing authentication or authorization logic.**
+📌 **This lesson adds <mark>security visibility</mark> <mark><u>without</u></mark> changing authentication or authorization logic.**
 
 <img title="" src="https://uploads.teachablecdn.com/attachments/377c0e924319434eae14bc8bd9b8f1e3.png" alt="" width="321" />
 
@@ -30,7 +30,7 @@ By the end of this lesson, your API will:
 - 🔹 Audit admin actions
 - 🔹 Avoid logging sensitive data
 
-📌 **We will log events, not secrets.**
+📌 **<mark>We will log <u>events</u></mark>, <mark><u>not</u> secrets</mark>.**
 
 ---
 
@@ -42,13 +42,13 @@ ASP.NET Core already provides a secure logging abstraction:
 ILogger<T>
 ```
 
-📌 **Never use `Console.WriteLine` for security logs.**
+📌 **<mark><u>Never</u> use</mark> `Console.WriteLine` for security logs.**
 
 ---
 
 ## 4. 🔹 Step 2 — Inject Logger into `AuthController`
 
-In `AuthController`, inject an `ILogger<AuthController>`.
+In `AuthController`, **<mark><u>inject</u></mark>** an `ILogger<AuthController>`.
 
 **Update constructor:**
 
@@ -61,7 +61,7 @@ public AuthController(ILogger<AuthController> logger)
 }
 ```
 
-📌 **This allows structured, centralized logging.**
+📌 **This allows structured, <mark><u>centralized logging</u></mark>.**
 
 ---
 
@@ -125,7 +125,7 @@ if (!isValidPassword)
 }
 ```
 
-✅ **This stays safe:** no password, no tokens.
+✅ **<mark>This stays safe</mark>:** no password, no tokens.
 
 ---
 
@@ -142,7 +142,7 @@ _logger.LogInformation(
 );
 ```
 
-📌 **Useful for tracing suspicious behavior later.**
+📌 **<mark>Useful for <u>tracing</u></mark> suspicious behavior later.**
 
 ---
 
@@ -158,13 +158,13 @@ _logger.LogWarning(
 );
 ```
 
-📌 **Refresh abuse is often silent — logs expose it.**
+📌 **<mark>Refresh abuse is <u>often silent</u></mark> — <mark>logs <u>expose it</u></mark>.**
 
 ---
 
-## 8. 🔹 Step 6 — Log Forbidden Access (403) Globally
+## 8. 🔹 Step 6 — Log Forbidden Access (403) **<mark>Globally</mark>**
 
-**Add a middleware to capture authorization failures.**
+**Add <mark>a middleware</mark> to capture authorization failures.**
 
 ### 8.1 Add the `using`
 
@@ -204,12 +204,12 @@ app.Use(async (context, next) =>
 app.MapControllers();
 ```
 
-📌 **This logs authorization abuse centrally.**
+📌 **<mark>This logs authorization abuse <u>centrally</u></mark>.**
 
 ### 8.3 Why This Works
 
-- ✅ It logs any `403` from anywhere in your API
-- ✅ You don't need to add logging to every controller
+- ✅ It logs **<mark>any</mark>** `403` from **<mark>anywhere</mark>** in your API
+- ✅ You **<mark>don't need</mark>** to add logging to **<mark>every controller</mark>**
 - ✅ It captures:
   - **Who** (UserId or anonymous)
   - **What** (Path)
@@ -219,7 +219,7 @@ app.MapControllers();
 
 ## 9. 🔹 Step 7 — Audit Admin Actions (Manual but Explicit)
 
-For admin-only endpoints, log **before** or **after** the action.
+For **<mark><u>admin-only</u> endpoints</mark>**, log **<mark>before</mark>** or **<mark>after</mark>** the action.
 
 **Example in `StudentsController`:**
 
@@ -231,11 +231,11 @@ _logger.LogInformation(
 );
 ```
 
-📌 **Audit logs must include:**
+📌 **<mark><u>Audit logs</u> must include</mark>:**
 
-- 🔹 **Who**
-- 🔹 **What**
-- 🔹 **Target**
+- 🔹 **<mark>Who</mark>**
+- 🔹 **<mark>What</mark>**
+- 🔹 **<mark>Target</mark>**
 
 ### 9.1 Full Example (Delete Endpoint)
 
@@ -299,17 +299,17 @@ public ActionResult DeleteStudent(int id)
 - **Before:** If the delete throws, you still have the record of the *attempt*.
 - **After:** Confirms the *success*.
 
-📌 **Both together give you the full story.**
+📌 **<mark><u>Both together</u> give you <u>the full story</u></mark>.**
 
 ---
 
 ## 10. 🔹 Step 8 — NEVER Log Sensitive Data
 
-Before logging, always ask:
+Before logging, **<mark><u>always</u> ask</mark>**:
 
-> ❓ **Can this value be reused to gain access?**
+> ❓ **Can this value <mark>be reused <u>to gain access</u></mark>?**
 
-If yes → ❌ **DO NOT LOG IT.**
+If yes → ❌ **<mark><u>DO NOT LOG IT</u></mark>.**
 
 **Never log:**
 
@@ -318,11 +318,11 @@ If yes → ❌ **DO NOT LOG IT.**
 - ❌ Refresh tokens
 - ❌ API keys
 
-📌 **Log events, not payloads.**
+📌 **<mark>Log <u>events</u></mark>, <mark><u>not payloads</u></mark>.**
 
 ---
 
-## 11. 🔹 Step 9 — Log Levels (Very Important)
+## 11. 🔹 Step 9 — Log Levels (**<mark>Very Important</mark>**)
 
 Use correct severity levels:
 
@@ -332,7 +332,7 @@ Use correct severity levels:
 | `LogWarning`     | Suspicious behavior (failures, abuse attempts)    |
 | `LogError`       | Failures or security issues (exceptions, crashes) |
 
-📌 **Severity helps filtering and alerting.**
+📌 **<mark>Severity helps <u>filtering</u> and <u>alerting</u></mark>.**
 
 ---
 
@@ -376,7 +376,7 @@ You have now:
 - ✅ Audited admin actions
 - ✅ Protected logs from leaking secrets
 
-📌 **Your Student API is no longer just secure — it is observable, traceable, and defensible.**
+📌 **Your Student API is <mark>no longer <u>just</u> secure</mark> — it is observable, traceable, and defensible.**
 
 ---
 
@@ -409,4 +409,8 @@ You have now:
 | Action name               | Session IDs     |
 | Outcome (success/failure) | Full PII        |
 
-**Core principle:** logging and auditing are **not optional extras** — they are the difference between *"we think nothing happened"* and *"we can prove what happened, when, and by whom."* The middleware and the controller are the **protection**. The logs and audits are the **proof**. And the proof is what lets you investigate, respond, and hold people accountable — including the people you trust with admin power. **You cannot secure what you cannot observe.**
+**<mark><u>Core principle</u></mark>:** logging and auditing are **<mark><u>not optional</u> extras</mark>** — they are **<mark><u>the difference between</u></mark>** *"we think nothing happened"* and *"we can prove what happened, when, and by whom."* The middleware and the controller are the **<mark>protection</mark>**. The logs and audits are the **<mark><u>proof</u></mark>**. And the proof is what lets you investigate, respond, and hold people **<mark><u>accountable</u></mark>** — including the people you trust with admin power. **You <mark>cannot secure</mark> what you <mark><u>cannot observe</u></mark>.**
+
+---
+
+
