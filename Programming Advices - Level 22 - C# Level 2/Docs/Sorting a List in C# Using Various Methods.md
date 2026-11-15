@@ -86,9 +86,9 @@ var query = numbers.OrderBy(n => n); // nothing runs yet
 
 ### 4.2 Why `Sort` is O(log n) space and `OrderBy` is O(n)
 
-`Sort` uses an introsort (quicksort + heapsort + insertion sort hybrid) that sorts the list's internal array in place. Recursion depth is O(log n). No buffer proportional to `n`.
+`Sort` **<mark>uses an introsort</mark>** (quicksort + heapsort + insertion sort hybrid) that sorts the list's internal array in place. Recursion depth is O(log n). No buffer proportional to `n`.
 
-`OrderBy` is deferred and stable, so it cannot sort in place. It buffers the source into an array, sorts a key array alongside it, then yields the elements in order. That buffer is O(n).
+`OrderBy` **<mark>is deferred and stable</mark>**, so it **<mark><u>cannot</u></mark>** sort in place. It buffers the source into an array, sorts a key array alongside it, then yields the elements in order. That buffer is O(n).
 
 ### 4.3 Stability
 
@@ -137,7 +137,7 @@ numbers.OrderBy(n => Guid.NewGuid())
 
 Each element gets a fresh GUID as its sort key, so the resulting order is random. Equivalent to SQL `ORDER BY NEWID()`.
 
-`Guid.NewGuid()` is enough. `Guid.NewGuid().ToString()` also works but allocates a string per element <mark>**for no benefit**</mark>. Use the `Guid` directly.
+`Guid.NewGuid()` is enough. `Guid.NewGuid().ToString()` also works but allocates a string per element **<mark>for no benefit</mark>**. Use the `Guid` directly.
 
 ---
 
