@@ -16,7 +16,6 @@ class Program
         Console.WriteLine($"Any words starting with 'a': {words.Any(word => word.StartsWith("a"))}");
         Console.WriteLine($"Any words Ends with 'a': {words.Any(word => word.EndsWith("a"))}");
 
-
         Console.ReadKey();
     }
 }
