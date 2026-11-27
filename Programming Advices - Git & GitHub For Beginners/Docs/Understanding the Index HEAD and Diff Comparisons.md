@@ -37,14 +37,14 @@ The index is **<mark><u>not modified</u></mark>**. It stays full. Immediately af
 
 ## 4. What Each Command Compares
 
-| Command                | Compares                               | Shows                                       |
-| ---------------------- | -------------------------------------- | ------------------------------------------- |
-| `git diff`             | Working tree vs index                  | Unstaged changes                            |
-| `git diff --staged`    | HEAD's tree vs index                   | Staged changes                              |
-| `git status`           | Runs **<mark>both</mark>** comparisons | Both sections at once                       |
-| `git ls-files --stage` | Reads the index only                   | Index entries: mode, blob hash, stage, path |
+| Command                | Compares                                     | Shows                                       |
+| ---------------------- | -------------------------------------------- | ------------------------------------------- |
+| `git diff`             | Working tree vs index                        | Unstaged changes                            |
+| `git diff --staged`    | HEAD's tree vs index                         | Staged changes                              |
+| `git status`           | Runs **<mark>both</mark>** comparisons       | Both sections at once                       |
+| `git ls-files --stage` | **<mark>Reads <u>the index only</u></mark>** | Index entries: mode, blob hash, stage, path |
 
-`git status` is not one comparison — it is **two**, presented in one view:
+`git status` is not one comparison — it is **<mark>two</mark>**, presented in one view:
 
 | `git status` section          | Comparison                                 |
 | ----------------------------- | ------------------------------------------ |
@@ -58,7 +58,7 @@ Each diff is **<mark>bidirectional</mark>**: `-` lines come from one side, `+` l
 
 ## 5. How to See the Index Directly
 
-`git diff --staged` shows **differences**. To see the index's **<mark><u>actual entries</u></mark>**, use:
+`git diff --staged` shows **<mark>differences</mark>**. To see the index's **<mark><u>actual entries</u></mark>**, use:
 
 ```bash
 git ls-files --stage
@@ -105,7 +105,7 @@ Useful `ls-files` filters:
 | After `git commit`                  | equal       | equal             | silent        | silent              |
 | After `git restore --staged <file>` | differ      | equal (that file) | **non-empty** | silent (that file)  |
 
-The rules:
+**<mark><u>The rules</u></mark>**:
 
 - `git diff` silent ⇔ working tree = index
 - `git diff --staged` silent ⇔ index = HEAD's tree

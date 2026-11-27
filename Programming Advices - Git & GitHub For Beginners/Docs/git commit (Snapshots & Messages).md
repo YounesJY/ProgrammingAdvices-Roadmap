@@ -153,6 +153,24 @@ Edit five files, `git add` two → only those two enter the commit. The other th
 
 `"fix"`, `"update"`, `"asdf"`, `"."` look harmless now. Three weeks later, when something breaks, you'll scroll through history trying to identify which `"fix"` caused it. **<mark>Write for the future reader — <u>that reader is you</u>.</mark>**
 
+### 6.3 Staging does *not* clear after a commit.
+
+**<mark>the claim:</mark>**
+
+> $git commit -m "Initial files"
+> 
+> ## Commit your first snapshot
+> 
+> git commit packages everything in staging into a permanent snapshot. Commit `a1b` records the entire state of the project at this moment. **<mark><u>Staging clears</u></mark>**, ready for the next batch.
+
+**<mark>No, the last sentence is <u>wrong</u>.</mark>** Staging **<mark><u>does *not*</u> clear</mark>** after a commit. 
+
+The index (staging area) **<mark><u>stays full</u> and <u>exactly matches the new commit</u></mark>**. That's why running `git diff --staged` immediately after a commit gives no output—they are identical, not because the index is empty.
+
+**Corrected short version:**
+
+> `git commit` takes a permanent snapshot of everything in staging. **<mark>The index <u>is not</u> cleared</mark>**; it simply **<mark><u>remains identical</u> to the new commit</mark>** until you make further edits.
+
 ---
 
 ## 7. The Rule
