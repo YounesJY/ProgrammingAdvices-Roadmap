@@ -28,6 +28,33 @@ There are three modes:
 
 `--mixed` is **<mark><u>the default</u></mark>**: `git reset <id>` = `git reset --mixed <id>`.
 
+> ## 2. The Concept - CORRECTION
+> 
+> `git reset` **moves your current branch backward to an older commit**.
+> 
+> The course material often describes `reset` by saying it "keeps changes staged" (`--soft`), "keeps changes unstaged" (`--mixed`), or "deletes changes" (`--hard`). 
+> 
+> - **⚠️ <mark>Correction</mark>:** **<mark>This phrasing is <u>an illusion</u></mark>**. Git **<mark><u>does not</u></mark>** calculate a "patch" or "diff" between the old commit and the new commit and move it around. **<mark>Git is <u>lazy</u></mark>**. 
+> 
+> To truly understand `reset`, **<mark>you <u>must view</u> the three areas</mark>** (Working Directory, Index, and HEAD) as **<mark><u>completely independent</u></mark>**. `git reset` <mark>**<u>only</u>** moves the **HEAD** pointer by default</mark>. **<mark>It <u>does not touch</u> your files or your staging area <u>unless you explicitly</u> force it to</mark>**.
+> 
+> Here is the physical reality of what each mode does:
+> 
+> | Mode                     | What Git Physically Does                                                                                                                                                   | Why `git status` says "Staged" or "Unstaged"                                                                                                                                |
+> |:------------------------ |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+> | `git reset --soft <id>`  | 1. Moves `HEAD` backward.<br>2. **<mark>Leaves Index alone</mark>** (still has newer commit).<br>3. **<mark>Leaves Working Directory alone</mark>**.                       | Because **<mark>the Index <u>still holds</u></mark>** the newer files, but `HEAD` moved back, Git compares them and says: "Changes to be committed" (**staged**).           |
+> | `git reset --mixed <id>` | 1. Moves `HEAD` backward.<br>2. **<mark>Resets Index</mark>** to match the older `HEAD`.<br>3. **<mark>Leaves Working Directory alone</mark>**.                            | Because your files still have the newer edits, but **<mark>the Index <u>was reset</u></mark>**, Git compares them and says: "Changes not staged for commit" (**unstaged**). |
+> | `git reset --hard <id>`  | 1. Moves `HEAD` backward.<br>2. **<mark>Resets Index</mark>** to match older `HEAD`.<br>3. **<mark>Forcefully overwrites Working Directory</mark>** to match older `HEAD`. | All three areas now match perfectly. Git says: "nothing to commit, working tree clean".                                                                                     |
+> 
+> `--mixed` is **the default**: `git reset <id>` = `git reset --mixed <id>`.
+> 
+> ### The "Squash" Illusion (Why `--soft` is powerful)
+> 
+> If you are at Commit 6 and run `git reset --soft HEAD~3`, Git moves `HEAD` to Commit 3, but the Index still holds Commit 6. 
+> When you run `git commit`, you are taking the untouched Index (which contains the combined state of Commits 4, 5, and 6) and committing it as a single new snapshot. You just "squashed" 3 commits into 1 without Git ever calculating a single diff.
+> 
+> > **<mark><u>The Golden Rule</u>:</mark>** Git only changes an area if you explicitly tell it to. If you don't see `--hard`, your physical files are safe.
+
 ---
 
 ## 3. The Warning
